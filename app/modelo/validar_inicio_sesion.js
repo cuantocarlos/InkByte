@@ -1,14 +1,25 @@
-import { validarCorreoElectronico } from "../libs/bGeneral.js"
+import { validarCorreoElectronico, validarPassword} from "../libs/bGeneral.js";
 
+var bAceptar = document.getElementById("bAceptar");
+var email = document.getElementById("mail");
+var pass = document.getElementById("pass");
 
 window.onload = function () {
-    console.log("1.Entra en js validar sesion")
-    let email = document.getElementById("mail")
-    email.addEventListener("blur", function (event) {
-        console.log(validarCorreoElectronico(email.value))
-        if (validarCorreoElectronico(email.value) == false) {
-            console.log("2.Entra en if validar sesion ")
-            event.preventDefault()
+
+    bAceptar.addEventListener("click", function (event) { // Add the 'event' parameter to the click event listener function
+        if (validarCampos() == false) {
+            event.preventDefault();
         }
     });
-};
+}
+
+function validarCampos() {
+    if (validarCorreoElectronico(email.value) == false) {
+        console.log("Error en el campo email");
+        return false;
+    }
+    if (validarPassword(pass.value) == false) {
+        console.log("Error en el campo pass");
+        return false;
+    }
+}
