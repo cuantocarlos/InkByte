@@ -18,7 +18,7 @@
                 <label for="nombre">Nombre</label>
               </div>
               <div class="form-floating mb-3">
-                <input type="text" class="form-control rounded-3" id="mail" placeholder="name@example.com" name="mail" required>
+                <input type="email" class="form-control rounded-3" id="mail" placeholder="name@example.com" name="mail" required>
                 <label for="mail">Correo Electrónico</label>
               </div>
               <div class="form-floating mb-3">
@@ -42,7 +42,7 @@
               <hr class="my-4">
               <label class="mb-2" for="terminos"><input type="checkbox" id="terminos" name="terminos" value="terminos">
               <small class="text-body-secondary">Registrándote aceptas los términos y condiciones.</small></label>
-              <button class="w-100 my-2 btn btn-lg rounded-3 btn-primary" name="bAceptar" type="submit">Registrarse</button>
+              <button class="w-100 my-2 btn btn-lg rounded-3 btn-primary" id="bAceptar" name="bAceptar" type="submit">Registrarse</button>
             </form>
           </div>
         </div>
