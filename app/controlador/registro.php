@@ -58,9 +58,7 @@
         if(!empty($errores)){
             include("../../web/templates/template_registro.php");
         }else{
-            try{
-                
-            }
+            echo("Ha funcionado");
         }
 
     }
