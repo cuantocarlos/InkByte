@@ -45,3 +45,7 @@ export function validarRol() {
         return true;
     }
   }
+
+  export function abrirModalInfoUser() {
+    document.getElementById("infoUser").style.display = 'block';
+  }
