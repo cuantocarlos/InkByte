@@ -17,25 +17,55 @@ function buscar($pdo, $input, $tabla, $columna){
     return ($resultado) ? $resultado[$columna] : null;
 }
 
+function usuarioUnico($pdo, $nombre){
+    $stmt = $pdo->prepare("SELECT nick FROM usuario WHERE nombre = ?");
+    $stmt->execute([$nombre]);
+    $resultado = $stmt->fetch(PDO::FETCH_ASSOC);
+    if(empty($resultado)){
+        return true;
+    }else{
+        return false;
+    }
+}
+
+function correoUnico($pdo, $email){
+    $stmt = $pdo->prepare("SELECT email FROM usuario WHERE email= ?");
+    $stmt->execute([$email]);
+    $resultado = $stmt->fetch(PDO::FETCH_ASSOC);
+    if(empty($resultado)){
+        return true;
+    }else{
+        return false;
+    }
+}
+
 /*Agregar usuario a la base de datos*/
-function agregarUsuario($pdo, $nombre, $nick, $email, $pass, $f_nacimiento, $foto_perfil, $descripcion, $nivel, $activo) {
-    $query = "INSERT INTO usuario (nombre, nick, email, pass, f_nacimiento, foto_perfil, dscripción, nivel, activo) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+function agregarNuevoUsuario($pdo, $nombre, $email, $pass, $f_nacimiento, $nivel, $activo) {
+    $query = "INSERT INTO usuario (nombre, email, pass, f_nacimiento, nivel, activo) VALUES (?, ?, ?, ?, ?, ?)";
+    $activo = 0;
     $stmt = $pdo->prepare($query);
     $stmt->bindParam(1, $nombre);
-    $stmt->bindParam(2, $nick);
-    $stmt->bindParam(3, $email);
-    $stmt->bindParam(4, $pass);
-    $stmt->bindParam(5, $f_nacimiento);
-    $stmt->bindParam(6, $foto_perfil);
-    $stmt->bindParam(7, $descripcion);
-    $stmt->bindParam(8, $nivel);
-    $stmt->bindParam(9, $activo);
+    $stmt->bindParam(2, $email);
+    $stmt->bindParam(3, $pass);
+    $stmt->bindParam(4, $f_nacimiento);
+    $stmt->bindParam(5, $nivel);
+    $stmt->bindParam(6, $activo);
 
     if ($stmt->execute()) {
         return true;
     } else {
         return false;
     }
+}
+
+function agregarCosasAdicionales($id_user, $pdo, $nick, $foto_perfil, $descripcion) {
+    $stmt = $pdo->prepare("UPDATE usuario SET
+        nick = ?,
+        foto_perfil = ?,
+        descripcion = ?
+        WHERE id_user = ?");
+
+    $stmt->execute([$nick,$foto_perfil,$descripcion,$id_user]);
 }
 
 /*Tokens de usuarios*/
@@ -95,7 +125,7 @@ function verificarEmail($pdo, $email) {
 function verificarPass($pdo, $email, $pass) {
     $stmt = $pdo->prepare("SELECT pass FROM usuario WHERE email = ?");
     $stmt->execute([$email]);
-    $hashAlmacenado = $stmt->fetchColumn(); 
+    $hashAlmacenado = $stmt->fetchColumn();
     return password_verify($pass, $hashAlmacenado);
 }
 
@@ -216,7 +246,7 @@ function actualizarPreferenciasUsuario($pdo, $id_user, $terror, $romance, $fanta
         misterio = ?,
         policiaca = ?
         WHERE id_user = ?");
-    
+
     $stmt->execute([$terror, $romance, $fantasia, $cficcion, $historia, $arte, $thriller, $poesia, $drama, $biografia, $misterio, $policiaca, $id_user]);
 }
 

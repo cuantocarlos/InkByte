@@ -2,10 +2,16 @@
 
 //incluimos datos a la conexión de la BD
 $db_hostname = "localhost";
-$db_nombre = "login";
+$db_nombre = "InkByte"; //nombre de la base de datos
 
-$db_usuario = "admin";
+$db_usuario = "root";
 $db_clave = "";
+// Conectamos
+$pdo = new PDO('mysql:host=' . $db_hostname . ';dbname=' . $db_nombre . '', $db_usuario, $db_clave);
+// Realiza el enlace con la BD en utf-8
+$pdo->exec("set names utf8");
+//Accionamos el uso de excepciones
+$pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
 //incluimos informacion para el guardado de imagenes
 $extensionesValidas=["jpeg","jpg","png"];

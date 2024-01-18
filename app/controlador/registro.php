@@ -43,10 +43,10 @@
         cFecha($fecha,$errores);
 
         if($lector==="lector"){
-            $lector=true;
+            $nivel=1;
         }
         else if($lector==="escritor"){
-            $lector=false;
+            $nivel=2;
         }
 
         if(empty($terminos)){
@@ -58,9 +58,24 @@
         if(!empty($errores)){
             include("../../web/templates/template_registro.php");
         }else{
-
-            echo("Ha funcionado");
-
+            try{
+                include("../libs/consultas.php");
+                include_once("../libs/config.php");
+                $hash = password_hash($contrasena, PASSWORD_BCRYPT);
+                if(agregarNuevoUsuario($pdo,$nombre,$mail,$fecha,$hash,$fecha,$nivel)){
+                    include("../../web/templates/index.php");
+                    echo("<script>abrirModalInfoUser();</script>");
+                }else{
+                    $errores["crearUsuario"]="Error en el registro de usuarios";
+                    include("../../web/templates/template_registro.php");
+                }
+            }catch (PDOException $e){
+                    // En este caso guardamos los errores en un archivo de errores log
+                    error_log($e->getMessage() . "##Código: " . $e->getCode() . "  " . microtime() . PHP_EOL, 3, "../logs/logBD.txt");
+                    // guardamos en ·errores el error que queremos mostrar a los usuarios
+                    $errores['datos'] = "Ha habido un error <br>";
+                    include("../templates/formRegistro.php");
+            }
         }
 
     }
