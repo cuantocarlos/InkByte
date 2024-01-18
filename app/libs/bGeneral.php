@@ -193,10 +193,10 @@ function cFecha($fecha, &$errores)
 {
     $fechaArray = explode("-", $fecha);
     if (checkdate($fechaArray[1], $fechaArray[2], $fechaArray[0])) {
-        return 1;
+        return true;
     } else {
         $errores["fecha"] = "Error en el campo fecha";
-        return 0;
+        return false;
     }
 }
 
@@ -284,6 +284,23 @@ function changePass($newPass,$oldPass,array &$sesion,&$errores,$pdo){
         }else{
             $oldPass= $newPass;
         }
+    }
+}
+
+//Validar la seguridad de una contraseña
+function cPassword($contrasena,&$errores) {
+
+    // La contraseña debe tener al menos 8 caracteres
+    // Al menos una letra mayúscula, una letra minúscula, un número y un carácter especial
+    $patron = "/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/";
+
+    if (preg_match($patron, $contrasena)) {
+        // La contraseña cumple con los criterios
+        return true;
+    } else {
+        // La contraseña no cumple con los criterios
+        $errores["pass"]="Introduce una contraseña válida";
+        return false;
     }
 }
 ?>
