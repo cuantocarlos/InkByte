@@ -17,6 +17,7 @@
     if(!isset($REQUEST["bAceptar"])){
         include("../../web/templates/template_registro.php");
     }else{
+
         //recogemos datos de los inputs
         $nombre=recoge("nombre");
         $mail=recoge("mail");
@@ -53,7 +54,6 @@
             $errores["terminos"]="Debes aceptar los términos y condiciones para registrarte";
         }
 
-
         //comprobamos que el array de errores esté vacío
         if(!empty($errores)){
             include("../../web/templates/template_registro.php");
@@ -61,7 +61,9 @@
             try{
                 include("../libs/consultas.php");
                 include_once("../libs/config.php");
-                $hash = password_hash($contrasena, PASSWORD_BCRYPT);
+                $hash = password_hash($pass, PASSWORD_BCRYPT);
+
+                
                 if(agregarNuevoUsuario($pdo,$nombre,$mail,$fecha,$hash,$fecha,$nivel)){
                     include("../../web/templates/index.php");
                     echo("<script>abrirModalInfoUser();</script>");

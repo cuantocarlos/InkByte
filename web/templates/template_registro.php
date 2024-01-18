@@ -1,6 +1,6 @@
     <script type="module" src="../../app/libs/bGeneral.js"></script>
     <script type="module" src="../../app/modelo/validar_registro.js"></script>
-<!--BOTON REGISTRO-->
+    <!--BOTON REGISTRO-->
     <button type="button" class="btn btn-PRIMARY" data-toggle="modal" data-target="#modalSignup">Regístrate</button>
 
     <!--MODAL-->

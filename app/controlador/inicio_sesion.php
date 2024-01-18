@@ -28,7 +28,7 @@ if(!isset($REQUEST["bAceptar"])){
                 }
             }
             if(!empty($errores)){
-
+                include("../../web/templates/template_inicioSesion.php");
             }else{
                 include("../../web/templates/index.php");
             }

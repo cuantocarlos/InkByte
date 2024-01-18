@@ -15,7 +15,7 @@ export function validarCorreoElectronico(correo) {
     }
   }
 export function validarPassword(pass) {
-    return /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/.test(pass);
+    return /^(?=.*[a-z])(?=.*[A-Z])(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/.test(pass);
 }
 
 export function validarFecha(fechaString) {
