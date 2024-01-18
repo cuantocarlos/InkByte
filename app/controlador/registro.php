@@ -63,7 +63,8 @@
                 include_once("../libs/config.php");
                 $hash = password_hash($contrasena, PASSWORD_BCRYPT);
                 if(agregarNuevoUsuario($pdo,$nombre,$mail,$fecha,$hash,$fecha,$nivel)){
-                    
+                    include("../../web/templates/index.php");
+                    echo("<script>abrirModalInfoUser();</script>");
                 }else{
                     $errores["crearUsuario"]="Error en el registro de usuarios";
                     include("../../web/templates/template_registro.php");

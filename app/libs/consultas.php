@@ -58,6 +58,16 @@ function agregarNuevoUsuario($pdo, $nombre, $email, $pass, $f_nacimiento, $nivel
     }
 }
 
+function agregarCosasAdicionales($id_user, $pdo, $nick, $foto_perfil, $descripcion) {
+    $stmt = $pdo->prepare("UPDATE usuario SET
+        nick = ?,
+        foto_perfil = ?,
+        descripcion = ?
+        WHERE id_user = ?");
+
+    $stmt->execute([$nick,$foto_perfil,$descripcion,$id_user]);
+}
+
 /*Tokens de usuarios*/
 function agregarToken($pdo, $token, $validez, $id) {
     $query = "INSERT INTO token (token, validez, id_user) VALUES (?, ?, ?)";
