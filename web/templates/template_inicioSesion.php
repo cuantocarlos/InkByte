@@ -12,14 +12,14 @@
           <div class="modal-body p-5 pt-0">
             <form method="post" action="">
               <div class="form-floating mb-3">
-                <input type="email" class="form-control rounded-3" id="mail" placeholder="name@example.com" pattern="(?=.*\d)(?=.*[a-zñç])(?=.*[A-ZÑÇ])(?=.*[$@¿?¡!_-])[a-zA-Z\d$@¿?¡!_-ñçÑÇ]{8,12}" required>
+                <input type="email" class="form-control rounded-3" id="mail" placeholder="name@example.com" name="mail" required>
                 <label for="email">Correo Electrónico</label>
               </div>
               <div class="form-floating mb-3">
-                <input type="password" class="form-control rounded-3" id="pass" placeholder="Password" required>
+                <input type="password" class="form-control rounded-3" id="pass" placeholder="Password" name="pass" required>
                 <label for="pass">Contraseña</label>
               </div>
-              <button class="w-100 mb-2 btn btn-lg rounded-3 btn-primary mt-4" type="submit">Iniciar Sesión</button>
+              <button class="w-100 mb-2 btn btn-lg rounded-3 btn-primary mt-4" type="submit" name="bAceptar">Iniciar Sesión</button>
             </form>
           </div>
         </div>

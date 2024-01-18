@@ -7,3 +7,7 @@ export function validarCorreoElectronico(correo) {
         return false;
     }
   }
+
+export function abrirModalInfoUser() {
+  document.getElementById("infoUser").style.display = 'block';
+}
