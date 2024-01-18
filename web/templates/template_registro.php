@@ -1,17 +1,3 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Registro</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-    <style>
-      .crema{
-        background-color: blueviolet;
-      }
-    </style>
-  </head>
-  <body>
     <!--BOTON REGISTRO-->
     <button type="button" class="btn btn-PRIMARY" data-toggle="modal" data-target="#modalSignup">Regístrate</button>
 
@@ -25,32 +11,36 @@
           </div>
           <div class="modal-body p-5 pt-0">
             <form method="post" action="">
-              <div class="form-floating mb-3">
-                <input type="email" class="form-control rounded-3" id="mail" placeholder="name@example.com" required>
-                <label for="email">Correo Electrónico</label>
+            <div class="form-floating mb-3">
+                <input type="text" class="form-control rounded-3" id="nombre" name="nombre" placeholder="name@example.com" required>
+                <label for="nombre">Nombre</label>
               </div>
               <div class="form-floating mb-3">
-                <input type="password" class="form-control rounded-3" id="pass" placeholder="Password" required>
+                <input type="email" class="form-control rounded-3" id="mail" placeholder="name@example.com" name="mail" required>
+                <label for="mail">Correo Electrónico</label>
+              </div>
+              <div class="form-floating mb-3">
+                <input type="password" class="form-control rounded-3" id="pass" placeholder="Password" name="pass" required>
                 <label for="pass">Contraseña</label>
               </div>
               <div class="form-floating mb-3">
-                <input type="password" class="form-control rounded-3" id="repass" placeholder="Password" required>
-                <label for="repass">Repita Contraseña</label>
+                <input type="password" class="form-control rounded-3" id="pass2" placeholder="Password" name="pass2" required>
+                <label for="pass2">Repita Contraseña</label>
               </div>
               <div class="form-floating mb-3">
-                <input type="date" class="form-control rounded-3" id="fecha" placeholder="Password" required>
+                <input type="date" class="form-control rounded-3" id="fecha" placeholder="Password" name="fecha" required>
                 <label for="fecha">Fecha de Nacimiento</label>
               </div>
               <hr class="my-4">
               <h2 class="fs-5 fw-bold mb-3">Eres lector o escritor?</h2>
-              <input type="radio" class="btn-check" name="options-base" id="lector" autocomplete="off" checked  >
+              <input type="radio" class="btn-check" name="options-base" id="lector" value="lector" name="lector" autocomplete="off" checked  >
               <label class="btn btn-outline-secondary" for="lector">Lector</label>
-              <input type="radio" class="btn-check" name="options-base" id="escritor" autocomplete="off">
+              <input type="radio" class="btn-check" name="options-base" id="escritor" name="lector" value="escritor" autocomplete="off">
               <label class="btn btn-outline-secondary" for="escritor">Escritor</label>
               <hr class="my-4">
-              <label class="mb-2" for="terminos"><input type="checkbox" id="terminos" value="terminos">
+              <label class="mb-2" for="terminos"><input type="checkbox" id="terminos" name="terminos" value="terminos">
               <small class="text-body-secondary">Registrándote aceptas los términos y condiciones.</small></label>
-              <button class="w-100 mb-2 btn btn-lg rounded-3 btn-primary" type="submit">Registrarse</button>
+              <button class="w-100 my-2 btn btn-lg rounded-3 btn-primary" name="bAceptar" type="submit">Registrarse</button>
             </form>
           </div>
         </div>
@@ -60,5 +50,3 @@
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-  </body>
-</html>
