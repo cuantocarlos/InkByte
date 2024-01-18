@@ -1,4 +1,6 @@
-    <!--BOTON REGISTRO-->
+    <script type="module" src="../../app/libs/bGeneral.js"></script>
+    <script type="module" src="../../app/modelo/validar_registro.js"></script>
+<!--BOTON REGISTRO-->
     <button type="button" class="btn btn-PRIMARY" data-toggle="modal" data-target="#modalSignup">Regístrate</button>
 
     <!--MODAL-->
@@ -12,11 +14,11 @@
           <div class="modal-body p-5 pt-0">
             <form method="post" action="">
             <div class="form-floating mb-3">
-                <input type="text" class="form-control rounded-3" id="nombre" name="nombre" placeholder="name@example.com" required>
+                <input type="text" class="form-control rounded-3" id="nombre" name="nombre" placeholder="name" required>
                 <label for="nombre">Nombre</label>
               </div>
               <div class="form-floating mb-3">
-                <input type="email" class="form-control rounded-3" id="mail" placeholder="name@example.com" name="mail" required>
+                <input type="text" class="form-control rounded-3" id="mail" placeholder="name@example.com" name="mail" required>
                 <label for="mail">Correo Electrónico</label>
               </div>
               <div class="form-floating mb-3">
