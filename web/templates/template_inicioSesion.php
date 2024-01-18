@@ -12,7 +12,7 @@
           <div class="modal-body p-5 pt-0">
             <form method="post" action="">
               <div class="form-floating mb-3">
-                <input type="email" class="form-control rounded-3" id="mail" placeholder="name@example.com" required>
+                <input type="email" class="form-control rounded-3" id="mail" placeholder="name@example.com" pattern="(?=.*\d)(?=.*[a-zñç])(?=.*[A-ZÑÇ])(?=.*[$@¿?¡!_-])[a-zA-Z\d$@¿?¡!_-ñçÑÇ]{8,12}" required>
                 <label for="email">Correo Electrónico</label>
               </div>
               <div class="form-floating mb-3">
