@@ -35,9 +35,9 @@
               </div>
               <hr class="my-4">
               <h2 class="fs-5 fw-bold mb-3">Eres lector o escritor?</h2>
-              <input type="radio" class="btn-check" id="lector" value="lector" checked>
+              <input type="radio" class="btn-check" id="lector" name="opcion_usuario" value="lector" checked autocomplete="off">
               <label class="btn btn-outline-secondary" for="lector">Lector</label>
-              <input type="radio" class="btn-check" id="escritor" value="escritor">
+              <input type="radio" class="btn-check" id="escritor" name="opcion_usuario" value="escritor" autocomplete="off">
               <label class="btn btn-outline-secondary" for="escritor">Escritor</label>
               <hr class="my-4">
               <label class="mb-2" for="terminos"><input type="checkbox" id="terminos" name="terminos" value="1">

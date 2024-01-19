@@ -24,7 +24,7 @@
         $pass=recoge("pass");
         $pass2=recoge("pass2");
         $fecha=recoge("fecha");
-        $lector=recoge("options-base");
+        $lector=recoge("opcion_usuario");
 
 
         //comenzamos las validaciones
