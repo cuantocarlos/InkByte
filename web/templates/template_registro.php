@@ -12,7 +12,7 @@
             <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
           </div>
           <div class="modal-body p-5 pt-0">
-            <form method="post" action="">
+            <form action="" method="post">
             <div class="form-floating mb-3">
                 <input type="text" class="form-control rounded-3" id="nombre" name="nombre" placeholder="name" required>
                 <label for="nombre">Nombre</label>
@@ -35,12 +35,12 @@
               </div>
               <hr class="my-4">
               <h2 class="fs-5 fw-bold mb-3">Eres lector o escritor?</h2>
-              <input type="radio" class="btn-check" name="options-base" id="lector" value="lector" name="lector" autocomplete="off" checked  >
+              <input type="radio" class="btn-check" id="lector" value="lector" checked>
               <label class="btn btn-outline-secondary" for="lector">Lector</label>
-              <input type="radio" class="btn-check" name="options-base" id="escritor" name="lector" value="escritor" autocomplete="off">
+              <input type="radio" class="btn-check" id="escritor" value="escritor">
               <label class="btn btn-outline-secondary" for="escritor">Escritor</label>
               <hr class="my-4">
-              <label class="mb-2" for="terminos"><input type="checkbox" id="terminos" name="terminos" value="terminos">
+              <label class="mb-2" for="terminos"><input type="checkbox" id="terminos" name="terminos" value="1">
               <small class="text-body-secondary">Registrándote aceptas los términos y condiciones.</small></label>
               <button class="w-100 my-2 btn btn-lg rounded-3 btn-primary" id="bAceptar" name="bAceptar" type="submit">Registrarse</button>
             </form>

@@ -10,11 +10,11 @@
     $pass="";
     $pass2="";
     $fecha="";
-    $radio="";
-    $lector=true;
-    $terminos=[];
+    $lector="";
+    $nivel=0;
+    $activo=0;
 
-    if(!isset($REQUEST["bAceptar"])){
+    if(!isset($_POST["bAceptar"])){
         include("../../web/templates/template_registro.php");
     }else{
 
@@ -24,8 +24,7 @@
         $pass=recoge("pass");
         $pass2=recoge("pass2");
         $fecha=recoge("fecha");
-        $radio=recoge("lector");
-        $check=recoge("terminos");
+        $lector=recoge("options-base");
 
 
         //comenzamos las validaciones
@@ -43,40 +42,45 @@
 
         cFecha($fecha,$errores);
 
-        if($lector==="lector"){
+        if($lector=="lector"){
             $nivel=1;
         }
-        else if($lector==="escritor"){
+        elseif($lector=="escritor"){
             $nivel=2;
         }
 
-        if(empty($terminos)){
-            $errores["terminos"]="Debes aceptar los términos y condiciones para registrarte";
+        if (!isset($_POST["terminos"]) || $_POST["terminos"] != 1) {
+            $errores["terminos"]="Debes aceptar los términos y condiciones para poder registrarte";
         }
+
 
         //comprobamos que el array de errores esté vacío
         if(!empty($errores)){
-            include("../../web/templates/template_registro.php");
+            print_r($errores);
         }else{
             try{
                 include("../libs/consultas.php");
                 include_once("../libs/config.php");
                 $hash = password_hash($pass, PASSWORD_BCRYPT);
 
-                
-                if(agregarNuevoUsuario($pdo,$nombre,$mail,$fecha,$hash,$fecha,$nivel)){
-                    include("../../web/templates/index.php");
+
+                if(agregarNuevoUsuario($pdo,$nombre,$mail,$hash,$fecha,$nivel,$activo)){
+                    echo("bieeeeeeeeen");
+                    echo($lector);
+                    print_r($_POST);
+print_r($errores);
+
                     echo("<script>abrirModalInfoUser();</script>");
                 }else{
                     $errores["crearUsuario"]="Error en el registro de usuarios";
-                    include("../../web/templates/template_registro.php");
+                    echo(2);
                 }
             }catch (PDOException $e){
                     // En este caso guardamos los errores en un archivo de errores log
                     error_log($e->getMessage() . "##Código: " . $e->getCode() . "  " . microtime() . PHP_EOL, 3, "../logs/logBD.txt");
                     // guardamos en ·errores el error que queremos mostrar a los usuarios
                     $errores['datos'] = "Ha habido un error <br>";
-                    include("../templates/formRegistro.php");
+                    echo(3);
             }
         }
 

@@ -42,7 +42,6 @@ function correoUnico($pdo, $email){
 /*Agregar usuario a la base de datos*/
 function agregarNuevoUsuario($pdo, $nombre, $email, $pass, $f_nacimiento, $nivel, $activo) {
     $query = "INSERT INTO usuario (nombre, email, pass, f_nacimiento, nivel, activo) VALUES (?, ?, ?, ?, ?, ?)";
-    $activo = 0;
     $stmt = $pdo->prepare($query);
     $stmt->bindParam(1, $nombre);
     $stmt->bindParam(2, $email);
