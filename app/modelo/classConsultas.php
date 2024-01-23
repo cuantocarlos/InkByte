@@ -2,8 +2,8 @@
 
 class Consultas extends Modelo {
     /*Buscar en la linea de una tabla, con un campo*/
-    function buscar($input, $tabla, $columna){
-        $stmt = $this->conexion->prepare("SELECT $columna FROM $tabla WHERE $input = ?");
+    function buscar($input, $tabla, $columna, $campoWhere){
+        $stmt = $this->conexion->prepare("SELECT $columna FROM $tabla WHERE $campoWhere = ?");
         $stmt->execute([$input]);
         $resultado = $stmt->fetch(PDO::FETCH_ASSOC);
         return ($resultado) ? $resultado[$columna] : null;

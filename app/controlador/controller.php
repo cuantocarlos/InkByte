@@ -1,4 +1,15 @@
 <?php
+
+require '../vendor/autoload.php';
+
+require '../composer/vendor/phpmailer/phpmailer/src/Exception.php';
+require '../composer/vendor/phpmailer/phpmailer/src/PHPMailer.php';
+require '../composer/vendor/phpmailer/phpmailer/src/SMTP.php';
+
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
+
+
 class Controller{
     public function iniciarSesion() {
         try{
@@ -18,10 +29,10 @@ class Controller{
                 $pass = recoge("pass");
 
                 if(!empty($errores)){
-                include("../../web/templates/inicioSesion.php");
+                include("../../web/templates/inicioSesion.php"); //igual hay que borrar
                 }else{
                         $cs=new Consultas();
-                        if($usuario = $cs->verificarEmail($mail)){
+                        if(!$usuario = $cs->verificarEmail($mail)){
                             $param['mensaje']="El correo no existe";
                         }else{
                             if($cs->verificarPass($usuario['email'],$usuario['pass'])){
@@ -139,6 +150,42 @@ class Controller{
                         $cs = new Consultas();
                         $hash = password_hash($pass, PASSWORD_BCRYPT);
                         if($usuario = $cs->agregarNuevoUsuario($nombre,$nick,$mail,$hash,$fecha,$foto_perfil,$descripcion,$nivel,$activo)){
+
+                            $idUsuario = $cs -> buscar($mail, "usuario", "id_usuario","email");
+
+                            $fechaRegistro = time()+86400;
+
+                            $token = uniqid();
+
+                            $cs -> agregarToken($token, $fechaRegistro, $idUsuario);
+
+                            $mailer = new PHPMailer();
+
+                            try {
+                                    // Configura el servidor SMTP
+                                    $mailer->isSMTP();
+                                    $mailer->Host = 'smtp.gmail.com';
+                                    $mailer->SMTPAuth = true;
+                                    $mailer->Username = 'inkbytedaw@gmail.com';
+                                    $mailer->Password = 'sfay bopb hxsr lyvu';
+                                    $mailer->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;
+                                    $mailer->Port = 587;
+
+                                    // Configura los destinatarios
+                                    $mailer->setFrom('inkbytedaw@gmail.com', 'InkByte');
+                                    $mailer->addAddress($mail, $nombre);
+
+                                    // Contenido del correo
+                                    $mailer->isHTML(true);
+                                    $mailer->Subject = 'Activa tu cuenta de InkByte';
+                                    $mailer->Body = 'Activa tu cuenta con este enlace: Enlace a la web placeholder' . $token;
+
+                                    // Enviar el correo
+                                    $mailer->send();
+                                    echo 'El correo se ha enviado con éxito.';
+                                } catch (Exception $e) {
+                                    echo "El correo no se pudo enviar. Error: {$mailer->ErrorInfo}";
+                                }
                             header('Location: index.php?ctl=iniciarSesion');
                         }else{
                             $params = array(

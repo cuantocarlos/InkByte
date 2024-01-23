@@ -16,6 +16,12 @@ if (!isset($_SESSION['nivel_usuario'])) {
 /**
  * Enrutamiento
  * Le añadimos el nivel mínimo que tiene que tener el usuario para ejecutar la acción
+ * 
+ * controller se refiere a controller.php
+ * Controller.php se refiere a la clase Controller dentro de controller.php
+ * action lo que va a hacer
+ * home la función home dentro de la clase controller
+ * nivel el nivel del usuario
  **/
 $map = array(
     'home' => array('controller' => 'Controller', 'action' => 'home', 'nivel' => 0),
