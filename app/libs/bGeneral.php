@@ -236,7 +236,7 @@ function cFile(string $nombre, array &$errores, array $extensiones_validas, stri
         return false; // No se ha subido ningún archivo, salir del método.
     }
 if (($_FILES[$nombre]['error'] != 0)) {// se comprueban los errores del servidor
-        $errores["$nombre"] = "Error al subir el archivo " . $nombre . ". Prueba de nuevo";
+        $errores["mensaje"] = "Error al subir el archivo " . $nombre . ". Prueba de nuevo";
         return false;
     } else {
 
@@ -247,11 +247,11 @@ if (($_FILES[$nombre]['error'] != 0)) {// se comprueban los errores del servidor
 
         $extension = $arrayInfoArchivo['extension'];
         if (!in_array($extension, $extensiones_validas)) {
-            $errores["$nombre"] = "La extensión del archivo no es válida o no se ha subido ningún archivo";
+            $errores["mensaje"] = "La extensión del archivo no es válida o no se ha subido ningún archivo";
         }
         // Comprobamos el tamaño del archivo
         if ($filesize > $max_file_size) {
-            $errores["$nombre"] = "La imagen debe de tener un tamaño inferior a 50 kb";
+            $errores["mensaje"] = "La imagen debe de tener un tamaño inferior a 50 kb";
         }
 
         // Almacenamos el archivo en ubicación definitiva si no hay errores ( al compartir array de errores TODOS LOS ARCHIVOS tienen que poder procesarse para que sea exitoso. Si cualquiera da error, NINGUNO  se procesa)
@@ -264,7 +264,7 @@ if (($_FILES[$nombre]['error'] != 0)) {// se comprueban los errores del servidor
 
                 return  $nombreArchivo . "." . $extension;
             } else {
-                $errores["$nombre"] = "Error: No se puede mover el fichero a su destino";
+                $errores["mensaje"] = "Error: No se puede mover el fichero a su destino";
                 return false;
             }
         } else {

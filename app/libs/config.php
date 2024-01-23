@@ -1,28 +1,19 @@
 <?php
 
-//incluimos datos a la conexión de la BD
-$db_hostname = "localhost";
-$db_nombre = "inkbyte"; //nombre de la base de datos
+class Config {
+    //incluimos datos a la conexión de la BD
+public static $db_hostname = "localhost";
+public static $db_nombre = "inkbyte"; //nombre de la base de datos
 
-$db_usuario = "root";
-$db_clave = "";
-
-/******************************************************************************/
-//QUITAR ESTE CONTENIDO PARA CREAR BASE DE DATOS
-// Conectamos
-$pdo = new PDO('mysql:host=' . $db_hostname . ';dbname=' . $db_nombre . '', $db_usuario, $db_clave);
-// Realiza el enlace con la BD en utf-8
-$pdo->exec("set names utf8");
-//Accionamos el uso de excepciones
-$pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-//HASTA AQUI
-/******************************************************************************/
-
+public static $db_usuario = "root";
+public static $db_clave = "";
 
 //incluimos informacion para el guardado de imagenes
-$extensionesValidas=["jpeg","jpg","png"];
-$dir=__DIR__.DIRECTORY_SEPARATOR."../img".DIRECTORY_SEPARATOR;
-$max_file_size=200000;
+public static $extensionesValidas=["jpeg","jpg","png"];
+public static $dir_usuario=__DIR__.DIRECTORY_SEPARATOR."../img/perfil".DIRECTORY_SEPARATOR;
+public static $dir_libro=__DIR__.DIRECTORY_SEPARATOR."../img/libro".DIRECTORY_SEPARATOR;
+public static $max_file_size=200000;
 
 //formato fecha
-$formatoF="Y-m-d";
+public static $formatoF="Y-m-d";
+}
