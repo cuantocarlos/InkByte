@@ -48,7 +48,8 @@
                         <option value="3">Noche</option>
                     </select>
                 </div>
-                <label class="mb-2" for="terminos"><input type="checkbox" id="terminos" value="terminos">
+                <label class="mb-2" for="terminos">
+                    <input type="checkbox" id="terminos" value="terminos" required>
                     <small class="text-body-secondary">Aceptas los términos y condiciones.</small></label>
                 <button class="w-100 mb-2 btn btn-lg rounded-3 btn-primary" type="submit">Enviar</button>
             </form>
