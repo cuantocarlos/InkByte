@@ -6,12 +6,7 @@ try {
     $usuario = $consulta->obtenerTodoDeUsuario(1); //sacar de sesión
 } catch (PDOException $e) {
     echo "Error: " . $e->getMessage();
-}print_r($usuario);
-
-$nombre = "Fulano de tal";
-$email = "fco.carlos";
-$cumple = "12/12/12";
-$descripcionProfile = "Lorem ipsum dolor sit";
+}
 
 $rutaImagenPerfil = "https://picsum.photos/200/300";
 
@@ -20,23 +15,22 @@ $rutaImagenPerfil = "https://picsum.photos/200/300";
     <div class="row">
         <!-- Sección de la foto de perfil -->
         <div class="col-md-4">
-            <img src="<?php echo $rutaImagenPerfil; ?> " alt="Foto de Perfil" class="img-fluid rounded-circle" />
+            <img src="<?php echo $usuario['foto_perfil']?> " alt="Foto de Perfil" class="img-fluid rounded-circle" />
         </div>
-
         <!-- Sección de información del perfil -->
         <div class="col-md-8">
-                <?php echo $nombre; ?>
+                <?php echo $usuario['nombre']; ?>
                 <p>
                     Fecha de Nacimiento:
-                    <?php echo $cumple; ?>
+                    <?php echo $usuario['f_nacimiento']; ?>
                 </p>
                 <p>
                     Correo Electrónico:
-                    <?php echo $email; ?>
+                    <?php echo $usuario['email']; ?>
                 </p>
                 <p>
                     Descripción:
-                    <?php echo $descripcionProfile; ?>
+                    <?php echo $usuario['descripcion']; ?>
                 </p>
         </div>
     </div>
