@@ -1,20 +1,20 @@
 <?php
-//variables de sesión
-$nombre = $_SESSION['nombre'];
-$email = $_SESSION['email'];
-$id = $_SESSION['id_user'];
-//variables para la base de datos
-$cumple;
-$descripcionProfile;
-$rutaImagenPerfil;
+include '../../app/modelo/classConsultas.php';
 
-$librosFavoritos;
-$librosLeidos;
-$librosPendientes;
-$librosPublicados;
-//una vez ya tengo el nombre y el email, hago la consulta para sacar el resto de datos
-$consulta = "SELECT * FROM usuarios WHERE id_user = $id";
-$resultado = $conexion->query($consulta);
+try {
+    $consulta = new Consultas();
+    $usuario = $consulta->obtenerTodoDeUsuario(1); //sacar de sesión
+} catch (PDOException $e) {
+    echo "Error: " . $e->getMessage();
+}print_r($usuario);
+
+$nombre = "Fulano de tal";
+$email = "fco.carlos";
+$cumple = "12/12/12";
+$descripcionProfile = "Lorem ipsum dolor sit";
+
+$rutaImagenPerfil = "https://picsum.photos/200/300";
+
 ?>
 <div class="container mt-5">
     <div class="row">
@@ -25,7 +25,6 @@ $resultado = $conexion->query($consulta);
 
         <!-- Sección de información del perfil -->
         <div class="col-md-8">
-            <h2>
                 <?php echo $nombre; ?>
                 <p>
                     Fecha de Nacimiento:
@@ -39,7 +38,6 @@ $resultado = $conexion->query($consulta);
                     Descripción:
                     <?php echo $descripcionProfile; ?>
                 </p>
-            </h2>
         </div>
     </div>
     <!-- Sección de los libros -->
@@ -59,15 +57,15 @@ $resultado = $conexion->query($consulta);
         </div>
         <div class="col-md-3">
             <h3>Libros Leidos</h3>
-            <p><?php echo $librosLeidos; ?></p>
+            <p></p>
         </div>
         <div class="col-md-3">
             <h3>Libros Pendientes</h3>
-            <p><?php echo $librosPendientes; ?></p>
+            <p></p>
         </div>
         <div class="col-md-3">
             <h3>Libros Publicados</h3>
-            <p><?php echo $librosPublicados; ?></p>
+            <p></p>
         </div>
     </div>
 </div>

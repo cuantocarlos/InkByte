@@ -1,5 +1,5 @@
 <?php
-
+require_once './../../app/libs/config.php';//añadido
 
 
 class Modelo extends PDO {

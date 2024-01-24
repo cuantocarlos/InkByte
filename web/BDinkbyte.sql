@@ -146,4 +146,4 @@ INSERT INTO Usuario (nombre, nick, email, pass, f_nacimiento, foto_perfil, descr
 VALUES ('María García', 'mariagarcia88', 'mariagarcia@email.com', 'hashed_pass_2', '1988-07-22', 'mariagarcia.jpg', 'Apasionada por los viajes y la cocina.', 2, 1);
 
 
---arreglar ruta imagen
+--arreglar ruta imagen y poner carpetas de imagenes

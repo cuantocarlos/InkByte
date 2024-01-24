@@ -1,4 +1,5 @@
 <?php
+include('classModelo.php');//añadido
 
 class Consultas extends Modelo {
     /*Buscar en la linea de una tabla, con un campo*/
@@ -9,6 +10,13 @@ class Consultas extends Modelo {
         return ($resultado) ? $resultado[$columna] : null;
     }
 
+    function obtenerTodoDeUsuario($idUsuario) {
+        $stmt = $this->conexion->prepare("SELECT * FROM usuario WHERE id_user = ?");
+        $stmt->execute([$idUsuario]);
+        $resultado = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $resultado;
+    }
+    
     function usuarioUnico($nombre){
         $stmt =$this->conexion->prepare("SELECT nick FROM usuario WHERE nombre = ?");
         $stmt->execute([$nombre]);

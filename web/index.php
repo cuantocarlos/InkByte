@@ -1,11 +1,11 @@
 <?php
+// esto estaba pero se tiene que quitar en base a los cambios que yo ya he hecho
+// include('../app/modelo/classModelo.php');
+// include('../app/modelo/classConsultas.php');
+// require_once './../app/libs/config.php';
+// require_once './../app/libs/bGeneral.php';
 
-include('../app/modelo/classModelo.php');
-include('../app/modelo/classConsultas.php');
 
-
-require_once './../app/libs/config.php';
-require_once './../app/libs/bGeneral.php';
 require_once './../app/controlador/controller.php';
 
 session_start(); // Se inicia la sesion
