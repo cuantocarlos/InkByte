@@ -274,7 +274,7 @@ class Controller{
         );
         $menu = 'inicio.php';
 
-        if ($_SESSION['nivel_usuario'] > 0) {
+        if ($_SESSION['nivel'] > 0) {
             header("location:index.php?ctl=inicio");
         }
         require __DIR__ . '/../../web/templates/inicio.php';
