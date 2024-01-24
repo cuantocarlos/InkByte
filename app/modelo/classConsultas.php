@@ -133,6 +133,16 @@ class Consultas extends Modelo {
         return $stmt->execute();
     }
 
+    /*Guardar capítulo en la base de datos*/
+    function agregarCapitulo($id_libro, $num_cap, $titulo, $archivo) {
+        $stmt =$this->conexion->prepare("INSERT INTO capitulos (id_libro, num_cap, titulo, archivo) VALUES (?, ?, ?, ?)");
+        $stmt->bindParam(1, $id_libro);
+        $stmt->bindParam(2, $num_cap);
+        $stmt->bindParam(3, $titulo);
+        $stmt->bindParam(4, $archivo);
+        return $stmt->execute();
+    }
+
     /*Al agregar un capitulo, se incrementa el numero de capitulos del libro*/
     function aumentarCapitulosLibro($id_libro){
         $stmt =$this->conexion-> prepare("UPDATE libros SET capitulos = capitulos + 1 WHERE id_libro = ?");
@@ -233,4 +243,34 @@ class Consultas extends Modelo {
 
         $stmt->execute([$terror, $romance, $fantasia, $cficcion, $historia, $arte, $thriller, $poesia, $drama, $biografia, $misterio, $policiaca, $id_user]);
     }
+
+    function obtenerTitulosLibrosPorUsuario($id_user) {
+        $stmt = $this->conexion->prepare("SELECT titulo FROM libro WHERE id_user = ?");
+        $stmt->bind_param("i", $id_user);
+        $stmt->execute();
+        $titulo = null;
+        $stmt->bind_result($titulo);
+        $titulos = array();
+        while ($stmt->fetch()) {
+            $titulos[] = $titulo;
+        }
+        $stmt->close();
+        return $titulos;
+    }
+
+    function obtenerIdLibrosPorUsuario($id_user) {
+        $stmt = $this->conexion->prepare("SELECT id_libro FROM libro WHERE id_user = ?");
+        $stmt->bind_param("i", $id_user);
+        $stmt->execute();
+        $id = null;
+        $stmt->bind_result($id);
+        $titulos = array();
+        while ($stmt->fetch()) {
+            $ids[] = $id;
+        }
+        $stmt->close();
+        return $ids;
+    }
+    
+    
 }

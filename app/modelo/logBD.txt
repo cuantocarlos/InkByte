@@ -1,0 +1,9 @@
+SQLSTATE[HY000] [1045] Access denied for user ''@'localhost' (using password: NO)## Fichero: W:\Server XAMPP\htdocs\DWES\GitRepos\InkByte\app\modelo\crearBD.php## Línea: 18##Código: 1045##Instante: 0.40435900 1706077761
+SQLSTATE[HY000] [1045] Access denied for user ''@'localhost' (using password: NO)## Fichero: W:\Server XAMPP\htdocs\DWES\GitRepos\InkByte\app\modelo\crearBD.php## Línea: 18##Código: 1045##Instante: 0.78348100 1706077825
+SQLSTATE[HY000] [1045] Access denied for user ''@'localhost' (using password: NO)## Fichero: W:\Server XAMPP\htdocs\DWES\GitRepos\InkByte\app\modelo\crearBD.php## Línea: 18##Código: 1045##Instante: 0.57720000 1706077899
+SQLSTATE[HY000] [1049] Unknown database 'inkbyte'## Fichero: W:\Server XAMPP\htdocs\DWES\GitRepos\InkByte\app\modelo\crearBD.php## Línea: 18##Código: 1049##Instante: 0.46712200 1706077916
+SQLSTATE[HY000] [1049] Unknown database 'inkbyte'## Fichero: W:\Server XAMPP\htdocs\DWES\GitRepos\InkByte\app\modelo\crearBD.php## Línea: 18##Código: 1049##Instante: 0.26315200 1706077929
+SQLSTATE[HY000] [1049] Unknown database 'inkbyte'## Fichero: W:\Server XAMPP\htdocs\DWES\GitRepos\InkByte\app\modelo\crearBD.php## Línea: 18##Código: 1049##Instante: 0.12355100 1706078037
+SQLSTATE[HY000] [1049] Unknown database 'inkbyte'## Fichero: W:\Server XAMPP\htdocs\DWES\GitRepos\InkByte\app\modelo\crearBD.php## Línea: 19##Código: 1049##Instante: 0.44242900 1706078267
+SQLSTATE[HY000] [1049] Unknown database 'inkbyte'## Fichero: W:\Server XAMPP\htdocs\DWES\GitRepos\InkByte\app\modelo\crearBD.php## Línea: 19##Código: 1049##Instante: 0.55347800 1706078474
+SQLSTATE[HY000] [1049] Unknown database 'inkbyte'## Fichero: W:\Server XAMPP\htdocs\DWES\GitRepos\InkByte\app\modelo\crearBD.php## Línea: 19##Código: 1049##Instante: 0.58005900 1706079040

@@ -16,4 +16,6 @@ public static $max_file_size=200000;
 
 //formato fecha
 public static $formatoF="Y-m-d";
+
+public static $extensionesCapitulos=["pdf"];
 }
