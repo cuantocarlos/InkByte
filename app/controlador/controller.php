@@ -1,10 +1,12 @@
 <?php
 
-require '../vendor/autoload.php';
+require __DIR__ . '/../composer/vendor/autoload.php';
 
-require '../composer/vendor/phpmailer/phpmailer/src/Exception.php';
-require '../composer/vendor/phpmailer/phpmailer/src/PHPMailer.php';
-require '../composer/vendor/phpmailer/phpmailer/src/SMTP.php';
+
+require __DIR__ . '/../composer/vendor/phpmailer/phpmailer/src/Exception.php';
+require __DIR__ . '/../composer/vendor/phpmailer/phpmailer/src/PHPMailer.php';
+require __DIR__ . '/../composer/vendor/phpmailer/phpmailer/src/SMTP.php';
+
 
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
@@ -209,6 +211,73 @@ class Controller{
                     }
                 }
                 require __DIR__ . '/../../web/templates/registro.php';
+    }
+
+    public function subirCapitulo(){
+        try{
+            $id_libro = "";
+            $num_cap = "";
+            $titulo = "";
+            $archivo = "";
+
+            $cs = new Consultas();
+
+            $opcionesDisponibles = $cs -> obtenerIdLibrosPorUsuario($_SESSION["id_user"]);
+
+            $params = array(
+                'id_libro' => '',
+                'num_cap'=>'',
+                'titulo' =>'',
+                'archivo' =>''
+            );
+
+            if ($_SESSION['nivel_usuario'] != 2) {
+                header("location:index.php?ctl=inicio");
+            }
+
+            if((isset($_POST["bAceptar"]))){
+                $id_libro = recoge("tus_opciones");
+                $num_cap = recoge("numero_cap");
+                $titulo = recoge("titulo_cap");
+
+                if(!cOpciones($id_libro, $opcionesDisponibles)){
+                    $params["mensaje"] = "No has introducido un libro válido";
+                }
+
+                cTexto($titulo, "titulo", $params["mensaje"], 50, 1, true, true);
+
+                cNum($num_cap, "capitulo", $params["mensaje"], 0, 9999);
+
+                if(empty($params["mensaje"])){
+
+                    $archivo = cFile("archivoPDF", $params["mensaje"],Config::$extensionesCapitulos, "../archivos/capitulos/", 2000);
+
+                    if(empty($params["mensaje"])){
+
+                        $cs -> agregarCapitulo($id_libro, $num_cap, $titulo, $archivo);
+                        $cs -> aumentarCapitulosLibro($id_libro);
+
+                    }
+                }
+            }
+        } catch (Exception $e){
+            echo "Error: " . $e->getMessage();
         }
+        
+    }
+
+    public function home()
+    {
+
+        $params = array(
+            'fecha' => date('d-m-Y')
+        );
+        $menu = 'inicio.php';
+
+        if ($_SESSION['nivel_usuario'] > 0) {
+            header("location:index.php?ctl=inicio");
+        }
+        require __DIR__ . '/../../web/templates/inicio.php';
+    }
 
 }

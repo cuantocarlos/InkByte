@@ -9,20 +9,24 @@
 */
 
 //En config.php tenemos los valores de conexión a la BD
-include ('config.php');
+include ('../libs/config.php');
 try {
     /*
      * Conectamos
      * No le pasamos nombre de BD porque vamos a crearla
      */
-    $pdo = new PDO('mysql:host='.$db_hostname.';dbname='.$db_nombre, $db_usuario, $db_clave);
-
+    echo ("1");
+    $pdo = new PDO('mysql:host='.Config::$db_hostname, Config::$db_usuario, Config::$db_clave);
+    echo ("2");
     //UTF8
     $pdo->exec("set names utf8");
+    echo ("3");
     // Accionamos el uso de excepciones
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    echo ("4");
     //Leemos el fichero que contiene el sql
     $sqlBD = file_get_contents("../../web/BDinkbyte.sql");
+    echo ("5");
     //Ejecutamos la consulta
     $pdo->exec($sqlBD);
     echo ("La BD ha sido creada");
