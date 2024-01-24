@@ -246,29 +246,27 @@ class Consultas extends Modelo {
 
     function obtenerTitulosLibrosPorUsuario($id_user) {
         $stmt = $this->conexion->prepare("SELECT titulo FROM libro WHERE id_user = ?");
-        $stmt->bind_param("i", $id_user);
+        $stmt->bindParam(1, $id_user);
         $stmt->execute();
         $titulo = null;
-        $stmt->bind_result($titulo);
+        $stmt->fetch($titulo);
         $titulos = array();
         while ($stmt->fetch()) {
             $titulos[] = $titulo;
         }
-        $stmt->close();
         return $titulos;
     }
 
     function obtenerIdLibrosPorUsuario($id_user) {
         $stmt = $this->conexion->prepare("SELECT id_libro FROM libro WHERE id_user = ?");
-        $stmt->bind_param("i", $id_user);
+        $stmt->bindParam(1, $id_user);
         $stmt->execute();
         $id = null;
-        $stmt->bind_result($id);
+        $stmt->fetch($id);
         $titulos = array();
         while ($stmt->fetch()) {
             $ids[] = $id;
         }
-        $stmt->close();
         return $ids;
     }
     

@@ -28,10 +28,10 @@ if (!isset($_SESSION['nivel'])) {
  **/
 $map = array(
     'home' => array('controller' => 'Controller', 'action' => 'home', 'nivel' => 0),
-    'subirCapitulo' => array('controller' => 'Controller', 'action' => 'subirCapitulo', 'nivel' => 2),
+    'subirCapitulo' => array('controller' => 'Controller', 'action' => 'subirCapitulo', 'nivel' => 0), //cambiar a 2 cuando este el login
     'iniciarSesion' => array('controller' => 'Controller', 'action' => 'iniciarSesion', 'nivel' => 0),
     'registro' => array('controller' => 'Controller', 'action' => 'registro', 'nivel' => 0),
-    //'inicio' => array('controller' => 'Controller', 'action' => 'inicio', 'nivel' => 0),
+    'inicio' => array('controller' => 'Controller', 'action' => 'inicio', 'nivel' => 0)
     // 'salir' => array('controller' => 'Controller', 'action' => 'salir', 'nivel' => 1),
     // 'error' => array('controller' => 'Controller', 'action' => 'error', 'nivel' => 0),
     // 'listarLibros' => array('controller' => 'Controller', 'action' => 'listarLibros', 'nivel' => 0),
@@ -70,7 +70,8 @@ si el usuario tiene permiso suficiente para ejecutar esa acción
 */
 
 if (method_exists($controlador['controller'], $controlador['action'])) {
-    //echo "el nivel es ". $controlador["nivel"];
+    // echo "el nivel es ". $controlador["nivel"];
+    // echo "el nivel session es ". $_SESSION['nivel'];
     if ($controlador['nivel'] <= $_SESSION['nivel']) {
         call_user_func(array(
             new $controlador['controller'],

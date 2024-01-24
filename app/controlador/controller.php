@@ -13,6 +13,18 @@ use PHPMailer\PHPMailer\Exception;
 
 
 class Controller{
+
+    private function cargaMenu()
+    {
+        if ($_SESSION['nivel_usuario'] == 0) {
+            return 'menuInvitado.php';
+        } else if ($_SESSION['nivel_usuario'] == 1) {
+            return 'menuUser.php';
+        } else if ($_SESSION['nivel_usuario'] == 2) {
+            return 'menuAdmin.php';
+        }
+    }
+
     public function iniciarSesion() {
         try{
             $params = array(
@@ -221,8 +233,7 @@ class Controller{
             $archivo = "";
 
             $cs = new Consultas();
-
-            $opcionesDisponibles = $cs -> obtenerIdLibrosPorUsuario($_SESSION["id_user"]);
+            $opcionesDisponibles = $cs -> obtenerIdLibrosPorUsuario(1); //cambiar por $_SESSION["id_user"]
 
             $params = array(
                 'id_libro' => '',
@@ -231,7 +242,7 @@ class Controller{
                 'archivo' =>''
             );
 
-            if ($_SESSION['nivel_usuario'] != 2) {
+            if ($_SESSION['nivel'] != 2) {
                 header("location:index.php?ctl=inicio");
             }
 
@@ -263,6 +274,10 @@ class Controller{
         } catch (Exception $e){
             echo "Error: " . $e->getMessage();
         }
+
+        $menu = $this->cargaMenu();
+
+        require __DIR__ . '/../../web/templates/subirCapitulo.php';
         
     }
 
@@ -274,9 +289,21 @@ class Controller{
         );
         $menu = 'inicio.php';
 
-        if ($_SESSION['nivel_usuario'] > 0) {
+        if ($_SESSION['nivel'] > 0) {
             header("location:index.php?ctl=inicio");
         }
+        require __DIR__ . '/../../web/templates/inicio.php';
+    }
+
+    public function inicio()
+    {
+
+
+        $params = array(
+            'fecha' => date('d-m-Y')
+        );
+        $menu = $this->cargaMenu();
+
         require __DIR__ . '/../../web/templates/inicio.php';
     }
 
