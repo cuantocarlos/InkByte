@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css">
+    <link rel="stylesheet" href="../css/styles/footer.css">
+</head>
+
+<body>
+    <div class="container d-flex flex-column mt-5">
+        <h2>Sube tu capítulo</h2>
+        <form action="" method="post">
+
+            <div class="form-group">
+                <label for="tus_opciones">Selecciona un libro:</label>
+                <select class="form-control" id="tus_opciones" name="tus_opciones">
+                    <option value="opcion1">Opción 1</option>
+                    <option value="opcion2">Opción 2</option>
+                    <option value="opcion3">Opción 3</option>
+                    <option value="opcion4">Opción 4</option>
+                </select>
+            </div>
+    
+            <div class="form-group">
+                <label for="titulo_cap">Título del capítulo:</label>
+                <input type="text" class="form-control" name="titulo_cap" id="titulo_cap">
+            </div>
+
+            <div class="form-group">
+                <label for="numero_cap">Ingresa un número:</label>
+                <input type="number" class="form-control" id="numero_cap" name="numero_cap" min="0" max="9999" step="1">
+            </div>
+            
+            <div class="form-group">
+                <label for="archivoPDF">Selecciona un archivo PDF:</label>
+                <input type="file" class="form-control-file" id="archivoPDF" name="archivoPDF" accept=".pdf">
+            </div>
+
+            <input type="reset" value="Limpiar">
+            <input type="submit" name="bAceptar" value="Enviar">
+
+            
+        </form>
+    </div>
+</body>
+
+</html>

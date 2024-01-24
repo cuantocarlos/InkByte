@@ -303,4 +303,13 @@ function cPassword($contrasena,&$errores) {
         return false;
     }
 }
+
+function cOpciones($opcion, $opcionesDisponibles)
+{
+    if (!in_array($opcion, $opcionesDisponibles)) {
+        return false;
+    } else{
+        return true;
+    }
+}
 ?>

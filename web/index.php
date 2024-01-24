@@ -1,15 +1,18 @@
 <?php
-include('/../app/modelo/classConsultas.php');
-include('/../app/modelo/classModelo.php');
-require_once __DIR__ . '/../app/libs/config.php';
-require_once __DIR__ . '/../app/libs/bGeneral.php';
-require_once __DIR__ . '/../app/controlador/Controller.php';
+
+include('../app/modelo/classModelo.php');
+include('../app/modelo/classConsultas.php');
+
+
+require_once './../app/libs/config.php';
+require_once './../app/libs/bGeneral.php';
+require_once './../app/controlador/controller.php';
 
 session_start(); // Se inicia la sesion
 //Este logueado o no el usuario, siempre tendra un nivel_usuario
 
-if (!isset($_SESSION['nivel_usuario'])) {
-    $_SESSION['nivel_usuario'] = 0;
+if (!isset($_SESSION['nivel'])) {
+    $_SESSION['nivel'] = 0;
 }
 
 
@@ -25,17 +28,18 @@ if (!isset($_SESSION['nivel_usuario'])) {
  **/
 $map = array(
     'home' => array('controller' => 'Controller', 'action' => 'home', 'nivel' => 0),
-    'inicio' => array('controller' => 'Controller', 'action' => 'inicio', 'nivel' => 0),
-    'salir' => array('controller' => 'Controller', 'action' => 'salir', 'nivel' => 1),
-    'error' => array('controller' => 'Controller', 'action' => 'error', 'nivel' => 0),
+    'subirCapitulo' => array('controller' => 'Controller', 'action' => 'subirCapitulo', 'nivel' => 2),
     'iniciarSesion' => array('controller' => 'Controller', 'action' => 'iniciarSesion', 'nivel' => 0),
     'registro' => array('controller' => 'Controller', 'action' => 'registro', 'nivel' => 0),
-    'listarLibros' => array('controller' => 'Controller', 'action' => 'listarLibros', 'nivel' => 0),
-    'verLibro' => array('controller' => 'Controller', 'action' => 'verLibro', 'nivel' => 0),
-    'buscarPorTitulo' => array('controller' => 'Controller', 'action' => 'buscarPorTitulo', 'nivel' => 1),
-    'buscarPorAutor' => array('controller' => 'Controller', 'action' => 'buscarPorAutor', 'nivel' => 1),
-    'buscarPorEditorial' => array('controller' => 'Controller', 'action' => 'buscarPorEditorial', 'nivel' => 1),
-    'insertarL' => array('controller' => 'Controller', 'action' => 'insertarL', 'nivel' => 2)
+    //'inicio' => array('controller' => 'Controller', 'action' => 'inicio', 'nivel' => 0),
+    // 'salir' => array('controller' => 'Controller', 'action' => 'salir', 'nivel' => 1),
+    // 'error' => array('controller' => 'Controller', 'action' => 'error', 'nivel' => 0),
+    // 'listarLibros' => array('controller' => 'Controller', 'action' => 'listarLibros', 'nivel' => 0),
+    // 'verLibro' => array('controller' => 'Controller', 'action' => 'verLibro', 'nivel' => 0),
+    // 'buscarPorTitulo' => array('controller' => 'Controller', 'action' => 'buscarPorTitulo', 'nivel' => 1),
+    // 'buscarPorAutor' => array('controller' => 'Controller', 'action' => 'buscarPorAutor', 'nivel' => 1),
+    // 'buscarPorEditorial' => array('controller' => 'Controller', 'action' => 'buscarPorEditorial', 'nivel' => 1),
+    // 'insertarL' => array('controller' => 'Controller', 'action' => 'insertarL', 'nivel' => 2)
 );
 
 // Parseo de la ruta
@@ -66,7 +70,8 @@ si el usuario tiene permiso suficiente para ejecutar esa acción
 */
 
 if (method_exists($controlador['controller'], $controlador['action'])) {
-    if ($controlador['nivel_usuario'] <= $_SESSION['nivel']) {
+    //echo "el nivel es ". $controlador["nivel"];
+    if ($controlador['nivel'] <= $_SESSION['nivel']) {
         call_user_func(array(
             new $controlador['controller'],
             $controlador['action']
