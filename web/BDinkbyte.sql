@@ -137,5 +137,13 @@ CREATE TABLE Terminados(
 
 
 
+-- Insertar primer usuario
+INSERT INTO Usuario (nombre, nick, email, pass, f_nacimiento, foto_perfil, descripcion, nivel, activo)
+VALUES ('Juan Pérez', 'juanperez92', 'juanperez@email.com', 'hashed_pass_1', '1992-03-15', 'juanperez.jpg', 'Amante de la música y la tecnología.', 3, 1);
+
+-- Insertar segundo usuario
+INSERT INTO Usuario (nombre, nick, email, pass, f_nacimiento, foto_perfil, descripcion, nivel, activo)
+VALUES ('María García', 'mariagarcia88', 'mariagarcia@email.com', 'hashed_pass_2', '1988-07-22', 'mariagarcia.jpg', 'Apasionada por los viajes y la cocina.', 2, 1);
 
 
+--arreglar ruta imagen
