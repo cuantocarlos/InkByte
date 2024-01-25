@@ -13,6 +13,7 @@ use PHPMailer\PHPMailer\Exception;
 
 
 class Controller{
+
     public function iniciarSesion() {
         try{
             $params = array(
@@ -34,6 +35,7 @@ class Controller{
                 include("../../web/templates/inicioSesion.php"); //igual hay que borrar
                 }else{
                         $cs=new Consultas();
+
                         if(!$usuario = $cs->verificarEmail($mail)){
                             $param['mensaje']="El correo no existe";
                         }else{
@@ -272,9 +274,10 @@ class Controller{
         $params = array(
             'fecha' => date('d-m-Y')
         );
+        
         $menu = 'inicio.php';
 
-        if ($_SESSION['nivel_usuario'] > 0) {
+        if ($_SESSION['nivel'] > 0) {
             header("location:index.php?ctl=inicio");
         }
         require __DIR__ . '/../../web/templates/inicio.php';

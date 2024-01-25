@@ -60,9 +60,15 @@
                   <button class="btn btn-outline-success" type="submit">Search</button>
               </div>
                 <!-- Icono de inicio de sesión -->
+
                 <div class="nav-item ml-5">
                     <a class="nav-link " href="#">
                     <svg width="30px" height="30px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M16 7C16 9.20914 14.2091 11 12 11C9.79086 11 8 9.20914 8 7C8 4.79086 9.79086 3 12 3C14.2091 3 16 4.79086 16 7Z" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path> <path d="M12 14C8.13401 14 5 17.134 5 21H19C19 17.134 15.866 14 12 14Z" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path> </g></svg>
+
+                <div class="nav-item">
+                    <a class="nav-link" href="#">
+                        <i class="fas fa-user"></i>
+
                     </a>
                 </div>
             </div>
@@ -95,9 +101,30 @@
         </div>
     </nav>
 
+
     <a href="index.php?ctl=subirCapitulo" class="p-5">Subir capitulo</a>
     <a href="index.php?ctl=registro" class="p-5">Registro</a>
     <a href="index.php?ctl=diferente" class="p-5">Diferente</a>
+
+ 
+    <div class="modal fade" id="searchModal" tabindex="-1" aria-labelledby="searchModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="searchModalLabel">Search</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <!-- Código del formulario de búsqueda dentro del modal -->
+                    <form>
+                        <input class="form-control" type="search" placeholder="Search" aria-label="Search">
+                        <button class="btn btn-outline-success mt-2" type="submit">Search</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
 </body>
 
 </html>
