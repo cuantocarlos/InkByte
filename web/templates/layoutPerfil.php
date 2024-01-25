@@ -2,26 +2,30 @@
 include '../../app/modelo/classConsultas.php';
 
 try {
-    // Saco los datos del usuario
-    $id_user = 1; // borrar Sacar de sesión el ID
+    // Datos del usuario
+    $id_user = 1; // Deberías obtenerlo de la sesión
     $consulta = new Consultas();
     $usuario = $consulta->obtenerTodoDeUsuario($id_user);
-    // Saco listas de libros del usuario
+
+    //Listado de libros
     $librosLeidos = $consulta->obtenerListaLibros($id_user, "Leidos");
     $librosPendientes = $consulta->obtenerListaLibros($id_user, "Pendientes");
 
-    // Saco las imágenes de los libros favoritos
-    $imagenesLibrosLeidos = array();
-    $imagenesLibrosPendientes = array();
-
-    $imagenesLibrosLeidos = obtenerImagenesLista("Leidos");
-    $imagenesLibrosPendientes = obtenerImagenesLista("Pendientes");
+    //Imagenes Listados Libros
+    $imagenesLibrosLeidos = $consulta->obtenerImagenesLista($id_user,"Leidos");
+    $imagenesLibrosPendientes = $consulta->obtenerImagenesLista($id_user,"Pendientes");
+    $imagenesLibrosSeguidos = $consulta->obtenerImagenesLista($id_user,"Seguidos");
+    // $imagenesLibrosPublicados = $consulta->obtenerImagenesLista($id_user,"Publicados");
 
 } catch (PDOException $e) {
     echo "Error: " . $e->getMessage();
 }
 
-$rutaImagenPerfil = "https://picsum.photos/200/300";
+// Ruta de la imagen de perfil
+$rutaImagenPerfil = $usuario['foto_perfil']; // Deberías comprobar si la imagen existe
+
+
+// $rutaImagenPerfil = "https://picsum.photos/200/300";
 
 ?>
 <div class="container mt-5">
@@ -84,7 +88,7 @@ $rutaImagenPerfil = "https://picsum.photos/200/300";
                 <img src="<?php echo $imagen; ?>" class="card-img-top" alt="Portada del libro" />
             </div>
             <?php endforeach;?>
-        </div>
+        </div> 
     </div>
 </div>
 <!-- Include Bootstrap JS and Popper.js -->

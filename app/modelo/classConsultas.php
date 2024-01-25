@@ -1,5 +1,4 @@
 <?php
-include('classModelo.php');//añadido
 
 class Consultas extends Modelo {
     /*Buscar en la linea de una tabla, con un campo*/
@@ -17,17 +16,17 @@ class Consultas extends Modelo {
         return $resultado;
     }
     
-    function obtenerListaLibros($idUsuario,$nombreLista) {
+    function obtenerListaLibros($idUsuario, $nombreLista) {
         $stmt = $this->conexion->prepare("SELECT * FROM $nombreLista WHERE id_user = ?");
         $stmt->execute([$idUsuario]);
-        $resultado = $stmt->fetch(PDO::FETCH_ASSOC);
+        $resultado = $stmt->fetchAll(PDO::FETCH_ASSOC);
         return $resultado;
     }
-
-    function obtenerImagenesLista($idUsuario,$nombreLista){
-        $stmt = $this ->conexion->prepare("SELECT * FROM $nombreLista WHERE id_user =?");
+    
+    function obtenerImagenesLista($idUsuario, $nombreLista){
+        $stmt = $this->conexion->prepare("SELECT * FROM $nombreLista WHERE id_user = ?");
         $stmt->execute([$idUsuario]);
-        $resultado = $stmt->fetch(PDO::FETCH_ASSOC);
+        $resultado = $stmt->fetchAll(PDO::FETCH_ASSOC);
         return $resultado;
     }
     
