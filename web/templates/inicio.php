@@ -66,7 +66,7 @@
                           <button class="btn btn-outline-primary mx-2" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Login">LOGIN</button>
                         </li>
                         <li class="nav-item">
-                            <button class="btn btn-outline-primary mx-2" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Login">ACCOUNT</button>
+                            <button class="btn btn-outline-primary mx-2" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Login"><a href="registro.php">ACCOUNT</a></button>
                         </li>
                       </ul>
                     </div>

@@ -11,22 +11,23 @@
         crossorigin="anonymous"></script>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" />
 
+    <!--EL FAVICON TAMBIEN VA AQUI-->
+
     <!--LINKS A MODIFICACIONES DE CSS AQUI-->
     <link rel="stylesheet" href="../css/styles/navbar.css">
 
 
 </head>
 <body>
-
-
-<!--AQUI VA EL HEADER-->
-
+<!--AQUI VA EL HEADER (vamos a implementar 4 headers distintos: invitado/lector/escritor/admin. Todo esto con la funcionalidad de abajo)-->
 <?php
-    if(!isset($menu)) {
+/*    if(!isset($menu)) {
         $menu = 'menuInvitado.php';
     }
     include $menu;
+*/
 ?>
+
 
 <!--AQUI VA EL FOOTER-->
 
