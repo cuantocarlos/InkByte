@@ -1,10 +1,11 @@
+<?php ob_start() ?>
     <script type="module" src="../scripts/bGeneral.js"></script>
     <script type="module" src="../scripts/validar_inicio_sesion.js"></script>
           <div class="modal-header p-5 pb-4 border-bottom-0">
             <h1 class="fw-bold mb-0 fs-2">Inicio de Sesión</h1>
           </div>
           <div class="modal-body p-5 pt-0">
-            <form method="post" action="">
+            <form method="post" action="index.php?ctl=iniciarSesion">
               <div class="form-floating mb-3">
                 <input type="email" class="form-control rounded-3" id="mail" placeholder="name@example.com" name="mail" required>
                 <label for="email">Correo Electrónico</label>
@@ -17,5 +18,7 @@
               <small class="text-body-secondary ">Si aún no tienes cuenta <a href="registro.php">registrate aquí</a>.</small>
             </form>
           </div>
+
+<?php $contenido = ob_get_clean() ?>
 
 <?php include 'layout.php' ?>

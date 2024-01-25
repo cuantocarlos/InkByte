@@ -1,3 +1,4 @@
+<?php ob_start() ?>
     <script type="module" src="../scripts/bGeneral.js"></script>
     <script type="module" src="../scripts/validar_registro.js"></script>
 
@@ -6,7 +7,7 @@
             <h1 class="fw-bold mb-0 fs-2 mb-4">Registrarse gratuitamente</h1>
           </div>
           <div class="body p-5 pt-0">
-            <form action="index.php" method="post" enctype="multipart/form-data">
+            <form action="index.php?ctl=registro" method="post" enctype="multipart/form-data">
             <div class="container d-flex justify-content-end my-2">
             <small class="text-body-secondary ">Los campos con * son obligatorios</small>
             </div>
@@ -38,7 +39,7 @@
               <label for="f_perfil" class="form-label">Seleccioine una foto de perfil:</label>
               <input class="form-control" type="file" id="f_perfil" name="f_perfil">
               </div>
-              <small class="text-body-secondary">Máximo 300 caracteres.</small>
+              <small class="text-body-secondary mb-1">Máximo 300 caracteres.</small>
               <div class="form-floating">
               <textarea class="form-control" placeholder="Añade una descripción" id="descripcion" style="height: 100px" name="descripcion"></textarea>
               <label for="descripcion">Descripción</label>
@@ -56,5 +57,7 @@
             </form>
           </div>
         </div>
+
+        <?php $contenido = ob_get_clean() ?>
 
 <?php include 'layout.php' ?>
