@@ -16,11 +16,11 @@ class Controller{
 
     private function cargaMenu()
     {
-        if ($_SESSION['nivel_usuario'] == 0) {
+        if ($_SESSION['nivel'] == 0) {
             return 'menuInvitado.php';
-        } else if ($_SESSION['nivel_usuario'] == 1) {
+        } else if ($_SESSION['nivel'] == 1) {
             return 'menuUser.php';
-        } else if ($_SESSION['nivel_usuario'] == 2) {
+        } else if ($_SESSION['nivel'] == 2) {
             return 'menuAdmin.php';
         }
     }
@@ -34,7 +34,7 @@ class Controller{
             $mail="";
             $pass="";
 
-            if ($_SESSION['nivel_usuario'] > 0) {
+            if ($_SESSION['nivel'] > 0) {
                 header("location:index.php?ctl=inicio");
             }
 
@@ -110,7 +110,7 @@ class Controller{
                 'opcion' =>''
             );
 
-            if ($_SESSION['nivel_usuario'] > 0) {
+            if ($_SESSION['nivel'] > 0) {
                 header("location:index.php?ctl=inicio");
             }
 
@@ -239,7 +239,8 @@ class Controller{
                 'id_libro' => '',
                 'num_cap'=>'',
                 'titulo' =>'',
-                'archivo' =>''
+                'archivo' =>'',
+                'mensaje' => []
             );
 
             if ($_SESSION['nivel'] != 2) {
@@ -261,10 +262,10 @@ class Controller{
 
                 if(empty($params["mensaje"])){
 
-                    $archivo = cFile("archivoPDF", $params["mensaje"],Config::$extensionesCapitulos, "../archivos/capitulos/", 2000);
-
+                    $archivo = cFile("archivoPDF", $params["mensaje"],Config::$extensionesCapitulos, __DIR__ . '/../archivos/capitulos/', 200000000);
+                    var_dump($params["mensaje"]);
                     if(empty($params["mensaje"])){
-
+                        echo ("b");
                         $cs -> agregarCapitulo($id_libro, $num_cap, $titulo, $archivo);
                         $cs -> aumentarCapitulosLibro($id_libro);
 

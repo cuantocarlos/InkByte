@@ -72,6 +72,8 @@ si el usuario tiene permiso suficiente para ejecutar esa acción
 if (method_exists($controlador['controller'], $controlador['action'])) {
     // echo "el nivel es ". $controlador["nivel"];
     // echo "el nivel session es ". $_SESSION['nivel'];
+    $_SESSION['nivel'] = 2; //BORRAR NADA MAS HACER EL LOGIN
+    $_SESSION["id_user"] = 1; //BORRAR NADA MAS HACER EL LOGIN
     if ($controlador['nivel'] <= $_SESSION['nivel']) {
         call_user_func(array(
             new $controlador['controller'],

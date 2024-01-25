@@ -1,11 +1,16 @@
 <?php 
-include "../../app/libs/bGeneral.php";
-include "../../app/modelo/classConsultas.php";
+
+
+
+
+
+
 
 try{
     $cs = new Consultas();
     $titulos = $cs -> obtenerTitulosLibrosPorUsuario($_SESSION["id_user"]);
-    $id = $cs -> obtenerIdLibrosPorUsuario($_SESSION["id_user"]);
+    $ids = $cs -> obtenerIdLibrosPorUsuario($_SESSION["id_user"]);
+    var_dump($ids);
 }catch (PDOException $e) {
     echo "Error: " . $e->getMessage();
 }
@@ -13,7 +18,7 @@ try{
 
 <div class="container d-flex flex-column mt-5">
         <h2>Sube tu capítulo</h2>
-        <form action="" method="post">
+        <form action="" method="post" enctype="multipart/form-data">
 
             <div class="form-group">
                 <label for="tus_opciones">Selecciona un libro:</label>
@@ -41,7 +46,7 @@ try{
                 <input type="file" class="form-control-file" id="archivoPDF" name="archivoPDF" accept=".pdf">
             </div>
 
-            
+            <button class="w-100 mb-2 btn btn-lg rounded-3 btn-primary mt-4" type="submit" name="bAceptar">Subir capítulo</button>
         </form>
     </div>
 
