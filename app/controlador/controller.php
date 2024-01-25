@@ -13,6 +13,18 @@ use PHPMailer\PHPMailer\Exception;
 
 
 class Controller{
+
+    private function cargaMenu()
+    {
+        if ($_SESSION['nivel'] == 0) {
+            return 'menuInvitado.php';
+        } else if ($_SESSION['nivel'] == 1) {
+            return 'menuUser.php';
+        } else if ($_SESSION['nivel'] == 2) {
+            return 'menuAdmin.php';
+        }
+    }
+
     public function iniciarSesion() {
         try{
             $params = array(
@@ -22,7 +34,7 @@ class Controller{
             $mail="";
             $pass="";
 
-            if ($_SESSION['nivel_usuario'] > 0) {
+            if ($_SESSION['nivel'] > 0) {
                 header("location:index.php?ctl=inicio");
             }
 
@@ -98,7 +110,7 @@ class Controller{
                 'opcion' =>''
             );
 
-            if ($_SESSION['nivel_usuario'] > 0) {
+            if ($_SESSION['nivel'] > 0) {
                 header("location:index.php?ctl=inicio");
             }
 
@@ -214,58 +226,68 @@ class Controller{
     }
 
     public function subirCapitulo(){
-        try{
-            $id_libro = "";
-            $num_cap = "";
-            $titulo = "";
-            $archivo = "";
-
-            $cs = new Consultas();
-
-            $opcionesDisponibles = $cs -> obtenerIdLibrosPorUsuario($_SESSION["id_user"]);
-
-            $params = array(
-                'id_libro' => '',
-                'num_cap'=>'',
-                'titulo' =>'',
-                'archivo' =>''
-            );
-
-            if ($_SESSION['nivel_usuario'] != 2) {
-                header("location:index.php?ctl=inicio");
-            }
-
-            if((isset($_POST["bAceptar"]))){
-                $id_libro = recoge("tus_opciones");
-                $num_cap = recoge("numero_cap");
-                $titulo = recoge("titulo_cap");
-
-                if(!cOpciones($id_libro, $opcionesDisponibles)){
-                    $params["mensaje"] = "No has introducido un libro válido";
+        
+            try{
+                $cs = new Consultas();
+                $opcionesDisponibles = $cs -> obtenerIdLibrosPorUsuario(1); //cambiar por $_SESSION["id_user"]
+    
+                $params = array(
+                    'id_libro' => '',
+                    'num_cap'=>'',
+                    'titulo' =>'',
+                    'archivo' =>'',
+                    'mensaje' => [],
+                    'capitulos_del_libro' => ''
+                );
+    
+                if ($_SESSION['nivel'] != 2) {
+                    header("location:index.php?ctl=inicio");
                 }
-
-                cTexto($titulo, "titulo", $params["mensaje"], 50, 1, true, true);
-
-                cNum($num_cap, "capitulo", $params["mensaje"], 0, 9999);
-
-                if(empty($params["mensaje"])){
-
-                    $archivo = cFile("archivoPDF", $params["mensaje"],Config::$extensionesCapitulos, "../archivos/capitulos/", 2000);
-
-                    if(empty($params["mensaje"])){
-
-                        $cs -> agregarCapitulo($id_libro, $num_cap, $titulo, $archivo);
-                        $cs -> aumentarCapitulosLibro($id_libro);
-
+    
+                
+    
+                if((isset($_POST["bAceptar"]))){
+                    $params["id_libro"] = recoge("tus_opciones");
+                    $params['capitulos_del_libro'] = $cs -> filas("capitulos", "id_libro", $params["id_libro"]);
+    
+                    $params["num_cap"] = $params['capitulos_del_libro'] + 1;            
+    
+                    $params["titulo"] = recoge("titulo_cap");
+    
+                    if(!cOpciones($params["id_libro"], $opcionesDisponibles)){
+                        $params["mensaje"] = "No has introducido un libro válido";
+                    }
+    
+                    if(cTexto($params["titulo"], "titulo", $params["mensaje"], 50, 1, true, true) == false){
+                        header ("Location:index.php?ctl=subirCapitulo");
+                    }
+    
+                    cNum($params["num_cap"], "capitulo", $params["mensaje"], 0, 9999);
+    
+                    if(empty($params["mensaje"]) && !empty($params["id_libro"]) && !empty($params["num_cap"]) && !empty($params["titulo"])){
+    
+                        $params["archivo"] = cFile("archivoPDF", $params["mensaje"],Config::$extensionesCapitulos, __DIR__ . '/../archivos/capitulos/', 200000000);
+                        if(empty($params["mensaje"]) && !empty($params["archivo"])){
+                            $cs -> agregarCapitulo($params["id_libro"], $params["num_cap"], $params["titulo"], $params["archivo"]);
+                            $cs -> aumentarCapitulosLibro($params["id_libro"]);
+    
+                        } else {
+                            header ("Location:index.php?ctl=subirCapitulo");
+                        }
+                    } else {
+                        header ("Location:index.php?ctl=subirCapitulo");
                     }
                 }
+            } catch (Exception $e){
+                echo "Error: " . $e->getMessage();
             }
-        } catch (Exception $e){
-            echo "Error: " . $e->getMessage();
-        }
-
+    
+            $menu = $this->cargaMenu();
+    
+            require __DIR__ . '/../../web/templates/subirCapitulo.php';
+            
     }
-
+    
     public function home()
     {
 
@@ -274,9 +296,21 @@ class Controller{
         );
         $menu = 'inicio.php';
 
-        if ($_SESSION['nivel_usuario'] > 0) {
+        if ($_SESSION['nivel'] > 0) {
             header("location:index.php?ctl=inicio");
         }
+        require __DIR__ . '/../../web/templates/inicio.php';
+    }
+
+    public function inicio()
+    {
+
+
+        $params = array(
+            'fecha' => date('d-m-Y')
+        );
+        $menu = $this->cargaMenu();
+
         require __DIR__ . '/../../web/templates/inicio.php';
     }
 

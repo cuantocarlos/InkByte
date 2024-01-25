@@ -75,6 +75,10 @@
 
         </div>
     </nav>
+
+    <a href="index.php?ctl=subirCapitulo" class="p-5">Subir capitulo</a>
+    <a href="index.php?ctl=registro" class="p-5">Registro</a>
+    <a href="index.php?ctl=diferente" class="p-5">Diferente</a>
 </body>
 
 </html>
