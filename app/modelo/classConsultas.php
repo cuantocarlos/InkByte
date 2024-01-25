@@ -8,7 +8,14 @@ class Consultas extends Modelo {
         $resultado = $stmt->fetch(PDO::FETCH_ASSOC);
         return ($resultado) ? $resultado[$columna] : null;
     }
-    
+
+    function filas ($tabla, $campoWhere, $input){
+        $stmt = $this->conexion->prepare("SELECT COUNT(*) as totalFilas FROM $tabla WHERE $campoWhere = ?");
+        $stmt->execute([$input]);
+        $resultado = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $resultado['totalFilas'];
+    }
+
     function usuarioUnico($nombre){
         $stmt =$this->conexion->prepare("SELECT nick FROM usuario WHERE nombre = ?");
         $stmt->execute([$nombre]);
@@ -145,25 +152,25 @@ class Consultas extends Modelo {
 
     /*Al agregar un capitulo, se incrementa el numero de capitulos del libro*/
     function aumentarCapitulosLibro($id_libro){
-        $stmt =$this->conexion-> prepare("UPDATE libros SET capitulos = capitulos + 1 WHERE id_libro = ?");
+        $stmt =$this->conexion-> prepare("UPDATE libro SET capitulos = capitulos + 1 WHERE id_libro = ?");
         $stmt->execute([$id_libro]);
     }
 
     /*Al borrar un capitulo, se decrementa el numero de capitulos del libro*/
     function reducirCapitulosLibro($id_libro){
-        $stmt =$this->conexion-> prepare("UPDATE libros SET capitulos = capitulos - 1 WHERE id_libro = ?");
+        $stmt =$this->conexion-> prepare("UPDATE libro SET capitulos = capitulos - 1 WHERE id_libro = ?");
         $stmt->execute([$id_libro]);
     }
 
     /*Al agregar una reseña, se incrementa el numero de reseñas del libro*/
     function aumentarNumResenasLibro($id_libro){
-        $stmt =$this->conexion-> prepare("UPDATE libros SET num_resenas = num_resenas + 1 WHERE id_libro = ?");
+        $stmt =$this->conexion-> prepare("UPDATE libro SET num_resenas = num_resenas + 1 WHERE id_libro = ?");
         $stmt->execute([$id_libro]);
     }
 
     /*Al borrar una reseña, se decrementa el numero de reseñas del libro*/
     function reducirNumResenasLibro($id_libro){
-        $stmt = $this->conexion-> prepare("UPDATE libros SET num_resenas = num_resenas - 1 WHERE id_libro = ?");
+        $stmt = $this->conexion-> prepare("UPDATE libro SET num_resenas = num_resenas - 1 WHERE id_libro = ?");
         $stmt->execute([$id_libro]);
     }
 
@@ -182,7 +189,7 @@ class Consultas extends Modelo {
 
     /*Actualiza la valoracion de un libro*/
     function actualizarValoracion($id_libro, $valoracion){
-        $stmt =$this->conexion-> prepare("UPDATE libros SET valoracion = $valoracion WHERE id_libro = ?");
+        $stmt =$this->conexion-> prepare("UPDATE libro SET valoracion = $valoracion WHERE id_libro = ?");
         $stmt->execute([$id_libro]);
     }
 
@@ -248,25 +255,28 @@ class Consultas extends Modelo {
         $stmt = $this->conexion->prepare("SELECT titulo FROM libro WHERE id_user = ?");
         $stmt->bindParam(1, $id_user);
         $stmt->execute();
-        $titulo = null;
-        $stmt->fetch($titulo);
+    
         $titulos = array();
-        while ($stmt->fetch()) {
-            $titulos[] = $titulo;
+        
+        while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+            $titulos[] = $row['titulo'];
         }
+    
         return $titulos;
     }
+    
 
     function obtenerIdLibrosPorUsuario($id_user) {
         $stmt = $this->conexion->prepare("SELECT id_libro FROM libro WHERE id_user = ?");
         $stmt->bindParam(1, $id_user);
         $stmt->execute();
-        $id = null;
-        $stmt->fetch($id);
-        $titulos = array();
-        while ($stmt->fetch()) {
-            $ids[] = $id;
+    
+        $ids = array();
+        
+        while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+            $ids[] = $row['id_libro'];
         }
+    
         return $ids;
     }
     
