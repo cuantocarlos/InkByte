@@ -153,7 +153,7 @@ class Controller{
                         $hash = password_hash($pass, PASSWORD_BCRYPT);
                         if($usuario = $cs->agregarNuevoUsuario($nombre,$nick,$mail,$hash,$fecha,$foto_perfil,$descripcion,$nivel,$activo)){
 
-                            $idUsuario = $cs -> buscar($mail, "usuario", "id_usuario","email");
+                            $idUsuario = $cs -> buscar($mail, "usuario", "id_user","email");
 
                             $fechaRegistro = time()+86400;
 
@@ -263,7 +263,7 @@ class Controller{
         } catch (Exception $e){
             echo "Error: " . $e->getMessage();
         }
-        
+
     }
 
     public function home()
