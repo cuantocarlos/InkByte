@@ -18,4 +18,6 @@ public static $max_file_size=200000;
 public static $formatoF="Y-m-d";
 
 public static $extensionesCapitulos=["pdf"];
+
+public static $menu = __DIR__.'/../templates/menuInvitado.php';
 }

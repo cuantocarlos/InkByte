@@ -1,24 +1,4 @@
-<!doctype html>
-<html lang="en">
-
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Bootstrap demo</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
-        crossorigin="anonymous"></script>
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" />
-
-    <link rel="stylesheet" href="../css/styles/navbar.css">
-</head>
-
-<body>
-
-    <!-- Navbar para pantallas grandes -->
-    <nav class="navbar navbar-expand-lg navbar-light shadow-sm bg-light fixed-top d-none d-lg-block">
+  <div class="superNav border-bottom py-2 bg-light">
         <div class="container">
             <a class="navbar-brand d-flex align-items-center" href="#">
                 <!-- ... (código del logotipo) ... -->
@@ -71,64 +51,34 @@
 
                     </a>
                 </div>
+
+
+                <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                    <div class="container-fluid">
+                      <ul class="navbar-nav ms-auto">
+                        <!-- Agregamos la clase "search-container-li" al li específico -->
+                        <li class="nav-item search-container-li">
+                          <div class="search-container">
+                            <form action="#" method="get" class="mt-1">
+                              <input class="search-input" id="searchright" type="search" name="q" placeholder="Search">
+                              <label class="button search-button" for="searchright"><span class="mglass">&#9906;</span></label>
+                            </form>
+                          </div>
+                        </li>
+                        <li class="nav-item">
+                          <button class="btn btn-outline-primary mx-2" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Login">LOGIN</button>
+                        </li>
+                        <li class="nav-item">
+                            <button class="btn btn-outline-primary mx-2" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Login">ACCOUNT</button>
+                        </li>
+                      </ul>
+                    </div>
+                  </nav>
             </div>
         </div>
     </nav>
-
-    <!-- Navbar para dispositivos móviles con botón de búsqueda -->
-    <nav class="navbar navbar-light shadow-sm bg-light fixed-top d-lg-none">
-        <div class="container">
-            <a class="navbar-brand d-flex align-items-center" href="#">
-              
-                <span class="ml-3 font-weight-bold">INKBYTE</span>
-            </a>
-            <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse"
-                data-bs-target="#navbarNavMobile" aria-controls="navbarNavMobile" aria-expanded="false"
-                aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNavMobile">
-                <ul class="navbar-nav ms-auto">
-                    <!-- Nuevo nav-item de búsqueda para dispositivos móviles -->
-                    <li class="nav-item">
-                      <a class="nav-link" href="#">Nosotros</a>
-                  </li>
-                    <li class="nav-item">
-                        <a class="nav-link" data-bs-toggle="modal" data-bs-target="#searchModal">Search</a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </nav>
-
-
-    <a href="index.php?ctl=subirCapitulo" class="p-5">Subir capitulo</a>
-    <a href="index.php?ctl=registro" class="p-5">Registro</a>
-    <a href="index.php?ctl=diferente" class="p-5">Diferente</a>
-
- 
-    <div class="modal fade" id="searchModal" tabindex="-1" aria-labelledby="searchModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="searchModalLabel">Search</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <!-- Código del formulario de búsqueda dentro del modal -->
-                    <form>
-                        <input class="form-control" type="search" placeholder="Search" aria-label="Search">
-                        <button class="btn btn-outline-success mt-2" type="submit">Search</button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-
 </body>
 
 </html>
 
-</body>
-
-</html>
+<?php include('layout.php'); ?>
