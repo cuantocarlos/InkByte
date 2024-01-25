@@ -226,6 +226,10 @@ class Controller{
     }
 
     public function subirCapitulo(){
+
+        if ($_SESSION['nivel'] != 2) {
+            header("location:index.php?ctl=inicio");
+        }
         
             try{
                 $cs = new Consultas();
@@ -240,9 +244,7 @@ class Controller{
                     'capitulos_del_libro' => ''
                 );
     
-                if ($_SESSION['nivel'] != 2) {
-                    header("location:index.php?ctl=inicio");
-                }
+                
     
                 
     
