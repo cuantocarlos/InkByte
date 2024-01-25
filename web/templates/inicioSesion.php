@@ -15,10 +15,9 @@
                 <label for="pass">Contraseña</label>
               </div>
               <button class="w-100 mb-2 btn btn-lg rounded-3 btn-primary mt-4" type="submit" name="bAceptar">Iniciar Sesión</button>
-              <small class="text-body-secondary ">Si aún no tienes cuenta <a href="registro.php">registrate aquí</a>.</small>
+              <small class="text-body-secondary ">Si aún no tienes cuenta <a href="registro">registrate aquí</a>.</small>
             </form>
           </div>
-
 
 
 <?php include 'layout.php' ?>
