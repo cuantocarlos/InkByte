@@ -1,4 +1,5 @@
 <?php
+include '../../app/modelo/classModelo.php';
 include '../../app/modelo/classConsultas.php';
 
 try {
@@ -32,7 +33,7 @@ $rutaImagenPerfil = $usuario['foto_perfil']; // Deberías comprobar si la imagen
     <div class="row">
         <!-- Sección de la foto de perfil -->
         <div class="col-md-4">
-            <img src="<?php echo $usuario['foto_perfil'] ?>" alt="Foto de Perfil" class="img-fluid rounded-circle" />
+            <img src="<?php echo Config::$dir_usuario . $usuario['foto_perfil'] ?>" alt="Foto de Perfil" class="img-fluid rounded-circle" />
         </div>
         <!-- Sección de información del perfil -->
         <div class="col-md-8">
@@ -83,11 +84,11 @@ $rutaImagenPerfil = $usuario['foto_perfil']; // Deberías comprobar si la imagen
         </div>
         <div class="col-md-3">
             <h3>Libros Publicados</h3>
-            <?php foreach ($imagenesLibrosPublicados as $imagen): ?>
+            <!-- <?php foreach ($imagenesLibrosPublicados as $imagen): ?>
             <div class="card" style="width: 18rem;">
                 <img src="<?php echo $imagen; ?>" class="card-img-top" alt="Portada del libro" />
             </div>
-            <?php endforeach;?>
+            <?php endforeach;?> -->
         </div> 
     </div>
 </div>

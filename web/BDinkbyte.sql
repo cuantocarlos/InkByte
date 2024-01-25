@@ -53,8 +53,8 @@ CREATE TABLE Libro (
 	capitulos TINYINT,
 	num_resenas TINYINT,
 	valoracion DOUBLE,
-	visitas TINYINT,
-	visitasSemana TINYINT,
+	visitas INT,
+	visitasSemana INT,
 	estado TINYINT,
 	m_18 TINYINT,
 	m_16 TINYINT,
@@ -138,7 +138,7 @@ CREATE TABLE Terminados(
 -- DATOS FALSOS
 -- Usuario1
 INSERT INTO Usuario (nombre, nick, email, pass, f_nacimiento, foto_perfil, descripcion, nivel, activo)
-VALUES ('Alfredo García','operadornuclear',"Alfredo@endesa.es",'hashed_pass_1','1980-01-01','1.jpg','Me gusta divulgar ciencia y el deporte.',1,1);
+VALUES ('Alfredo García','operadornuclear',"Alfredo@endesa.es",'hashed_pass_1','1980-01-01','1.jpeg','Me gusta divulgar ciencia y el deporte.',1,1);
 -- Usuario2
 INSERT INTO Usuario (nombre, nick, email, pass, f_nacimiento, foto_perfil, descripcion, nivel, activo) 
 VALUES ('María García', 'mariagarcia88', 'mariagarcia@email.com', 'hashed_pass_2', '1988-07-22', '2.jpg', 'Apasionada por los viajes y la cocina.', 1, 1);
@@ -157,12 +157,12 @@ VALUES ('Juan Pérez', 'juanperez92', 'juanperez@email.com', 'hashed_pass_5', '1
 -- Generar datos realistas para la tabla de libros
 INSERT INTO Libro (id_user, titulo, sinopsis, imagen_portada, capitulos, num_resenas, valoracion, visitas, visitasSemana, estado, m_18, m_16, m_12)
 VALUES
-    (1, 'Geoestrategia de la bombilla: Energía nuclear para un cielo limpio', 'La humanidad se enfrenta a la titánica tarea de conseguir un sistema energético que cubra sus necesidades, que sea sostenible, respetuoso con el medio ambiente y la salud de las personas, y que al mismo tiempo sea asequible para tener un alcance universal. No existen soluciones mágicas en ingeniería, sino soluciones de compromiso en las que se analizan las ventajas e inconvenientes de cada una y se busca un equilibrio.', '1.jpg', 0, 0, 5, 1322, 60, 1, 0, 0, 0),
-    (2, 'El guardián entre el centeno', 'La historia sigue a Holden Caulfield, un adolescente en Nueva York, tras ser expulsado de la escuela y sus aventuras.', '2.webp', 25, 150, 4.5, 3000, 500, 1, 0, 0, 0),
-    (3, 'Cien años de soledad', 'La historia de la familia Buendía y sus generaciones, situada en el ficticio pueblo de Macondo.', 'cien_anos_soledad.jpg', 20, 200, 4.8, 5000, 800, 'Disponible', 1, 1, 1),
-    (3, 'Orgullo y prejuicio', 'La historia sigue los romances de las hermanas Bennet, especialmente el de Elizabeth Bennet y el Sr. Darcy.', 'orgullo_prejuicio.jpg', 30, 180, 4.7, 4500, 700, 'Disponible', 1, 1, 1),
-    (4, '1984', 'La novela distópica de George Orwell que sigue la vida de Winston Smith, quien vive en una sociedad totalitaria.', '1984.jpg', 35, 220, 4.6, 4000, 600, 'Disponible', 1, 1, 1),
-    (5, 'Matar un ruiseñor', 'La historia de Scout Finch, una niña en Alabama, y su padre, el abogado Atticus Finch, quien defiende a un hombre negro acusado de violar a una mujer blanca.', 'matar_ruiseñor.jpg', 28, 190, 4.9, 6000, 900, 'Disponible', 1, 1, 1);
+    (1, 'Geoestrategia de la bombilla: Energía nuclear para un cielo limpio', 'La humanidad se enfrenta a la titánica tarea de conseguir un sistema energético que cubra sus necesidades, que sea sostenible, respetuoso con el medio ambiente y la salud de las personas, y que al mismo tiempo sea asequible para tener un alcance universal. No existen soluciones mágicas en ingeniería, sino soluciones de compromiso en las que se analizan las ventajas e inconvenientes de cada una y se busca un equilibrio.', '1.jpg', 0, 0, 5, 80, 60, 1, 0, 0, 0),
+    (2, 'El guardián entre el centeno', 'La historia sigue a Holden Caulfield, un adolescente en Nueva York, tras ser expulsado de la escuela y sus aventuras.', '2.webp', 25, 150, 4.5, 20, 500, 1, 0, 0, 0),
+    (3, 'Cien años de soledad', 'La historia de la familia Buendía y sus generaciones, situada en el ficticio pueblo de Macondo.', 'cien_anos_soledad.jpg', 20, 200, 4.8, 5000, 800, 1, 1, 1, 1),
+    (3, 'Orgullo y prejuicio', 'La historia sigue los romances de las hermanas Bennet, especialmente el de Elizabeth Bennet y el Sr. Darcy.', 'orgullo_prejuicio.jpg', 30, 180, 4.7, 4500, 700, 1, 1, 1, 1),
+    (4, '1984', 'La novela distópica de George Orwell que sigue la vida de Winston Smith, quien vive en una sociedad totalitaria.', '1984.jpg', 35, 220, 4.6, 4000, 600, 1, 1, 1, 1),
+    (5, 'Matar un ruiseñor', 'La historia de Scout Finch, una niña en Alabama, y su padre, el abogado Atticus Finch, quien defiende a un hombre negro acusado de violar a una mujer blanca.', 'matar_ruiseñor.jpg', 28, 190, 4.9, 6000, 900, 1, 1, 1, 1);
 
 -- Listas Libros
 INSERT INTO Pendientes (id_libro, id_user) 
@@ -216,40 +216,9 @@ VALUES
     (5, 5, 'Inquietante visión del futuro que nos hace reflexionar sobre nuestra realidad actual.', 4),
     (1, 3, 'Una obra maestra que redefine la narrativa latinoamericana, imprescindible.', 5);
 
--- Seguidos
-INSERT INTO Seguidos (id_libro, id_user)
-VALUES
-    (1, 2),
-    (2, 3),
-    (3, 4),
-    (4, 5);
-
--- Pendientes
-INSERT IGNORE INTO Pendientes (id_libro, id_user)
-VALUES
-    (1, 1),
-    (5, 2),
-    (4, 3),
-    (3, 4),
-    (2, 5);
 
 
--- Leidos
-INSERT INTO Leidos (id_libro, id_user)
-VALUES
-    (1, 2),
-    (2, 3),
-    (3, 4),
-    (4, 5);
 
--- Terminados
-INSERT INTO Terminados (id_libro, id_user)
-VALUES
-    (1, 1),
-    (2, 2),
-    (3, 3),
-    (4, 4),
-    (5, 5);
 
 
 
