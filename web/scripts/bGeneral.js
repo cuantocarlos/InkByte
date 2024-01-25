@@ -49,3 +49,16 @@ export function validarRol() {
   export function abrirModalInfoUser() {
     document.getElementById("infoUser").style.display = 'block';
   }
+
+  export function verificarLibro(opcionIntroducida) {
+    var opcionesDisponibles = document.getElementById("tus_opciones").options;
+
+    for (var i = 0; i < opcionesDisponibles.length; i++) {
+        if (opcionesDisponibles[i].value == opcionIntroducida) {
+            alert("La opción introducida está entre las disponibles.");
+            return true;
+        }
+    }
+    alert("La opción introducida no está entre las disponibles.");
+    return false; 
+}

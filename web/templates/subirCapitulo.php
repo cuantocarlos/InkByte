@@ -1,21 +1,14 @@
 <?php 
 
-
-
-
-
-
-
 try{
     $cs = new Consultas();
     $titulos = $cs -> obtenerTitulosLibrosPorUsuario($_SESSION["id_user"]);
     $ids = $cs -> obtenerIdLibrosPorUsuario($_SESSION["id_user"]);
-    var_dump($ids);
 }catch (PDOException $e) {
     echo "Error: " . $e->getMessage();
 }
 ?>
-
+<script type="module" src="../scripts/validar_subirCapitulo.js"></script>
 <div class="container d-flex flex-column mt-5">
         <h2>Sube tu capítulo</h2>
         <form action="" method="post" enctype="multipart/form-data">
@@ -31,14 +24,11 @@ try{
                 </select>
             </div>
     
+
+
             <div class="form-group">
                 <label for="titulo_cap">Título del capítulo:</label>
                 <input type="text" class="form-control" name="titulo_cap" id="titulo_cap">
-            </div>
-
-            <div class="form-group">
-                <label for="numero_cap">Ingresa un número:</label>
-                <input type="number" class="form-control" id="numero_cap" name="numero_cap" min="0" max="9999" step="1">
             </div>
             
             <div class="form-group">
@@ -49,4 +39,6 @@ try{
             <button class="w-100 mb-2 btn btn-lg rounded-3 btn-primary mt-4" type="submit" name="bAceptar">Subir capítulo</button>
         </form>
     </div>
+
+
 

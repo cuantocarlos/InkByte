@@ -9,6 +9,13 @@ class Consultas extends Modelo {
         return ($resultado) ? $resultado[$columna] : null;
     }
 
+    function filas ($tabla, $campoWhere, $input){
+        $stmt = $this->conexion->prepare("SELECT COUNT(*) as totalFilas FROM $tabla WHERE $campoWhere = ?");
+        $stmt->execute([$input]);
+        $resultado = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $resultado['totalFilas'];
+    }
+
     function usuarioUnico($nombre){
         $stmt =$this->conexion->prepare("SELECT nick FROM usuario WHERE nombre = ?");
         $stmt->execute([$nombre]);
