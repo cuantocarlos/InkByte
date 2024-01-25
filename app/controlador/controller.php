@@ -38,7 +38,7 @@ class Controller{
                 header("location:index.php?ctl=inicio");
             }
 
-            if(isset($_REQUEST["bAceptar"])){
+            if(isset($_POST["bAceptar"])){
                 $mail = recoge("mail");
                 $pass = recoge("pass");
                         $cs=new Consultas();
@@ -307,6 +307,35 @@ class Controller{
         $menu = $this->cargaMenu();
 
         require __DIR__ . '/../../web/templates/inicio.php';
+    }
+
+    public function generoUsuario()
+    {
+        if ($_SESSION['nivel'] < 1) {
+            header("location:index.php?ctl=inicio");
+        }
+
+        $params = array (
+            'generos' => []
+        );
+        $generosUsu = [];
+        $generos = [
+            'terror'=>0,
+            'romance'=>0,
+            'fantasia'=>0,
+            'cficcion'=>0,
+            'historia'=>0,
+            'arte'=>0,
+            'thriller'=>0,
+            'poesia'=>0,
+            'drama'=>0,
+            'biografia'=>0,
+            'misterio'=>0,
+            'policia'=>0
+        ];
+        if(isset($_POST["bAceptar"])){
+            $generosUsu = recogeArray("generos");
+        }
     }
 
 }
