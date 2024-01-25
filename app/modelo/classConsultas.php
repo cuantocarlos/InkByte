@@ -17,6 +17,20 @@ class Consultas extends Modelo {
         return $resultado;
     }
     
+    function obtenerListaLibros($idUsuario,$nombreLista) {
+        $stmt = $this->conexion->prepare("SELECT * FROM $nombreLista WHERE id_user = ?");
+        $stmt->execute([$idUsuario]);
+        $resultado = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $resultado;
+    }
+
+    function obtenerImagenesLista($idUsuario,$nombreLista){
+        $stmt = $this ->conexion->prepare("SELECT * FROM $nombreLista WHERE id_user =?");
+        $stmt->execute([$idUsuario]);
+        $resultado = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $resultado;
+    }
+    
     function usuarioUnico($nombre){
         $stmt =$this->conexion->prepare("SELECT nick FROM usuario WHERE nombre = ?");
         $stmt->execute([$nombre]);

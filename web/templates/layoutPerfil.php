@@ -2,8 +2,21 @@
 include '../../app/modelo/classConsultas.php';
 
 try {
+    // Saco los datos del usuario
+    $id_user = 1; // borrar Sacar de sesión el ID
     $consulta = new Consultas();
-    $usuario = $consulta->obtenerTodoDeUsuario(1); //sacar de sesión
+    $usuario = $consulta->obtenerTodoDeUsuario($id_user);
+    // Saco listas de libros del usuario
+    $librosLeidos = $consulta->obtenerListaLibros($id_user, "Leidos");
+    $librosPendientes = $consulta->obtenerListaLibros($id_user, "Pendientes");
+
+    // Saco las imágenes de los libros favoritos
+    $imagenesLibrosLeidos = array();
+    $imagenesLibrosPendientes = array();
+
+    $imagenesLibrosLeidos = obtenerImagenesLista("Leidos");
+    $imagenesLibrosPendientes = obtenerImagenesLista("Pendientes");
+
 } catch (PDOException $e) {
     echo "Error: " . $e->getMessage();
 }
@@ -15,23 +28,23 @@ $rutaImagenPerfil = "https://picsum.photos/200/300";
     <div class="row">
         <!-- Sección de la foto de perfil -->
         <div class="col-md-4">
-            <img src="<?php echo $usuario['foto_perfil']?> " alt="Foto de Perfil" class="img-fluid rounded-circle" />
+            <img src="<?php echo $usuario['foto_perfil'] ?>" alt="Foto de Perfil" class="img-fluid rounded-circle" />
         </div>
         <!-- Sección de información del perfil -->
         <div class="col-md-8">
-                <?php echo $usuario['nombre']; ?>
-                <p>
-                    Fecha de Nacimiento:
-                    <?php echo $usuario['f_nacimiento']; ?>
-                </p>
-                <p>
-                    Correo Electrónico:
-                    <?php echo $usuario['email']; ?>
-                </p>
-                <p>
-                    Descripción:
-                    <?php echo $usuario['descripcion']; ?>
-                </p>
+            <?php echo $usuario['nombre']; ?>
+            <p>
+                Fecha de Nacimiento:
+                <?php echo $usuario['f_nacimiento']; ?>
+            </p>
+            <p>
+                Correo Electrónico:
+                <?php echo $usuario['email']; ?>
+            </p>
+            <p>
+                Descripción:
+                <?php echo $usuario['descripcion']; ?>
+            </p>
         </div>
     </div>
     <!-- Sección de los libros -->
@@ -39,27 +52,38 @@ $rutaImagenPerfil = "https://picsum.photos/200/300";
         <div class="col-md-3">
             <h3>Libros Favoritos</h3>
             <!-- <p><?php echo $librosFavoritos; ?></p> -->
+            <!-- Recorro cada libro favorito y pongo una card-->
+
             <!-- Pongo un slider con cards (los libros) -->
             <div class="card" style="width: 18rem;">
                 <img src="..." class="card-img-top" alt="..." />
-                <div class="card-body">
-                    <h5 class="card-title">Card title</h5>
-                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                    <a href="#" class="btn btn-primary">Go somewhere</a>
-                </div>
             </div>
         </div>
+
+        <!-- Listas -->
         <div class="col-md-3">
             <h3>Libros Leidos</h3>
-            <p></p>
+            <?php foreach ($imagenesLibrosLeidos as $imagen): ?>
+            <div class="card" style="width: 18rem;">
+                <img src="<?php echo $imagen; ?>" class="card-img-top" alt="Portada del libro" />
+            </div>
+            <?php endforeach;?>
         </div>
         <div class="col-md-3">
             <h3>Libros Pendientes</h3>
-            <p></p>
+            <?php foreach ($imagenesLibrosPendientes as $imagen): ?>
+            <div class="card" style="width: 18rem;">
+                <img src="<?php echo $imagen; ?>" class="card-img-top" alt="Portada del libro" />
+            </div>
+            <?php endforeach;?>
         </div>
         <div class="col-md-3">
             <h3>Libros Publicados</h3>
-            <p></p>
+            <?php foreach ($imagenesLibrosPublicados as $imagen): ?>
+            <div class="card" style="width: 18rem;">
+                <img src="<?php echo $imagen; ?>" class="card-img-top" alt="Portada del libro" />
+            </div>
+            <?php endforeach;?>
         </div>
     </div>
 </div>

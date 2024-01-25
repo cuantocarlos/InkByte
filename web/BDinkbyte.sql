@@ -117,7 +117,7 @@ CREATE TABLE Pendientes (
     FOREIGN KEY (id_user) REFERENCES Usuario(id_user) ON DELETE CASCADE
 );
 
-CREATE TABLE Completados (
+CREATE TABLE Leidos (
     id_libro INT,
     id_user INT,
     PRIMARY KEY (id_libro, id_user),
@@ -135,15 +135,32 @@ CREATE TABLE Terminados(
     FOREIGN KEY (id_user) REFERENCES Usuario(id_user) ON DELETE CASCADE
 );
 
+-- DATOS FALSOS
+-- Usuario1
+INSERT INTO Usuario (nombre, nick, email, pass, f_nacimiento, foto_perfil, descripcion, nivel, activo) 
+VALUES ('Juan Pérez', 'juanperez92', 'juanperez@email.com', 'hashed_pass_1', '1992-03-15', 'juanperez.jpg', 'Amante de la música y la tecnología.', 1, 1);
 
-
--- Insertar primer usuario
+-- Usuario2
+INSERT INTO Usuario (nombre, nick, email, pass, f_nacimiento, foto_perfil, descripcion, nivel, activo) 
+VALUES ('María García', 'mariagarcia88', 'mariagarcia@email.com', 'hashed_pass_2', '1988-07-22', 'mariagarcia.jpg', 'Apasionada por los viajes y la cocina.', 1, 1);
+-- Usuario3
 INSERT INTO Usuario (nombre, nick, email, pass, f_nacimiento, foto_perfil, descripcion, nivel, activo)
-VALUES ('Juan Pérez', 'juanperez92', 'juanperez@email.com', 'hashed_pass_1', '1992-03-15', 'juanperez.jpg', 'Amante de la música y la tecnología.', 3, 1);
-
--- Insertar segundo usuario
+VALUES ('Carlos López', 'carloslopez95', 'carlos@mail.com', 'hashed_pass_3', '1995-01-01', 'carloslopez.jpg', 'Me encanta la lectura y el deporte.', 1, 1);
+-- Usuario4
 INSERT INTO Usuario (nombre, nick, email, pass, f_nacimiento, foto_perfil, descripcion, nivel, activo)
-VALUES ('María García', 'mariagarcia88', 'mariagarcia@email.com', 'hashed_pass_2', '1988-07-22', 'mariagarcia.jpg', 'Apasionada por los viajes y la cocina.', 2, 1);
-
+VALUES ('Ana Martínez', 'anamartinez91', 'anamartinez@indoniesia.com', 'hashed_pass_4', '1991-12-12', 'anamartinez.jpg', 'Me gusta la música y la lectura.', 1, 1);
 
 --arreglar ruta imagen y poner carpetas de imagenes
+
+--Libros 
+INSERT INTO Pendientes (id_libro, id_user) 
+VALUES (2, 1),(1, 2),(3, 3),(10, 1),(12, 4),(8, 2);
+
+INSERT INTO Completados (id_libro, id_user)
+VALUES (3, 1),(2, 2),(1, 3),(4, 1),(5, 4),(6, 2);
+
+INSERT INTO Terminados (id_libro, id_user)
+VALUES (4, 1),(3, 2),(2, 3),(1, 1),(6, 4),(7, 2);
+
+INSERT INTO Seguidos (id_libro, id_user)
+VALUES (1, 1),(2, 2),(3, 3),(4, 1),(105, 4),(275, 2);
