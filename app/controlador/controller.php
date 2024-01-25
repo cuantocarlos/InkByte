@@ -22,7 +22,7 @@ class Controller{
             $mail="";
             $pass="";
 
-            if ($_SESSION['nivel'] > 0) {
+            if ($_SESSION['nivel_usuario'] > 0) {
                 header("location:index.php?ctl=inicio");
             }
 
@@ -72,7 +72,7 @@ class Controller{
             error_log($e->getMessage() . microtime() . PHP_EOL, 3, "../logs/logError.txt");
             header('Location: index.php?ctl=error');
         }
-        require __DIR__ . '/../../web/templates/inicioSesion.php';
+        require __DIR__ . '/../../web/templates/template_inicioSesion.php';
     }
 
     public function registro() {
@@ -98,7 +98,7 @@ class Controller{
                 'opcion' =>''
             );
 
-            if ($_SESSION['nivel'] > 0) {
+            if ($_SESSION['nivel_usuario'] > 0) {
                 header("location:index.php?ctl=inicio");
             }
 
