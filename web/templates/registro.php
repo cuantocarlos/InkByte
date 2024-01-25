@@ -1,4 +1,4 @@
-<?php ob_start() ?>
+
     <script type="module" src="../scripts/bGeneral.js"></script>
     <script type="module" src="../scripts/validar_registro.js"></script>
 
@@ -58,6 +58,6 @@
           </div>
         </div>
 
-        <?php $contenido = ob_get_clean() ?>
+
 
 <?php include 'layout.php' ?>

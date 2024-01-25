@@ -1,4 +1,4 @@
-<?php ob_start() ?>
+
     <script type="module" src="../scripts/bGeneral.js"></script>
     <script type="module" src="../scripts/validar_inicio_sesion.js"></script>
           <div class="modal-header p-5 pb-4 border-bottom-0">
@@ -19,6 +19,6 @@
             </form>
           </div>
 
-<?php $contenido = ob_get_clean() ?>
+
 
 <?php include 'layout.php' ?>

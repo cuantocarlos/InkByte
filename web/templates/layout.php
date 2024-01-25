@@ -24,10 +24,11 @@
 <!--AQUI VA EL HEADER-->
 
 <?php
-    if(!isset($menu)) {
+/*    if(!isset($menu)) {
         $menu = 'menuInvitado.php';
     }
     include $menu;
+*/
 ?>
 
 <!--AQUI VA EL FOOTER-->
