@@ -8,18 +8,25 @@ try {
     $consulta = new Consultas();
     $usuario = $consulta->obtenerTodoDeUsuario($id_user);
 
-    //Listado de libros del usuario
-    $librosLeidos = $consulta->obtenerListaLibros($id_user, "Leidos");
-    $librosPendientes = $consulta->obtenerListaLibros($id_user, "Pendientes");
-
     //Datos de los libros
     $librosLeidos = $consulta->obtenerLibrosPorUsuarioPRUEBA($id_user, "Leidos");
+    $librosPendientes = $consulta->obtenerLibrosPorUsuarioPRUEBA($id_user, "Pendientes");
+    $librosTerminados = $consulta->obtenerLibrosPorUsuarioPRUEBA($id_user, "Terminados");
+
     $imagenesLibrosLeidos = array();
     foreach ($librosLeidos as $libro) {
         $imagenesLibrosLeidos[] = $libro['imagen_portada'];
     }
+    $imagenesLibrosPendientes = array();
+    foreach ($librosPendientes as $libro) {
+        $imagenesLibrosPendientes[] = $libro['imagen_portada'];
+    }
+    $imagenesLibrosTerminados = array();
+    foreach ($librosTerminados as $libro) {
+        $imagenesLibrosTerminados[] = $libro['imagen_portada'];
+    }
 
-    var_dump($imagenesLibrosLeidos);
+
 
 } catch (PDOException $e) {
     echo "Error: " . $e->getMessage();
@@ -55,7 +62,7 @@ $rutaImagenPerfil = $usuario['foto_perfil']; // Deberías comprobar si la imagen
         </div>
     </div>
     <!-- Sección de los libros -->
-    <div class="row">
+    <div class="row mt-5">
         <div class="col-md-3">
             <h3>Libros Favoritos</h3>
             <!-- <p><?php echo $librosFavoritos; ?></p> -->
@@ -66,32 +73,29 @@ $rutaImagenPerfil = $usuario['foto_perfil']; // Deberías comprobar si la imagen
                 <img src="..." class="card-img-top" alt="..." />
             </div>
         </div>
-
-        <!-- Listas -->
         <div class="col-md-3">
-            <h3>Libros Leidos</h3>
+            <h3>Leidos</h3>
             <?php foreach ($imagenesLibrosLeidos as $imagen): ?>
-            <div class="card" style="width: 18rem;">
-                <img src="<?php echo Config::$dir_portadaLibro . $imagen; ?>" class="card-img-top" alt="Portada del libro" />
+            <div class="card w-200">
+                <img src="<?php echo Config::$dir_portadaLibro . $imagen; ?>" class="card-img-top " alt="Portada del libro" />
             </div>
             <?php endforeach;?>
         </div>
         <div class="col-md-3">
-            <h3>Libros Pendientes</h3>
+            <h3>Pendientes</h3>
             <?php foreach ($imagenesLibrosPendientes as $imagen): ?>
-            <div class="card" style="width: 18rem;">
-                <img src="<?php echo $imagen; ?>" class="card-img-top" alt="Portada del libro" />
+            <div class="card w-200">
+                <img src="<?php echo Config::$dir_portadaLibro . $imagen; ?>" class="card-img-top " alt="Portada del libro" />
             </div>
             <?php endforeach;?>
         </div>
         <div class="col-md-3">
-            <h3>Libros Publicados</h3>
-            <!-- <?php foreach ($imagenesLibrosPublicados as $imagen): ?>
-            <div class="card" style="width: 18rem;">
-                <img src="<?php echo $imagen; ?>" class="card-img-top" alt="Portada del libro" />
+            <h3>Terminados</h3>
+            <?php foreach ($imagenesLibrosTerminados as $imagen): ?>
+            <div class="card w-200">
+                <img src="<?php echo Config::$dir_portadaLibro . $imagen; ?>" class="card-img-top " alt="Portada del libro" />
             </div>
-            <?php endforeach;?> -->
-        </div>
+            <?php endforeach;?>
     </div>
 </div>
 <!-- Include Bootstrap JS and Popper.js -->
