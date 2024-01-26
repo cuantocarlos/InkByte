@@ -288,16 +288,43 @@ class Consultas extends Modelo {
     }
     
     function obtenerListaLibros($idUsuario, $nombreLista) {
+        $stmt = $this->conexion->prepare("SELECT * FROM $nombreLista WHERE id_user = ?");//podria obtener solo id_libro
+        $stmt->execute([$idUsuario]);
+        $resultado = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return $resultado;
+    }
+    
+    function obtenerLibrosPorUsuarioPRUEBA($idUsuario, $nombreLista){
+        // La consulta SQL utiliza un JOIN para combinar los datos de la tabla de libros con la lista específica.
+        // Asegúrate de que el nombre de la lista proporcionado es seguro para evitar inyecciones SQL.
+        $consultaSQL = "SELECT Libro.* FROM Libro JOIN $nombreLista ON Libro.id_libro = $nombreLista.id_libro WHERE $nombreLista.id_user = ?";
+
+        $stmt = $this->conexion->prepare($consultaSQL);
+        $stmt->execute([$idUsuario]);
+        $resultado = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return $resultado;
+    }
+
+    //Obtener libros de una lista
+    function obtenerLibrosPorUsuario($idUsuario, $nombreLista){
         $stmt = $this->conexion->prepare("SELECT * FROM $nombreLista WHERE id_user = ?");
         $stmt->execute([$idUsuario]);
         $resultado = $stmt->fetchAll(PDO::FETCH_ASSOC);
         return $resultado;
     }
     
-    function obtenerImagenesLista($idUsuario, $nombreLista){
-        $stmt = $this->conexion->prepare("SELECT * FROM $nombreLista WHERE id_user = ?");
-        $stmt->execute([$idUsuario]);
-        $resultado = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        return $resultado;
-    }
+
+    // // Función para obtener los libros de un usuario en una lista específica.
+    // function obtenerLibrosPorUsuarioPRUEBA($idUsuario, $nombreLista){
+    //     // La consulta SQL utiliza un JOIN para combinar los datos de la tabla de libros con la lista específica.
+    //     // Asegurarse de que el nombre de la lista proporcionado es seguro para evitar inyecciones SQL.
+    //     $consultaSQL = "SELECT libro.* FROM libro JOIN $nombreLista ON libro.id_libro = $nombreLista.id_libro WHERE $nombreLista.id_user = ?";
+    
+    //     $stmt = $this->conexion->prepare($consultaSQL);
+    //     $stmt->execute([$idUsuario]);
+    //     $resultado = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    //     return $resultado;
+    // }
+    //Obtener libros de una lista
+
 }

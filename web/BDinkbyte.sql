@@ -159,10 +159,10 @@ INSERT INTO Libro (id_user, titulo, sinopsis, imagen_portada, capitulos, num_res
 VALUES
     (1, 'Geoestrategia de la bombilla: Energía nuclear para un cielo limpio', 'La humanidad se enfrenta a la titánica tarea de conseguir un sistema energético que cubra sus necesidades, que sea sostenible, respetuoso con el medio ambiente y la salud de las personas, y que al mismo tiempo sea asequible para tener un alcance universal. No existen soluciones mágicas en ingeniería, sino soluciones de compromiso en las que se analizan las ventajas e inconvenientes de cada una y se busca un equilibrio.', '1.jpg', 0, 0, 5, 80, 60, 1, 0, 0, 0),
     (2, 'El guardián entre el centeno', 'La historia sigue a Holden Caulfield, un adolescente en Nueva York, tras ser expulsado de la escuela y sus aventuras.', '2.webp', 25, 150, 4.5, 20, 500, 1, 0, 0, 0),
-    (3, 'Cien años de soledad', 'La historia de la familia Buendía y sus generaciones, situada en el ficticio pueblo de Macondo.', 'cien_anos_soledad.jpg', 20, 200, 4.8, 5000, 800, 1, 1, 1, 1),
-    (3, 'Orgullo y prejuicio', 'La historia sigue los romances de las hermanas Bennet, especialmente el de Elizabeth Bennet y el Sr. Darcy.', 'orgullo_prejuicio.jpg', 30, 180, 4.7, 4500, 700, 1, 1, 1, 1),
-    (4, '1984', 'La novela distópica de George Orwell que sigue la vida de Winston Smith, quien vive en una sociedad totalitaria.', '1984.jpg', 35, 220, 4.6, 4000, 600, 1, 1, 1, 1),
-    (5, 'Matar un ruiseñor', 'La historia de Scout Finch, una niña en Alabama, y su padre, el abogado Atticus Finch, quien defiende a un hombre negro acusado de violar a una mujer blanca.', 'matar_ruiseñor.jpg', 28, 190, 4.9, 6000, 900, 1, 1, 1, 1);
+    (3, 'Cien años de soledad', 'La historia de la familia Buendía y sus generaciones, situada en el ficticio pueblo de Macondo.', '3.jpg', 20, 200, 4.8, 5000, 800, 1, 1, 1, 1),
+    (3, 'Orgullo y prejuicio', 'La historia sigue los romances de las hermanas Bennet, especialmente el de Elizabeth Bennet y el Sr. Darcy.', '4.jpg', 30, 180, 4.7, 4500, 700, 1, 1, 1, 1),
+    (4, '1984', 'La novela distópica de George Orwell que sigue la vida de Winston Smith, quien vive en una sociedad totalitaria.', '5.jpg', 35, 220, 4.6, 4000, 600, 1, 1, 1, 1),
+    (5, 'Matar un ruiseñor', 'La historia de Scout Finch, una niña en Alabama, y su padre, el abogado Atticus Finch, quien defiende a un hombre negro acusado de violar a una mujer blanca.', '6.jpg', 28, 190, 4.9, 6000, 900, 1, 1, 1, 1);
 
 -- Listas Libros
 INSERT INTO Pendientes (id_libro, id_user) 

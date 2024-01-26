@@ -8,15 +8,18 @@ try {
     $consulta = new Consultas();
     $usuario = $consulta->obtenerTodoDeUsuario($id_user);
 
-    //Listado de libros
+    //Listado de libros del usuario
     $librosLeidos = $consulta->obtenerListaLibros($id_user, "Leidos");
     $librosPendientes = $consulta->obtenerListaLibros($id_user, "Pendientes");
 
-    //Imagenes Listados Libros
-    $imagenesLibrosLeidos = $consulta->obtenerImagenesLista($id_user,"Leidos");
-    $imagenesLibrosPendientes = $consulta->obtenerImagenesLista($id_user,"Pendientes");
-    $imagenesLibrosSeguidos = $consulta->obtenerImagenesLista($id_user,"Seguidos");
-    // $imagenesLibrosPublicados = $consulta->obtenerImagenesLista($id_user,"Publicados");
+    //Datos de los libros
+    $librosLeidos = $consulta->obtenerLibrosPorUsuarioPRUEBA($id_user, "Leidos");
+    $imagenesLibrosLeidos = array();
+    foreach ($librosLeidos as $libro) {
+        $imagenesLibrosLeidos[] = $libro['imagen_portada'];
+    }
+
+    var_dump($imagenesLibrosLeidos);
 
 } catch (PDOException $e) {
     echo "Error: " . $e->getMessage();
@@ -25,7 +28,6 @@ try {
 // Ruta de la imagen de perfil
 $rutaImagenPerfil = $usuario['foto_perfil']; // Deberías comprobar si la imagen existe
 
-
 // $rutaImagenPerfil = "https://picsum.photos/200/300";
 
 ?>
@@ -33,7 +35,7 @@ $rutaImagenPerfil = $usuario['foto_perfil']; // Deberías comprobar si la imagen
     <div class="row">
         <!-- Sección de la foto de perfil -->
         <div class="col-md-4">
-            <img src="<?php echo Config::$dir_usuario . $usuario['foto_perfil'] ?>" alt="Foto de Perfil" class="img-fluid rounded-circle" />
+            <img src="<?php echo Config::$dir_usuarioLayoutPerfil . $usuario['foto_perfil'] ?>" alt="Foto de Perfil" class="img-fluid rounded-circle" />
         </div>
         <!-- Sección de información del perfil -->
         <div class="col-md-8">
@@ -70,7 +72,7 @@ $rutaImagenPerfil = $usuario['foto_perfil']; // Deberías comprobar si la imagen
             <h3>Libros Leidos</h3>
             <?php foreach ($imagenesLibrosLeidos as $imagen): ?>
             <div class="card" style="width: 18rem;">
-                <img src="<?php echo $imagen; ?>" class="card-img-top" alt="Portada del libro" />
+                <img src="<?php echo Config::$dir_portadaLibro . $imagen; ?>" class="card-img-top" alt="Portada del libro" />
             </div>
             <?php endforeach;?>
         </div>
@@ -89,9 +91,11 @@ $rutaImagenPerfil = $usuario['foto_perfil']; // Deberías comprobar si la imagen
                 <img src="<?php echo $imagen; ?>" class="card-img-top" alt="Portada del libro" />
             </div>
             <?php endforeach;?> -->
-        </div> 
+        </div>
     </div>
 </div>
 <!-- Include Bootstrap JS and Popper.js -->
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-csSR1II5TRV6zW2xIqC1l4C6IN5/xtz9F1qQjD8rA7C6MSQ63bAsHtkgqFMybzRc" crossorigin="anonymous"></script>
+
+<?php include 'layout.php';?>
