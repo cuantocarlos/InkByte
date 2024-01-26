@@ -17,15 +17,17 @@ class Controller{
     private function cargaMenu()
     {
         if ($_SESSION['nivel'] == 0) {
-            return 'menuInvitado.php';
+            return 'inicio.php';
         } else if ($_SESSION['nivel'] == 1) {
-            return 'menuUser.php';
+            return 'inicio.php';
         } else if ($_SESSION['nivel'] == 2) {
-            return 'menuAdmin.php';
+            return 'inicio.php';
         }
     }
 
     public function iniciarSesion() {
+        var_dump($_SESSION["nivel"]);
+
         try{
             $params = array(
                 'mail' =>'',
@@ -42,15 +44,13 @@ class Controller{
                 $mail = recoge("mail");
                 $pass = recoge("pass");
 
-                if(!empty($errores)){
-                include("../../web/templates/inicioSesion.php"); //igual hay que borrar
-                }else{
+                
                         $cs=new Consultas();
                         if(!$usuario = $cs->verificarEmail($mail)){
                             $param['mensaje']="El correo no existe";
                         }else{
                             if($cs->verificarPass($usuario['email'],$usuario['pass'])){
-                                if($usuario['activo']===1){
+                                if($usuario['activo']==1){
                                     $_SESSION['id_user'] = $usuario['id_user'];
                                     $_SESSION['nombre'] = $usuario['nombre'];
                                     $_SESSION['nick'] = $usuario['nick'];
@@ -75,7 +75,7 @@ class Controller{
                                 $param["mensaje"]="La contraseña es incorrecta";
                             }
                         }
-                }
+                        header('Location: index.php?ctl=inicio');
             }
         }catch (Exception $e) {
             error_log($e->getMessage() . microtime() . PHP_EOL, 3, "../logs/logException.txt");
@@ -84,7 +84,7 @@ class Controller{
             error_log($e->getMessage() . microtime() . PHP_EOL, 3, "../logs/logError.txt");
             header('Location: index.php?ctl=error');
         }
-        require __DIR__ . '/../../web/templates/template_inicioSesion.php';
+        require __DIR__ . '/../../web/templates/inicioSesion.php';
     }
 
     public function registro() {
@@ -107,7 +107,9 @@ class Controller{
                 'pass' =>'',
                 'fecha' =>'',
                 'foto_perfil'=>'',
-                'opcion' =>''
+                'opcion' =>'',
+                'archivo' => '',
+                'mensaje' => []
             );
 
             if ($_SESSION['nivel'] > 0) {
@@ -122,9 +124,10 @@ class Controller{
                 $pass=recoge("pass");
                 $pass2=recoge("pass2");
                 $fecha=recoge("fecha");
-                $foto_perfil=recoge("foto_perfil");
                 $descripcion=recoge("descripcion");
                 $lector=recoge("opcion_usuario");
+
+                
 
 
                 //comenzamos las validaciones
@@ -140,8 +143,8 @@ class Controller{
                     $nick=sinEspacios($nick);
                 }
 
-                cFile($foto_perfil,$params,Config::$extensionesValidas,Config::$dir_usuario,Config::$max_file_size);
-
+                
+                
                 cEmail($mail,$errores,"mail",30,8);
 
                 if(cPassword($pass,$errores) && $pass!==$pass2){
@@ -157,70 +160,75 @@ class Controller{
                     $nivel=2;
                 }
 
-                if (!isset($_POST["terminos"]) || $_POST["terminos"] != 1) {
-                    $param["mensaje"]="Debes aceptar los términos y condiciones para poder registrarte";
-                }
-                    try{
-                        $cs = new Consultas();
-                        $hash = password_hash($pass, PASSWORD_BCRYPT);
-                        if($usuario = $cs->agregarNuevoUsuario($nombre,$nick,$mail,$hash,$fecha,$foto_perfil,$descripcion,$nivel,$activo)){
-
-                            $idUsuario = $cs -> buscar($mail, "usuario", "id_user","email");
-
-                            $fechaRegistro = time()+86400;
-
-                            $token = uniqid();
-
-                            $cs -> agregarToken($token, $fechaRegistro, $idUsuario);
-
-                            $mailer = new PHPMailer();
-
-                            try {
-                                    // Configura el servidor SMTP
-                                    $mailer->isSMTP();
-                                    $mailer->Host = 'smtp.gmail.com';
-                                    $mailer->SMTPAuth = true;
-                                    $mailer->Username = 'inkbytedaw@gmail.com';
-                                    $mailer->Password = 'sfay bopb hxsr lyvu';
-                                    $mailer->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;
-                                    $mailer->Port = 587;
-
-                                    // Configura los destinatarios
-                                    $mailer->setFrom('inkbytedaw@gmail.com', 'InkByte');
-                                    $mailer->addAddress($mail, $nombre);
-
-                                    // Contenido del correo
-                                    $mailer->isHTML(true);
-                                    $mailer->Subject = 'Activa tu cuenta de InkByte';
-                                    $mailer->Body = 'Activa tu cuenta con este enlace: Enlace a la web placeholder' . $token;
-
-                                    // Enviar el correo
-                                    $mailer->send();
-                                    echo 'El correo se ha enviado con éxito.';
-                                } catch (Exception $e) {
-                                    echo "El correo no se pudo enviar. Error: {$mailer->ErrorInfo}";
-                                }
-                            header('Location: index.php?ctl=iniciarSesion');
-                        }else{
-                            $params = array(
-                                'nombre' => $nombre,
-                                'mail' =>$mail,
-                                'pass' =>$pass,
-                                'fecha' =>$fecha,
-                                'opcion' =>$lector
-                            );
-
-                            $params['mensaje'] = 'No se ha podido insertar el usuario. Revisa el formulario.';
-                        }
-                    }catch (Exception $e){
-                            // En este caso guardamos los errores en un archivo de errores log
-                            error_log($e->getMessage() . "##Código: " . $e->getCode() . "  " . microtime() . PHP_EOL, 3, "../logs/logBD.txt");
-                            // guardamos en ·errores el error que queremos mostrar a los usuarios
-                            header('Location: index.php?ctl=error');
-                    }catch (Error $e){
-                        error_log($e->getMessage() . microtime() . PHP_EOL, 3, "../logs/logError.txt");
-                        header('Location: index.php?ctl=error');
+                if(empty($params["mensaje"] && $params["archivo"])){
+                    $params["archivo"] = cFile("f_perfil",$params["mensaje"],Config::$extensionesValidas,__DIR__ . '/../archivos/img/perfil/',Config::$max_file_size);
+                    if (!isset($_POST["terminos"]) || $_POST["terminos"] != 1) {
+                        $param["mensaje"]="Debes aceptar los términos y condiciones para poder registrarte";
                     }
+                        try{
+                            $cs = new Consultas();
+                            $hash = password_hash($pass, PASSWORD_BCRYPT);
+                            if($usuario = $cs->agregarNuevoUsuario($nombre,$nick,$mail,$hash,$fecha,$params["archivo"],$descripcion,$nivel,$activo)){
+    
+                                $idUsuario = $cs -> buscar($mail, "usuario", "id_user","email");
+    
+                                $fechaRegistro = time()+86400;
+    
+                                $token = uniqid();
+    
+                                $cs -> agregarToken($token, $fechaRegistro, $idUsuario);
+    
+                                $mailer = new PHPMailer();
+    
+                                try {
+                                        // Configura el servidor SMTP
+                                        $mailer->isSMTP();
+                                        $mailer->Host = 'smtp.gmail.com';
+                                        $mailer->SMTPAuth = true;
+                                        $mailer->Username = 'inkbytedaw@gmail.com';
+                                        $mailer->Password = 'sfay bopb hxsr lyvu';
+                                        $mailer->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;
+                                        $mailer->Port = 587;
+    
+                                        // Configura los destinatarios
+                                        $mailer->setFrom('inkbytedaw@gmail.com', 'InkByte');
+                                        $mailer->addAddress($mail, $nombre);
+    
+                                        // Contenido del correo
+                                        $mailer->isHTML(true);
+                                        $mailer->Subject = 'Activa tu cuenta de InkByte';
+                                        $mailer->Body = 'Activa tu cuenta con este enlace: Enlace a la web placeholder' . $token;
+    
+                                        // Enviar el correo
+                                        $mailer->send();
+                                        echo 'El correo se ha enviado con éxito.';
+                                    } catch (Exception $e) {
+                                        echo "El correo no se pudo enviar. Error: {$mailer->ErrorInfo}";
+                                    }
+                                header('Location: index.php?ctl=iniciarSesion');
+                            }else{
+                                $params = array(
+                                    'nombre' => $nombre,
+                                    'mail' =>$mail,
+                                    'pass' =>$pass,
+                                    'fecha' =>$fecha,
+                                    'opcion' =>$lector
+                                );
+    
+                                $params['mensaje'] = 'No se ha podido insertar el usuario. Revisa el formulario.';
+                            }
+                        }catch (Exception $e){
+                                // En este caso guardamos los errores en un archivo de errores log
+                                error_log($e->getMessage() . "##Código: " . $e->getCode() . "  " . microtime() . PHP_EOL, 3, "../logs/logBD.txt");
+                                // guardamos en ·errores el error que queremos mostrar a los usuarios
+                                header('Location: index.php?ctl=error');
+                        }catch (Error $e){
+                            error_log($e->getMessage() . microtime() . PHP_EOL, 3, "../logs/logError.txt");
+                            header('Location: index.php?ctl=error');
+                        }
+                }
+
+                
                 }
                 require __DIR__ . '/../../web/templates/registro.php';
     }
