@@ -1,14 +1,6 @@
-<?php 
 
-try{
-    $cs = new Consultas();
-    $titulos = $cs -> obtenerTitulosLibrosPorUsuario($_SESSION["id_user"]);
-    $ids = $cs -> obtenerIdLibrosPorUsuario($_SESSION["id_user"]);
-}catch (PDOException $e) {
-    echo "Error: " . $e->getMessage();
-}
-?>
-<script type="module" src="../scripts/validar_subirCapitulo.js"></script>
+    <script type="module" src="../web/scripts/bGeneral.js"></script>
+    <script type="module" src="../web/scripts/validar_subirCapitulo.js"></script>
 <div class="container d-flex flex-column mt-5">
           <div class="header p-5 ps-0 pb-4 border-bottom-0">
             <h1 class="fw-bold mb-0 fs-2 mb-4">Sube tu capítulo</h1>

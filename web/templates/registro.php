@@ -1,6 +1,7 @@
 
-    <script type="module" src="../scripts/bGeneral.js"></script>
-    <script type="module" src="../scripts/validar_registro.js"></script>
+    
+    <script type="module" src="../web/scripts/bGeneral.js"></script>
+    <script type="module" src="../web/scripts/validar_registro.js"></script>
 
     <div class="container">
           <div class="header p-5 pb-4 border-bottom-0">
