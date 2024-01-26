@@ -12,6 +12,8 @@ use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
 
+
+
 class Controller{
 
     private function cargaMenu()
@@ -26,7 +28,6 @@ class Controller{
     }
 
     public function iniciarSesion() {
-        var_dump($_SESSION["nivel"]);
 
         try{
             $params = array(
@@ -50,6 +51,9 @@ class Controller{
                             $param['mensaje']="El correo no existe";
                         }else{
                             if($cs->verificarPass($usuario['email'],$usuario['pass'])){
+                                session_unset();
+                                session_destroy();
+                                session_start();
                                 if($usuario['activo']==1){
                                     $_SESSION['id_user'] = $usuario['id_user'];
                                     $_SESSION['nombre'] = $usuario['nombre'];
@@ -322,6 +326,11 @@ class Controller{
         $menu = $this->cargaMenu();
 
         require __DIR__ . '/../../web/templates/inicio.php';
+    }
+
+    public function crearLibro()
+    {
+        require __DIR__ . '/../../web/templates/crearLibro.php';
     }
 
 }

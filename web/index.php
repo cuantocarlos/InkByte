@@ -33,7 +33,8 @@ $map = array(
     'subirCapitulo' => array('controller' => 'Controller', 'action' => 'subirCapitulo', 'nivel' => 2), //cambiar a 2 cuando este el login
     'iniciarSesion' => array('controller' => 'Controller', 'action' => 'iniciarSesion', 'nivel' => 0),
     'registro' => array('controller' => 'Controller', 'action' => 'registro', 'nivel' => 0),
-    'inicio' => array('controller' => 'Controller', 'action' => 'inicio', 'nivel' => 0)
+    'inicio' => array('controller' => 'Controller', 'action' => 'inicio', 'nivel' => 0),
+    'crearLibro' => array('controller' => 'Controller', 'action' => 'crearLibro', 'nivel' => 0)
     // 'salir' => array('controller' => 'Controller', 'action' => 'salir', 'nivel' => 1),
     // 'error' => array('controller' => 'Controller', 'action' => 'error', 'nivel' => 0),
     // 'listarLibros' => array('controller' => 'Controller', 'action' => 'listarLibros', 'nivel' => 0),
