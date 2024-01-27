@@ -330,6 +330,34 @@ class Controller{
 
     public function crearLibro()
     {
+        // if ($_SESSION['nivel'] != 2) {
+        //     header("location:index.php?ctl=inicio");
+        // }
+
+        if((isset($_POST["bAceptar"]))){
+            $params = array(
+                'id_user' => '',
+                'titulo' => '',
+                'sinopsis' => '',
+                'imagen_portada' => '',
+                'capitulos' => 0,
+                'num_resenas' => 0,
+                'valoracion' => 0,
+                'visitas' => 0,
+                'visitasSemana'=>0,
+                'estado' =>1, //0 cancelado, 1 publicando, 2 terminado
+                'm_18' =>'',
+                'm_16' => '',
+                'm_12' => ''
+            );
+
+            $params['id_user'] = $_SESSION['id_user'];
+            $params['titulo'] = recoge("titulo_lib");
+            
+
+
+
+        }
         require __DIR__ . '/../../web/templates/crearLibro.php';
     }
 

@@ -10,7 +10,7 @@
 
 
             <div class="form-floating mb-3">
-                <input type="text" class="form-control rounded-3" id="titulo_cap" name="titulo_cap"
+                <input type="text" class="form-control rounded-3" id="titulo_lib" name="titulo_lib"
                     placeholder="Título del capítulo*">
                 <label for="nombre">Título*</label>
             </div>
