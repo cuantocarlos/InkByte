@@ -294,7 +294,7 @@ class Consultas extends Modelo {
         return $resultado;
     }
     
-    function obtenerLibrosPorUsuarioPRUEBA($idUsuario, $nombreLista){
+    function obtenerLibrosPorUsuario($idUsuario, $nombreLista){
         // La consulta SQL utiliza un JOIN para combinar los datos de la tabla de libros con la lista específica.
         $consultaSQL = "SELECT Libro.* FROM Libro JOIN $nombreLista ON Libro.id_libro = $nombreLista.id_libro WHERE $nombreLista.id_user = ?";
 
@@ -305,7 +305,7 @@ class Consultas extends Modelo {
     }
 
     //Obtener libros de una lista
-    function obtenerLibrosPorUsuario($idUsuario, $nombreLista){
+    function obtenerLibrosPorUsuario2($idUsuario, $nombreLista){//borrar
         $stmt = $this->conexion->prepare("SELECT * FROM $nombreLista WHERE id_user = ?");
         $stmt->execute([$idUsuario]);
         $resultado = $stmt->fetchAll(PDO::FETCH_ASSOC);
