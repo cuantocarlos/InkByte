@@ -309,6 +309,6 @@ class Controller{
         require __DIR__ . '/../../web/templates/inicio.php';
     }
 
-    
+
 
 }
