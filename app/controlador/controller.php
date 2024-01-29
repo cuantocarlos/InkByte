@@ -162,6 +162,8 @@ class Controller{
 
                             $idUsuario = $cs -> buscar($mail, "usuario", "id_user","email");
 
+                            $cs->creaGenerosUser($idUsuario);
+
                             $fechaRegistro = time()+86400;
 
                             $token = uniqid();
@@ -240,9 +242,6 @@ class Controller{
                 );
 
 
-
-
-
                 if((isset($_POST["bAceptar"]))){
                     $params["id_libro"] = recoge("tus_opciones");
                     $params['capitulos_del_libro'] = $cs -> filas("capitulos", "id_libro", $params["id_libro"]);
@@ -315,9 +314,10 @@ class Controller{
 
     public function generoUsuario()
     {
-        if ($_SESSION['nivel'] < 1) {
-            header("location:index.php?ctl=inicio");
-        }
+        // if ($_SESSION['nivel'] < 1) {
+        //   header("location:index.php?ctl=inicio");
+        // }
+
         $params = array (
             'terror'=>0,
             'romance'=>0,
@@ -332,11 +332,11 @@ class Controller{
             'misterio'=>0,
             'policiaca'=>0
         );
-
         $generosUsu = [];
         if(isset($_POST["bAceptar"])){
-            $generosUsu = recogeArray("generos");
-
+            $generosUsu = recogeArray("generoUsuario");
+            print_r($generosUsu);
+            print_r($params);
             foreach($params as $genero){
                 foreach($generosUsu as $genUsu){
                     if ($genero === $genUsu){
@@ -346,19 +346,23 @@ class Controller{
                 try{
                     $cs = new Consultas();
 
-                    $cs -> actualizarPreferenciasUsuario($_SESSION["id_user"],$params[0],$params[1],$params[2],$params[3],$params[4],$params[5],$params[6],$params[7],$params[8],$params[9],$params[10],$params[11]);
-                    
-                    header("location:index.php?ctl=inicio");
+                    $cs -> actualizarPreferenciasUsuario(21,$params["terror"],$params["romance"],$params['fantasia'],$params['cficcion'],$params['historia'],$params['arte'],$params['thriller'],$params['poesia'],$params['drama'],$params['biografia'],$params['misterio'],$params['policiaca']);
+
+                    echo "bien hecho";
 
                 }catch (Exception $e){
-                    error_log($e->getMessage() . microtime() . PHP_EOL, 3, "../logs/logError.txt");
-                    header('Location: index.php?ctl=error');
+                    echo "Error: " . $e->getMessage();
+                    // header('Location: index.php?ctl=error');
+                    echo"no";
                 }catch (Error $e){
-                    error_log($e->getMessage() . microtime() . PHP_EOL, 3, "../logs/logError.txt");
-                    header('Location: index.php?ctl=error');
+                    echo "Error: " . $e->getMessage();
+                    // header('Location: index.php?ctl=error');
+                    echo"mal";
                 }
             }
         }
+
+        require __DIR__ . '/../../web/templates/modalGeneroUsuario.php';
     }
 
 }

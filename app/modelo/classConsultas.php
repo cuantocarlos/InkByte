@@ -59,6 +59,18 @@ class Consultas extends Modelo {
         }
     }
 
+    function creaGenerosUser($id_user){
+        $query = "INSERT INTO preferenciasgenerosusuario (id_user, terror, romance, fantasia, cficcion, historia, arte, thriller, poesia, drama, biografia, misterio, policiaca) VALUES (?,0,0,0,0,0,0,0,0,0,0,0,0)";
+        $stmt =$this->conexion->prepare($query);
+        $stmt->bindParam(1, $id_user);
+
+        if ($stmt->execute()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     /*Tokens de usuarios*/
     function agregarToken($token, $validez, $id) {
         $query = "INSERT INTO token (token, validez, id_user) VALUES (?, ?, ?)";
@@ -255,31 +267,31 @@ class Consultas extends Modelo {
         $stmt = $this->conexion->prepare("SELECT titulo FROM libro WHERE id_user = ?");
         $stmt->bindParam(1, $id_user);
         $stmt->execute();
-    
+
         $titulos = array();
-        
+
         while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
             $titulos[] = $row['titulo'];
         }
-    
+
         return $titulos;
     }
-    
+
 
     function obtenerIdLibrosPorUsuario($id_user) {
         $stmt = $this->conexion->prepare("SELECT id_libro FROM libro WHERE id_user = ?");
         $stmt->bindParam(1, $id_user);
         $stmt->execute();
-    
+
         $ids = array();
-        
+
         while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
             $ids[] = $row['id_libro'];
         }
-    
+
         return $ids;
     }
-    
-    
-    
+
+
+
 }
