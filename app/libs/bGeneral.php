@@ -146,7 +146,7 @@ function recogeArray($var)
         }
     } else
         $tmp = "";
-        
+
 
 
     return $tmp;
@@ -196,7 +196,7 @@ function cFecha($fecha, &$errores)
     if (checkdate($fechaArray[1], $fechaArray[2], $fechaArray[0])) {
         return true;
     } else {
-        $errores["fecha"] = "Error en el campo fecha";
+        $errores["mensaje"] = "Error en el campo fecha";
         return false;
     }
 }

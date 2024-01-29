@@ -33,19 +33,19 @@ class Controller{
                 'mail' =>'',
                 'pass' =>''
             );
-            $mail="";
-            $pass="";
-
-            if ($_SESSION['nivel'] > 0) {
-                header("location:index.php?ctl=inicio");
-            }
+            echo 1;
+            // if ($_SESSION['nivel'] > 0) {
+            //     header("location:index.php?ctl=inicio");
+            // }
 
             if(isset($_POST["bAceptar"])){
-                $mail = recoge("mail");
-                $pass = recoge("pass");
+                $params["mail"] = recoge("mail");
+                $params["pass"] = recoge("pass");
+                echo $params["mail"];
+                echo $params["mail"];
                         $cs=new Consultas();
-                        if(!$usuario = $cs->verificarEmail($mail)){
-                            $param['mensaje']="El correo no existe";
+                        if(!$usuario = $cs->verificarEmail($params["mail"])){
+                            $params['mensaje']="El correo no existe";
                         }else{
                             if($cs->verificarPass($usuario['email'],$usuario['pass'])){
                                 session_unset();
@@ -62,18 +62,12 @@ class Controller{
 
                                     header('Location: index.php?ctl=inicio');
                                 }else{
-                                    $params = array(
-                                        'mail' =>$mail,
-                                        'pass' =>$pass
-                                    );
-                                    $param["mensaje"]="No se ha completado la autentificación por correo";
+                                    $params["mensaje"]="No se ha completado la autentificación por correo";
+                                    header('Location: index.php?ctl=error');
                                 }
                             }else{
-                                $params = array(
-                                    'mail' =>$mail,
-                                    'pass' =>$pass
-                                );
-                                $param["mensaje"]="La contraseña es incorrecta";
+                                $params["mensaje"]="La contraseña es incorrecta";
+                                header('Location: index.php?ctl=error');
                             }
                         }
             }
@@ -84,96 +78,98 @@ class Controller{
             error_log($e->getMessage() . microtime() . PHP_EOL, 3, "../logs/logError.txt");
             header('Location: index.php?ctl=error');
         }
-        require __DIR__ . '/../../web/templates/template_inicioSesion.php';
+        require __DIR__ . '/../../web/templates/inicioSesion.php';
     }
 
     public function registro() {
-        echo "JEJE";
-            $nombre="";
-            $nick="";
-            $mail="";
-            $pass="";
-            $pass2="";
-            $fecha="";
-            $lector="";
-            $foto_perfil="";
-            $descripcion="";
-            $nivel=0;
-            $activo=0;
-
             $params = array(
                 'nombre' => '',
                 'nick'=>'',
                 'mail' =>'',
                 'pass' =>'',
+                'pass2' =>'',
                 'fecha' =>'',
+                'descripcion' =>'',
                 'foto_perfil'=>'',
-                'opcion' =>''
+                'opcion' =>'',
+                'archivo' => '',
+                'nivel' => 0,
+                'activo' =>0,
+                'mensaje' => []
             );
+
 
             if ($_SESSION['nivel'] > 0) {
                 header("location:index.php?ctl=inicio");
             }
 
+
             if((isset($_POST["bAceptar"]))){
                 //recogemos datos de los inputs
-                $nombre=recoge("nombre");
-                $nick=recoge("nick");
-                $mail=recoge("mail");
-                $pass=recoge("pass");
-                $pass2=recoge("pass2");
-                $fecha=recoge("fecha");
-                $foto_perfil=recoge("foto_perfil");
-                $descripcion=recoge("descripcion");
-                $lector=recoge("opcion_usuario");
+                $params["nombre"]=recoge("nombre");
+                $params["nick"]=recoge("nick");
+                $params["mail"]=recoge("mail");
+                $params["pass"]=recoge("pass");
+                $params["pass2"]=recoge("pass2");
+                $params["fecha"]=recoge("fecha");
+                $params["descripcion"]=recoge("descripcion");
+                $params["opcion"]=recoge("opcion_usuario");
+
+
+
+
+
 
 
                 //comenzamos las validaciones
-                if(empty($nombre)){
-                    $param["mensaje"]="Por favor ingrese un nombre";
+                if(empty($params["nombre"])){
+                    $params["mensaje"]="Por favor ingrese un nombre";
                 }else{
-                    $nombre=sinEspacios($nombre);
+                    $nombre=sinEspacios($params["nombre"]);
                 }
 
-                if(empty($nick)){
-                    $nick = "User_".uniqid();
+
+                if(empty($params["nick"])){
+                    $params["nick"] = "User_".uniqid();
                 }else{
-                    $nick=sinEspacios($nick);
+                    $params["nick"]=sinEspacios($params["nick"]);
                 }
 
-                cFile($foto_perfil,$params,Config::$extensionesValidas,Config::$dir_usuario,Config::$max_file_size);
 
-                cEmail($mail,$params["mensaje"],"mail",30,8);
 
-                if(cPassword($pass,$params["mensaje"]) && $pass!==$pass2){
-                    $param["mensaje"]="Las contraseñas no coinciden";
+
+                cEmail($params["mail"],$params,"mensaje",30,8);
+
+
+                if(cPassword($params["pass"],$params["mensaje"]) && $params["pass"]!==$params["pass2"]){
+                    $params["mensaje"]="Las contraseñas no coinciden";
                 }
 
-                cFecha($fecha,$params["mensaje"]);
 
-                if($lector=="lector"){
-                    $nivel=1;
-                }
-                elseif($lector=="escritor"){
-                    $nivel=2;
-                }
-                if (!isset($_POST["terminos"]) || $_POST["terminos"] != 1) {
-                    $param["mensaje"]="Debes aceptar los términos y condiciones para poder registrarte";
+                cFecha($params["fecha"],$params);
 
+
+                if($params["opcion"]=="lector"){
+                    $params["nivel"]=1;
                 }
+                elseif($params["opcion"]=="escritor"){
+                    $params["nivel"]=2;
+                }
+
+
                 if(empty($params["mensaje"] && $params["archivo"])){
                     $params["archivo"] = cFile("f_perfil",$params["mensaje"],Config::$extensionesValidas,__DIR__ . '/../archivos/img/perfil/',Config::$max_file_size);
                     if (!isset($_POST["terminos"]) || $_POST["terminos"] != 1) {
-                        $param["mensaje"]="Debes aceptar los términos y condiciones para poder registrarte";
+                        $params["mensaje"]="Debes aceptar los términos y condiciones para poder registrarte";
                     }
                         try{
                             $cs = new Consultas();
-                            $hash = password_hash($pass, PASSWORD_BCRYPT);
-                            if($usuario = $cs->agregarNuevoUsuario($nombre,$nick,$mail,$hash,$fecha,$params["archivo"],$descripcion,$nivel,$activo)){
+                            $hash = password_hash($params["pass"], PASSWORD_BCRYPT);
+                            if($usuario = $cs->agregarNuevoUsuario($params["nombre"],$params["nick"],$params["mail"],$hash,$params["fecha"],$params["archivo"],$params["descripcion"],$params["nivel"],$params["activo"])){
 
-                                $idUsuario = $cs -> buscar($mail, "usuario", "id_user","email");
+                                $idUsuario = $cs -> buscar($params["mail"], "usuario", "id_user","email");
 
-                                $cs->creaGenerosUser($idUsuario);
+                                $cs ->creaGenerosUser($idUsuario);
 
                                 $fechaRegistro = time()+86400;
 
@@ -183,7 +179,7 @@ class Controller{
 
                                 $mailer = new PHPMailer();
 
-
+                                try {
                                         // Configura el servidor SMTP
                                         $mailer->isSMTP();
                                         $mailer->Host = 'smtp.gmail.com';
@@ -195,7 +191,7 @@ class Controller{
 
                                         // Configura los destinatarios
                                         $mailer->setFrom('inkbytedaw@gmail.com', 'InkByte');
-                                        $mailer->addAddress($mail, $nombre);
+                                        $mailer->addAddress($params["mail"], $params["nombre"]);
 
                                         // Contenido del correo
                                         $mailer->isHTML(true);
@@ -205,16 +201,11 @@ class Controller{
                                         // Enviar el correo
                                         $mailer->send();
                                         echo 'El correo se ha enviado con éxito.';
+                                    } catch (Exception $e) {
+                                        echo "El correo no se pudo enviar. Error: {$mailer->ErrorInfo}";
+                                    }
                                 //header('Location: index.php?ctl=iniciarSesion');
                             }else{
-                                $params = array(
-                                    'nombre' => $nombre,
-                                    'mail' =>$mail,
-                                    'pass' =>$pass,
-                                    'fecha' =>$fecha,
-                                    'opcion' =>$lector
-                                );
-
                                 $params['mensaje'] = 'No se ha podido insertar el usuario. Revisa el formulario.';
                             }
                         }catch (Exception $e){
@@ -226,10 +217,14 @@ class Controller{
                             error_log($e->getMessage() . microtime() . PHP_EOL, 3, "../logs/logError.txt");
                             header('Location: index.php?ctl=error');
                         }
-                    }
+                }
+
+
+
                 }
                 require __DIR__ . '/../../web/templates/registro.php';
     }
+
 
     public function subirCapitulo(){
 
