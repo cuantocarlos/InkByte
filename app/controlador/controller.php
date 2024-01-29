@@ -314,9 +314,9 @@ class Controller{
 
     public function generoUsuario()
     {
-        // if ($_SESSION['nivel'] < 1) {
-        //   header("location:index.php?ctl=inicio");
-        // }
+          if ($_SESSION['nivel'] < 1) {
+            header("location:index.php?ctl=inicio");
+          }
 
         $params = array (
             'terror'=>0,
@@ -332,34 +332,33 @@ class Controller{
             'misterio'=>0,
             'policiaca'=>0
         );
+
         $generosUsu = [];
+
         if(isset($_POST["bAceptar"])){
             $generosUsu = recogeArray("generoUsuario");
-            print_r($generosUsu);
-            print_r($params);
-            foreach($params as $genero){
-                foreach($generosUsu as $genUsu){
-                    if ($genero === $genUsu){
-                        $params[$genero]=1;
+            foreach($params as $genero => $value){
+                for($i=0;$i<count($generosUsu);$i++){
+                    if($genero === $generosUsu[$i]){
+                        $params[$genero] = 1;
                     }
                 }
-                try{
+            }
+
+            try{
                     $cs = new Consultas();
 
-                    $cs -> actualizarPreferenciasUsuario(21,$params["terror"],$params["romance"],$params['fantasia'],$params['cficcion'],$params['historia'],$params['arte'],$params['thriller'],$params['poesia'],$params['drama'],$params['biografia'],$params['misterio'],$params['policiaca']);
+                    $cs -> actualizarPreferenciasUsuario(22,$params["terror"],$params["romance"],$params['fantasia'],$params['cficcion'],$params['historia'],$params['arte'],$params['thriller'],$params['poesia'],$params['drama'],$params['biografia'],$params['misterio'],$params['policiaca']);
 
-                    echo "bien hecho";
+                    header('Location: index.php?ctl=inicio');
 
                 }catch (Exception $e){
                     echo "Error: " . $e->getMessage();
-                    // header('Location: index.php?ctl=error');
-                    echo"no";
+                    header('Location: index.php?ctl=error');
                 }catch (Error $e){
                     echo "Error: " . $e->getMessage();
-                    // header('Location: index.php?ctl=error');
-                    echo"mal";
+                    header('Location: index.php?ctl=error');
                 }
-            }
         }
 
         require __DIR__ . '/../../web/templates/modalGeneroUsuario.php';

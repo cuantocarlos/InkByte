@@ -60,9 +60,9 @@ class Consultas extends Modelo {
     }
 
     function creaGenerosUser($id_user){
-        $query = "INSERT INTO preferenciasgenerosusuario (id_user, terror, romance, fantasia, cficcion, historia, arte, thriller, poesia, drama, biografia, misterio, policiaca) VALUES (?,0,0,0,0,0,0,0,0,0,0,0,0)";
+        $query = "INSERT INTO preferenciagenerosusuario (id_user, terror, romance, fantasia, cficcion, historia, arte, thriller, poesia, drama, biografia, misterio, policiaca) VALUES (?,0,0,0,0,0,0,0,0,0,0,0,0)";
         $stmt =$this->conexion->prepare($query);
-        $stmt->bindParam(1, $id_user);
+        $stmt->bindParam(1, $id_user, PDO::PARAM_INT);
 
         if ($stmt->execute()) {
             return true;
