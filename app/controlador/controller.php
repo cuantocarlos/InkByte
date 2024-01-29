@@ -310,6 +310,49 @@ class Controller{
             header("location:index.php?ctl=inicio");
         }
         require __DIR__ . '/../../web/templates/inicio.php';
-    }
 
+    }
+    
+    public function perfil(){
+        try {
+            // Datos del usuario
+            $id_user = 1; // Deberías obtenerlo de la sesión
+            $consulta = new Consultas();
+            $usuario = $consulta->obtenerTodoDeUsuario($id_user);
+        
+            //Datos de los libros
+            $librosSeguidos = $consulta->obtenerLibrosPorUsuario($id_user, "Seguidos");
+            $librosLeidos = $consulta->obtenerLibrosPorUsuario($id_user, "Leidos");
+            $librosPendientes = $consulta->obtenerLibrosPorUsuario($id_user, "Pendientes");
+            $librosTerminados = $consulta->obtenerLibrosPorUsuario($id_user, "Terminados");
+        
+            $imagenesLibrosSeguidos = array();
+            foreach ($librosSeguidos as $libro) {
+                $imagenesLibrosSeguidos[] = $libro['imagen_portada'];
+            }
+            $imagenesLibrosLeidos = array();
+            foreach ($librosLeidos as $libro) {
+                $imagenesLibrosLeidos[] = $libro['imagen_portada'];
+            }
+            $imagenesLibrosPendientes = array();
+            foreach ($librosPendientes as $libro) {
+                $imagenesLibrosPendientes[] = $libro['imagen_portada'];
+            }
+            $imagenesLibrosTerminados = array();
+            foreach ($librosTerminados as $libro) {
+                $imagenesLibrosTerminados[] = $libro['imagen_portada'];
+            }
+        
+        } catch (Exception $e) {
+            // En este caso guardamos los errores en un archivo de errores log
+            error_log($e->getMessage() . "##Código: " . $e->getCode() . "  " . microtime() . PHP_EOL, 3, "../logs/logBD.txt");
+            // guardamos en ·errores el error que queremos mostrar a los usuarios
+         //   header('Location: index.php?ctl=error');
+        } catch (Error $e) {
+            error_log($e->getMessage() . microtime() . PHP_EOL, 3, "../logs/logError.txt");
+           // header('Location: index.php?ctl=error');
+        }
+
+        require __DIR__ . '/../../web/templates/layoutPerfil.php';
+    }
 }

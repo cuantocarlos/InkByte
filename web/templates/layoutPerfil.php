@@ -1,53 +1,14 @@
 
 <?php
 include 'layout.php';
-include '../../app/modelo/classModelo.php';
-include '../../app/modelo/classConsultas.php';
-
-try {
-    // Datos del usuario
-    $id_user = 1; // Deberías obtenerlo de la sesión
-    $consulta = new Consultas();
-    $usuario = $consulta->obtenerTodoDeUsuario($id_user);
-
-    //Datos de los libros
-    $librosSeguidos = $consulta->obtenerLibrosPorUsuario($id_user, "Seguidos");
-    $librosLeidos = $consulta->obtenerLibrosPorUsuario($id_user, "Leidos");
-    $librosPendientes = $consulta->obtenerLibrosPorUsuario($id_user, "Pendientes");
-    $librosTerminados = $consulta->obtenerLibrosPorUsuario($id_user, "Terminados");
-
-    $imagenesLibrosSeguidos = array();
-    foreach ($librosSeguidos as $libro) {
-        $imagenesLibrosSeguidos[] = $libro['imagen_portada'];
-    }
-    $imagenesLibrosLeidos = array();
-    foreach ($librosLeidos as $libro) {
-        $imagenesLibrosLeidos[] = $libro['imagen_portada'];
-    }
-    $imagenesLibrosPendientes = array();
-    foreach ($librosPendientes as $libro) {
-        $imagenesLibrosPendientes[] = $libro['imagen_portada'];
-    }
-    $imagenesLibrosTerminados = array();
-    foreach ($librosTerminados as $libro) {
-        $imagenesLibrosTerminados[] = $libro['imagen_portada'];
-    }
-
-} catch (PDOException $e) {
-    echo "Error: " . $e->getMessage();
-}
-
-// Ruta de la imagen de perfil
-$rutaImagenPerfil = $usuario['foto_perfil']; // Deberías comprobar si la imagen existe
-
-// $rutaImagenPerfil = "https://picsum.photos/200/300";
-
 ?>
 <div class="container mt-5">
     <div class="row ">
         <!-- Sección de la foto de perfil -->
-        <div class="col-md-4">
-            <img src="<?php echo Config::$dir_usuario . $usuario['foto_perfil'] ?>" alt="Foto de Perfil" class="img-fluid rounded" />
+        <div class="col-md-3">
+            <img src="<?php echo Config::$dir_usuario_perfil . $usuario['foto_perfil'] ?>" class="img-fluid rounded" alt="Foto de Perfil"  />
+            
+            <!--InkByte/app/archivos/img/perfil/1.jpeg-->
         </div>
         <!-- Sección de información del perfil -->
             <div class="col-md-8">
@@ -128,7 +89,3 @@ $rutaImagenPerfil = $usuario['foto_perfil']; // Deberías comprobar si la imagen
         </div>
     </div>
 </div>
-
-<!-- Include Bootstrap JS and Popper.js -->
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-csSR1II5TRV6zW2xIqC1l4C6IN5/xtz9F1qQjD8rA7C6MSQ63bAsHtkgqFMybzRc" crossorigin="anonymous"></script>

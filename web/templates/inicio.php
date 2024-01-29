@@ -1,4 +1,4 @@
-  <div class="superNav border-bottom py-2 bg-light">
+    <div class="superNav border-bottom py-2 bg-light">
         <div class="container">
             <div class="row">
                 <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 centerOnMobile">
@@ -80,6 +80,7 @@
     <a href="index.php?ctl=registro" class="p-5">Registro</a>
     <a href="index.php?ctl=iniciarSesion" class="p-5">Iniciar Sesion</a>
     <a href="index.php?ctl=diferente" class="p-5">Diferente</a>
+    <a href="index.php?ctl=perfil" class="p-5">Perfil</a>
 </body>
 
 </html>

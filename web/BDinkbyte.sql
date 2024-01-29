@@ -163,6 +163,7 @@ VALUES
     (3, 'Orgullo y prejuicio', 'La historia sigue los romances de las hermanas Bennet, especialmente el de Elizabeth Bennet y el Sr. Darcy.', 'orgullo.jpg', 30, 180, 4.7, 4500, 700, 1, 1, 1, 1),
     (4, '1984', 'La novela distópica de George Orwell que sigue la vida de Winston Smith, quien vive en una sociedad totalitaria.', '1984.jpg', 35, 220, 4.6, 4000, 600, 1, 1, 1, 1),
     (5, 'Matar un ruiseñor', 'La historia de Scout Finch, una niña en Alabama, y su padre, el abogado Atticus Finch, quien defiende a un hombre negro acusado de violar a una mujer blanca.', 'ruiseñor.jpg', 28, 190, 4.9, 6000, 900, 1, 1, 1, 1);
+    (6, 'La energía nuclear salvará el mundo: Derribando mitos sobre la energía nuclear','Alfredo García, alias Operador Nuclear, nos sumerge en el fascinante mundo de la energía nuclear tratando de resolver las grandes cuestiones que la rodean y respondiendo a todos los mantras que siempre se repiten (las centrales caducan a los cuarenta años; el uranio se está agotando; una reactor puede explotar; o la industria nuclear es opaca).','10.jpg',1, 0, 0, 0)
 
 -- Listas Libros
 INSERT INTO Pendientes (id_libro, id_user) 
