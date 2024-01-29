@@ -1,4 +1,9 @@
+  <?php
+  print_r($_SESSION);
+  ?>
+
 <nav class="navbar navbar-expand-lg navbar-light shadow-sm bg-light fixed-top d-none d-lg-block">
+  <div class="superNav border-bottom py-2 bg-light">
         <div class="container">
             <a class="navbar-brand d-flex align-items-center" href="#">
                 <!-- ... (código del logotipo) ... -->
@@ -151,10 +156,10 @@
 
         </div>
     </nav>
-
     <a href="index.php?ctl=subirCapitulo" class="p-5">Subir capitulo</a>
     <a href="index.php?ctl=registro" class="p-5">Registro</a>
     <a href="index.php?ctl=iniciarSesion" class="p-5">Iniciar Sesion</a>
+    <a href="index.php?ctl=crearLibro" class="p-5">Crear Libro</a>
     <a href="index.php?ctl=diferente" class="p-5">Diferente</a>
 
 </body>

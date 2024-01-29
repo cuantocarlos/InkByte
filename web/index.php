@@ -20,7 +20,7 @@ if (!isset($_SESSION['nivel'])) {
 /**
  * Enrutamiento
  * Le añadimos el nivel mínimo que tiene que tener el usuario para ejecutar la acción
- * 
+ *
  * controller se refiere a controller.php
  * Controller.php se refiere a la clase Controller dentro de controller.php
  * action lo que va a hacer
@@ -34,6 +34,8 @@ $map = array(
     'iniciarSesion' => array('controller' => 'Controller', 'action' => 'iniciarSesion', 'nivel' => 0),
     'registro' => array('controller' => 'Controller', 'action' => 'registro', 'nivel' => 0),
     'inicio' => array('controller' => 'Controller', 'action' => 'inicio', 'nivel' => 0),
+    'generoUsuario' => array('controller' => 'Controller', 'action' => 'generoUsuario', 'nivel' => 0),
+    'crearLibro' => array('controller' => 'Controller', 'action' => 'crearLibro', 'nivel' => 0), //cambiar a 2 cuando esté el login
     // 'salir' => array('controller' => 'Controller', 'action' => 'salir', 'nivel' => 1),
     // 'error' => array('controller' => 'Controller', 'action' => 'error', 'nivel' => 0),
     // 'listarLibros' => array('controller' => 'Controller', 'action' => 'listarLibros', 'nivel' => 0),

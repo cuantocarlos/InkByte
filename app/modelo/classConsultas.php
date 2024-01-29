@@ -59,6 +59,18 @@ class Consultas extends Modelo {
         }
     }
 
+    function creaGenerosUser($id_user){
+        $query = "INSERT INTO preferenciagenerosusuario (id_user, terror, romance, fantasia, cficcion, historia, arte, thriller, poesia, drama, biografia, misterio, policiaca) VALUES (?,0,0,0,0,0,0,0,0,0,0,0,0)";
+        $stmt =$this->conexion->prepare($query);
+        $stmt->bindParam(1, $id_user, PDO::PARAM_INT);
+
+        if ($stmt->execute()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     /*Tokens de usuarios*/
     function agregarToken($token, $validez, $id) {
         $query = "INSERT INTO token (token, validez, id_user) VALUES (?, ?, ?)";
@@ -121,22 +133,21 @@ class Consultas extends Modelo {
     }
 
     /*Guarda el libro en la base de datos*/
-    function agregarLibro($id_user, $id_libro, $titulo, $sinopsis, $imagen_portada, $capitulos, $num_resenas, $valoracion, $visitas, $visitasSemana, $m_18, $m_16, $m_12) {
-        $stmt =$this->conexion->prepare("INSERT INTO libro (id_user ,id_libro, titulo, sinopsis, imagen_portada, capitulos, num_resenas, valoracion, visitas, visitasSemana, m_18, m_16, m_12) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
-        $stmt->bindParam(1, $titulo);
-        $stmt->bindParam(2, $id_user);
-        $stmt->bindParam(3, $id_libro);
-        $stmt->bindParam(4, $titulo);
-        $stmt->bindParam(5, $sinopsis);
-        $stmt->bindParam(6, $imagen_portada);
-        $stmt->bindParam(7, $capitulos);
-        $stmt->bindParam(8, $num_resenas);
-        $stmt->bindParam(9, $valoracion);
-        $stmt->bindParam(10, $visitas);
-        $stmt->bindParam(11, $visitasSemana);
-        $stmt->bindParam(12, $m_18);
-        $stmt->bindParam(13, $m_16);
-        $stmt->bindParam(14, $m_12);
+    function agregarLibro($id_user, $titulo, $sinopsis, $imagen_portada, $capitulos, $num_resenas, $valoracion, $visitas, $visitasSemana, $estado, $m_18, $m_16, $m_12) {
+        $stmt =$this->conexion->prepare("INSERT INTO libro (id_user , titulo, sinopsis, imagen_portada, capitulos, num_resenas, valoracion, visitas, visitasSemana, estado, m_18, m_16, m_12) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+        $stmt->bindParam(1, $id_user);
+        $stmt->bindParam(2, $titulo);
+        $stmt->bindParam(3, $sinopsis);
+        $stmt->bindParam(4, $imagen_portada);
+        $stmt->bindParam(5, $capitulos);
+        $stmt->bindParam(6, $num_resenas);
+        $stmt->bindParam(7, $valoracion);
+        $stmt->bindParam(8, $visitas);
+        $stmt->bindParam(9, $visitasSemana);
+        $stmt->bindParam(10, $estado);
+        $stmt->bindParam(11, $m_18);
+        $stmt->bindParam(12, $m_16);
+        $stmt->bindParam(13, $m_12);
         return $stmt->execute();
     }
 
@@ -255,31 +266,31 @@ class Consultas extends Modelo {
         $stmt = $this->conexion->prepare("SELECT titulo FROM libro WHERE id_user = ?");
         $stmt->bindParam(1, $id_user);
         $stmt->execute();
-    
+
         $titulos = array();
-        
+
         while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
             $titulos[] = $row['titulo'];
         }
-    
+
         return $titulos;
     }
-    
+
 
     function obtenerIdLibrosPorUsuario($id_user) {
         $stmt = $this->conexion->prepare("SELECT id_libro FROM libro WHERE id_user = ?");
         $stmt->bindParam(1, $id_user);
         $stmt->execute();
-    
+
         $ids = array();
-        
+
         while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
             $ids[] = $row['id_libro'];
         }
-    
+
         return $ids;
     }
-    
-    
-    
+
+
+
 }
