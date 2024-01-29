@@ -47,7 +47,7 @@ $rutaImagenPerfil = $usuario['foto_perfil']; // Deberías comprobar si la imagen
     <div class="row ">
         <!-- Sección de la foto de perfil -->
         <div class="col-md-4">
-            <img src="<?php echo Config::$dir_usuarioLayoutPerfil . $usuario['foto_perfil'] ?>" alt="Foto de Perfil" class="img-fluid rounded" />
+            <img src="<?php echo Config::$dir_usuario . $usuario['foto_perfil'] ?>" alt="Foto de Perfil" class="img-fluid rounded" />
         </div>
         <!-- Sección de información del perfil -->
             <div class="col-md-8">
