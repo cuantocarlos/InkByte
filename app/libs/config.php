@@ -15,7 +15,8 @@ public static $dir_libro=__DIR__.DIRECTORY_SEPARATOR."../archivos/img/libro".DIR
 // public static $dir_usuario="../archivos/img/perfil".DIRECTORY_SEPARATOR;
 // public static $dir_portadaLibro="/InkByte/app/archivos/img/portadaLibro/";
 // public static $dir_libro=__DIR__.DIRECTORY_SEPARATOR."../img/libro".DIRECTORY_SEPARATOR;
-public static $max_file_size=200000;
+public static $max_file_size=2000000;
+
 
 //formato fecha
 public static $formatoF="Y-m-d";

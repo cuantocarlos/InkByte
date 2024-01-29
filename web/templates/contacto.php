@@ -2,7 +2,8 @@
 
 ?>
 
-<script type="module" src="../scripts/bGeneral.js"></script>
+<script type="module" src="../web/scripts/bGeneral.js"></script>
+
 <div class="bg-body-secondary p-4 py-md-5">
     <div class="rounded-4 shadow">
         <div class="p-5 pb-4 border-bottom-0">
