@@ -33,11 +33,11 @@ $map = array(
     'subirCapitulo' => array('controller' => 'Controller', 'action' => 'subirCapitulo', 'nivel' => 2), //cambiar a 2 cuando este el login
     'iniciarSesion' => array('controller' => 'Controller', 'action' => 'iniciarSesion', 'nivel' => 0),
     'registro' => array('controller' => 'Controller', 'action' => 'registro', 'nivel' => 0),
-    'inicio' => array('controller' => 'Controller', 'action' => 'inicio', 'nivel' => 0)
+    'inicio' => array('controller' => 'Controller', 'action' => 'inicio', 'nivel' => 0),
     // 'salir' => array('controller' => 'Controller', 'action' => 'salir', 'nivel' => 1),
     // 'error' => array('controller' => 'Controller', 'action' => 'error', 'nivel' => 0),
     // 'listarLibros' => array('controller' => 'Controller', 'action' => 'listarLibros', 'nivel' => 0),
-    // 'verLibro' => array('controller' => 'Controller', 'action' => 'verLibro', 'nivel' => 0),
+     'verLibro' => array('controller' => 'Controller', 'action' => 'verLibro', 'nivel' => 0),//cambiar cuando este el login 
     // 'buscarPorTitulo' => array('controller' => 'Controller', 'action' => 'buscarPorTitulo', 'nivel' => 1),
     // 'buscarPorAutor' => array('controller' => 'Controller', 'action' => 'buscarPorAutor', 'nivel' => 1),
     // 'buscarPorEditorial' => array('controller' => 'Controller', 'action' => 'buscarPorEditorial', 'nivel' => 1),
