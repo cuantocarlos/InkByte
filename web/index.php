@@ -1,3 +1,4 @@
+
 <?php
 
 include('../app/modelo/classModelo.php');
@@ -26,9 +27,10 @@ if (!isset($_SESSION['nivel'])) {
  * home la función home dentro de la clase controller
  * nivel el nivel del usuario
  **/
+
 $map = array(
     'home' => array('controller' => 'Controller', 'action' => 'home', 'nivel' => 0),
-    'subirCapitulo' => array('controller' => 'Controller', 'action' => 'subirCapitulo', 'nivel' => 0), //cambiar a 2 cuando este el login
+    'subirCapitulo' => array('controller' => 'Controller', 'action' => 'subirCapitulo', 'nivel' => 2), //cambiar a 2 cuando este el login
     'iniciarSesion' => array('controller' => 'Controller', 'action' => 'iniciarSesion', 'nivel' => 0),
     'registro' => array('controller' => 'Controller', 'action' => 'registro', 'nivel' => 0),
     'inicio' => array('controller' => 'Controller', 'action' => 'inicio', 'nivel' => 0)
@@ -72,8 +74,8 @@ si el usuario tiene permiso suficiente para ejecutar esa acción
 if (method_exists($controlador['controller'], $controlador['action'])) {
     // echo "el nivel es ". $controlador["nivel"];
     // echo "el nivel session es ". $_SESSION['nivel'];
-    $_SESSION['nivel'] = 2; //BORRAR NADA MAS HACER EL LOGIN
-    $_SESSION["id_user"] = 1; //BORRAR NADA MAS HACER EL LOGIN
+    //$_SESSION['nivel'] = 2; //BORRAR NADA MAS HACER EL LOGIN
+    //$_SESSION["id_user"] = 1; //BORRAR NADA MAS HACER EL LOGIN
     if ($controlador['nivel'] <= $_SESSION['nivel']) {
         call_user_func(array(
             new $controlador['controller'],

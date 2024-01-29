@@ -1,6 +1,6 @@
 
-    <script type="module" src="../scripts/bGeneral.js"></script>
-    <script type="module" src="../scripts/validar_inicio_sesion.js"></script>
+<script type="module" src="../web/scripts/bGeneral.js"></script>
+    <script type="module" src="../web/scripts/validar_inicio_sesion.js"></script>
           <div class="modal-header p-5 pb-4 border-bottom-0">
             <h1 class="fw-bold mb-0 fs-2">Inicio de Sesión</h1>
           </div>
