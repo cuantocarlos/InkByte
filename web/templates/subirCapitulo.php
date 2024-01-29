@@ -27,7 +27,7 @@
               </div>
 
               <div class="mb-5">
-              <label for="f_perfil" class="form-label">Seleccioine una foto de perfil:</label>
+              <label for="archivoPDF" class="form-label">Seleccione su capítulo:</label>
               <input class="form-control" type="file" id="archivoPDF" name="archivoPDF" accept=".pdf">
               </div>
 

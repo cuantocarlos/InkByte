@@ -20,4 +20,8 @@ public static $formatoF="Y-m-d";
 public static $extensionesCapitulos=["pdf"];
 
 public static $menu = __DIR__.'/../templates/menuInvitado.php';
+
+//Géneros de los libros
+
+public static $generos_disponibles = [ "terror", "romance", "fantasia", "cficcion", "historia", "arte", "thriller", "poesia", "drama", "biografia", "misterio", "policiaca"];
 }
