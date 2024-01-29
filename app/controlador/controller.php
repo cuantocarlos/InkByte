@@ -155,11 +155,16 @@ class Controller{
                     $params["nivel"]=2;
                 }
 
+                if (!isset($_POST["terminos"]) || $_POST["terminos"] != 1) {
+                    $params["mensaje"]="Debes aceptar los términos y condiciones para poder registrarte";
+                }
+
 
                 if(empty($params["mensaje"] && $params["archivo"])){
                     $params["archivo"] = cFile("f_perfil",$params["mensaje"],Config::$extensionesValidas,__DIR__ . '/../archivos/img/perfil/',Config::$max_file_size);
-                    if (!isset($_POST["terminos"]) || $_POST["terminos"] != 1) {
-                        $params["mensaje"]="Debes aceptar los términos y condiciones para poder registrarte";
+
+                    if(empty($params["archivo"])){
+                        $params["archivo"]="no_profile.png";
                     }
                         try{
                             $cs = new Consultas();
