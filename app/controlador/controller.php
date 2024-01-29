@@ -240,9 +240,9 @@ class Controller{
 
     public function subirCapitulo(){
 
-        if ($_SESSION['nivel'] != 2) {
-            header("location:index.php?ctl=inicio");
-        }
+        // if ($_SESSION['nivel'] != 2) {
+        //     header("location:index.php?ctl=inicio");  DESCOMENTAR CUANDO ESTE EL LOGIN
+        // }
         
             try{
                 $cs = new Consultas();
@@ -420,6 +420,11 @@ class Controller{
 
         }
         require __DIR__ . '/../../web/templates/crearLibro.php';
+    }
+
+    public function leerCapitulo()
+    {
+        require __DIR__ . '/../../web/templates/leerCapitulo.php';
     }
 
 }
