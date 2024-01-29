@@ -146,6 +146,7 @@ function recogeArray($var)
         }
     } else
         $tmp = "";
+        
 
 
     return $tmp;

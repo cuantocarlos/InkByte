@@ -92,6 +92,7 @@ class Controller{
     }
 
     public function registro() {
+        echo "JEJE";
             $nombre="";
             $nick="";
             $mail="";
@@ -209,7 +210,7 @@ class Controller{
                                     } catch (Exception $e) {
                                         echo "El correo no se pudo enviar. Error: {$mailer->ErrorInfo}";
                                     }
-                                header('Location: index.php?ctl=iniciarSesion');
+                                //header('Location: index.php?ctl=iniciarSesion');
                             }else{
                                 $params = array(
                                     'nombre' => $nombre,
@@ -335,24 +336,84 @@ class Controller{
         // }
 
         if((isset($_POST["bAceptar"]))){
-            $params = array(
-                'id_user' => '',
-                'titulo' => '',
-                'sinopsis' => '',
-                'imagen_portada' => '',
-                'capitulos' => 0,
-                'num_resenas' => 0,
-                'valoracion' => 0,
-                'visitas' => 0,
-                'visitasSemana'=>0,
-                'estado' =>1, //0 cancelado, 1 publicando, 2 terminado
-                'm_18' =>'',
-                'm_16' => '',
-                'm_12' => ''
-            );
+            
+            try{
 
-            $params['id_user'] = $_SESSION['id_user'];
-            $params['titulo'] = recoge("titulo_lib");
+                $params = array(
+                    'id_user' => '',
+                    'titulo' => '',
+                    'sinopsis' => '',
+                    'imagen_portada' => '',
+                    'capitulos' => 0,
+                    'num_resenas' => 0,
+                    'valoracion' => 0,
+                    'visitas' => 0,
+                    'visitasSemana'=>0,
+                    'estado' =>1, //0 cancelado, 1 publicando, 2 terminado
+                    'edad_recomendada',
+                    'm_18' =>'',
+                    'm_16' => '',
+                    'm_12' => '',
+                    "generos" => [],
+                    'mensaje' => []
+                );
+    
+                $params['id_user'] = 1; //$_SESSION['id_user']; cambiar cuando funcione el login
+                $params['titulo'] = recoge("titulo_lib");
+                $params['sinopsis'] = recoge('sinopsis');
+                $params['generos'] = recogeArray('generos');
+                $params['edad_recomendada'] = recoge('edad_recomendada');
+                if(cTexto($params['titulo'], "titulo", $params['mensaje'], 50, 1, true, true)){
+                    if(cTexto($params['sinopsis'], "sinopsis", $params['mensaje'], 1000, 1, true, true)){
+
+                        
+                        foreach($params['generos'] as $gen){
+                            if(!in_array($gen, Config::$generos_disponibles)){
+                                $params["mensaje"] = "Error en el campo genero";
+                            }
+                        }
+
+                        if(empty($params["mensaje"])){
+                            
+                            switch($params['edad_recomendada']){
+                                case "1" : $params["m_18"] = 0; $params["m_16"] = 0; $params["m_12"] = 0; break;
+                                case "2" : $params["m_18"] = 0; $params["m_16"] = 0; $params["m_12"] = 1; break;
+                                case "3" : $params["m_18"] = 0; $params["m_16"] = 1; $params["m_12"] = 0; break;
+                                case "4" : $params["m_18"] = 1; $params["m_16"] = 0; $params["m_12"] = 0; break;
+                                default : $params["mensaje"] = "Error en el campo edad"; break;
+                            }
+                        } else {
+                            $params["mensaje"] = "Error en el campo género";
+                        }
+                    } else {
+                        echo "fail en sinopsis";
+                        $params["mensaje"] = "Error en el campo sinopsis";
+                    }
+                } else {
+                    $params["mensaje"] = "Error en el campo título";
+                }
+
+                if(empty($params['mensaje'])){
+                    $params['imagen_portada'] = cFile("portadaLibro", $params['mensaje'], Config::$extensionesValidas,__DIR__ . '/../archivos/img/libro/', 2000000);
+                    
+                    if(!empty($params["imagen_portada"])){
+                        $cs = new Consultas();
+                        $cs -> agregarLibro(5, $params["titulo"], $params["sinopsis"], $params["imagen_portada"], $params["capitulos"], $params["num_resenas"], $params["valoracion"], $params["visitas"], $params["visitasSemana"], $params["estado"], $params["m_18"], $params["m_16"], $params["m_12"]);
+                        //Cambiar el primer parametro por $params["id_user"];
+                    }
+                } else {}
+
+                if(empty($params["imagen_portada"])){
+                    header("location:index.php?ctl=crearLibro");
+                } else {
+                    header("location:index.php?ctl=inicio");
+                }
+
+                
+                
+            } catch (Exception $e){
+                echo "Error: " . $e->getMessage();
+            }
             
 
 

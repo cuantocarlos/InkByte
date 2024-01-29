@@ -121,22 +121,21 @@ class Consultas extends Modelo {
     }
 
     /*Guarda el libro en la base de datos*/
-    function agregarLibro($id_user, $id_libro, $titulo, $sinopsis, $imagen_portada, $capitulos, $num_resenas, $valoracion, $visitas, $visitasSemana, $m_18, $m_16, $m_12) {
-        $stmt =$this->conexion->prepare("INSERT INTO libro (id_user ,id_libro, titulo, sinopsis, imagen_portada, capitulos, num_resenas, valoracion, visitas, visitasSemana, m_18, m_16, m_12) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
-        $stmt->bindParam(1, $titulo);
-        $stmt->bindParam(2, $id_user);
-        $stmt->bindParam(3, $id_libro);
-        $stmt->bindParam(4, $titulo);
-        $stmt->bindParam(5, $sinopsis);
-        $stmt->bindParam(6, $imagen_portada);
-        $stmt->bindParam(7, $capitulos);
-        $stmt->bindParam(8, $num_resenas);
-        $stmt->bindParam(9, $valoracion);
-        $stmt->bindParam(10, $visitas);
-        $stmt->bindParam(11, $visitasSemana);
-        $stmt->bindParam(12, $m_18);
-        $stmt->bindParam(13, $m_16);
-        $stmt->bindParam(14, $m_12);
+    function agregarLibro($id_user, $titulo, $sinopsis, $imagen_portada, $capitulos, $num_resenas, $valoracion, $visitas, $visitasSemana, $estado, $m_18, $m_16, $m_12) {
+        $stmt =$this->conexion->prepare("INSERT INTO libro (id_user , titulo, sinopsis, imagen_portada, capitulos, num_resenas, valoracion, visitas, visitasSemana, estado, m_18, m_16, m_12) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+        $stmt->bindParam(1, $id_user);
+        $stmt->bindParam(2, $titulo);
+        $stmt->bindParam(3, $sinopsis);
+        $stmt->bindParam(4, $imagen_portada);
+        $stmt->bindParam(5, $capitulos);
+        $stmt->bindParam(6, $num_resenas);
+        $stmt->bindParam(7, $valoracion);
+        $stmt->bindParam(8, $visitas);
+        $stmt->bindParam(9, $visitasSemana);
+        $stmt->bindParam(10, $estado);
+        $stmt->bindParam(11, $m_18);
+        $stmt->bindParam(12, $m_16);
+        $stmt->bindParam(13, $m_12);
         return $stmt->execute();
     }
 
