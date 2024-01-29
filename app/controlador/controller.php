@@ -33,7 +33,6 @@ class Controller{
                 'mail' =>'',
                 'pass' =>''
             );
-            echo 1;
             // if ($_SESSION['nivel'] > 0) {
             //     header("location:index.php?ctl=inicio");
             // }
@@ -42,12 +41,12 @@ class Controller{
                 $params["mail"] = recoge("mail");
                 $params["pass"] = recoge("pass");
                 echo $params["mail"];
-                echo $params["mail"];
+                echo $params["pass"];
                         $cs=new Consultas();
                         if(!$usuario = $cs->verificarEmail($params["mail"])){
                             $params['mensaje']="El correo no existe";
                         }else{
-                            if($cs->verificarPass($usuario['email'],$usuario['pass'])){
+                            if(!$cs->verificarPass($usuario['email'],$usuario['pass'])){
                                 session_unset();
                                 session_destroy();
                                 session_start();
@@ -67,16 +66,16 @@ class Controller{
                                 }
                             }else{
                                 $params["mensaje"]="La contraseña es incorrecta";
-                                header('Location: index.php?ctl=error');
+                                echo "Contra mal";
                             }
                         }
             }
         }catch (Exception $e) {
             error_log($e->getMessage() . microtime() . PHP_EOL, 3, "../logs/logException.txt");
-            header('Location: index.php?ctl=error');
+            echo 1;
         } catch (Error $e) {
             error_log($e->getMessage() . microtime() . PHP_EOL, 3, "../logs/logError.txt");
-            header('Location: index.php?ctl=error');
+            echo 2;
         }
         require __DIR__ . '/../../web/templates/inicioSesion.php';
     }

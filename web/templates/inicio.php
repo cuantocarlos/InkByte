@@ -1,3 +1,7 @@
+  <?php
+  print_r($_SESSION);
+  ?>
+
   <div class="superNav border-bottom py-2 bg-light">
         <div class="container">
             <div class="row">
