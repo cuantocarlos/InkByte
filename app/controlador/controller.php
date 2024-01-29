@@ -277,6 +277,10 @@ class Controller{
                 }
             } catch (Exception $e){
                 echo "Error: " . $e->getMessage();
+                header('Location: index.php?ctl=error');
+            }   catch (Error $e){
+                    error_log($e->getMessage() . microtime() . PHP_EOL, 3, "../logs/logError.txt");
+                    header('Location: index.php?ctl=error');
             }
 
             $menu = $this->cargaMenu();
@@ -309,6 +313,52 @@ class Controller{
         require __DIR__ . '/../../web/templates/inicio.php';
     }
 
+    public function generoUsuario()
+    {
+        if ($_SESSION['nivel'] < 1) {
+            header("location:index.php?ctl=inicio");
+        }
+        $params = array (
+            'terror'=>0,
+            'romance'=>0,
+            'fantasia'=>0,
+            'cficcion'=>0,
+            'historia'=>0,
+            'arte'=>0,
+            'thriller'=>0,
+            'poesia'=>0,
+            'drama'=>0,
+            'biografia'=>0,
+            'misterio'=>0,
+            'policiaca'=>0
+        );
 
+        $generosUsu = [];
+        if(isset($_POST["bAceptar"])){
+            $generosUsu = recogeArray("generos");
+
+            foreach($params as $genero){
+                foreach($generosUsu as $genUsu){
+                    if ($genero === $genUsu){
+                        $params[$genero]=1;
+                    }
+                }
+                try{
+                    $cs = new Consultas();
+
+                    $cs -> actualizarPreferenciasUsuario($_SESSION["id_user"],$params[0],$params[1],$params[2],$params[3],$params[4],$params[5],$params[6],$params[7],$params[8],$params[9],$params[10],$params[11]);
+                    
+                    header("location:index.php?ctl=inicio");
+
+                }catch (Exception $e){
+                    error_log($e->getMessage() . microtime() . PHP_EOL, 3, "../logs/logError.txt");
+                    header('Location: index.php?ctl=error');
+                }catch (Error $e){
+                    error_log($e->getMessage() . microtime() . PHP_EOL, 3, "../logs/logError.txt");
+                    header('Location: index.php?ctl=error');
+                }
+            }
+        }
+    }
 
 }
