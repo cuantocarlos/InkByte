@@ -464,12 +464,44 @@ class Controller{
             }catch (Error $e){
                 error_log($e->getMessage() . microtime() . PHP_EOL, 3, "../logs/logError.txt");
             }
-
-            $params["titulo"] = [];
-
             header("location:index.php?ctl=leerCapitulo&id_libro=" . $params["id_libro"] . "&num_cap=" . $params["num_cap"] . "&titulo=" . $titulo . "&archivo=" . $archivo . "&titulo_libro=" . $params["titulo_libro"]);
         }
 
+        if(isset($_REQUEST["capitulo_anterior"])){
+            if($params["num_cap"] > 1){
+                $params["num_cap"] = $params["num_cap"] - 1;
+                try{
+                    $cs = new Consultas();
+                    $titulo = $cs -> buscar($params["num_cap"],"capitulos", "titulo", "num_cap");
+                    $archivo = $cs -> buscar($params["num_cap"],"capitulos", "archivo", "num_cap");
+    
+                    
+                } catch (Exception $e){
+                    error_log($e->getMessage() . "##Código: " . $e->getCode() . "  " . microtime() . PHP_EOL, 3, "../logs/logBD.txt");
+                }catch (Error $e){
+                    error_log($e->getMessage() . microtime() . PHP_EOL, 3, "../logs/logError.txt");
+                }
+                header("location:index.php?ctl=leerCapitulo&id_libro=" . $params["id_libro"] . "&num_cap=" . $params["num_cap"] . "&titulo=" . $titulo . "&archivo=" . $archivo . "&titulo_libro=" . $params["titulo_libro"]);
+            }
+        }
+
+        if(isset($_REQUEST["capitulo_siguiente"])){
+            if($params["num_cap"] < count($capitulos)){
+                $params["num_cap"] = $params["num_cap"] + 1;
+                try{
+                    $cs = new Consultas();
+                    $titulo = $cs -> buscar($params["num_cap"],"capitulos", "titulo", "num_cap");
+                    $archivo = $cs -> buscar($params["num_cap"],"capitulos", "archivo", "num_cap");
+    
+                    
+                } catch (Exception $e){
+                    error_log($e->getMessage() . "##Código: " . $e->getCode() . "  " . microtime() . PHP_EOL, 3, "../logs/logBD.txt");
+                }catch (Error $e){
+                    error_log($e->getMessage() . microtime() . PHP_EOL, 3, "../logs/logError.txt");
+                }
+                header("location:index.php?ctl=leerCapitulo&id_libro=" . $params["id_libro"] . "&num_cap=" . $params["num_cap"] . "&titulo=" . $titulo . "&archivo=" . $archivo . "&titulo_libro=" . $params["titulo_libro"]);
+            }
+        }
         
 
 

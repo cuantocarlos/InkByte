@@ -7,7 +7,9 @@
 
 
     <!-- Utilizando la etiqueta <embed> para mostrar el PDF -->
-    <embed src="../app/archivos/capitulos/<?php echo $params["archivo"] ?>" type="application/pdf" width="100%" height="600px" />
+    <div class="visorPDF d-flex">
+        <embed class="contenidoPDF flex-grow-1" src="../app/archivos/capitulos/<?php echo $params["archivo"] ?>" type="application/pdf"/>
+    </div>
     <div class="botones">
     
     <label for="opciones"></label>
