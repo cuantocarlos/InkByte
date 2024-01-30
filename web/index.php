@@ -33,7 +33,8 @@ $map = array(
     'inicio' => array('controller' => 'Controller', 'action' => 'inicio', 'nivel' => 0),
     'generoUsuario' => array('controller' => 'Controller', 'action' => 'generoUsuario', 'nivel' => 0),
     'crearLibro' => array('controller' => 'Controller', 'action' => 'crearLibro', 'nivel' => 0), //cambiar a 2 cuando esté el login
-    'usuarioUnico' => array('controller' => 'Controller', 'action' => 'peticionNombre', 'nivel' => 0)
+    'usuarioUnico' => array('controller' => 'Controller', 'action' => 'peticionNombre', 'nivel' => 0),
+    'mailUnico' => array('controller' => 'Controller', 'action' => 'peticionMail', 'nivel' => 0)
     // 'salir' => array('controller' => 'Controller', 'action' => 'salir', 'nivel' => 1),
     // 'error' => array('controller' => 'Controller', 'action' => 'error', 'nivel' => 0),
     // 'listarLibros' => array('controller' => 'Controller', 'action' => 'listarLibros', 'nivel' => 0),

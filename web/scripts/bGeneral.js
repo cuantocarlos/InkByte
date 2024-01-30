@@ -75,7 +75,7 @@ export function compruebaNombre(nombre){
     if(httpRequest.readyState === 4 && httpRequest.status === 200) {
       console.log(httpRequest.responseText);
       var respuesta = JSON.parse(httpRequest.responseText);
-      if(!respuesta.existe){
+      if(!respuesta.existe == false){
         document.getElementById("nombreMal").innerText="El nombre de usuario ya existe!";
         inputNombre.classList.add("is-invalid");
       }else{
@@ -85,6 +85,31 @@ export function compruebaNombre(nombre){
     }
   }
   httpRequest.send('nombre=' + encodeURIComponent(nombre));
+}
+
+
+export function compruebaCorreo(mail){
+  const httpRequest = new XMLHttpRequest();
+  const inputNombre = document.getElementById("nombre");
+
+  httpRequest.open('POST','http://localhost/InkByte/web/index.php?ctl=mailUnico',true);   //ACORDARSE DE CAMBIAR LA RUTA ABSOLUTA SI SE SUBE A OTRO SITIO
+
+  httpRequest.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+
+  httpRequest.onreadystatechange = function () {
+    if(httpRequest.readyState === 4 && httpRequest.status === 200) {
+      console.log(httpRequest.responseText);
+      var respuesta = JSON.parse(httpRequest.responseText);
+      if(!respuesta.existe == false){
+        document.getElementById("mailMal").innerText="El nombre de usuario ya existe!";
+        inputNombre.classList.add("is-invalid");
+      }else{
+        document.getElementById("nombreMal").innerText="";
+        inputNombre.classList.remove("is-invalid");
+      }
+    }
+  }
+  httpRequest.send('nombre=' + encodeURIComponent(mail));
 }
 
 

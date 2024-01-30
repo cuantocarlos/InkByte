@@ -477,5 +477,15 @@ class Controller{
         }
     }
 
+    public function peticionMail(){
+        $mail = $_REQUEST["mail"];
+        $cs = new Consultas();
+        if($cs->correoUnico($mail)){
+            echo json_encode(array('existe'=>false));
+        }else{
+            echo json_encode(array('existe'=>true));
+        }
+    }
+
 }
 

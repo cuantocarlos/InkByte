@@ -12,15 +12,16 @@
             <div class="container d-flex justify-content-end my-2">
             <small class="text-body-secondary ">Los campos con * son obligatorios</small>
             </div>
-            <div class="input-group mb-3">
-              <span class="input-group-text">@</span>
+            <div class="input-group">
+            <span class="input-group-text">@</span>
               <div class="form-floating">
                 <input type="text" class="form-control" id="nombre" placeholder="Nombre" name="nombre" required>
                 <label for="nombre">Nombre de Usuario*</label>
-                <div id="nombreMal" class="invalid-feedback">
-                </div>
               </div>
               </div>
+
+              <div id="nombreMal" class="mb-3 text-danger mx-5"></div>
+
               <div class="form-floating mb-3">
                 <input type="text" class="form-control rounded-3" id="nick" name="nick" placeholder="nick">
                 <label for="nombre">Sobrenombre</label>
