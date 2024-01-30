@@ -15,6 +15,7 @@
 
     <!--LINKS A MODIFICACIONES DE CSS AQUI-->
     <link rel="stylesheet" href="../web/css/styles/navbar.css">
+    <link rel="stylesheet" href="../web/css/leerCapitulo_style.css">
 
 
 </head>
