@@ -1,13 +1,10 @@
 
 <?php
-
-include('../app/modelo/classModelo.php');
-include('../app/modelo/classConsultas.php');
-
-
-require_once './../app/libs/config.php';
-require_once './../app/libs/bGeneral.php';
-require_once './../app/controlador/controller.php';
+require_once __DIR__ . '/../app/modelo/classModelo.php';
+require_once __DIR__ . '/../app/modelo/classConsultas.php';
+require_once __DIR__ . '/../app/libs/config.php';
+require_once __DIR__ . '/../app/libs/bGeneral.php';
+require_once __DIR__ . '/../app/controlador/controller.php';
 
 session_start(); // Se inicia la sesion
 //Este logueado o no el usuario, siempre tendra un nivel_usuario
@@ -35,7 +32,8 @@ $map = array(
     'registro' => array('controller' => 'Controller', 'action' => 'registro', 'nivel' => 0),
     'inicio' => array('controller' => 'Controller', 'action' => 'inicio', 'nivel' => 0),
     'generoUsuario' => array('controller' => 'Controller', 'action' => 'generoUsuario', 'nivel' => 0),
-    'crearLibro' => array('controller' => 'Controller', 'action' => 'crearLibro', 'nivel' => 0) //cambiar a 2 cuando esté el login
+    'crearLibro' => array('controller' => 'Controller', 'action' => 'crearLibro', 'nivel' => 0), //cambiar a 2 cuando esté el login
+    'usuarioUnico' => array('controller' => 'Controller', 'action' => 'peticionNombre', 'nivel' => 0)
     // 'salir' => array('controller' => 'Controller', 'action' => 'salir', 'nivel' => 1),
     // 'error' => array('controller' => 'Controller', 'action' => 'error', 'nivel' => 0),
     // 'listarLibros' => array('controller' => 'Controller', 'action' => 'listarLibros', 'nivel' => 0),

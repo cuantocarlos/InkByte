@@ -1,5 +1,5 @@
 
-    
+
     <script type="module" src="../web/scripts/bGeneral.js"></script>
     <script type="module" src="../web/scripts/validar_registro.js"></script>
 
@@ -17,6 +17,8 @@
               <div class="form-floating">
                 <input type="text" class="form-control" id="nombre" placeholder="Nombre" name="nombre" required>
                 <label for="nombre">Nombre de Usuario*</label>
+                <div id="nombreMal" class="invalid-feedback">
+                </div>
               </div>
               </div>
               <div class="form-floating mb-3">

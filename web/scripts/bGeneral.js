@@ -60,5 +60,31 @@ export function validarRol() {
         }
     }
     alert("La opción introducida no está entre las disponibles.");
-    return false; 
+    return false;
 }
+
+export function compruebaNombre(nombre){
+  const httpRequest = new XMLHttpRequest();
+  const inputNombre = document.getElementById("nombre");
+
+  httpRequest.open('POST','http://localhost/InkByte/web/index.php?ctl=usuarioUnico',true);   //ACORDARSE DE CAMBIAR LA RUTA ABSOLUTA SI SE SUBE A OTRO SITIO
+
+  httpRequest.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+
+  httpRequest.onreadystatechange = function () {
+    if(httpRequest.readyState === 4 && httpRequest.status === 200) {
+      console.log(httpRequest.responseText);
+      var respuesta = JSON.parse(httpRequest.responseText);
+      if(!respuesta.existe){
+        document.getElementById("nombreMal").innerText="El nombre de usuario ya existe!";
+        inputNombre.classList.add("is-invalid");
+      }else{
+        document.getElementById("nombreMal").innerText="";
+        inputNombre.classList.remove("is-invalid");
+      }
+    }
+  }
+  httpRequest.send('nombre=' + encodeURIComponent(nombre));
+}
+
+

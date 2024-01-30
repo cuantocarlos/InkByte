@@ -14,6 +14,7 @@ use PHPMailer\PHPMailer\Exception;
 
 
 
+
 class Controller{
 
     private function cargaMenu()
@@ -464,4 +465,17 @@ class Controller{
         require __DIR__ . '/../../web/templates/crearLibro.php';
     }
 
+    public function peticionNombre(){
+        $nombre = $_REQUEST["nombre"];
+        $cs = new Consultas();
+        if(!$cs -> nombreUnico($nombre)){
+            echo json_encode(array('existe'=> false));
+
+        }else{
+            echo json_encode(array('existe'=> true));
+
+        }
+    }
+
 }
+

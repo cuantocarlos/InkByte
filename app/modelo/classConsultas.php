@@ -1,5 +1,4 @@
 <?php
-
 class Consultas extends Modelo {
     /*Buscar en la linea de una tabla, con un campo*/
     function buscar($input, $tabla, $columna, $campoWhere){
@@ -290,6 +289,15 @@ class Consultas extends Modelo {
 
         return $ids;
     }
+
+    function nombreUnico($nombre){
+        $stmt =$this->conexion->prepare("SELECT id_user FROM usuario WHERE nombre = ?");
+        $stmt->execute([$nombre]);
+        $resultado = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $resultado;
+    }
+
+
 
 
 

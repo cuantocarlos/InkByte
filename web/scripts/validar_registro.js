@@ -1,4 +1,4 @@
-import { validarNombre, validarCorreoElectronico, validarPassword, validarFecha, validarRol } from "./bGeneral.js";
+import { validarNombre, validarCorreoElectronico, validarPassword, validarFecha, validarRol, compruebaNombre } from "./bGeneral.js";
 
 var bAceptar = document.getElementById("bAceptar");
 var nombre = document.getElementById("nombre");
@@ -15,6 +15,12 @@ window.onload = function () {
     if(validarCampos() == false){
       event.preventDefault();
     }
+  });
+
+  nombre.addEventListener('blur', ()=>{
+    const nom = nombre.value.trim();
+
+    compruebaNombre(nom);
   });
 }
 
