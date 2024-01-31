@@ -1,10 +1,3 @@
-export function validarNombre(nombre) {
-    const textoSinEspacios = nombre.trim();
-    const longitudValida = textoSinEspacios.length >= 3 && textoSinEspacios.length <= 60;
-    const caracteresValidos = /^[a-zA-Z\s]*$/.test(textoSinEspacios);
-    return longitudValida && caracteresValidos;
-  }
-
 export function validarCorreoElectronico(correo) {
     const regexCorreo = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
     const esCorreoValido = regexCorreo.test(correo);
@@ -73,14 +66,15 @@ export function compruebaNombre(nombre){
 
   httpRequest.onreadystatechange = function () {
     if(httpRequest.readyState === 4 && httpRequest.status === 200) {
-      console.log(httpRequest.responseText);
       var respuesta = JSON.parse(httpRequest.responseText);
       if(!respuesta.existe == false){
         document.getElementById("nombreMal").innerText="El nombre de usuario ya existe!";
+        inputNombre.classList.remove("is-valid");
         inputNombre.classList.add("is-invalid");
       }else{
         document.getElementById("nombreMal").innerText="";
         inputNombre.classList.remove("is-invalid");
+        inputNombre.classList.add("is-valid");
       }
     }
   }
@@ -90,7 +84,7 @@ export function compruebaNombre(nombre){
 
 export function compruebaCorreo(mail){
   const httpRequest = new XMLHttpRequest();
-  const inputNombre = document.getElementById("nombre");
+  const inputMail = document.getElementById("mail");
 
   httpRequest.open('POST','http://localhost/InkByte/web/index.php?ctl=mailUnico',true);   //ACORDARSE DE CAMBIAR LA RUTA ABSOLUTA SI SE SUBE A OTRO SITIO
 
@@ -98,18 +92,20 @@ export function compruebaCorreo(mail){
 
   httpRequest.onreadystatechange = function () {
     if(httpRequest.readyState === 4 && httpRequest.status === 200) {
-      console.log(httpRequest.responseText);
       var respuesta = JSON.parse(httpRequest.responseText);
       if(!respuesta.existe == false){
-        document.getElementById("mailMal").innerText="El nombre de usuario ya existe!";
-        inputNombre.classList.add("is-invalid");
+        document.getElementById("mailMal").innerText="El email ya está en uso.";
+        inputMail.classList.remove("is-valid");
+        inputMail.classList.add("is-invalid");
       }else{
-        document.getElementById("nombreMal").innerText="";
-        inputNombre.classList.remove("is-invalid");
+        document.getElementById("mailMal").innerText="";
+        inputMail.classList.remove("is-invalid");
+        inputMail.classList.add("is-valid");
       }
     }
   }
-  httpRequest.send('nombre=' + encodeURIComponent(mail));
+  httpRequest.send('mail=' + encodeURIComponent(mail));
 }
+
 
 

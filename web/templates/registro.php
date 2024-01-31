@@ -16,7 +16,7 @@
             <span class="input-group-text">@</span>
               <div class="form-floating">
                 <input type="text" class="form-control" id="nombre" placeholder="Nombre" name="nombre" required>
-                <label for="nombre">Nombre de Usuario*</label>
+                <label for="nombre">Username Único*</label>
               </div>
               </div>
 
@@ -26,18 +26,24 @@
                 <input type="text" class="form-control rounded-3" id="nick" name="nick" placeholder="nick">
                 <label for="nombre">Sobrenombre</label>
               </div>
-              <div class="form-floating mb-3">
+              <div class="form-floating">
                 <input type="email" class="form-control rounded-3" id="mail" placeholder="name@example.com" name="mail" required>
                 <label for="mail">Correo Electrónico*</label>
               </div>
+
+              <div id="mailMal" class="mb-3 text-danger"></div>
+
               <div class="form-floating mb-3">
                 <input type="password" class="form-control rounded-3" id="pass" placeholder="Password" name="pass" required>
                 <label for="pass">Contraseña*</label>
               </div>
-              <div class="form-floating mb-3">
+              <div class="form-floating">
                 <input type="password" class="form-control rounded-3" id="pass2" placeholder="Password" name="pass2" required>
                 <label for="pass2">Repita Contraseña*</label>
               </div>
+
+              <div id="pass2Mal" class="mb-3 text-danger "></div>
+
               <div class="form-floating mb-3">
                 <input type="date" class="form-control rounded-3" id="fecha" placeholder="Password" name="fecha" required>
                 <label for="fecha">Fecha de Nacimiento*</label>

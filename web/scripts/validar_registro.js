@@ -1,4 +1,4 @@
-import { validarNombre, validarCorreoElectronico, validarPassword, validarFecha, validarRol, compruebaNombre, compruebaCorreo} from "./bGeneral.js";
+import {validarCorreoElectronico, validarPassword, validarFecha, validarRol, compruebaNombre, compruebaCorreo} from "./bGeneral.js";
 
 var bAceptar = document.getElementById("bAceptar");
 var nombre = document.getElementById("nombre");
@@ -17,7 +17,7 @@ window.onload = function () {
     }
   });
 
-  nombre.addEventListener('blur', ()=>{
+  nombre.addEventListener('input', ()=>{
     const nom = nombre.value.trim();
 
     compruebaNombre(nom);
@@ -25,26 +25,36 @@ window.onload = function () {
 
   email.addEventListener('blur', ()=>{
     const mail = email.value.trim();
+    if(validarCorreoElectronico(mail) == true){
+      compruebaCorreo(mail);
+    }else{
+      email.classList.add("is-invalid");
+      document.getElementById("mailMal").innerText="El email no existe";
+    }
+  });
 
-    compruebaCorreo(mail);
+  pass.addEventListener('input', ()=>{
+    const contrasenia = pass.value;
+
+
+  });
+
+  pass2.addEventListener('blur', ()=>{
+    const contrasenia = pass.value;
+    const contrasenia2 = pass2.value;
+    if(contrasenia2 !== contrasenia){
+      pass2.classList.add("is-invalid");
+      document.getElementById("pass2Mal").innerText="La contraseña no coincide";
+    }else{
+      pass2.classList.remove("is-invalid");
+      document.getElementById("pass2Mal").innerText="";
+    }
   });
 }
 
 function validarCampos(){
-  if( validarCorreoElectronico(email.value) == false ){
-    console.log("Error en el campo email");
-    return false;
-  }
-  if( validarNombre(nombre.value) == false ){
-    console.log("Error en el campo nombre");
-    return false;
-  }
   if( validarPassword(pass.value) == false ){
     console.log("Error en el campo pass");
-    return false;
-  }
-  if(pass.value !== pass2.value){
-    console.log("Error en el campo pass2");
     return false;
   }
   if( validarFecha(fecha.value) == false ){
