@@ -13,4 +13,3 @@ class Modelo extends PDO {
         $this->conexion->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     }
 }
-?>

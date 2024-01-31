@@ -28,6 +28,7 @@ class Controller{
         }
     }
 
+
     public function iniciarSesion() {
         try{
             $params = array(
@@ -304,6 +305,7 @@ class Controller{
         $params = array(
             'fecha' => date('d-m-Y')
         );
+        
         $menu = 'inicio.php';
 
         if ($_SESSION['nivel'] > 0) {
@@ -321,6 +323,7 @@ class Controller{
 
         require __DIR__ . '/../../web/templates/inicio.php';
     }
+
 
     public function generoUsuario()
     {
@@ -464,6 +467,7 @@ class Controller{
         require __DIR__ . '/../../web/templates/crearLibro.php';
     }
 
+
     public function peticionNombre(){
         $nombre = $_REQUEST["nombre"];
         $cs = new Consultas();
@@ -573,3 +577,46 @@ class Controller{
 
 }
 
+    function verLibro(){
+        if(isset($_REQUEST["leer"])){
+            try{
+                $params=array(
+                    "id_libro"=>"",
+                    "num_cap"=>"",
+                    "titulo"=>"",
+                    "archivo"=>"",
+                    "titulo_libro"=>""
+                );
+
+                $params["id_libro"]=$_SESSION["id_libro"];
+
+                $params["num_cap"]=recoge("contador_capitulos");
+                
+               
+                $cs=new Consultas();
+                $params["titulo"]=$cs->buscar($params["id_libro"],"capitulos","titulo","id_libro");
+                $params["archivo"]=$cs->buscar($params["id_libro"],"capitulos","archivo","id_libro");
+                $params["titulo_libro"]=$cs->buscar($params["id_libro"],"libro","titulo","id_libro");
+
+                $url = "index.php?ctl=leerCapitulo&id_libro=" . urlencode( $params["id_libro"]) . "&num_cap=" . urlencode( $params["num_cap"]) . "&titulo=" . urlencode($params["titulo"]) . "&archivo=" . urlencode( $params["archivo"]) . "&titulo_libro=" . urlencode( $params["titulo_libro"]);
+                
+                header("location: . $url");
+               
+
+
+
+
+              
+            } catch (Exception $e){
+                echo "Error: " . $e->getMessage();
+            }
+
+                
+        }
+    }
+
+    public function verLibro(){
+        require __DIR__ . '/../../web/templates/book.php';
+    }
+
+}
