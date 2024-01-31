@@ -6,3 +6,11 @@
 }
 /* Font Awesome Icons have variable width. Added fixed width to fix that.*/
 .icon-width { width: 2rem;}
+
+
+  /* Para ocultar la barra de búsqueda en pantallas pequeñas */
+  @media (max-width: 992px) {
+    .search-form-desktop {
+        display: none;
+    }
+}

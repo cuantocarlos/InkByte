@@ -1,108 +1,12 @@
-<!doctype html>
-<html lang="en">
 
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-
-
-    <title>Libro</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="../css/star.css">
-    <link rel="stylesheet" href="../css/book.css">
-    <link rel="stylesheet" href="../css/reviews.css">
-
-    <title>Bootstrap demo</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="../css/book.css">
-    <link rel="stylesheet" href="../css/pruebaCapitulos.css">
-
-
-    <script src="../js/clickedButton.js"></script>
-</head>
-
-<body>
-    <!-- Navbar para pantallas grandes -->
-    <nav class="navbar navbar-expand-lg navbar-light shadow-sm bg-light fixed-top d-none d-lg-block">
-        <div class="container">
-            <a class="navbar-brand d-flex align-items-center" href="#">
-                <!-- ... (código del logotipo) ... -->
-                <span class="ml-3 font-weight-bold">INKYBYTE</span>
-            </a>
-            <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav mr-auto">
-                    <li class="nav-item active">
-                        <a class="nav-link" href="#">LINK</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">LINK</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">LINK</a>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Dropdown
-                        </a>
-                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="#">Action 1</a>
-                            <a class="dropdown-item" href="#">Action 2</a>
-                            <a class="dropdown-item" href="#">Action 3</a>
-                        </div>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Contacto</a>
-                    </li>
-                </ul>
-                <!-- Barra de búsqueda en la barra de navegación para pantallas grandes -->
-                <div class="d-flex search-form-desktop ms-auto">
-                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                    <button class="btn btn-outline-success" type="submit">Search</button>
-                </div>
-                <!-- Icono de inicio de sesión -->
-                <div class="nav-item">
-                    <a class="nav-link" href="#">
-                        <i class="fas fa-user"></i>
-                    </a>
-                </div>
-            </div>
-        </div>
-    </nav>
-
-    <!-- Navbar para dispositivos móviles con botón de búsqueda -->
-    <nav class="navbar navbar-light shadow-sm bg-light fixed-top d-lg-none">
-        <div class="container">
-            <a class="navbar-brand d-flex align-items-center" href="#">
-
-                <span class="ml-3 font-weight-bold">INKBYTE</span>
-            </a>
-            <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavMobile" aria-controls="navbarNavMobile" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNavMobile">
-                <ul class="navbar-nav ms-auto">
-                    <!-- Nuevo nav-item de búsqueda para dispositivos móviles -->
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Nosotros</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" data-bs-toggle="modal" data-bs-target="#searchModal">Search</a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </nav>
-
-
-    <!--FIN NAVBAR-->
+<?php
+  $id_libro = isset($_POST["id_libro"]) ? $_POST["id_libro"] : null;
+  $_SESSION["id_libro"]=$id_libro;
+?>
+<?php
+include('layout.php');
+?>
+    
 
 
     <!--seccion libro-->
@@ -123,7 +27,7 @@
                                 <div class="mb-3 ">
                                     <h1 class="fw-bold">Título del Libro</h1>
                                     <p style="margin-left: 8px;";> Autor: Nombre del Autor</p>
-                                    <section id="contador-de-capitulos">
+                                    <section id="contador-de-capitulos" >
                                         <?php
                                         //  capítulos de prueba
                                         $capitulosDePrueba = array(
@@ -138,12 +42,29 @@
                                             <div class="row">
                                                 <div class="col-md-6">
                                                     <label for="capituloDropdown" class="form-label">Selecciona un capítulo</label>
-                                                    <select id="capituloDropdown" class="form-select" onchange="location = this.value;">
+                                                    <select id="capituloDropdown" class="form-select" onchange="location = this.value;" name="contador_capitulos">
                                                         <option value="" disabled selected>Elige un capítulo</option>
                                                         <?php foreach ($capitulosDePrueba as $capitulo) : ?>
                                                             <option value="?capitulo=<?= $capitulo['id_capitulo'] ?>"><?= $capitulo['titulo'] ?></option>
                                                         <?php endforeach; ?>
                                                     </select>
+                                                </div>
+                                                <div class="col-md-6 d-flex flex-column justify-content-end">
+                                                <button class="btn btn-dark" name="leer">   
+                                         <svg width="30px" height="30px" viewBox="0 0 192 192" xmlns="http://www.w3.org/2000/svg" xml:space="preserve" fill="none" stroke="#fff">
+                                            <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                                            <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+                                            <g id="SVGRepo_iconCarrier">
+                                                <g style="display:inline;stroke-width:9.40549;stroke-dasharray:none">
+                                                    <path d="M38 137h48c2.828 0 7.173 2.935 10 3 2.7.062 7.3-3 10-3h48V49h-48c-3 0-7 3-9.704 3C93 52 89 49 86 49H38Zm58-82v85" style="fill:none;stroke:#fff;stroke-width:9.40549;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:5;stroke-dasharray:none;stroke-opacity:1" transform="translate(-26.483 -24.57) scale(1.27586)"></path>
+                                                </g>
+                                                <g style="stroke-width:6.27027;stroke-dasharray:none">
+                                                    <path d="M51.869 65.116h30.297M51.869 80.088h30.297M51.869 95.06h30.297m27.668-29.944h30.297m-30.297 14.972h30.297" style="fill:none;fill-opacity:1;stroke:#fff;stroke-width:9.40541;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:5;stroke-dasharray:none;stroke-opacity:1" transform="translate(-26.483 -24.57) scale(1.27586)"></path>
+                                                </g>
+                                            </g>
+                                        </svg>
+                                        
+                                        Leer</button>
                                                 </div>
                                             </div>
                                         </div>
@@ -176,20 +97,7 @@
 
                                 <!-- Botones -->
                                 <div class="d-flex flex-wrap">
-                                    <button class="btn btn-dark">
-                                        <svg width="30px" height="30px" viewBox="0 0 192 192" xmlns="http://www.w3.org/2000/svg" xml:space="preserve" fill="none" stroke="#fff">
-                                            <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
-                                            <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
-                                            <g id="SVGRepo_iconCarrier">
-                                                <g style="display:inline;stroke-width:9.40549;stroke-dasharray:none">
-                                                    <path d="M38 137h48c2.828 0 7.173 2.935 10 3 2.7.062 7.3-3 10-3h48V49h-48c-3 0-7 3-9.704 3C93 52 89 49 86 49H38Zm58-82v85" style="fill:none;stroke:#fff;stroke-width:9.40549;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:5;stroke-dasharray:none;stroke-opacity:1" transform="translate(-26.483 -24.57) scale(1.27586)"></path>
-                                                </g>
-                                                <g style="stroke-width:6.27027;stroke-dasharray:none">
-                                                    <path d="M51.869 65.116h30.297M51.869 80.088h30.297M51.869 95.06h30.297m27.668-29.944h30.297m-30.297 14.972h30.297" style="fill:none;fill-opacity:1;stroke:#fff;stroke-width:9.40541;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:5;stroke-dasharray:none;stroke-opacity:1" transform="translate(-26.483 -24.57) scale(1.27586)"></path>
-                                                </g>
-                                            </g>
-                                        </svg>
-                                        Leer</button>
+                            
                                     <button class="btn btn-dark">
                                         <svg width="30px" height="30px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                             <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
@@ -262,7 +170,7 @@
 </div>
 
     </section>
-    <br><br>
+    <br><br><br>
 
     <!--footer-->
     <footer class="mt-5">
@@ -340,10 +248,3 @@
 
 
 
-</body>
-
-
-
-
-
-</html>

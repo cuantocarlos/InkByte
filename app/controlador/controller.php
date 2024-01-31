@@ -466,4 +466,41 @@ class Controller{
         require __DIR__ . '/../../web/templates/crearLibro.php';
     }
 
+    function verLibro(){
+        if(isset($_REQUEST["leer"])){
+            try{
+                $params=array(
+                    "id_libro"=>"",
+                    "num_cap"=>"",
+                    "titulo"=>"",
+                    "archivo"=>"",
+                    "titulo_libro"=>""
+                );
+
+                $params["id_libro"]=$_SESSION["id_libro"];
+
+                $params["num_cap"]=recoge("contador_capitulos");
+                
+               
+                $cs=new Consultas();
+                $params["titulo"]=$cs->buscar($params["id_libro"],"capitulos","titulo","id_libro");
+                $params["archivo"]=$cs->buscar($params["id_libro"],"capitulos","archivo","id_libro");
+                $params["titulo_libro"]=$cs->buscar($params["id_libro"],"libro","titulo","id_libro");
+
+                $url = "index.php?ctl=leerCapitulo&id_libro=" . urlencode( $params["id_libro"]) . "&num_cap=" . urlencode( $params["num_cap"]) . "&titulo=" . urlencode($params["titulo"]) . "&archivo=" . urlencode( $params["archivo"]) . "&titulo_libro=" . urlencode( $params["titulo_libro"]);
+                
+                header("location: . $url");
+               
+
+
+
+
+              
+            } catch (Exception $e){
+                echo "Error: " . $e->getMessage();
+            }
+
+                
+        }
+    }
 }
