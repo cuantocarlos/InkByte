@@ -92,7 +92,6 @@ class Controller{
     }
 
     public function registro() {
-        echo "JEJE";
             $nombre="";
             $nick="";
             $mail="";
@@ -386,7 +385,6 @@ class Controller{
                             $params["mensaje"] = "Error en el campo género";
                         }
                     } else {
-                        echo "fail en sinopsis";
                         $params["mensaje"] = "Error en el campo sinopsis";
                     }
                 } else {
