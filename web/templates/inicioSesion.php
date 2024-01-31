@@ -6,16 +6,22 @@
           </div>
           <div class="modal-body p-5 pt-0">
             <form method="post" action="index.php?ctl=iniciarSesion">
-              <div class="form-floating mb-3">
+              <div class="form-floating">
                 <input type="email" class="form-control rounded-3" id="mail" placeholder="name@example.com" name="mail" required>
                 <label for="email">Correo Electrónico</label>
               </div>
-              <div class="form-floating mb-3">
+
+              <div id="mailMal" class="mb-3 text-danger"></div>
+
+              <div class="form-floating">
                 <input type="password" class="form-control rounded-3" id="pass" placeholder="Password" name="pass" required>
                 <label for="pass">Contraseña</label>
               </div>
-              <button class="w-100 mb-2 btn btn-lg rounded-3 btn-primary mt-4" type="submit" name="bAceptar">Iniciar Sesión</button>
-              <small class="text-body-secondary ">Si aún no tienes cuenta <a href="registro">registrate aquí</a>.</small>
+
+              <div id="passMal" class="mb-3 text-danger"></div>
+
+              <button class="w-100 mb-2 btn btn-lg rounded-3 btn-primary mt-4" type="submit" id="bAceptar" name="bAceptar">Iniciar Sesión</button>
+              <small class="text-body-secondary ">Si aún no tienes cuenta <a href="index.php?ctl=registro">registrate aquí</a>.</small>
             </form>
           </div>
 

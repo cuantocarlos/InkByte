@@ -41,13 +41,11 @@ class Controller{
             if(isset($_POST["bAceptar"])){
                 $params["mail"] = recoge("mail");
                 $params["pass"] = recoge("pass");
-                echo $params["mail"];
-                echo $params["pass"];
                         $cs=new Consultas();
                         if(!$usuario = $cs->verificarEmail($params["mail"])){
                             $params['mensaje']="El correo no existe";
                         }else{
-                            if(!$cs->verificarPass($usuario['email'],$usuario['pass'])){
+                            if($cs->verificarPass($usuario['email'],$usuario['pass'])){
                                 session_unset();
                                 session_destroy();
                                 session_start();
@@ -59,7 +57,6 @@ class Controller{
                                     $_SESSION['f_nacimiento'] = $usuario['f_nacimiento'];
                                     $_SESSION['foto_perfil'] = $usuario['foto_perfil'];
                                     $_SESSION['nivel'] = $usuario['nivel'];
-
                                     header('Location: index.php?ctl=inicio');
                                 }else{
                                     $params["mensaje"]="No se ha completado la autentificación por correo";
@@ -67,7 +64,6 @@ class Controller{
                                 }
                             }else{
                                 $params["mensaje"]="La contraseña es incorrecta";
-                                echo "Contra mal";
                             }
                         }
             }
@@ -79,6 +75,19 @@ class Controller{
             echo 2;
         }
         require __DIR__ . '/../../web/templates/inicioSesion.php';
+    }
+
+    public function inicioSesionJS() {
+        $cs = new Consultas();
+        $mail = $_REQUEST["mail"];
+        $pass = $_REQUEST["pass"];
+        if(empty($cs -> verificarEmail($mail))){
+            echo json_encode(array('error'=>'mail'));
+        }else{
+            if($cs->verificarPass($mail,$pass)){
+                echo json_encode(array('error'=>'pass'));
+            }
+        }
     }
 
     public function registro() {
