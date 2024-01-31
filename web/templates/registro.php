@@ -45,10 +45,13 @@
 
               <div id="pass2Mal" class="mb-3 text-danger "></div>
 
-              <div class="form-floating mb-3">
-                <input type="date" class="form-control rounded-3" id="fecha" placeholder="Password" name="fecha" required>
+              <div class="form-floating">
+                <input type="date" class="form-control rounded-3 " id="fecha" placeholder="Password" name="fecha" required>
                 <label for="fecha">Fecha de Nacimiento*</label>
               </div>
+
+              <div id="fechaMal" class="mb-3 text-danger"></div>
+
               <div class="mb-5">
               <label for="f_perfil" class="form-label">Seleccioine una foto de perfil:</label>
               <input class="form-control" type="file" id="f_perfil" name="f_perfil">

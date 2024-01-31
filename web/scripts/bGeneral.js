@@ -51,24 +51,6 @@ export function validarFecha(fechaString) {
     );
 }
 
-export function validarRol() {
-    var opciones = document.getElementsByName("options-base");
-    var valorSeleccionado;
-
-    for (var i = 0; i < opciones.length; i++) {
-      if (opciones[i].checked) {
-        valorSeleccionado = opciones[i].value;
-        break;
-      }
-    }
-
-    if (valorSeleccionado && (valorSeleccionado !== "escritor" && valorSeleccionado !== "lector")) {
-      return false;
-    } else {
-        return true;
-    }
-  }
-
   export function abrirModalInfoUser() {
     document.getElementById("infoUser").style.display = 'block';
   }

@@ -1,4 +1,4 @@
-import {validarCorreoElectronico, validarPassword, validarFecha, validarRol, compruebaNombre, compruebaCorreo} from "./bGeneral.js";
+import {validarCorreoElectronico, validarPassword, validarFecha, compruebaNombre, compruebaCorreo} from "./bGeneral.js";
 
 var bAceptar = document.getElementById("bAceptar");
 var nombre = document.getElementById("nombre");
@@ -12,7 +12,8 @@ var terminosCondiciones = document.getElementById("terminos");
 window.onload = function () {
 
   bAceptar.addEventListener("click", function () {
-    if(validarCampos() == false){
+    if(!terminosCondiciones.checked){
+      alert("Debes aceptar los términos y condiciones");
       event.preventDefault();
     }
   });
@@ -21,6 +22,20 @@ window.onload = function () {
     const nom = nombre.value.trim();
 
     compruebaNombre(nom);
+  });
+
+  fecha.addEventListener('change', ()=>{
+    let fechaValida = false;
+    const fechaMal = document.getElementById("fechaMal");
+    if(!validarFecha(fecha.value)){
+      fechaValida=true;
+      fechaMal.innerText = "La fecha de nacimiento no existe";
+    }else{
+      fechaValida=false;
+      fechaMal.innerText = "";
+    }
+
+    fecha.classList.toggle("is-invalid",fechaValida);
   });
 
   email.addEventListener('blur', ()=>{
@@ -38,7 +53,6 @@ window.onload = function () {
     validarPassword(contrasenia);
 });
 
-
   pass2.addEventListener('blur', ()=>{
     const contrasenia = pass.value;
     const contrasenia2 = pass2.value;
@@ -54,19 +68,4 @@ window.onload = function () {
       document.getElementById("pass2Mal").innerText="";
     }
   });
-}
-
-function validarCampos(){
-  if( validarFecha(fecha.value) == false ){
-    console.log("Error en el campo fecha");
-    return false;
-  }
-  if( validarRol(rol.value) == false){
-    console.log("Error en el campo rol");
-    return false;
-  }
-  if( !terminosCondiciones.checked){
-    alert("Debes aceptar los términos y condiciones");
-    return false;
-  }
 }
