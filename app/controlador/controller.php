@@ -81,6 +81,7 @@ class Controller{
     }
 
     public function registro() {
+
             $params = array(
                 'nombre' => '',
                 'nick'=>'',
@@ -124,7 +125,7 @@ class Controller{
                 if(empty($params["nombre"])){
                     $params["mensaje"]="Por favor ingrese un nombre";
                 }else{
-                    $nombre=sinEspacios($params["nombre"]);
+                    $params["nombre"]=sinEspacios($params["nombre"]);
                 }
 
 
@@ -428,7 +429,6 @@ class Controller{
                             $params["mensaje"] = "Error en el campo género";
                         }
                     } else {
-                        echo "fail en sinopsis";
                         $params["mensaje"] = "Error en el campo sinopsis";
                     }
                 } else {
