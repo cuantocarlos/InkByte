@@ -322,6 +322,7 @@ class Controller{
         require __DIR__ . '/../../web/templates/inicio.php';
     }
 
+
     public function generoUsuario()
     {
           if ($_SESSION['nivel'] < 1) {
@@ -503,4 +504,9 @@ class Controller{
                 
         }
     }
+
+    public function verLibro(){
+        require __DIR__ . '/../../web/templates/book.php';
+    }
+
 }

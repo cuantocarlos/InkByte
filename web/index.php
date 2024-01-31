@@ -40,6 +40,12 @@ $map = array(
     // 'error' => array('controller' => 'Controller', 'action' => 'error', 'nivel' => 0),
     // 'listarLibros' => array('controller' => 'Controller', 'action' => 'listarLibros', 'nivel' => 0),
      'verLibro' => array('controller' => 'Controller', 'action' => 'verLibro', 'nivel' => 0),//cambiar cuando este el login 
+
+    // 'salir' => array('controller' => 'Controller', 'action' => 'salir', 'nivel' => 1),
+    // 'error' => array('controller' => 'Controller', 'action' => 'error', 'nivel' => 0),
+    // 'listarLibros' => array('controller' => 'Controller', 'action' => 'listarLibros', 'nivel' => 0),
+     'verLibro' => array('controller' => 'Controller', 'action' => 'verLibro', 'nivel' => 0),
+
     // 'buscarPorTitulo' => array('controller' => 'Controller', 'action' => 'buscarPorTitulo', 'nivel' => 1),
     // 'buscarPorAutor' => array('controller' => 'Controller', 'action' => 'buscarPorAutor', 'nivel' => 1),
     // 'buscarPorEditorial' => array('controller' => 'Controller', 'action' => 'buscarPorEditorial', 'nivel' => 1),
