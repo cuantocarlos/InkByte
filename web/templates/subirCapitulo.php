@@ -1,7 +1,7 @@
 
     <script type="module" src="../web/scripts/bGeneral.js"></script>
     <script type="module" src="../web/scripts/validar_subirCapitulo.js"></script>
-<div class="container d-flex flex-column mt-5">
+    <div class="container d-flex flex-column mt-5">
           <div class="header p-5 ps-0 pb-4 border-bottom-0">
             <h1 class="fw-bold mb-0 fs-2 mb-4">Sube tu capítulo</h1>
           </div>
@@ -31,7 +31,7 @@
               <input class="form-control" type="file" id="archivoPDF" name="archivoPDF" accept=".pdf">
               </div>
 
-                <button class="w-100 mb-2 btn btn-lg rounded-3 btn-primary mt-4" type="submit" name="bAceptar">Subir capítulo</button>
+                <button class="w-100 mb-2 btn btn-lg rounded-3 btn-primary mt-4" type="submit" id="bAceptar" name="bAceptar">Subir capítulo</button>
             </form>
 
     </div>

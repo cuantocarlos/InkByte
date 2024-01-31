@@ -55,10 +55,8 @@ export function validarRol() {
 
     for (var i = 0; i < opcionesDisponibles.length; i++) {
         if (opcionesDisponibles[i].value == opcionIntroducida) {
-            alert("La opción introducida está entre las disponibles.");
             return true;
         }
     }
-    alert("La opción introducida no está entre las disponibles.");
     return false; 
 }

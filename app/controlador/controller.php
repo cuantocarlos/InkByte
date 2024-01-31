@@ -233,6 +233,14 @@ class Controller{
 
     public function subirCapitulo(){
 
+        try{
+            $cs = new Consultas();
+            $titulos = $cs -> obtenerTitulosLibrosPorUsuario($_SESSION["id_user"]);
+            $ids = $cs -> obtenerIdLibrosPorUsuario($_SESSION["id_user"]);
+        }catch (PDOException $e) {
+            echo "Error: " . $e->getMessage();
+        }
+
         if ($_SESSION['nivel'] != 2) {
             header("location:index.php?ctl=inicio");
         }
@@ -275,6 +283,7 @@ class Controller{
                         if(empty($params["mensaje"]) && !empty($params["archivo"])){
                             $cs -> agregarCapitulo($params["id_libro"], $params["num_cap"], $params["titulo"], $params["archivo"]);
                             $cs -> aumentarCapitulosLibro($params["id_libro"]);
+                            header ("Location:index.php?ctl=inicio");
 
                         } else {
                             header ("Location:index.php?ctl=subirCapitulo");
