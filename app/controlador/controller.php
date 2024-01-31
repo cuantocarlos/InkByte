@@ -238,7 +238,7 @@ class Controller{
 
             try{
                 $cs = new Consultas();
-                $opcionesDisponibles = $cs -> obtenerIdLibrosPorUsuario(1); //cambiar por $_SESSION["id_user"]
+                $opcionesDisponibles = $cs -> obtenerIdLibrosPorUsuario($_SESSION["id_user"]); 
 
                 $params = array(
                     'id_libro' => '',
@@ -400,7 +400,7 @@ class Controller{
                     'mensaje' => []
                 );
 
-                $params['id_user'] = 1; //$_SESSION['id_user']; cambiar cuando funcione el login
+                $params['id_user'] = $_SESSION["id_user"]; //$_SESSION['id_user']; cambiar cuando funcione el login
                 $params['titulo'] = recoge("titulo_lib");
                 $params['sinopsis'] = recoge('sinopsis');
                 $params['generos'] = recogeArray('generos');
@@ -440,8 +440,7 @@ class Controller{
 
                     if(!empty($params["imagen_portada"])){
                         $cs = new Consultas();
-                        $cs -> agregarLibro(5, $params["titulo"], $params["sinopsis"], $params["imagen_portada"], $params["capitulos"], $params["num_resenas"], $params["valoracion"], $params["visitas"], $params["visitasSemana"], $params["estado"], $params["m_18"], $params["m_16"], $params["m_12"]);
-                        //Cambiar el primer parametro por $params["id_user"];
+                        $cs -> agregarLibro($params["id_user"], $params["titulo"], $params["sinopsis"], $params["imagen_portada"], $params["capitulos"], $params["num_resenas"], $params["valoracion"], $params["visitas"], $params["visitasSemana"], $params["estado"], $params["m_18"], $params["m_16"], $params["m_12"]);
                     }
                 } else {}
 
@@ -462,6 +461,92 @@ class Controller{
 
         }
         require __DIR__ . '/../../web/templates/crearLibro.php';
+    }
+
+    public function leerCapitulo()
+    {
+        $params = array(
+            'id_libro' => '',
+            'num_cap' => '',
+            'titulo' => '',
+            'archivo' => '',
+            'titulo_libro' => ''
+        );
+
+        $datosCap = [];
+        
+        $params["id_libro"] = isset($_GET['id_libro']) ? $_GET['id_libro'] : null;
+        $params["num_cap"] = isset($_GET['num_cap']) ? $_GET['num_cap'] : null;
+        $params["titulo"] = isset($_GET['titulo']) ? $_GET['titulo'] : null;
+        $params["archivo"] = isset($_GET['archivo']) ? $_GET['archivo'] : null;
+        $params["titulo_libro"] = isset($_GET['titulo_libro']) ? $_GET['titulo_libro'] : null;
+        
+        try{
+            $cs = new Consultas();
+            $capitulos =  $cs -> buscarTodos($params["id_libro"],"capitulos", "titulo", "id_libro");
+            
+        } catch (Exception $e){
+            error_log($e->getMessage() . "##Código: " . $e->getCode() . "  " . microtime() . PHP_EOL, 3, "../logs/logBD.txt");
+        }catch (Error $e){
+            error_log($e->getMessage() . microtime() . PHP_EOL, 3, "../logs/logError.txt");
+        }
+
+        if(isset($_REQUEST["seleccionar_capitulo"])){
+            $params["num_cap"] = recoge("lista_capitulos");
+
+            try{
+                $cs = new Consultas();
+                $titulo = $cs -> buscar($params["num_cap"],"capitulos", "titulo", "num_cap");
+                $archivo = $cs -> buscar($params["num_cap"],"capitulos", "archivo", "num_cap");
+
+                
+            } catch (Exception $e){
+                error_log($e->getMessage() . "##Código: " . $e->getCode() . "  " . microtime() . PHP_EOL, 3, "../logs/logBD.txt");
+            }catch (Error $e){
+                error_log($e->getMessage() . microtime() . PHP_EOL, 3, "../logs/logError.txt");
+            }
+            header("location:index.php?ctl=leerCapitulo&id_libro=" . $params["id_libro"] . "&num_cap=" . $params["num_cap"] . "&titulo=" . $titulo . "&archivo=" . $archivo . "&titulo_libro=" . $params["titulo_libro"]);
+        }
+
+        if(isset($_REQUEST["capitulo_anterior"])){
+            if($params["num_cap"] > 1){
+                $params["num_cap"] = $params["num_cap"] - 1;
+                try{
+                    $cs = new Consultas();
+                    $titulo = $cs -> buscar($params["num_cap"],"capitulos", "titulo", "num_cap");
+                    $archivo = $cs -> buscar($params["num_cap"],"capitulos", "archivo", "num_cap");
+    
+                    
+                } catch (Exception $e){
+                    error_log($e->getMessage() . "##Código: " . $e->getCode() . "  " . microtime() . PHP_EOL, 3, "../logs/logBD.txt");
+                }catch (Error $e){
+                    error_log($e->getMessage() . microtime() . PHP_EOL, 3, "../logs/logError.txt");
+                }
+                header("location:index.php?ctl=leerCapitulo&id_libro=" . $params["id_libro"] . "&num_cap=" . $params["num_cap"] . "&titulo=" . $titulo . "&archivo=" . $archivo . "&titulo_libro=" . $params["titulo_libro"]);
+            }
+        }
+
+        if(isset($_REQUEST["capitulo_siguiente"])){
+            if($params["num_cap"] < count($capitulos)){
+                $params["num_cap"] = $params["num_cap"] + 1;
+                try{
+                    $cs = new Consultas();
+                    $titulo = $cs -> buscar($params["num_cap"],"capitulos", "titulo", "num_cap");
+                    $archivo = $cs -> buscar($params["num_cap"],"capitulos", "archivo", "num_cap");
+    
+                    
+                } catch (Exception $e){
+                    error_log($e->getMessage() . "##Código: " . $e->getCode() . "  " . microtime() . PHP_EOL, 3, "../logs/logBD.txt");
+                }catch (Error $e){
+                    error_log($e->getMessage() . microtime() . PHP_EOL, 3, "../logs/logError.txt");
+                }
+                header("location:index.php?ctl=leerCapitulo&id_libro=" . $params["id_libro"] . "&num_cap=" . $params["num_cap"] . "&titulo=" . $titulo . "&archivo=" . $archivo . "&titulo_libro=" . $params["titulo_libro"]);
+            }
+        }
+        
+
+
+        require __DIR__ . '/../../web/templates/leerCapitulo.php';
     }
 
 }

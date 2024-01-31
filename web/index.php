@@ -30,12 +30,13 @@ if (!isset($_SESSION['nivel'])) {
 
 $map = array(
     'home' => array('controller' => 'Controller', 'action' => 'home', 'nivel' => 0),
-    'subirCapitulo' => array('controller' => 'Controller', 'action' => 'subirCapitulo', 'nivel' => 2), //cambiar a 2 cuando este el login
+    'subirCapitulo' => array('controller' => 'Controller', 'action' => 'subirCapitulo', 'nivel' => 0), 
     'iniciarSesion' => array('controller' => 'Controller', 'action' => 'iniciarSesion', 'nivel' => 0),
     'registro' => array('controller' => 'Controller', 'action' => 'registro', 'nivel' => 0),
     'inicio' => array('controller' => 'Controller', 'action' => 'inicio', 'nivel' => 0),
     'generoUsuario' => array('controller' => 'Controller', 'action' => 'generoUsuario', 'nivel' => 0),
-    'crearLibro' => array('controller' => 'Controller', 'action' => 'crearLibro', 'nivel' => 0) //cambiar a 2 cuando esté el login
+    'crearLibro' => array('controller' => 'Controller', 'action' => 'crearLibro', 'nivel' => 2), 
+    'leerCapitulo' => array('controller' => 'Controller', 'action' => 'leerCapitulo', 'nivel' => 1) 
     // 'salir' => array('controller' => 'Controller', 'action' => 'salir', 'nivel' => 1),
     // 'error' => array('controller' => 'Controller', 'action' => 'error', 'nivel' => 0),
     // 'listarLibros' => array('controller' => 'Controller', 'action' => 'listarLibros', 'nivel' => 0),
