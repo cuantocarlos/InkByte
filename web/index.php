@@ -27,14 +27,16 @@ if (!isset($_SESSION['nivel'])) {
 
 $map = array(
     'home' => array('controller' => 'Controller', 'action' => 'home', 'nivel' => 0),
-    'subirCapitulo' => array('controller' => 'Controller', 'action' => 'subirCapitulo', 'nivel' => 2), //cambiar a 2 cuando este el login
+    'subirCapitulo' => array('controller' => 'Controller', 'action' => 'subirCapitulo', 'nivel' => 0),
     'iniciarSesion' => array('controller' => 'Controller', 'action' => 'iniciarSesion', 'nivel' => 0),
     'registro' => array('controller' => 'Controller', 'action' => 'registro', 'nivel' => 0),
     'inicio' => array('controller' => 'Controller', 'action' => 'inicio', 'nivel' => 0),
     'generoUsuario' => array('controller' => 'Controller', 'action' => 'generoUsuario', 'nivel' => 0),
-    'crearLibro' => array('controller' => 'Controller', 'action' => 'crearLibro', 'nivel' => 0), //cambiar a 2 cuando esté el login
     'usuarioUnico' => array('controller' => 'Controller', 'action' => 'peticionNombre', 'nivel' => 0),
-    'mailUnico' => array('controller' => 'Controller', 'action' => 'peticionMail', 'nivel' => 0)
+    'mailUnico' => array('controller' => 'Controller', 'action' => 'peticionMail', 'nivel' => 0),
+    'crearLibro' => array('controller' => 'Controller', 'action' => 'crearLibro', 'nivel' => 2),
+    'leerCapitulo' => array('controller' => 'Controller', 'action' => 'leerCapitulo', 'nivel' => 1)
+
     // 'salir' => array('controller' => 'Controller', 'action' => 'salir', 'nivel' => 1),
     // 'error' => array('controller' => 'Controller', 'action' => 'error', 'nivel' => 0),
     // 'listarLibros' => array('controller' => 'Controller', 'action' => 'listarLibros', 'nivel' => 0),
@@ -73,10 +75,7 @@ si el usuario tiene permiso suficiente para ejecutar esa acción
 */
 
 if (method_exists($controlador['controller'], $controlador['action'])) {
-    // echo "el nivel es ". $controlador["nivel"];
-    // echo "el nivel session es ". $_SESSION['nivel'];
-    //$_SESSION['nivel'] = 2; //BORRAR NADA MAS HACER EL LOGIN
-    //$_SESSION["id_user"] = 1; //BORRAR NADA MAS HACER EL LOGIN
+
     if ($controlador['nivel'] <= $_SESSION['nivel']) {
         call_user_func(array(
             new $controlador['controller'],

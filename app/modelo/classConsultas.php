@@ -8,6 +8,13 @@ class Consultas extends Modelo {
         return ($resultado) ? $resultado[$columna] : null;
     }
 
+    function buscarTodos($input, $tabla, $columna, $campoWhere){
+        $stmt = $this->conexion->prepare("SELECT $columna FROM $tabla WHERE $campoWhere = ?");
+        $stmt->execute([$input]);
+        $resultados = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return $resultados;
+    }
+
     function filas ($tabla, $campoWhere, $input){
         $stmt = $this->conexion->prepare("SELECT COUNT(*) as totalFilas FROM $tabla WHERE $campoWhere = ?");
         $stmt->execute([$input]);

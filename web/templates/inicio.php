@@ -84,6 +84,7 @@
     <a href="index.php?ctl=iniciarSesion" class="p-5">Iniciar Sesion</a>
     <a href="index.php?ctl=crearLibro" class="p-5">Crear Libro</a>
     <a href="index.php?ctl=diferente" class="p-5">Diferente</a>
+    <a href="index.php?ctl=leerCapitulo" class="p-5">Leer Capítulo</a>
 </body>
 
 </html>
