@@ -1,5 +1,5 @@
 
-    
+
     <script type="module" src="../web/scripts/bGeneral.js"></script>
     <script type="module" src="../web/scripts/validar_registro.js"></script>
 
@@ -12,33 +12,46 @@
             <div class="container d-flex justify-content-end my-2">
             <small class="text-body-secondary ">Los campos con * son obligatorios</small>
             </div>
-            <div class="input-group mb-3">
-              <span class="input-group-text">@</span>
+            <div class="input-group">
+            <span class="input-group-text">@</span>
               <div class="form-floating">
                 <input type="text" class="form-control" id="nombre" placeholder="Nombre" name="nombre" required>
-                <label for="nombre">Nombre de Usuario*</label>
+                <label for="nombre">Username Único*</label>
               </div>
               </div>
+
+              <div id="nombreMal" class="mb-3 text-danger mx-5"></div>
+
               <div class="form-floating mb-3">
                 <input type="text" class="form-control rounded-3" id="nick" name="nick" placeholder="nick">
                 <label for="nombre">Sobrenombre</label>
               </div>
-              <div class="form-floating mb-3">
+              <div class="form-floating">
                 <input type="email" class="form-control rounded-3" id="mail" placeholder="name@example.com" name="mail" required>
                 <label for="mail">Correo Electrónico*</label>
               </div>
-              <div class="form-floating mb-3">
+
+              <div id="mailMal" class="mb-3 text-danger"></div>
+
+              <div class="form-floating">
                 <input type="password" class="form-control rounded-3" id="pass" placeholder="Password" name="pass" required>
                 <label for="pass">Contraseña*</label>
               </div>
-              <div class="form-floating mb-3">
+              <div class=" mb-3 mx-5">La contraseña debe contener: <span id="mayus" class="">1 Mayúscula</span>, <span id="minus" class="">1 minúscula</span>, <span id="num" class="">1 número</span>, <span id="especial" class="">1 carácter especial</span>. <span id="longitud" class="">Entre 8 y 16 caracteres</span></div>
+              <div class="form-floating">
                 <input type="password" class="form-control rounded-3" id="pass2" placeholder="Password" name="pass2" required>
                 <label for="pass2">Repita Contraseña*</label>
               </div>
-              <div class="form-floating mb-3">
-                <input type="date" class="form-control rounded-3" id="fecha" placeholder="Password" name="fecha" required>
+
+              <div id="pass2Mal" class="mb-3 text-danger "></div>
+
+              <div class="form-floating">
+                <input type="date" class="form-control rounded-3 " id="fecha" placeholder="Password" name="fecha" required>
                 <label for="fecha">Fecha de Nacimiento*</label>
               </div>
+
+              <div id="fechaMal" class="mb-3 text-danger"></div>
+
               <div class="mb-5">
               <label for="f_perfil" class="form-label">Seleccioine una foto de perfil:</label>
               <input class="form-control" type="file" id="f_perfil" name="f_perfil">

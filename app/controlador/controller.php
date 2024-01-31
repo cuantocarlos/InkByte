@@ -14,6 +14,7 @@ use PHPMailer\PHPMailer\Exception;
 
 
 
+
 class Controller{
 
     private function cargaMenu()
@@ -239,7 +240,7 @@ class Controller{
 
             try{
                 $cs = new Consultas();
-                $opcionesDisponibles = $cs -> obtenerIdLibrosPorUsuario($_SESSION["id_user"]); 
+                $opcionesDisponibles = $cs -> obtenerIdLibrosPorUsuario($_SESSION["id_user"]);
 
                 $params = array(
                     'id_libro' => '',
@@ -463,6 +464,27 @@ class Controller{
         require __DIR__ . '/../../web/templates/crearLibro.php';
     }
 
+    public function peticionNombre(){
+        $nombre = $_REQUEST["nombre"];
+        $cs = new Consultas();
+        if(!$cs -> nombreUnico($nombre)){
+            echo json_encode(array('existe'=> false));
+
+        }else{
+            echo json_encode(array('existe'=> true));
+
+        }
+    }
+
+    public function peticionMail(){
+        $mail = $_REQUEST["mail"];
+        $cs = new Consultas();
+        if($cs->correoUnico($mail)){
+            echo json_encode(array('existe'=>false));
+        }else{
+            echo json_encode(array('existe'=>true));
+        }
+    }
     public function leerCapitulo()
     {
         $params = array(
@@ -474,17 +496,17 @@ class Controller{
         );
 
         $datosCap = [];
-        
+
         $params["id_libro"] = isset($_GET['id_libro']) ? $_GET['id_libro'] : null;
         $params["num_cap"] = isset($_GET['num_cap']) ? $_GET['num_cap'] : null;
         $params["titulo"] = isset($_GET['titulo']) ? $_GET['titulo'] : null;
         $params["archivo"] = isset($_GET['archivo']) ? $_GET['archivo'] : null;
         $params["titulo_libro"] = isset($_GET['titulo_libro']) ? $_GET['titulo_libro'] : null;
-        
+
         try{
             $cs = new Consultas();
             $capitulos =  $cs -> buscarTodos($params["id_libro"],"capitulos", "titulo", "id_libro");
-            
+
         } catch (Exception $e){
             error_log($e->getMessage() . "##Código: " . $e->getCode() . "  " . microtime() . PHP_EOL, 3, "../logs/logBD.txt");
         }catch (Error $e){
@@ -499,7 +521,7 @@ class Controller{
                 $titulo = $cs -> buscar($params["num_cap"],"capitulos", "titulo", "num_cap");
                 $archivo = $cs -> buscar($params["num_cap"],"capitulos", "archivo", "num_cap");
 
-                
+
             } catch (Exception $e){
                 error_log($e->getMessage() . "##Código: " . $e->getCode() . "  " . microtime() . PHP_EOL, 3, "../logs/logBD.txt");
             }catch (Error $e){
@@ -515,8 +537,8 @@ class Controller{
                     $cs = new Consultas();
                     $titulo = $cs -> buscar($params["num_cap"],"capitulos", "titulo", "num_cap");
                     $archivo = $cs -> buscar($params["num_cap"],"capitulos", "archivo", "num_cap");
-    
-                    
+
+
                 } catch (Exception $e){
                     error_log($e->getMessage() . "##Código: " . $e->getCode() . "  " . microtime() . PHP_EOL, 3, "../logs/logBD.txt");
                 }catch (Error $e){
@@ -533,8 +555,8 @@ class Controller{
                     $cs = new Consultas();
                     $titulo = $cs -> buscar($params["num_cap"],"capitulos", "titulo", "num_cap");
                     $archivo = $cs -> buscar($params["num_cap"],"capitulos", "archivo", "num_cap");
-    
-                    
+
+
                 } catch (Exception $e){
                     error_log($e->getMessage() . "##Código: " . $e->getCode() . "  " . microtime() . PHP_EOL, 3, "../logs/logBD.txt");
                 }catch (Error $e){
@@ -543,10 +565,11 @@ class Controller{
                 header("location:index.php?ctl=leerCapitulo&id_libro=" . $params["id_libro"] . "&num_cap=" . $params["num_cap"] . "&titulo=" . $titulo . "&archivo=" . $archivo . "&titulo_libro=" . $params["titulo_libro"]);
             }
         }
-        
+
 
 
         require __DIR__ . '/../../web/templates/leerCapitulo.php';
     }
 
 }
+

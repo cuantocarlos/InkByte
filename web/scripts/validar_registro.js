@@ -1,4 +1,4 @@
-import { validarNombre, validarCorreoElectronico, validarPassword, validarFecha, validarRol } from "./bGeneral.js";
+import {validarCorreoElectronico, validarPassword, validarFecha, compruebaNombre, compruebaCorreo} from "./bGeneral.js";
 
 var bAceptar = document.getElementById("bAceptar");
 var nombre = document.getElementById("nombre");
@@ -12,39 +12,60 @@ var terminosCondiciones = document.getElementById("terminos");
 window.onload = function () {
 
   bAceptar.addEventListener("click", function () {
-    if(validarCampos() == false){
+    if(!terminosCondiciones.checked){
+      alert("Debes aceptar los términos y condiciones");
       event.preventDefault();
     }
   });
-}
 
-function validarCampos(){
-  if( validarCorreoElectronico(email.value) == false ){
-    console.log("Error en el campo email");
-    return false;
-  }
-  if( validarNombre(nombre.value) == false ){
-    console.log("Error en el campo nombre");
-    return false;
-  }
-  if( validarPassword(pass.value) == false ){
-    console.log("Error en el campo pass");
-    return false;
-  }
-  if(pass.value !== pass2.value){
-    console.log("Error en el campo pass2");
-    return false;
-  }
-  if( validarFecha(fecha.value) == false ){
-    console.log("Error en el campo fecha");
-    return false;
-  }
-  if( validarRol(rol.value) == false){
-    console.log("Error en el campo rol");
-    return false;
-  }
-  if( !terminosCondiciones.checked){
-    alert("Debes aceptar los términos y condiciones");
-    return false;
-  }
+  nombre.addEventListener('input', ()=>{
+    const nom = nombre.value.trim();
+
+    compruebaNombre(nom);
+  });
+
+  fecha.addEventListener('change', ()=>{
+    let fechaValida = false;
+    const fechaMal = document.getElementById("fechaMal");
+    if(!validarFecha(fecha.value)){
+      fechaValida=true;
+      fechaMal.innerText = "La fecha de nacimiento no existe";
+    }else{
+      fechaValida=false;
+      fechaMal.innerText = "";
+    }
+
+    fecha.classList.toggle("is-invalid",fechaValida);
+  });
+
+  email.addEventListener('blur', ()=>{
+    const mail = email.value.trim();
+    if(validarCorreoElectronico(mail) == true){
+      compruebaCorreo(mail);
+    }else{
+      email.classList.add("is-invalid");
+      document.getElementById("mailMal").innerText="El email no existe";
+    }
+  });
+
+  pass.addEventListener('input', () => {
+    const contrasenia = pass.value;
+    validarPassword(contrasenia);
+});
+
+  pass2.addEventListener('blur', ()=>{
+    const contrasenia = pass.value;
+    const contrasenia2 = pass2.value;
+    let contieneMayus = false;
+    if(contrasenia2 !== contrasenia){
+      contieneMayus=true;
+    }
+    if(contieneMayus){
+      pass2.classList.add("is-invalid");
+      document.getElementById("pass2Mal").innerText="La contraseña no coincide";
+    }else{
+      pass2.classList.remove("is-invalid");
+      document.getElementById("pass2Mal").innerText="";
+    }
+  });
 }

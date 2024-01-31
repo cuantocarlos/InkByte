@@ -313,4 +313,6 @@ function cOpciones($opcion, $opcionesDisponibles)
         return true;
     }
 }
+
+
 ?>

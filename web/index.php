@@ -1,13 +1,10 @@
 
 <?php
-
-include('../app/modelo/classModelo.php');
-include('../app/modelo/classConsultas.php');
-
-
-require_once './../app/libs/config.php';
-require_once './../app/libs/bGeneral.php';
-require_once './../app/controlador/controller.php';
+require_once __DIR__ . '/../app/modelo/classModelo.php';
+require_once __DIR__ . '/../app/modelo/classConsultas.php';
+require_once __DIR__ . '/../app/libs/config.php';
+require_once __DIR__ . '/../app/libs/bGeneral.php';
+require_once __DIR__ . '/../app/controlador/controller.php';
 
 session_start(); // Se inicia la sesion
 //Este logueado o no el usuario, siempre tendra un nivel_usuario
@@ -30,13 +27,16 @@ if (!isset($_SESSION['nivel'])) {
 
 $map = array(
     'home' => array('controller' => 'Controller', 'action' => 'home', 'nivel' => 0),
-    'subirCapitulo' => array('controller' => 'Controller', 'action' => 'subirCapitulo', 'nivel' => 0), 
+    'subirCapitulo' => array('controller' => 'Controller', 'action' => 'subirCapitulo', 'nivel' => 0),
     'iniciarSesion' => array('controller' => 'Controller', 'action' => 'iniciarSesion', 'nivel' => 0),
     'registro' => array('controller' => 'Controller', 'action' => 'registro', 'nivel' => 0),
     'inicio' => array('controller' => 'Controller', 'action' => 'inicio', 'nivel' => 0),
     'generoUsuario' => array('controller' => 'Controller', 'action' => 'generoUsuario', 'nivel' => 0),
-    'crearLibro' => array('controller' => 'Controller', 'action' => 'crearLibro', 'nivel' => 2), 
-    'leerCapitulo' => array('controller' => 'Controller', 'action' => 'leerCapitulo', 'nivel' => 1) 
+    'usuarioUnico' => array('controller' => 'Controller', 'action' => 'peticionNombre', 'nivel' => 0),
+    'mailUnico' => array('controller' => 'Controller', 'action' => 'peticionMail', 'nivel' => 0),
+    'crearLibro' => array('controller' => 'Controller', 'action' => 'crearLibro', 'nivel' => 2),
+    'leerCapitulo' => array('controller' => 'Controller', 'action' => 'leerCapitulo', 'nivel' => 1)
+
     // 'salir' => array('controller' => 'Controller', 'action' => 'salir', 'nivel' => 1),
     // 'error' => array('controller' => 'Controller', 'action' => 'error', 'nivel' => 0),
     // 'listarLibros' => array('controller' => 'Controller', 'action' => 'listarLibros', 'nivel' => 0),
@@ -75,7 +75,7 @@ si el usuario tiene permiso suficiente para ejecutar esa acción
 */
 
 if (method_exists($controlador['controller'], $controlador['action'])) {
-    
+
     if ($controlador['nivel'] <= $_SESSION['nivel']) {
         call_user_func(array(
             new $controlador['controller'],
