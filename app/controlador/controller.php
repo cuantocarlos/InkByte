@@ -372,8 +372,8 @@ class Controller{
 
         require __DIR__ . '/../../web/templates/modalGeneroUsuario.php';
 }
-    public function crearLibro(){
-
+    public function crearLibro()
+    {
         if((isset($_POST["bAceptar"]))){
 
             try{
@@ -432,7 +432,7 @@ class Controller{
                 }
 
                 if(empty($params['mensaje'])){
-                    $params['imagen_portada'] = cFile("portadaLibro", $params['mensaje'], Config::$extensionesValidas,__DIR__ . '/../archivos/img/libro/', 2000000);
+                    $params['imagen_portada'] = cFile("portadaLibro", $params['mensaje'], Config::$extensionesValidas,__DIR__ . '/../archivos/img/libro/', 20000000);
 
                     if(!empty($params["imagen_portada"])){
                         $cs = new Consultas();
@@ -440,9 +440,10 @@ class Controller{
                         $id_libro = $cs -> buscarPorDosCampos ($params['id_user'], $params['titulo'], 'libro', 'id_libro', 'id_user', 'titulo');
                         $cs -> agregarGenerosLibro($id_libro, $params['generos']);
                     }
+
                 } else {}
 
-                if(empty($params["imagen_portada"])){
+                if(!empty($params["mensaje"])){
                     header("location:index.php?ctl=crearLibro");
                 } else {
                     header("location:index.php?ctl=inicio");
