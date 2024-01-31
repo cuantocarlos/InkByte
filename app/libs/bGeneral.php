@@ -101,8 +101,7 @@ function recogeBool($val): bool
 function cTexto(string $text, string $campo, array &$errores, int $max = 30, int $min = 1, bool $espacios = TRUE, bool $case = TRUE): bool
 {
     $case = ($case === TRUE) ? "i" : "";
-    $espacios = ($espacios === TRUE) ? "" : "";
-
+    $espacios = ($espacios === TRUE) ? " " : "";
     if ((preg_match("/^[A-Za-zñ$espacios]{" . $min . "," . $max . "}$/u$case", sinTildes($text)))) {
         return true;
     }

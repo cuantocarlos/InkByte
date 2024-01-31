@@ -28,7 +28,6 @@ class Controller{
         }
     }
 
-
     public function iniciarSesion() {
         try{
             $params = array(
@@ -42,13 +41,11 @@ class Controller{
             if(isset($_POST["bAceptar"])){
                 $params["mail"] = recoge("mail");
                 $params["pass"] = recoge("pass");
-                echo $params["mail"];
-                echo $params["pass"];
                         $cs=new Consultas();
                         if(!$usuario = $cs->verificarEmail($params["mail"])){
                             $params['mensaje']="El correo no existe";
                         }else{
-                            if(!$cs->verificarPass($usuario['email'],$usuario['pass'])){
+                            if($cs->verificarPass($usuario['email'],$usuario['pass'])){
                                 session_unset();
                                 session_destroy();
                                 session_start();
@@ -60,7 +57,6 @@ class Controller{
                                     $_SESSION['f_nacimiento'] = $usuario['f_nacimiento'];
                                     $_SESSION['foto_perfil'] = $usuario['foto_perfil'];
                                     $_SESSION['nivel'] = $usuario['nivel'];
-
                                     header('Location: index.php?ctl=inicio');
                                 }else{
                                     $params["mensaje"]="No se ha completado la autentificación por correo";
@@ -68,7 +64,6 @@ class Controller{
                                 }
                             }else{
                                 $params["mensaje"]="La contraseña es incorrecta";
-                                echo "Contra mal";
                             }
                         }
             }
@@ -80,6 +75,19 @@ class Controller{
             echo 2;
         }
         require __DIR__ . '/../../web/templates/inicioSesion.php';
+    }
+
+    public function inicioSesionJS() {
+        $cs = new Consultas();
+        $mail = $_REQUEST["mail"];
+        $pass = $_REQUEST["pass"];
+        if(empty($cs -> verificarEmail($mail))){
+            echo json_encode(array('error'=>'mail'));
+        }else{
+            if($cs->verificarPass($mail,$pass)){
+                echo json_encode(array('error'=>'pass'));
+            }
+        }
     }
 
     public function registro() {
@@ -305,7 +313,6 @@ class Controller{
         $params = array(
             'fecha' => date('d-m-Y')
         );
-        
         $menu = 'inicio.php';
 
         if ($_SESSION['nivel'] > 0) {
@@ -323,7 +330,6 @@ class Controller{
 
         require __DIR__ . '/../../web/templates/inicio.php';
     }
-
 
     public function generoUsuario()
     {
@@ -467,7 +473,6 @@ class Controller{
         require __DIR__ . '/../../web/templates/crearLibro.php';
     }
 
-
     public function peticionNombre(){
         $nombre = $_REQUEST["nombre"];
         $cs = new Consultas();
@@ -577,46 +582,3 @@ class Controller{
 
 }
 
-    function verLibro(){
-        if(isset($_REQUEST["leer"])){
-            try{
-                $params=array(
-                    "id_libro"=>"",
-                    "num_cap"=>"",
-                    "titulo"=>"",
-                    "archivo"=>"",
-                    "titulo_libro"=>""
-                );
-
-                $params["id_libro"]=$_SESSION["id_libro"];
-
-                $params["num_cap"]=recoge("contador_capitulos");
-                
-               
-                $cs=new Consultas();
-                $params["titulo"]=$cs->buscar($params["id_libro"],"capitulos","titulo","id_libro");
-                $params["archivo"]=$cs->buscar($params["id_libro"],"capitulos","archivo","id_libro");
-                $params["titulo_libro"]=$cs->buscar($params["id_libro"],"libro","titulo","id_libro");
-
-                $url = "index.php?ctl=leerCapitulo&id_libro=" . urlencode( $params["id_libro"]) . "&num_cap=" . urlencode( $params["num_cap"]) . "&titulo=" . urlencode($params["titulo"]) . "&archivo=" . urlencode( $params["archivo"]) . "&titulo_libro=" . urlencode( $params["titulo_libro"]);
-                
-                header("location: . $url");
-               
-
-
-
-
-              
-            } catch (Exception $e){
-                echo "Error: " . $e->getMessage();
-            }
-
-                
-        }
-    }
-
-    public function verLibro(){
-        require __DIR__ . '/../../web/templates/book.php';
-    }
-
-}
