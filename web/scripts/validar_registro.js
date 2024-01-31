@@ -33,16 +33,20 @@ window.onload = function () {
     }
   });
 
-  pass.addEventListener('input', ()=>{
+  pass.addEventListener('input', () => {
     const contrasenia = pass.value;
+    validarPassword(contrasenia);
+});
 
-
-  });
 
   pass2.addEventListener('blur', ()=>{
     const contrasenia = pass.value;
     const contrasenia2 = pass2.value;
+    let contieneMayus = false;
     if(contrasenia2 !== contrasenia){
+      contieneMayus=true;
+    }
+    if(contieneMayus){
       pass2.classList.add("is-invalid");
       document.getElementById("pass2Mal").innerText="La contraseña no coincide";
     }else{
@@ -53,10 +57,6 @@ window.onload = function () {
 }
 
 function validarCampos(){
-  if( validarPassword(pass.value) == false ){
-    console.log("Error en el campo pass");
-    return false;
-  }
   if( validarFecha(fecha.value) == false ){
     console.log("Error en el campo fecha");
     return false;
