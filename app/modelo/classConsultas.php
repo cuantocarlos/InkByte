@@ -9,6 +9,15 @@ class Consultas extends Modelo {
         return ($resultado) ? $resultado[$columna] : null;
     }
 
+    function buscarPorDosCampos($input1, $input2, $tabla, $columna, $campoWhere1, $campoWhere2){
+        $stmt = $this->conexion->prepare("SELECT $columna FROM $tabla WHERE $campoWhere1 = ? AND $campoWhere2 = ?");
+        $stmt->execute([$input1, $input2]);
+        $resultado = $stmt->fetch(PDO::FETCH_ASSOC);
+        return ($resultado) ? $resultado[$columna] : null;
+    }
+    
+    
+
     function buscarTodos($input, $tabla, $columna, $campoWhere){
         $stmt = $this->conexion->prepare("SELECT $columna FROM $tabla WHERE $campoWhere = ?");
         $stmt->execute([$input]);
@@ -298,6 +307,16 @@ class Consultas extends Modelo {
         return $ids;
     }
 
-
+    function agregarGenerosLibro($id_libro, $generos){
+        $stmt =$this->conexion->prepare("INSERT INTO generolibro (id_libro, terror, romance, fantasia, cficcion, historia, arte, thriller, poesia, drama, biografia, misterio, policiaca) VALUES (?, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)");
+        $stmt->bindParam(1, $id_libro);
+        $stmt->execute();
+    
+        foreach($generos as $gen){
+            $stmt = $this->conexion->prepare("UPDATE generolibro SET $gen = 1 WHERE id_libro = ?");
+            $stmt->bindParam(1, $id_libro);
+            $stmt->execute();
+        }
+    }
 
 }

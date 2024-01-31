@@ -372,11 +372,7 @@ class Controller{
 
         require __DIR__ . '/../../web/templates/modalGeneroUsuario.php';
 }
-    public function crearLibro()
-    {
-        // if ($_SESSION['nivel'] != 2) {
-        //     header("location:index.php?ctl=inicio");
-        // }
+    public function crearLibro(){
 
         if((isset($_POST["bAceptar"]))){
 
@@ -401,7 +397,7 @@ class Controller{
                     'mensaje' => []
                 );
 
-                $params['id_user'] = $_SESSION["id_user"]; //$_SESSION['id_user']; cambiar cuando funcione el login
+                $params['id_user'] = $_SESSION["id_user"]; 
                 $params['titulo'] = recoge("titulo_lib");
                 $params['sinopsis'] = recoge('sinopsis');
                 $params['generos'] = recogeArray('generos');
@@ -441,6 +437,8 @@ class Controller{
                     if(!empty($params["imagen_portada"])){
                         $cs = new Consultas();
                         $cs -> agregarLibro($params["id_user"], $params["titulo"], $params["sinopsis"], $params["imagen_portada"], $params["capitulos"], $params["num_resenas"], $params["valoracion"], $params["visitas"], $params["visitasSemana"], $params["estado"], $params["m_18"], $params["m_16"], $params["m_12"]);
+                        $id_libro = $cs -> buscarPorDosCampos ($params['id_user'], $params['titulo'], 'libro', 'id_libro', 'id_user', 'titulo');
+                        $cs -> agregarGenerosLibro($id_libro, $params['generos']);
                     }
                 } else {}
 
