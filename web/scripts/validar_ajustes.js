@@ -1,4 +1,4 @@
-import{}from"./scripts/bGeneral.js"
+import{validarCorreoElectronico}from"./scripts/bGeneral.js"
 //saco el id de la sesion php usuario 
 
 var nombre = document.getElementById("nombre")

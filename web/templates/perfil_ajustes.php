@@ -2,8 +2,19 @@
 <script type="module" src="../web/scripts/validar_ajustes.js"></script>
 
 <?php
-$id = $_SESSION['id_user']
+session_start();
+$_SESSION['id_usuario'] = 1;
+$_SESSION['nombre'] = "franchisco";
+$_SESSION['nick'] = "anastasio";
+$_SESSION['email'] = "fco.carlos@proton.me";
+$_SESSION['descripcion'] = "descripcioooooooooooooooon";
+$_SESSION['fecha_nacimiento'] = "1999-12-12";
 
+function marcarNivel($opcion){
+    if ($opcion == $_SESSION['nivel']) {
+        echo "checked";
+    }
+}
 ?>
 
 <div class="container">
@@ -13,21 +24,21 @@ $id = $_SESSION['id_user']
     <div class="body p-5 pt-0">
         <form action="index.php?ctl=registro" method="post" enctype="multipart/form-data">
             <div class="form-floating mb-3">
-                <input type="text" class="form-control rounded-3" id="nombre" name="nombre" placeholder="nombre" pattern="[A-Za-z\sñÑçÇ]+" minlength="3" maxlength="60" />
+                <input type="text" class="form-control rounded-3" id="nombre" name="nombre" placeholder="nombre" pattern="[A-Za-z\sñÑçÇ]+" minlength="3" maxlength="60" value="<?php echo $_SESSION['nombre']; ?>" />
                 <label for="nombre">Nombre y Apellidos</label>
             </div>
             <div class="input-group mb-3">
                 <span class="input-group-text">@</span>
                 <div class="form-floating">
-                    <input type="text" class="form-control" id="nick" placeholder="nick" name="nick" pattern="[A-Za-z\sñÑçÇ]+" />
+                    <input type="text" class="form-control" id="nick" placeholder="nick" name="nick" pattern="[A-Za-z\sñÑçÇ]+" value="<?php echo $_SESSION['nick']; ?>"/>
                     <label for="nick">Nombre de Usuario</label>
                 </div>
             </div>
             <div class="form-floating mb-3">
-                <input type="email" class="form-control rounded-3" id="mail" placeholder="name@example.com" name="mail" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" />
+                <input type="email" class="form-control rounded-3" id="mail" placeholder="name@example.com" name="mail" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" value="<?php echo $_SESSION['email'];?>" />
                 <label for="mail">Correo Electrónico</label>
             </div>
-            <!-- <div class="form-floating mb-3">
+            <div class="form-floating mb-3">
                 <input type="password" class="form-control rounded-3" id="oldpass" placeholder="Password" name="oldpass" />
                 <label for="oldpass">Contraseña Actual</label>
             </div>
@@ -40,7 +51,7 @@ $id = $_SESSION['id_user']
                 <input type="password" class="form-control rounded-3" id="pass2" placeholder="Password" name="pass2" />
                 <label for="pass2">Repetir Contraseña Nueva</label>
             </div>
-            <div class="form-floating mb-3">
+            <!-- <div class="form-floating mb-3">
                 <input type="date" class="form-control rounded-3" id="fecha" name="fecha" />
                 <label for="fecha">Fecha de Nacimiento</label>
             </div> -->
@@ -50,17 +61,16 @@ $id = $_SESSION['id_user']
             </div>
             <small class="text-body-secondary mb-1">Máximo 300 caracteres.</small>
             <div class="form-floating">
-                <textarea class="form-control" placeholder="Añade una descripción" id="descripcion" style="height: 100px;" name="descripcion" maxlength="300"></textarea>
+            <textarea class="form-control" placeholder="Añade una descripción" id="descripcion" style="height: 100px;" name="descripcion" maxlength="300"><?php echo $_SESSION['descripcion'];?></textarea>
                 <label for="descripcion">Descripción</label>
             </div>
             <hr class="my-4" />
             <h2 class="fs-5 fw-bold mb-3">Eres lector o escritor?</h2>
-            <input type="radio" class="btn-check" id="lector" name="opcion_usuario" value="lector" checked autocomplete="off" />
+            <input type="radio" class="btn-check" id="lector" name="opcion_usuario" value="lector" <?php marcarNivel(1)?> autocomplete="off" />
             <label class="btn btn-outline-secondary" for="lector">Lector</label>
-            <input type="radio" class="btn-check" id="escritor" name="opcion_usuario" value="escritor" autocomplete="off" />
+            <input type="radio" class="btn-check" id="escritor" name="opcion_usuario" value="escritor" <?php marcarNivel(2)?> autocomplete="off" />
             <label class="btn btn-outline-secondary" for="escritor">Escritor</label>
             <hr class="my-4" />
-
             <button class="w-100 my-2 btn btn-lg rounded-3 btn-primary" id="bAceptar" name="bAceptar" type="submit">Modificar datos</button>
         </form>
     </div>
