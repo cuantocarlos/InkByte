@@ -45,7 +45,7 @@ class Controller{
                         if(!$usuario = $cs->verificarEmail($params["mail"])){
                             $params['mensaje']="El correo no existe";
                         }else{
-                            if($cs->verificarPass($usuario['email'],$usuario['pass'])){
+                          if($cs->verificarPass($params["mail"],$params["pass"])){
                                 session_unset();
                                 session_destroy();
                                 session_start();
@@ -69,10 +69,10 @@ class Controller{
             }
         }catch (Exception $e) {
             error_log($e->getMessage() . microtime() . PHP_EOL, 3, "../logs/logException.txt");
-            echo 1;
+            header('Location: index.php?ctl=error');
         } catch (Error $e) {
             error_log($e->getMessage() . microtime() . PHP_EOL, 3, "../logs/logError.txt");
-            echo 2;
+            header('Location: index.php?ctl=error');
         }
         require __DIR__ . '/../../web/templates/inicioSesion.php';
     }
@@ -481,7 +481,6 @@ class Controller{
 
         }else{
             echo json_encode(array('existe'=> true));
-
         }
     }
 
