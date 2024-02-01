@@ -45,7 +45,7 @@ class Controller{
                         if(!$usuario = $cs->verificarEmail($params["mail"])){
                             $params['mensaje']="El correo no existe";
                         }else{
-                            if($cs->verificarPass($params["mail"],$params["pass"])){
+                          if($cs->verificarPass($params["mail"],$params["pass"])){
                                 session_unset();
                                 session_destroy();
                                 session_start();
@@ -78,15 +78,13 @@ class Controller{
     }
 
     public function inicioSesionJS() {
-        $mail = $_REQUEST["mail"];
-        $pass = $_REQUEST["contra"];
-
         $cs = new Consultas();
-
+        $mail = $_REQUEST["mail"];
+        $pass = $_REQUEST["pass"];
         if(empty($cs -> verificarEmail($mail))){
             echo json_encode(array('error'=>'mail'));
         }else{
-            if(!$cs->verificarPass($mail,$pass)){
+            if($cs->verificarPass($mail,$pass)){
                 echo json_encode(array('error'=>'pass'));
             }
         }
