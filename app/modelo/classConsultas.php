@@ -292,5 +292,66 @@ class Consultas extends Modelo {
     }
 
 
+    //lo siento muchísimo:
+    function obtenerLibrosRecomendados($id_user) {
+        try {
+            $sql = "SELECT Libro.id_libro, Libro.titulo, Libro.sinopsis, Libro.imagen_portada
+            FROM Libro
+            JOIN GeneroLibro ON Libro.id_libro = GeneroLibro.id_libro
+            JOIN PreferenciaGenerosUsuario ON (
+                (GeneroLibro.terror = PreferenciaGenerosUsuario.terror OR PreferenciaGenerosUsuario.terror = 0) AND
+                (GeneroLibro.romance = PreferenciaGenerosUsuario.romance OR PreferenciaGenerosUsuario.romance = 0) AND
+                (GeneroLibro.fantasia = PreferenciaGenerosUsuario.fantasia OR PreferenciaGenerosUsuario.fantasia = 0) AND
+                (GeneroLibro.cficcion = PreferenciaGenerosUsuario.cficcion OR PreferenciaGenerosUsuario.cficcion = 0) AND
+                (GeneroLibro.historia = PreferenciaGenerosUsuario.historia OR PreferenciaGenerosUsuario.historia = 0) AND
+                (GeneroLibro.arte = PreferenciaGenerosUsuario.arte OR PreferenciaGenerosUsuario.arte = 0) AND
+                (GeneroLibro.thriller = PreferenciaGenerosUsuario.thriller OR PreferenciaGenerosUsuario.thriller = 0) AND
+                (GeneroLibro.poesia = PreferenciaGenerosUsuario.poesia OR PreferenciaGenerosUsuario.poesia = 0) AND
+                (GeneroLibro.drama = PreferenciaGenerosUsuario.drama OR PreferenciaGenerosUsuario.drama = 0) AND
+                (GeneroLibro.biografia = PreferenciaGenerosUsuario.biografia OR PreferenciaGenerosUsuario.biografia = 0) AND
+                (GeneroLibro.misterio = PreferenciaGenerosUsuario.misterio OR PreferenciaGenerosUsuario.misterio = 0) AND
+                (GeneroLibro.policiaca = PreferenciaGenerosUsuario.policiaca OR PreferenciaGenerosUsuario.policiaca = 0)
+            )
+            WHERE PreferenciaGenerosUsuario.id_user = ?
+            ORDER BY Libro.visitas DESC
+            LIMIT 2;
+            
+            ";
+    
+            $stmt = $this->conexion->prepare($sql);
+            $stmt->bindParam(1, $id_user);
+            $stmt->execute();
+    
+            $resultados = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    
+            return $resultados;
+        } catch (PDOException $e) {
+            echo "Error al obtener libros recomendados: " . $e->getMessage();
+        }
+    }
+    
+    
+    function obtenerIdUsuarioPorId($idUsuario) {
+        $stmt = $this->conexion->prepare("SELECT id_user FROM Usuario WHERE id_user = ?");
+        $stmt->execute([$idUsuario]);
+        
+        $resultado = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        return ($resultado) ? $resultado['id_user'] : null;
+    }
+
+
+   public function obtenerLibrosMasVisitados($limite)
+{
+    $consulta = "SELECT * FROM Libro ORDER BY visitas DESC LIMIT $limite";
+    $stmt = $this->conexion->prepare($consulta);
+    $stmt->execute();
+
+    // Obtener resultados como un array asociativo
+    $resultados = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+    return $resultados;
+}
+
 
 }

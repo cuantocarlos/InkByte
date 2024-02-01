@@ -492,11 +492,6 @@ class Controller{
                 
                 header("location: . $url");
                
-
-
-
-
-              
             } catch (Exception $e){
                 echo "Error: " . $e->getMessage();
             }
@@ -505,8 +500,6 @@ class Controller{
         }
     }
 
-    public function verLibro(){
-        require __DIR__ . '/../../web/templates/book.php';
-    }
+   
 
 }
