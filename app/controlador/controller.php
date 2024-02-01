@@ -598,5 +598,12 @@ class Controller{
         }
     }
 
+    public function cerrarSesion(){
+            session_unset ();
+            session_destroy();
+            header("location:index.php?ctl=inicio");
+            exit();
+    }
+
 }
 

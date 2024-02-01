@@ -6,7 +6,7 @@ window.onload = function () {
 
     bAceptar.addEventListener("click", function (event) {
         const httpRequest = new XMLHttpRequest();
-        httpRequest.open('POST','http://localhost/InkByte/web/index.php?ctl=inicioSesionJS',true);   //ACORDARSE DE CAMBIAR LA RUTA ABSOLUTA SI SE SUBE A OTRO SITIO
+        httpRequest.open('POST','http://localhost/DWES/GitRepos/InkByte/web/index.php?ctl=inicioSesionJS',true);   //ACORDARSE DE CAMBIAR LA RUTA ABSOLUTA SI SE SUBE A OTRO SITIO
 
         httpRequest.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
 
