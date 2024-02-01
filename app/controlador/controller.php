@@ -684,8 +684,30 @@ class Controller{
             }catch (Error $e){
                 error_log($e->getMessage() . microtime() . PHP_EOL, 3, "../logs/logError.txt");
             }
-            echo($params["num_cap"]);
-            //header("location:index.php?ctl=leerCapitulo&id_libro=" . $params["id_libro"] . "&num_cap=" . $params["num_cap"] . "&titulo=" . $titulo . "&archivo=" . $archivo . "&titulo_libro=" . $params["titulo_libro"]);
+        }
+
+        if(isset($_REQUEST["valorar"])){
+            $valoracion = recoge("rating");
+            if($valoracion != 1 && $valoracion != 2 && $valoracion != 3 && $valoracion != 4 && $valoracion != 5){
+                $params["mensaje"] = "Error en la valoracion";
+                header("location: index.php?ctl=book&id_libro=".$params["id_libro"]);
+            } else{
+                try{
+                    $cs = new Consultas();
+                    if($cs -> existeValoracion($_SESSION["id_user"], $params["id_libro"])){
+                        $cs -> borrarValoracion($_SESSION["id_user"], $params["id_libro"]);
+                    }
+                    $cs -> insertarValoracion($_SESSION["id_user"], $params["id_libro"], $valoracion);
+                    $notas = $cs -> buscarColumnaArray($params["id_libro"], "valoraciones", "nota", "id_libro");
+                    $media = calcularMedia($notas);
+                    $cs -> actualizarValoracionLibro($params["id_libro"], $media);
+                    
+                }catch (Exception $e){
+                    error_log($e->getMessage() . "##Código: " . $e->getCode() . "  " . microtime() . PHP_EOL, 3, "../logs/logBD.txt");
+                }catch (Error $e){
+                    error_log($e->getMessage() . microtime() . PHP_EOL, 3, "../logs/logError.txt");
+                }
+            }
         }
         
         require __DIR__ . '/../../web/templates/book.php';

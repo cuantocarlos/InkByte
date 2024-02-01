@@ -362,4 +362,29 @@ class Consultas extends Modelo {
         return false;
     }
 
+    function insertarValoracion($id_user, $id_libro, $nota) {
+        $stmt = $this->conexion->prepare("INSERT INTO valoraciones (id_user, id_libro, nota) VALUES (?, ?, ?)");
+        $stmt->execute([$id_user, $id_libro, $nota]);
+        return $stmt->rowCount() > 0;
+    }
+
+    function existeValoracion($id_user, $id_libro) {
+        $stmt = $this->conexion->prepare("SELECT COUNT(*) FROM valoraciones WHERE id_user = ? AND id_libro = ?");
+        $stmt->execute([$id_user, $id_libro]);
+        $cantidad = $stmt->fetchColumn();
+        return $cantidad > 0;
+    }
+
+    function borrarValoracion($id_user, $id_libro) {
+        $stmt = $this->conexion->prepare("DELETE FROM valoraciones WHERE id_user = ? AND id_libro = ?");
+        $stmt->execute([$id_user, $id_libro]);
+        return $stmt->rowCount() > 0;
+    }
+    
+    function actualizarValoracionLibro($id_libro, $nueva_valoracion) {
+        $stmt = $this->conexion->prepare("UPDATE libro SET valoracion = ? WHERE id_libro = ?");
+        $stmt->execute([$nueva_valoracion, $id_libro]);
+        return $stmt->rowCount() > 0;
+    }
+    
 }

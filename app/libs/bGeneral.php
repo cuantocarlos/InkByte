@@ -314,5 +314,20 @@ function cOpciones($opcion, $opcionesDisponibles)
     }
 }
 
+function calcularMedia($numeros) {
+    if (empty($numeros)) {
+        return 0.00;
+    }
+
+    $suma = array_sum($numeros);
+    $cantidad = count($numeros);
+    $media = $suma / $cantidad;
+
+    $media_redondeada = round($media, 2);
+
+    return $media_redondeada;
+}
+
+
 
 ?>
