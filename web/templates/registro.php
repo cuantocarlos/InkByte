@@ -1,5 +1,3 @@
-
-
     <script type="module" src="../web/scripts/bGeneral.js"></script>
     <script type="module" src="../web/scripts/validar_registro.js"></script>
 
