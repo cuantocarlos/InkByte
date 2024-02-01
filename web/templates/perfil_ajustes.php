@@ -1,6 +1,11 @@
 <script type="module" src="../web/scripts/bGeneral.js"></script>
 <script type="module" src="../web/scripts/validar_ajustes.js"></script>
 
+<?php
+$id = $_SESSION['id_user']
+
+?>
+
 <div class="container">
     <div class="header p-5 pb-4 border-bottom-0">
         <h1 class="fw-bold mb-0 fs-2 mb-4">Modifica los datos que desees cambiar</h1>
@@ -22,7 +27,7 @@
                 <input type="email" class="form-control rounded-3" id="mail" placeholder="name@example.com" name="mail" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" />
                 <label for="mail">Correo Electrónico</label>
             </div>
-            <div class="form-floating mb-3">
+            <!-- <div class="form-floating mb-3">
                 <input type="password" class="form-control rounded-3" id="oldpass" placeholder="Password" name="oldpass" />
                 <label for="oldpass">Contraseña Actual</label>
             </div>
@@ -38,9 +43,9 @@
             <div class="form-floating mb-3">
                 <input type="date" class="form-control rounded-3" id="fecha" name="fecha" />
                 <label for="fecha">Fecha de Nacimiento</label>
-            </div>
+            </div> -->
             <div class="mb-5">
-                <label for="f_perfil" class="form-label">Para modificar su foto de perfil seleccione la nueva:</label>
+                <label for="f_perfil" class="form-label">Para modificar su foto de perfil seleccione una nueva:</label>
                 <input class="form-control" type="file" id="f_perfil" name="f_perfil" accept="image/<?php $extensionesValidas?>" />
             </div>
             <small class="text-body-secondary mb-1">Máximo 300 caracteres.</small>
