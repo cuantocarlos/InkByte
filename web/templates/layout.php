@@ -1,4 +1,4 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8">
@@ -17,6 +17,7 @@
     <!--LINKS A MODIFICACIONES DE CSS AQUI-->
     <link rel="stylesheet" href="../web/css/styles/navbar.css">
     <link rel="stylesheet" href="../web/css/leerCapitulo_style.css">
+    <link rel="stylesheet" href="../web/css/valoracionEstrella.css">
 
 
 </head>

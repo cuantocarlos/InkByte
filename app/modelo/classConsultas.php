@@ -8,9 +8,47 @@ class Consultas extends Modelo {
         return ($resultado) ? $resultado[$columna] : null;
     }
 
+    function buscarFila($input, $tabla, $campoWhere) {
+        $stmt = $this->conexion->prepare("SELECT * FROM $tabla WHERE $campoWhere = ?");
+        $stmt->execute([$input]);
+        $fila = $stmt->fetch(PDO::FETCH_ASSOC);
+        return ($fila) ? $fila : null;
+    }
+
+    function buscarColumna($input, $tabla, $columna, $campoWhere) {
+        $stmt = $this->conexion->prepare("SELECT $columna FROM $tabla WHERE $campoWhere = ?");
+        $stmt->execute([$input]);
+        $columna = $stmt->fetch(PDO::FETCH_COLUMN);
+        return ($columna !== false) ? $columna : null;
+    }
+
+    function buscarColumnaArray($input, $tabla, $columna, $campoWhere) {
+        $stmt = $this->conexion->prepare("SELECT $columna FROM $tabla WHERE $campoWhere = ?");
+        $stmt->execute([$input]);
+        $resultados = $stmt->fetchAll(PDO::FETCH_COLUMN);
+        return $resultados;
+    }
+    
+    
+
+    function buscarFila2Campos($input1, $input2, $tabla, $campoWhere1, $campoWhere2) {
+        $stmt = $this->conexion->prepare("SELECT * FROM $tabla WHERE $campoWhere1 = ? AND $campoWhere2 = ?");
+        $stmt->execute([$input1, $input2]);
+        $fila = $stmt->fetch(PDO::FETCH_ASSOC);
+        return ($fila) ? $fila : null;
+    }
+    
+
     function buscarTodos($input, $tabla, $columna, $campoWhere){
         $stmt = $this->conexion->prepare("SELECT $columna FROM $tabla WHERE $campoWhere = ?");
         $stmt->execute([$input]);
+        $resultados = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return $resultados;
+    }
+
+    function buscarTodos2Campos($input1, $input2, $tabla, $columna, $campoWhere1, $campoWhere2) {
+        $stmt = $this->conexion->prepare("SELECT $columna FROM $tabla WHERE $campoWhere1 = ? AND $campoWhere2 = ?");
+        $stmt->execute([$input1, $input2]);
         $resultados = $stmt->fetchAll(PDO::FETCH_ASSOC);
         return $resultados;
     }
@@ -304,8 +342,24 @@ class Consultas extends Modelo {
         return $resultado;
     }
 
-
-
-
+    function obtenerGenerosActivos($id_libro) {
+        $stmt = $this->conexion->prepare("SELECT * FROM generolibro WHERE id_libro = ?");
+        $stmt->execute([$id_libro]);
+        $fila = $stmt->fetch(PDO::FETCH_ASSOC);
+    
+        if ($fila) {
+            $generosActivos = array();
+    
+            foreach ($fila as $campo => $valor) {
+                if ($valor == 1 && $campo != 'id_libro') {
+                    $generosActivos[] = $campo;
+                }
+            }
+    
+            return $generosActivos;
+        }
+    
+        return false;
+    }
 
 }

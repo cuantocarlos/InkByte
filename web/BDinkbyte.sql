@@ -135,6 +135,16 @@ CREATE TABLE Terminados(-- Que el autor lo ha acabado
     FOREIGN KEY (id_user) REFERENCES Usuario(id_user) ON DELETE CASCADE
 );
 
+CREATE TABLE valoraciones (
+    id_user INT,
+    id_libro INT,
+    nota INT,
+    PRIMARY KEY (id_user, id_libro),
+    FOREIGN KEY (id_user) REFERENCES usuario(id_user) ON DELETE CASCADE,
+    FOREIGN KEY (id_libro) REFERENCES libro(id_libro) ON DELETE CASCADE
+);
+
+
 -- DATOS FALSOS
 -- Usuario1
 INSERT INTO Usuario (nombre, nick, email, pass, f_nacimiento, foto_perfil, descripcion, nivel, activo)
