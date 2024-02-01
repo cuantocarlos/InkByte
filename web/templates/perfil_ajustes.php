@@ -22,11 +22,15 @@ function marcarNivel($opcion){
         <h1 class="fw-bold mb-0 fs-2 mb-4">Modifica los datos que desees cambiar</h1>
     </div>
     <div class="body p-5 pt-0">
-        <form action="index.php?ctl=registro" method="post" enctype="multipart/form-data">
+        <form action="index.php?ctl=ajustes" method="post" enctype="multipart/form-data">
+
             <div class="form-floating mb-3">
                 <input type="text" class="form-control rounded-3" id="nombre" name="nombre" placeholder="nombre" pattern="[A-Za-z\sñÑçÇ]+" minlength="3" maxlength="60" value="<?php echo $_SESSION['nombre']; ?>" />
                 <label for="nombre">Nombre y Apellidos</label>
             </div>
+
+
+            <div id="nombreMal" class="mb-3 text-danger mx-5"></div>
             <div class="input-group mb-3">
                 <span class="input-group-text">@</span>
                 <div class="form-floating">
@@ -34,10 +38,14 @@ function marcarNivel($opcion){
                     <label for="nick">Nombre de Usuario</label>
                 </div>
             </div>
+
+            <div id="mailMal" class="mb-3 text-danger"></div>
             <div class="form-floating mb-3">
                 <input type="email" class="form-control rounded-3" id="mail" placeholder="name@example.com" name="mail" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" value="<?php echo $_SESSION['email'];?>" />
                 <label for="mail">Correo Electrónico</label>
             </div>
+
+
             <div class="form-floating mb-3">
                 <input type="password" class="form-control rounded-3" id="oldpass" placeholder="Password" name="oldpass" />
                 <label for="oldpass">Contraseña Actual</label>
@@ -51,7 +59,8 @@ function marcarNivel($opcion){
                 <input type="password" class="form-control rounded-3" id="pass2" placeholder="Password" name="pass2" />
                 <label for="pass2">Repetir Contraseña Nueva</label>
             </div>
-            <!-- <div class="form-floating mb-3">
+            <!--<div id="fechaMal" class="mb-3 text-danger"></div>
+                <div class="form-floating mb-3">
                 <input type="date" class="form-control rounded-3" id="fecha" name="fecha" />
                 <label for="fecha">Fecha de Nacimiento</label>
             </div> -->
