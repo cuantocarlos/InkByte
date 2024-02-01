@@ -39,7 +39,7 @@ CREATE TABLE PreferenciaGenerosUsuario (
 
 CREATE TABLE Token (
     token VARCHAR(15),
-    validez TINYINT,
+    validez INT,
     id_user INT PRIMARY KEY,
     FOREIGN KEY (id_user) REFERENCES Usuario(id_user) ON DELETE CASCADE
 );

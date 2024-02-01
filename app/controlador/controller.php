@@ -192,7 +192,7 @@ class Controller{
 
                             $cs -> agregarToken($token, $fechaRegistro, $idUsuario);
 
-                            $mailer = new PHPMailer();
+                            $mailer = new PHPMailer(true);
 
                             try {
                                     // Configura el servidor SMTP
@@ -579,6 +579,8 @@ class Controller{
 
         require __DIR__ . '/../../web/templates/leerCapitulo.php';
     }
+
+    publ
 
 }
 
