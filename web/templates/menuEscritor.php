@@ -19,6 +19,12 @@
                     <li class="nav-item">
                         <a class="nav-link" href="index.php?ctl=seguidos">Libros Seguidos</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.php?ctl=crearLibro">Crear Libro</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.php?ctl=subirCapitulo">Subir Capítulo</a>
+                    </li>
                 </ul>
                 <!-- Barra de búsqueda en la barra de navegación para pantallas grandes -->
                 <div class="d-flex search-form-desktop ms-auto">
@@ -68,20 +74,26 @@
                     </li>
 
                     <li class="nav-item d-flex justify-content-center">
-                      <a class="nav-link" href="index.php?ctl=recomendados">Recomendaciones</a>
+                      <a class="nav-link" href="index.php?ctl=iniciarSesion">Recomendaciones</a>
                   </li>
                   <li class="nav-item d-flex justify-content-center">
-                      <a class="nav-link" href="index.php?ctl=seguidos">Libros Seguidos</a>
+                      <a class="nav-link" href="index.php?ctl=registro">Libros Seguidos</a>
                   </li>
+                    <li class="nav-item d-flex justify-content-center">
+                        <a class="nav-link" href="index.php?ctl=crearLibro">Crear Libro</a>
+                    </li>
+                    <li class="nav-item d-flex justify-content-center">
+                        <a class="nav-link" href="index.php?ctl=subirCapitulo">Subir Capítulo</a>
+                    </li>
 
-                  <li class="nav-item d-flex justify-content-center">
-                      <a class="nav-link" href="index.php?ctl=perfil">Perfil</a>
+                    <li class="nav-item d-flex justify-content-center">
+                      <a class="nav-link" href="index.php?ctl=registro">Perfil</a>
                   </li>
 
                   <hr class="barra-menu">
 
                   <li class="nav-item d-flex justify-content-center">
-                      <a class="nav-link" href="index.php?ctl=cerrarSesion">Cerrar Sesión</a>
+                      <a class="nav-link" href="index.php?ctl=cerrarSesión">Cerrar Sesión</a>
                   </li>
                 </ul>
             </div>
