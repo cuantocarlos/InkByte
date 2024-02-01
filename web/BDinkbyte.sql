@@ -12,7 +12,7 @@ CREATE TABLE Usuario (
     nombre VARCHAR(60),
     nick VARCHAR(20),
     email VARCHAR(40),
-    pass VARCHAR(50),
+    pass VARCHAR(130),
     f_nacimiento DATE,
     foto_perfil VARCHAR(100),
     descripcion VARCHAR(300),

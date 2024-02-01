@@ -192,7 +192,7 @@ class Controller{
 
                             $cs -> agregarToken($token, $fechaRegistro, $idUsuario);
 
-                            $mailer = new PHPMailer(true);
+                            $mailer = new PHPMailer();
 
                             try {
                                     // Configura el servidor SMTP
@@ -596,6 +596,13 @@ class Controller{
             // Manejo de errores
             echo "Error: " . $e->getMessage();
         }
+    }
+
+    public function cerrarSesion(){
+            session_unset ();
+            session_destroy();
+            header("location:index.php?ctl=inicio");
+            exit();
     }
 
 }
