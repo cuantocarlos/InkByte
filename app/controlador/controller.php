@@ -192,7 +192,7 @@ class Controller{
 
                             $cs -> agregarToken($token, $fechaRegistro, $idUsuario);
 
-                            $mailer = new PHPMailer();
+                            $mailer = new PHPMailer(true);
 
                             try {
                                     // Configura el servidor SMTP
