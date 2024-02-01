@@ -22,8 +22,10 @@ class Controller{
         if ($_SESSION['nivel'] == 0) {
             return 'menuInvitado.php';
         } else if ($_SESSION['nivel'] == 1) {
-            return 'menuUser.php';
+            return 'menuLector.php';
         } else if ($_SESSION['nivel'] == 2) {
+            return 'menuEscritor.php';
+        } else if ($_SESSION['nivel'] == 3){
             return 'menuAdmin.php';
         }
     }
@@ -37,6 +39,7 @@ class Controller{
             // if ($_SESSION['nivel'] > 0) {
             //     header("location:index.php?ctl=inicio");
             // }
+            $menu = $this->cargaMenu();
 
             if(isset($_POST["bAceptar"])){
                 $params["mail"] = recoge("mail");
@@ -137,6 +140,7 @@ class Controller{
             }else{
                 $params["nombre"]=sinEspacios($params["nombre"]);
             }
+            $menu = $this->cargaMenu();
 
 
             if(empty($params["nick"])){
@@ -243,9 +247,11 @@ class Controller{
 
     public function subirCapitulo(){
 
+
         if ($_SESSION['nivel'] != 2) {
             header("location:index.php?ctl=inicio");
         }
+        $menu = $this->cargaMenu();
 
             try{
                 $cs = new Consultas();
@@ -301,18 +307,16 @@ class Controller{
                     header('Location: index.php?ctl=error');
             }
 
-            $menu = $this->cargaMenu();
-
             require __DIR__ . '/../../web/templates/subirCapitulo.php';
 
     }
 
     public function home()
     {
-
         $params = array(
             'fecha' => date('d-m-Y')
         );
+
         $menu = 'inicio.php';
 
         if ($_SESSION['nivel'] > 0) {
@@ -323,9 +327,6 @@ class Controller{
 
     public function inicio()
     {
-        $params = array(
-            'fecha' => date('d-m-Y')
-        );
         $menu = $this->cargaMenu();
 
         require __DIR__ . '/../../web/templates/inicio.php';
@@ -384,6 +385,8 @@ class Controller{
 }
     public function crearLibro()
     {
+
+        $menu = $this->cargaMenu();
         // if ($_SESSION['nivel'] != 2) {
         //     header("location:index.php?ctl=inicio");
         // }
