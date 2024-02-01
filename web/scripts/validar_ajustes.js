@@ -1,6 +1,6 @@
 import{}from"./scripts/bGeneral.js"
 //saco el id de la sesion php usuario 
-var 
+
 var nombre = document.getElementById("nombre")
 var nick = document.getElementById("nick");
 var email = document.getElementById("mail");
