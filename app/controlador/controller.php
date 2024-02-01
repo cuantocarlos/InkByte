@@ -211,7 +211,7 @@ class Controller{
                                     // Contenido del correo
                                     $mailer->isHTML(true);
                                     $mailer->Subject = 'Activa tu cuenta de InkByte';
-                                    $mailer->Body = 'Activa tu cuenta con este enlace: Enlace a la web placeholder' . $token;
+                                    $mailer->Body = 'Activa tu cuenta con este enlace: http://localhost/DWES/GitRepos/InkByte/web/index.php?ctl=activarCuenta&token=' . $token;
 
                                     // Enviar el correo
                                     $mailer->send();
@@ -580,7 +580,24 @@ class Controller{
         require __DIR__ . '/../../web/templates/leerCapitulo.php';
     }
 
-    publ
+    public function activarCuenta(){
+        $token = $_GET['token'];
+        try{
+            $cs = new Consultas();
+
+            if($cs->verificarToken($token)){
+                if($cs->validarFechaValidezPorToken($token)){
+                    $cs->activarUsuarioPorToken($token);
+                    $cs->borrarToken($token);
+                    header("location:index.php?ctl=inicio");
+                }
+            }
+
+        } catch (PDOException $e) {
+            // Manejo de errores
+            echo "Error: " . $e->getMessage();
+        }
+    }
 
 }
 
