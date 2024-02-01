@@ -1,5 +1,6 @@
 <script type="module" src="../web/scripts/validar_inicio_sesion.js"></script>
-          <div class="modal-header p-5 pb-4 border-bottom-0">
+          <div class="container-md container-lg">
+          <div class="modal-header p-5 pb-4 border-bottom-0 mt-5">
             <h1 class="fw-bold mb-0 fs-2">Inicio de Sesión</h1>
           </div>
           <div class="modal-body p-5 pt-0">
@@ -21,6 +22,7 @@
               <button class="w-100 mb-2 btn btn-lg rounded-3 btn-primary mt-4" type="submit" id="bAceptar" name="bAceptar">Iniciar Sesión</button>
               <small class="text-body-secondary ">Si aún no tienes cuenta <a href="index.php?ctl=registro">registrate aquí</a>.</small>
             </form>
+          </div>
           </div>
 
 

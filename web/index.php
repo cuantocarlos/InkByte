@@ -26,7 +26,7 @@ if (!isset($_SESSION['nivel'])) {
  **/
 
 $map = array(
-    'home' => array('controller' => 'Controller', 'action' => 'home', 'nivel' => 0),
+    // 'home' => array('controller' => 'Controller', 'action' => 'home', 'nivel' => 0),
     'subirCapitulo' => array('controller' => 'Controller', 'action' => 'subirCapitulo', 'nivel' => 0),
     'iniciarSesion' => array('controller' => 'Controller', 'action' => 'iniciarSesion', 'nivel' => 0),
     'registro' => array('controller' => 'Controller', 'action' => 'registro', 'nivel' => 0),
@@ -63,7 +63,7 @@ if (isset($_GET['ctl'])) {
              */
     }
 } else {
-    $ruta = 'home';
+    $ruta = 'inicio';
 }
 $controlador = $map[$ruta];
 /*
