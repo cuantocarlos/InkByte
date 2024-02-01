@@ -45,7 +45,7 @@ class Controller{
                         if(!$usuario = $cs->verificarEmail($params["mail"])){
                             $params['mensaje']="El correo no existe";
                         }else{
-                            if($cs->verificarPass($usuario['email'],$usuario['pass'])){
+                          if($cs->verificarPass($params["mail"],$params["pass"])){
                                 session_unset();
                                 session_destroy();
                                 session_start();
@@ -69,10 +69,10 @@ class Controller{
             }
         }catch (Exception $e) {
             error_log($e->getMessage() . microtime() . PHP_EOL, 3, "../logs/logException.txt");
-            echo 1;
+            header('Location: index.php?ctl=error');
         } catch (Error $e) {
             error_log($e->getMessage() . microtime() . PHP_EOL, 3, "../logs/logError.txt");
-            echo 2;
+            header('Location: index.php?ctl=error');
         }
         require __DIR__ . '/../../web/templates/inicioSesion.php';
     }
@@ -92,153 +92,153 @@ class Controller{
 
     public function registro() {
 
-            $params = array(
-                'nombre' => '',
-                'nick'=>'',
-                'mail' =>'',
-                'pass' =>'',
-                'pass2' =>'',
-                'fecha' =>'',
-                'descripcion' =>'',
-                'foto_perfil'=>'',
-                'opcion' =>'',
-                'archivo' => '',
-                'nivel' => 0,
-                'activo' =>0,
-                'mensaje' => []
-            );
+        $params = array(
+            'nombre' => '',
+            'nick'=>'',
+            'mail' =>'',
+            'pass' =>'',
+            'pass2' =>'',
+            'fecha' =>'',
+            'descripcion' =>'',
+            'foto_perfil'=>'',
+            'opcion' =>'',
+            'archivo' => '',
+            'nivel' => 0,
+            'activo' =>0,
+            'mensaje' => []
+        );
 
 
-            if ($_SESSION['nivel'] > 0) {
-                header("location:index.php?ctl=inicio");
+        if ($_SESSION['nivel'] > 0) {
+            header("location:index.php?ctl=inicio");
+        }
+
+
+        if((isset($_POST["bAceptar"]))){
+            //recogemos datos de los inputs
+            $params["nombre"]=recoge("nombre");
+            $params["nick"]=recoge("nick");
+            $params["mail"]=recoge("mail");
+            $params["pass"]=recoge("pass");
+            $params["pass2"]=recoge("pass2");
+            $params["fecha"]=recoge("fecha");
+            $params["descripcion"]=recoge("descripcion");
+            $params["opcion"]=recoge("opcion_usuario");
+
+
+
+
+
+
+
+            //comenzamos las validaciones
+            if(empty($params["nombre"])){
+                $params["mensaje"]="Por favor ingrese un nombre";
+            }else{
+                $params["nombre"]=sinEspacios($params["nombre"]);
             }
 
 
-            if((isset($_POST["bAceptar"]))){
-                //recogemos datos de los inputs
-                $params["nombre"]=recoge("nombre");
-                $params["nick"]=recoge("nick");
-                $params["mail"]=recoge("mail");
-                $params["pass"]=recoge("pass");
-                $params["pass2"]=recoge("pass2");
-                $params["fecha"]=recoge("fecha");
-                $params["descripcion"]=recoge("descripcion");
-                $params["opcion"]=recoge("opcion_usuario");
+            if(empty($params["nick"])){
+                $params["nick"] = "User_".uniqid();
+            }else{
+                $params["nick"]=sinEspacios($params["nick"]);
+            }
 
 
 
 
+            cEmail($params["mail"],$params,"mensaje",30,8);
 
 
+            if(cPassword($params["pass"],$params["mensaje"]) && $params["pass"]!==$params["pass2"]){
+                $params["mensaje"]="Las contraseñas no coinciden";
+            }
 
-                //comenzamos las validaciones
-                if(empty($params["nombre"])){
-                    $params["mensaje"]="Por favor ingrese un nombre";
-                }else{
-                    $params["nombre"]=sinEspacios($params["nombre"]);
+
+            cFecha($params["fecha"],$params);
+
+
+            if($params["opcion"]=="lector"){
+                $params["nivel"]=1;
+            }
+            elseif($params["opcion"]=="escritor"){
+                $params["nivel"]=2;
+            }
+
+            if (!isset($_POST["terminos"]) || $_POST["terminos"] != 1) {
+                $params["mensaje"]="Debes aceptar los términos y condiciones para poder registrarte";
+            }
+
+
+            if(empty($params["mensaje"] && $params["archivo"])){
+                $params["archivo"] = cFile("f_perfil",$params["mensaje"],Config::$extensionesValidas,__DIR__ . '/../archivos/img/perfil/',Config::$max_file_size);
+
+                if(empty($params["archivo"])){
+                    $params["archivo"]="no_profile.png";
                 }
+                    try{
+                        $cs = new Consultas();
+                        $hash = password_hash($params["pass"], PASSWORD_BCRYPT);
+                        if($usuario = $cs->agregarNuevoUsuario($params["nombre"],$params["nick"],$params["mail"],$hash,$params["fecha"],$params["archivo"],$params["descripcion"],$params["nivel"],$params["activo"])){
 
+                            $idUsuario = $cs -> buscar($params["mail"], "usuario", "id_user","email");
 
-                if(empty($params["nick"])){
-                    $params["nick"] = "User_".uniqid();
-                }else{
-                    $params["nick"]=sinEspacios($params["nick"]);
-                }
+                            $cs ->creaGenerosUser($idUsuario);
 
+                            $fechaRegistro = time()+86400;
 
+                            $token = uniqid();
 
+                            $cs -> agregarToken($token, $fechaRegistro, $idUsuario);
 
-                cEmail($params["mail"],$params,"mensaje",30,8);
+                            $mailer = new PHPMailer(true);
 
+                            try {
+                                    // Configura el servidor SMTP
+                                    $mailer->isSMTP();
+                                    $mailer->Host = 'smtp.gmail.com';
+                                    $mailer->SMTPAuth = true;
+                                    $mailer->Username = 'inkbytedaw@gmail.com';
+                                    $mailer->Password = 'sfay bopb hxsr lyvu';
+                                    $mailer->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;
+                                    $mailer->Port = 587;
 
-                if(cPassword($params["pass"],$params["mensaje"]) && $params["pass"]!==$params["pass2"]){
-                    $params["mensaje"]="Las contraseñas no coinciden";
-                }
+                                    // Configura los destinatarios
+                                    $mailer->setFrom('inkbytedaw@gmail.com', 'InkByte');
+                                    $mailer->addAddress($params["mail"], $params["nombre"]);
 
+                                    // Contenido del correo
+                                    $mailer->isHTML(true);
+                                    $mailer->Subject = 'Activa tu cuenta de InkByte';
+                                    $mailer->Body = 'Activa tu cuenta con este enlace: http://localhost/DWES/GitRepos/InkByte/web/index.php?ctl=activarCuenta&token=' . $token;
 
-                cFecha($params["fecha"],$params);
-
-
-                if($params["opcion"]=="lector"){
-                    $params["nivel"]=1;
-                }
-                elseif($params["opcion"]=="escritor"){
-                    $params["nivel"]=2;
-                }
-
-                if (!isset($_POST["terminos"]) || $_POST["terminos"] != 1) {
-                    $params["mensaje"]="Debes aceptar los términos y condiciones para poder registrarte";
-                }
-
-
-                if(empty($params["mensaje"] && $params["archivo"])){
-                    $params["archivo"] = cFile("f_perfil",$params["mensaje"],Config::$extensionesValidas,__DIR__ . '/../archivos/img/perfil/',Config::$max_file_size);
-
-                    if(empty($params["archivo"])){
-                        $params["archivo"]="no_profile.png";
-                    }
-                        try{
-                            $cs = new Consultas();
-                            $hash = password_hash($params["pass"], PASSWORD_BCRYPT);
-                            if($usuario = $cs->agregarNuevoUsuario($params["nombre"],$params["nick"],$params["mail"],$hash,$params["fecha"],$params["archivo"],$params["descripcion"],$params["nivel"],$params["activo"])){
-
-                                $idUsuario = $cs -> buscar($params["mail"], "usuario", "id_user","email");
-
-                                $cs ->creaGenerosUser($idUsuario);
-
-                                $fechaRegistro = time()+86400;
-
-                                $token = uniqid();
-
-                                $cs -> agregarToken($token, $fechaRegistro, $idUsuario);
-
-                                $mailer = new PHPMailer();
-
-                                try {
-                                        // Configura el servidor SMTP
-                                        $mailer->isSMTP();
-                                        $mailer->Host = 'smtp.gmail.com';
-                                        $mailer->SMTPAuth = true;
-                                        $mailer->Username = 'inkbytedaw@gmail.com';
-                                        $mailer->Password = 'sfay bopb hxsr lyvu';
-                                        $mailer->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;
-                                        $mailer->Port = 587;
-
-                                        // Configura los destinatarios
-                                        $mailer->setFrom('inkbytedaw@gmail.com', 'InkByte');
-                                        $mailer->addAddress($params["mail"], $params["nombre"]);
-
-                                        // Contenido del correo
-                                        $mailer->isHTML(true);
-                                        $mailer->Subject = 'Activa tu cuenta de InkByte';
-                                        $mailer->Body = 'Activa tu cuenta con este enlace: Enlace a la web placeholder' . $token;
-
-                                        // Enviar el correo
-                                        $mailer->send();
-                                        echo 'El correo se ha enviado con éxito.';
-                                    } catch (Exception $e) {
-                                        echo "El correo no se pudo enviar. Error: {$mailer->ErrorInfo}";
-                                    }
-                                //header('Location: index.php?ctl=iniciarSesion');
-                            }else{
-                                $params['mensaje'] = 'No se ha podido insertar el usuario. Revisa el formulario.';
-                            }
-                        }catch (Exception $e){
-                                // En este caso guardamos los errores en un archivo de errores log
-                                error_log($e->getMessage() . "##Código: " . $e->getCode() . "  " . microtime() . PHP_EOL, 3, "../logs/logBD.txt");
-                                // guardamos en ·errores el error que queremos mostrar a los usuarios
-                                header('Location: index.php?ctl=error');
-                        }catch (Error $e){
-                            error_log($e->getMessage() . microtime() . PHP_EOL, 3, "../logs/logError.txt");
-                            header('Location: index.php?ctl=error');
+                                    // Enviar el correo
+                                    $mailer->send();
+                                    echo 'El correo se ha enviado con éxito.';
+                                } catch (Exception $e) {
+                                    echo "El correo no se pudo enviar. Error: {$mailer->ErrorInfo}";
+                                }
+                            //header('Location: index.php?ctl=iniciarSesion');
+                        }else{
+                            $params['mensaje'] = 'No se ha podido insertar el usuario. Revisa el formulario.';
                         }
-                }
+                    }catch (Exception $e){
+                            // En este caso guardamos los errores en un archivo de errores log
+                            error_log($e->getMessage() . "##Código: " . $e->getCode() . "  " . microtime() . PHP_EOL, 3, "../logs/logBD.txt");
+                            // guardamos en ·errores el error que queremos mostrar a los usuarios
+                            header('Location: index.php?ctl=error');
+                    }catch (Error $e){
+                        error_log($e->getMessage() . microtime() . PHP_EOL, 3, "../logs/logError.txt");
+                        header('Location: index.php?ctl=error');
+                    }
+            }
 
 
 
-                }
-                require __DIR__ . '/../../web/templates/registro.php';
-    }
+            }
+            require __DIR__ . '/../../web/templates/registro.php';
+}
 
 
     public function subirCapitulo(){
@@ -481,7 +481,6 @@ class Controller{
 
         }else{
             echo json_encode(array('existe'=> true));
-
         }
     }
 
@@ -578,6 +577,25 @@ class Controller{
 
 
         require __DIR__ . '/../../web/templates/leerCapitulo.php';
+    }
+
+    public function activarCuenta(){
+        $token = $_GET['token'];
+        try{
+            $cs = new Consultas();
+
+            if($cs->verificarToken($token)){
+                if($cs->validarFechaValidezPorToken($token)){
+                    $cs->activarUsuarioPorToken($token);
+                    $cs->borrarToken($token);
+                    header("location:index.php?ctl=inicio");
+                }
+            }
+
+        } catch (PDOException $e) {
+            // Manejo de errores
+            echo "Error: " . $e->getMessage();
+        }
     }
 
 }

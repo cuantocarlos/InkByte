@@ -112,13 +112,13 @@ class Consultas extends Modelo {
 
     /*Activa la cuenta del usuario*/
     function activarUsuarioPorToken($token) {
-        $stmt =$this->conexion->prepare("UPDATE usuario SET activo = 1 WHERE id_user = (SELECT id_user FROM tokens WHERE token = ?)");
+        $stmt =$this->conexion->prepare("UPDATE usuario SET activo = 1 WHERE id_user = (SELECT id_user FROM token WHERE token = ?)");
         return $stmt->execute([$token]);
     }
 
     /*Borra el token de la base de datos*/
     function borrarToken($token) {
-        $stmt =$this->conexion->prepare("DELETE FROM tokens WHERE token = ?");
+        $stmt =$this->conexion->prepare("DELETE FROM token WHERE token = ?");
         return $stmt->execute([$token]);
     }
 

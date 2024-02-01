@@ -27,7 +27,7 @@ window.onload = function () {
 
             }
         }
-        httpRequest.send('mail=' + encodeURIComponent(correo.value.trim()) + '&pass=' + encodeURIComponent(contrasenia.value.trim()));
+        httpRequest.send('mail=' + encodeURIComponent(correo.value.trim()) + '&contra=' + encodeURIComponent(contrasenia.value));
     });
 
     correo.addEventListener('focus',function(){
