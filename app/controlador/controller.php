@@ -249,7 +249,7 @@ class Controller{
 
             try{
                 $cs = new Consultas();
-                $opcionesDisponibles = $cs -> obtenerIdLibrosPorUsuario($_SESSION["id_user"]);
+                $opcionesDisponibles = $cs -> buscarColumnaArray($_SESSION["id_user"], "libro", "id_libro", "id_user");
                 $titulos = $cs -> buscarColumnaArray($_SESSION["id_user"], "libro", "titulo", "id_user");
 
                 $params = array(
@@ -448,7 +448,7 @@ class Controller{
                 }
 
                 if(empty($params['mensaje'])){
-                    $params['imagen_portada'] = cFile("portadaLibro", $params['mensaje'], Config::$extensionesValidas,__DIR__ . '/../archivos/img/libro/', 2000000);
+                    $params['imagen_portada'] = cFile("portadaLibro", $params['mensaje'], Config::$extensionesValidas,__DIR__ . '/../archivos/img/libro/', 20000000);
 
                     if(!empty($params["imagen_portada"])){
                         $cs = new Consultas();
@@ -457,7 +457,8 @@ class Controller{
                 } else {}
 
                 if(empty($params["imagen_portada"])){
-                    header("location:index.php?ctl=crearLibro");
+                    echo $params["imagen_portada"];
+                    //header("location:index.php?ctl=crearLibro");
                 } else {
                     header("location:index.php?ctl=inicio");
                 }
@@ -521,6 +522,10 @@ class Controller{
             error_log($e->getMessage() . "##Código: " . $e->getCode() . "  " . microtime() . PHP_EOL, 3, "../logs/logBD.txt");
         }catch (Error $e){
             error_log($e->getMessage() . microtime() . PHP_EOL, 3, "../logs/logError.txt");
+        }
+
+        if(isset($_REQUEST["volver"])){
+            header("location: index.php?ctl=book&id_libro=".$params["id_libro"]);
         }
 
         if(isset($_REQUEST["seleccionar_capitulo"])){

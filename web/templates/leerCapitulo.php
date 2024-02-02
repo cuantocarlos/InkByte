@@ -1,8 +1,13 @@
 <div class="container">
 <form action="" method="post">
-    <div class="cabecera bg-rosa p-3 mt-3 rounded-top-5">
+    <div class="cabecera bg-rosa p-3 mt-3 rounded-top-5 d-flex justify-content-between">
+        <div>
         <h1><?php echo $params["titulo_libro"] ?></h1>
         <h2>Capítulo: <?php echo $params["num_cap"]?> - <?php echo $params["titulo"]?></h2>
+        </div>
+        <div class="d-flex justify-content-end">
+        <button type="submit" class="m-2 col-12 btn-dark btn" name="volver">Volver al libro</button>
+        </div>
     </div>
 
 

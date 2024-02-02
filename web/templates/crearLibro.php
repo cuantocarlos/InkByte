@@ -1,3 +1,5 @@
+<?php var_dump($params['mensaje']) ?>
+
 <div class="container d-flex flex-column mt-5">
     <div class="header p-5 ps-0 pb-4 border-bottom-0">
         <h1 class="fw-bold mb-0 fs-2 mb-4">Crea tu libro</h1>
