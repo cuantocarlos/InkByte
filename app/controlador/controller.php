@@ -203,13 +203,13 @@ class Controller{
                                     $mailer->isSMTP();
                                     $mailer->Host = 'smtp.gmail.com';
                                     $mailer->SMTPAuth = true;
-                                    $mailer->Username = 'inkbytedaw@gmail.com';
-                                    $mailer->Password = 'sfay bopb hxsr lyvu';
+                                    $mailer->Username = 'carmen33ivan@gmail.com';
+                                    $mailer->Password = 'emvq uypi bakh wjuj ';
                                     $mailer->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;
-                                    $mailer->Port = 587;
+                                    $mailer->Port = "465";
 
                                     // Configura los destinatarios
-                                    $mailer->setFrom('inkbytedaw@gmail.com', 'InkByte');
+                                    $mailer->setFrom('carmen33ivan@gmail.com', 'Carmen_Ivan');
                                     $mailer->addAddress($params["mail"], $params["nombre"]);
 
                                     // Contenido del correo
