@@ -709,6 +709,21 @@ class Controller{
                 }
             }
         }
+
+        if(isset($_REQUEST["seguir"])){
+
+            try{
+                $cs = new Consultas();
+                if(!$cs -> existeRelacionSeguido($params["id_libro"], $_SESSION["id_user"])){
+                    $cs -> agregarSeguido($params["id_libro"], $_SESSION["id_user"]);
+                }
+                
+            }catch (Exception $e){
+                error_log($e->getMessage() . "##Código: " . $e->getCode() . "  " . microtime() . PHP_EOL, 3, "../logs/logBD.txt");
+            }catch (Error $e){
+                error_log($e->getMessage() . microtime() . PHP_EOL, 3, "../logs/logError.txt");
+            }
+        }
         
         require __DIR__ . '/../../web/templates/book.php';
         

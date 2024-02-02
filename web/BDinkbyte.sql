@@ -48,7 +48,7 @@ CREATE TABLE Libro (
 	id_user INT,
 	id_libro INT AUTO_INCREMENT PRIMARY KEY,
 	titulo VARCHAR(50),
-	sinopsis VARCHAR(300),
+	sinopsis VARCHAR(1000),
 	imagen_portada VARCHAR(100),
 	capitulos TINYINT,
 	num_resenas TINYINT,

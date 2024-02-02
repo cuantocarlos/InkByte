@@ -250,38 +250,66 @@ class Consultas extends Modelo {
 
     /*Agrega un libro a la lista de seguidos de un usuario*/
     function agregarSeguido($id_libro, $id_usuario) {
-        $stmt =$this->conexion->prepare("INSERT INTO seguidos (id_libro, id_usuario) VALUES (?, ?)");
-        $stmt->execute([$id_libro, $id_usuario]);
+        $stmt = $this->conexion->prepare("INSERT INTO seguidos (id_libro, id_user) VALUES (?, ?)");
+        $stmt->bindParam(1, $id_libro, PDO::PARAM_INT);
+        $stmt->bindParam(2, $id_usuario, PDO::PARAM_INT);
+        $exito = $stmt->execute();
+        return $exito;
     }
+    
 
     /*Quita un libro de la lista de seguidos de un usuario*/
     function quitarSeguido($id_libro, $id_usuario) {
-        $stmt =$this->conexion->prepare("DELETE FROM seguidos WHERE id_usuario = ? AND id_libro = ?");
-        $stmt->execute([$id_usuario, $id_libro]);
+        $stmt =$this->conexion->prepare("DELETE FROM seguidos WHERE id_user = ? AND id_libro = ?");
+        $stmt->execute([$id_libro, $id_usuario]);
+    }
+
+    /* Pregunta si existe la relacion */
+    function existeRelacionSeguido($id_libro, $id_usuario) {
+        $stmt = $this->conexion->prepare("SELECT COUNT(*) FROM seguidos WHERE id_libro = ? AND id_user = ?");
+        $stmt->execute([$id_libro, $id_usuario]);
+        $cantidad = $stmt->fetchColumn();
+        return $cantidad > 0;
     }
 
     /*Agrega un libro a la lista de pendientes de un usuario*/
     function agregarPendiente($id_libro, $id_usuario) {
-        $stmt =$this->conexion->prepare("INSERT INTO pendientes (id_libro, id_usuario) VALUES (?, ?)");
+        $stmt =$this->conexion->prepare("INSERT INTO pendientes (id_libro, id_user) VALUES (?, ?)");
         $stmt->execute([$id_libro, $id_usuario]);
     }
 
     /*Quita un libro de la lista de pendientes de un usuario*/
     function quitarPendiente($id_libro, $id_usuario) {
-        $stmt =$this->conexion->prepare("DELETE FROM pendientes WHERE id_usuario = ? AND id_libro = ?");
+        $stmt =$this->conexion->prepare("DELETE FROM pendientes WHERE id_user = ? AND id_libro = ?");
         $stmt->execute([$id_usuario, $id_libro]);
     }
 
+    /* Pregunta si existe la relacion */
+    function existeRelacionPendiente($id_libro, $id_usuario) {
+        $stmt = $this->conexion->prepare("SELECT COUNT(*) FROM pendientes WHERE id_libro = ? AND id_user = ?");
+        $stmt->execute([$id_libro, $id_usuario]);
+        $cantidad = $stmt->fetchColumn();
+        return $cantidad > 0;
+    }
+
     /*Agrega un libro a la lista de completados de un usuario*/
-    function agregarCompletado($id_libro, $id_usuario) {
-        $stmt =$this->conexion->prepare("INSERT INTO completados (id_libro, id_usuario) VALUES (?, ?)");
+    function agregarTerminado($id_libro, $id_usuario) {
+        $stmt =$this->conexion->prepare("INSERT INTO terminado (id_libro, id_user) VALUES (?, ?)");
         $stmt->execute([$id_libro, $id_usuario]);
     }
 
     /*Quita un libro de la lista de completados de un usuario*/
-    function quitarCompletado($id_libro, $id_usuario) {
-        $stmt =$this->conexion->prepare("DELETE FROM completados WHERE id_usuario = ? AND id_libro = ?");
+    function quitarTerminado($id_libro, $id_usuario) {
+        $stmt =$this->conexion->prepare("DELETE FROM terminado WHERE id_user = ? AND id_libro = ?");
         $stmt->execute([$id_usuario, $id_libro]);
+    }
+
+    /* Pregunta si existe la relacion */
+    function existeRelacionTerminado($id_libro, $id_usuario) {
+        $stmt = $this->conexion->prepare("SELECT COUNT(*) FROM terminado WHERE id_libro = ? AND id_user = ?");
+        $stmt->execute([$id_libro, $id_usuario]);
+        $cantidad = $stmt->fetchColumn();
+        return $cantidad > 0;
     }
 
 
