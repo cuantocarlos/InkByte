@@ -203,13 +203,13 @@ class Controller{
                                     $mailer->isSMTP();
                                     $mailer->Host = 'smtp.gmail.com';
                                     $mailer->SMTPAuth = true;
-                                    $mailer->Username = 'inkbytedaw@gmail.com';
-                                    $mailer->Password = 'sfay bopb hxsr lyvu';
+                                    $mailer->Username = 'carmen33ivan@gmail.com';
+                                    $mailer->Password = 'emvq uypi bakh wjuj ';
                                     $mailer->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;
-                                    $mailer->Port = 587;
+                                    $mailer->Port = "465";
 
                                     // Configura los destinatarios
-                                    $mailer->setFrom('inkbytedaw@gmail.com', 'InkByte');
+                                    $mailer->setFrom('carmen33ivan@gmail.com', 'Carmen_Ivan');
                                     $mailer->addAddress($params["mail"], $params["nombre"]);
 
                                     // Contenido del correo
@@ -242,7 +242,7 @@ class Controller{
 
             }
             require __DIR__ . '/../../web/templates/registro.php';
-}
+    }
 
 
     public function subirCapitulo(){
@@ -255,7 +255,8 @@ class Controller{
 
             try{
                 $cs = new Consultas();
-                $opcionesDisponibles = $cs -> obtenerIdLibrosPorUsuario($_SESSION["id_user"]);
+                $opcionesDisponibles = $cs -> buscarColumnaArray($_SESSION["id_user"], "libro", "id_libro", "id_user");
+                $titulos = $cs -> buscarColumnaArray($_SESSION["id_user"], "libro", "titulo", "id_user");
 
                 $params = array(
                     'id_libro' => '',
@@ -268,7 +269,7 @@ class Controller{
 
 
                 if((isset($_POST["bAceptar"]))){
-                    $params["id_libro"] = recoge("tus_opciones");
+                    $params["id_libro"] = recoge("tus_opcionesC");
                     $params['capitulos_del_libro'] = $cs -> filas("capitulos", "id_libro", $params["id_libro"]);
 
                     $params["num_cap"] = $params['capitulos_del_libro'] + 1;
@@ -291,6 +292,7 @@ class Controller{
                         if(empty($params["mensaje"]) && !empty($params["archivo"])){
                             $cs -> agregarCapitulo($params["id_libro"], $params["num_cap"], $params["titulo"], $params["archivo"]);
                             $cs -> aumentarCapitulosLibro($params["id_libro"]);
+                            header ("Location:index.php?ctl=inicio");
 
                         } else {
                             header ("Location:index.php?ctl=subirCapitulo");
@@ -446,7 +448,7 @@ class Controller{
                 }
 
                 if(empty($params['mensaje'])){
-                    $params['imagen_portada'] = cFile("portadaLibro", $params['mensaje'], Config::$extensionesValidas,__DIR__ . '/../archivos/img/libro/', 2000000);
+                    $params['imagen_portada'] = cFile("portadaLibro", $params['mensaje'], Config::$extensionesValidas,__DIR__ . '/../archivos/img/libro/', 20000000);
 
                     if(!empty($params["imagen_portada"])){
                         $cs = new Consultas();
@@ -455,7 +457,8 @@ class Controller{
                 } else {}
 
                 if(empty($params["imagen_portada"])){
-                    header("location:index.php?ctl=crearLibro");
+                    echo $params["imagen_portada"];
+                    //header("location:index.php?ctl=crearLibro");
                 } else {
                     header("location:index.php?ctl=inicio");
                 }
@@ -495,6 +498,8 @@ class Controller{
     }
     public function leerCapitulo()
     {
+        $menu = $this->cargaMenu();
+
         $params = array(
             'id_libro' => '',
             'num_cap' => '',
@@ -519,6 +524,10 @@ class Controller{
             error_log($e->getMessage() . "##Código: " . $e->getCode() . "  " . microtime() . PHP_EOL, 3, "../logs/logBD.txt");
         }catch (Error $e){
             error_log($e->getMessage() . microtime() . PHP_EOL, 3, "../logs/logError.txt");
+        }
+
+        if(isset($_REQUEST["volver"])){
+            header("location: index.php?ctl=book&id_libro=".$params["id_libro"]);
         }
 
         if(isset($_REQUEST["seleccionar_capitulo"])){
@@ -630,6 +639,198 @@ class Controller{
 
         $menu = $this->cargaMenu();
         require __DIR__ . '/../../web/templates/generoUsuario.php';
+    }
+    public function book(){
+        $menu = $this->cargaMenu();
+        $params = array(
+            'id_libro' => '',
+            'titulo' => '',
+            'sinopsis' => '',
+            'imagen_portada' => '',
+            'capitulos' => "", // Asigna un valor predeterminado si es necesario
+            'num_resenas' => '', // Asigna un valor predeterminado si es necesario
+            'valoracion' => '', // Asigna un valor predeterminado si es necesario
+            'visitas' => '', // Asigna un valor predeterminado si es necesario
+            'visitasSemana' => '', // Asigna un valor predeterminado si es necesario
+            'estado' => '', // 0 cancelado, 1 publicando, 2 terminado
+            'edad_recomendada' => '', // Ajusta según tus necesidades
+            'm_18' => '',
+            'm_16' => '',
+            'm_12' => '',
+            'generos' => array(),
+            'autor' => '',
+            'id_autor' => '',
+            'num_cap' => '',
+
+            'mensaje' => array()
+        );
+
+        $params['id_libro'] = $_GET['id_libro'];
+
+        try {
+            $cs = new Consultas();
+            $datosLibro = $cs->buscarFila($params['id_libro'], 'libro', 'id_libro');
+            $capitulos =  $cs -> buscarTodos($params["id_libro"],"capitulos", "titulo", "id_libro");
+
+            // Asigna los valores obtenidos a los campos correspondientes en $params
+            $params['titulo'] = $datosLibro['titulo'];
+            $params['sinopsis'] = $datosLibro['sinopsis'];
+            $params['imagen_portada'] = $datosLibro['imagen_portada'];
+            $params['capitulos'] = $datosLibro['capitulos'];
+            $params['num_resenas'] = $datosLibro['num_resenas'];
+            $params['valoracion'] = $datosLibro['valoracion'];
+            $params['visitas'] = $datosLibro['visitas'];
+            $params['visitasSemana'] = $datosLibro['visitasSemana'];
+            $params['estado'] = $datosLibro['estado'];
+
+            // Manejo de generos (si es una columna en tu tabla)
+            $generos = $cs->buscarFila($params['id_libro'], 'generolibro', "id_libro");
+            $params['generos'] = $cs -> obtenerGenerosActivos($params['id_libro']);
+
+            $params['id_autor'] = $cs -> buscar($params['id_libro'],'libro', 'id_user', 'id_libro');
+            $params['autor'] = $cs -> buscar($params['id_autor'], 'usuario', 'nombre', 'id_user');
+
+            $resenas = $cs -> obtenerResenasPorLibro($params['id_libro']);
+        } catch (Exception $e) {
+            $e->getMessage();
+        } catch (Error $e) {
+            $e->getMessage();
+        }
+
+
+
+        if(isset($_REQUEST["seleccionar_capitulo"])){
+            $params["num_cap"] = recoge("lista_capitulos");
+
+            try{
+                $cs = new Consultas();
+                $titulo = $cs -> buscar($params["num_cap"],"capitulos", "titulo", "num_cap");
+                $archivo = $cs -> buscar($params["num_cap"],"capitulos", "archivo", "num_cap");
+                $params["num_cap"] = recoge("contador_capitulos");
+                $datosCap = $cs->buscarFila2Campos($params['id_libro'], $params['num_cap'], 'capitulos', 'id_libro', 'num_cap');
+                echo($params["num_cap"]);
+                //$link = "index.php?ctl=leerCapitulo&id_libro='" . $params['id_libro'] . "'&num_cap=' ". $params['num_cap'] . "'&titulo=' ". $datosCap['titulo'] . "'&archivo='" . $datosCap['archivo'] . "'&titulo_libro='" . $params['titulo'];
+                header('location: index.php?ctl=leerCapitulo&id_libro=' . $params['id_libro'] . '&num_cap=' . $params['num_cap'] . '&titulo=' . $datosCap['titulo'] . '&archivo=' . $datosCap['archivo'] . '&titulo_libro=' . $params['titulo']);
+
+
+
+            } catch (Exception $e){
+                error_log($e->getMessage() . "##Código: " . $e->getCode() . "  " . microtime() . PHP_EOL, 3, "../logs/logBD.txt");
+            }catch (Error $e){
+                error_log($e->getMessage() . microtime() . PHP_EOL, 3, "../logs/logError.txt");
+            }
+        }
+
+        if(isset($_REQUEST["valorar"])){
+            $valoracion = recoge("rating");
+            if($valoracion != 1 && $valoracion != 2 && $valoracion != 3 && $valoracion != 4 && $valoracion != 5){
+                $params["mensaje"] = "Error en la valoracion";
+                header("location: index.php?ctl=book&id_libro=".$params["id_libro"]);
+            } else{
+                try{
+                    $cs = new Consultas();
+                    if($cs -> existeValoracion($_SESSION["id_user"], $params["id_libro"])){
+                        $cs -> borrarValoracion($_SESSION["id_user"], $params["id_libro"]);
+                    }
+                    $cs -> insertarValoracion($_SESSION["id_user"], $params["id_libro"], $valoracion);
+                    $notas = $cs -> buscarColumnaArray($params["id_libro"], "valoraciones", "nota", "id_libro");
+                    $media = calcularMedia($notas);
+                    $cs -> actualizarValoracionLibro($params["id_libro"], $media);
+
+                }catch (Exception $e){
+                    error_log($e->getMessage() . "##Código: " . $e->getCode() . "  " . microtime() . PHP_EOL, 3, "../logs/logBD.txt");
+                }catch (Error $e){
+                    error_log($e->getMessage() . microtime() . PHP_EOL, 3, "../logs/logError.txt");
+                }
+            }
+        }
+
+        if(isset($_REQUEST["seguir"])){
+
+            try{
+                $cs = new Consultas();
+                if(!$cs -> existeRelacionSeguido($params["id_libro"], $_SESSION["id_user"])){
+                    $cs -> agregarSeguido($params["id_libro"], $_SESSION["id_user"]);
+                }
+
+            }catch (Exception $e){
+                error_log($e->getMessage() . "##Código: " . $e->getCode() . "  " . microtime() . PHP_EOL, 3, "../logs/logBD.txt");
+            }catch (Error $e){
+                error_log($e->getMessage() . microtime() . PHP_EOL, 3, "../logs/logError.txt");
+            }
+        }
+
+        if(isset($_REQUEST["escribir_resena"])){
+            header("location: index.php?ctl=escribirResena&id_libro=".$params["id_libro"]);
+        }
+
+        require __DIR__ . '/../../web/templates/book.php';
+
+
+    }
+
+    public function escribirResena(){
+        $menu = $this->cargaMenu();
+        $params = array(
+            'id_libro' => '',
+            'titulo' => '',
+            'imagen_portada' => '',
+            'num_resenas' => '',
+            'mensaje' => array()
+        );
+
+        $params['id_libro'] = $_GET['id_libro'];
+
+        try {
+            $cs = new Consultas();
+            $datosLibro = $cs->buscarFila($params['id_libro'], 'libro', 'id_libro');
+            $capitulos =  $cs -> buscarTodos($params["id_libro"],"capitulos", "titulo", "id_libro");
+
+            // Asigna los valores obtenidos a los campos correspondientes en $params
+            $params['titulo'] = $datosLibro['titulo'];
+            $params['imagen_portada'] = $datosLibro['imagen_portada'];
+            $params['num_resenas'] = $datosLibro['num_resenas'];
+
+            // Manejo de generos (si es una columna en tu tabla)
+            $generos = $cs->buscarFila($params['id_libro'], 'generolibro', "id_libro");
+            $params['generos'] = $cs -> obtenerGenerosActivos($params['id_libro']);
+
+            $params['id_autor'] = $cs -> buscar($params['id_libro'],'libro', 'id_user', 'id_libro');
+            $params['autor'] = $cs -> buscar($params['id_autor'], 'usuario', 'nombre', 'id_user');
+
+            $resenas = $cs -> obtenerResenasPorLibro($params['id_libro']);
+        } catch (Exception $e) {
+            $e->getMessage();
+        } catch (Error $e) {
+            $e->getMessage();
+        }
+
+        if(isset($_REQUEST["volver"])){
+            header("location: index.php?ctl=book&id_libro=".$params["id_libro"]);
+        }
+
+        if(isset($_REQUEST["publicar"])){
+            $texto = recoge("resena");
+            if(cTexto($texto, "resena", $params["mensaje"], 1000, 1)){
+                try{
+                    if($cs -> existe2campos($_SESSION["id_user"], $params["id_libro"], "resena")){
+                        echo($cs -> actualizarResena($_SESSION["id_user"], $params["id_libro"], $texto));
+                    }else{
+                        echo($cs -> guardarResena($_SESSION["id_user"], $params["id_libro"], $texto));
+                    }
+
+                } catch (Exception $e) {
+                    $e->getMessage();
+                } catch (Error $e) {
+                    $e->getMessage();
+                }
+            }
+
+            header("location: index.php?ctl=book&id_libro=".$params["id_libro"]);
+        }
+
+        require __DIR__ . '/../../web/templates/escribirResena.php';
+
     }
 
 }

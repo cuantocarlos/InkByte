@@ -93,7 +93,7 @@
                   <hr class="barra-menu">
 
                   <li class="nav-item d-flex justify-content-center">
-                      <a class="nav-link" href="index.php?ctl=cerrarSesión">Cerrar Sesión</a>
+                      <a class="nav-link" href="index.php?ctl=cerrarSesion">Cerrar Sesión</a>
                   </li>
                 </ul>
             </div>
