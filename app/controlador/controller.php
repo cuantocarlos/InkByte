@@ -334,10 +334,6 @@ class Controller{
 
     public function generoUsuario()
     {
-          if ($_SESSION['nivel'] < 1) {
-            header("location:index.php?ctl=inicio");
-          }
-
         $params = array (
             'terror'=>0,
             'romance'=>0,
@@ -353,10 +349,11 @@ class Controller{
             'policiaca'=>0
         );
 
-        $generosUsu = [];
+        $generoString = $_REQUEST["generos"];
+        $generosUsu = explode(',',$generoString);
 
-        if(isset($_POST["bAceptar"])){
-            $generosUsu = recogeArray("generoUsuario");
+        echo $generosUsu;
+
             foreach($params as $genero => $value){
                 for($i=0;$i<count($generosUsu);$i++){
                     if($genero === $generosUsu[$i]){
@@ -368,9 +365,9 @@ class Controller{
             try{
                     $cs = new Consultas();
 
-                    $cs -> actualizarPreferenciasUsuario(22,$params["terror"],$params["romance"],$params['fantasia'],$params['cficcion'],$params['historia'],$params['arte'],$params['thriller'],$params['poesia'],$params['drama'],$params['biografia'],$params['misterio'],$params['policiaca']);
+                    $cs -> actualizarPreferenciasUsuario(28,$params["terror"],$params["romance"],$params['fantasia'],$params['cficcion'],$params['historia'],$params['arte'],$params['thriller'],$params['poesia'],$params['drama'],$params['biografia'],$params['misterio'],$params['policiaca']); //cambiar el id_user
 
-                    header('Location: index.php?ctl=inicio');
+                    header('Location: index.php?ctl=perfilUsuario');
 
                 }catch (Exception $e){
                     echo "Error: " . $e->getMessage();
@@ -379,9 +376,9 @@ class Controller{
                     echo "Error: " . $e->getMessage();
                     header('Location: index.php?ctl=error');
                 }
-        }
 
-        require __DIR__ . '/../../web/templates/modalGeneroUsuario.php';
+
+        require __DIR__ . '/../../web/templates/perfilUsuario.php';
 }
     public function crearLibro()
     {
@@ -606,6 +603,33 @@ class Controller{
             session_destroy();
             header("location:index.php?ctl=inicio");
             exit();
+    }
+
+    public function generoUsuarioSelect(){
+
+        $cs = new Consultas();
+
+        $generos=$cs -> generosSelecionadosUsuario(28); //cambiar el id_user
+
+        echo json_encode(array(
+            "terror" => $generos["terror"],
+            "romance" => $generos["romance"],
+            "fantasia" => $generos["fantasia"],
+            "cficcion" => $generos["cficcion"],
+            "historia" => $generos["historia"],
+            "arte" => $generos["arte"],
+            "thriller" => $generos["poesia"],
+            "drama" => $generos["drama"],
+            "biografia" => $generos["biografia"],
+            "misterio" => $generos["misterio"],
+            "policiaca" => $generos["policiaca"],
+        ));
+    }
+
+    public function perfilUsuario() {
+
+        $menu = $this->cargaMenu();
+        require __DIR__ . '/../../web/templates/generoUsuario.php';
     }
 
 }

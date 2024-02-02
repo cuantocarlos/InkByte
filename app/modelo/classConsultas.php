@@ -246,9 +246,7 @@ class Consultas extends Modelo {
         $stmt->execute([$id_usuario, $id_libro]);
     }
 
-
     /*Actualiza las preferencias de un usuario*/
-
     function actualizarPreferenciasUsuario($id_user, $terror, $romance, $fantasia, $cficcion, $historia, $arte, $thriller, $poesia, $drama, $biografia, $misterio, $policiaca) {
         $stmt =$this->conexion->prepare("UPDATE preferenciagenerosusuario SET
             terror = ?,
@@ -304,7 +302,14 @@ class Consultas extends Modelo {
         return $resultado;
     }
 
+    function generosSelecionadosUsuario($id_user) {
+        $stmt =$this->conexion->prepare("SELECT * FROM preferenciagenerosusuario WHERE id_user = ?");
 
+        $stmt->execute([$id_user]);
+        $resultado = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        return $resultado;
+    }
 
 
 
