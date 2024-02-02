@@ -1,6 +1,6 @@
-<div class="container">
+<div class="container mt-5">
 <form action="" method="post">
-    <div class="cabecera bg-rosa p-3 mt-3 rounded-top-5 d-flex justify-content-between">
+    <div class="cabecera bg-rosa p-3 mt-3 d-flex justify-content-between">
         <div>
         <h1><?php echo $params["titulo_libro"] ?></h1>
         <h2>Capítulo: <?php echo $params["num_cap"]?> - <?php echo $params["titulo"]?></h2>

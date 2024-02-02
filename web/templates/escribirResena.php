@@ -9,7 +9,7 @@
     <!--seccion libro-->
 
     <section>
-        <div class="container mt-5">
+        <div class="container mt-2">
             <div class="row">
                 <div class="col-md-12">
                     <div class="main-content mt-5" style="background-color: #fff4f4; width: 100%; height: 460px;">
@@ -24,10 +24,9 @@
                                 <div class="mb-3 ">
                                     <h1 class="fw-bold"><?php echo($params['titulo']); ?></h1>
                                     <p> Escribe tu reseña (Máximo 1000 caracteres)</p>
+                                    <form action="" method="post">
                                     <div>
-                                        <form action="" method="post">
-                                            <textarea name="resena" id="resena" cols="66" rows="10" style="resize:none;"></textarea>
-                                        </form>
+                                        <textarea name="resena" id="resena" cols="66" rows="10" style="resize:none;"></textarea>
                                     </div>
                                     <div class="mt-3 d-flex">
                                     <button class="btn btn-dark me-4 flex-grow-1 " name="publicar" id="publicar">

@@ -423,12 +423,29 @@ class Consultas extends Modelo {
     }
     
     function guardarResena($id_user, $id_libro, $contenido) {
-        $stmt = $this->conexion->prepare("INSERT INTO resenas (id_user, id_libro, contenido) VALUES (?, ?, ?)");
+        $stmt = $this->conexion->prepare("INSERT INTO resena (id_user, id_libro, contenido) VALUES (?, ?, ?)");
         $stmt->bindParam(1, $id_user);
         $stmt->bindParam(2, $id_libro);
         $stmt->bindParam(3, $contenido);
     
         return $stmt->execute() ? true : false;
     }
+
+    function existe2campos($id_user, $id_libro, $tabla) {
+        $stmt = $this->conexion->prepare("SELECT COUNT(*) FROM $tabla WHERE id_user = ? AND id_libro = ?");
+        $stmt->execute([$id_user, $id_libro]);
+        $cantidad = $stmt->fetchColumn();
+        return $cantidad > 0;
+    }
+    
+    function actualizarResena($id_user, $id_libro, $contenido) {
+        $stmt = $this->conexion->prepare("UPDATE resena SET contenido = ? WHERE id_user = ? AND id_libro = ?");
+        $stmt->bindParam(1, $contenido);
+        $stmt->bindParam(2, $id_user);
+        $stmt->bindParam(3, $id_libro);
+    
+        return $stmt->execute() ? true : false;
+    }
+    
     
 }

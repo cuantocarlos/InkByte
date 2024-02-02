@@ -501,6 +501,8 @@ class Controller{
     }
     public function leerCapitulo()
     {
+        $menu = $this->cargaMenu();
+
         $params = array(
             'id_libro' => '',
             'num_cap' => '',
@@ -616,7 +618,7 @@ class Controller{
     }
 
     public function book(){
-        
+        $menu = $this->cargaMenu();
         $params = array(
             'id_libro' => '',
             'titulo' => '',
@@ -734,6 +736,10 @@ class Controller{
                 error_log($e->getMessage() . microtime() . PHP_EOL, 3, "../logs/logError.txt");
             }
         }
+
+        if(isset($_REQUEST["escribir_resena"])){
+            header("location: index.php?ctl=escribirResena&id_libro=".$params["id_libro"]);
+        }
         
         require __DIR__ . '/../../web/templates/book.php';
         
@@ -741,7 +747,7 @@ class Controller{
     }
 
     public function escribirResena(){
-
+        $menu = $this->cargaMenu();
         $params = array(
             'id_libro' => '',
             'titulo' => '',
@@ -784,13 +790,19 @@ class Controller{
             $texto = recoge("resena");
             if(cTexto($texto, "resena", $params["mensaje"], 1000, 1)){
                 try{
-                    $cs -> guardarResena($_SESSION["id_user"], $params["id_libro"], $texto);
+                    if($cs -> existe2campos($_SESSION["id_user"], $params["id_libro"], "resena")){
+                        echo($cs -> actualizarResena($_SESSION["id_user"], $params["id_libro"], $texto));
+                    }else{
+                        echo($cs -> guardarResena($_SESSION["id_user"], $params["id_libro"], $texto));
+                    }
+                    
                 } catch (Exception $e) {
                     $e->getMessage();
                 } catch (Error $e) {
                     $e->getMessage();
                 }
             }
+            
             header("location: index.php?ctl=book&id_libro=".$params["id_libro"]);
         }
         

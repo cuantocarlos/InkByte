@@ -9,7 +9,7 @@
     <!--seccion libro-->
 
     <section>
-        <div class="container mt-5">
+        <div class="container mt-2">
             <div class="row">
                 <div class="col-md-12">
                     <div class="main-content mt-5" style="background-color: #fff4f4; width: 100%; height: 460px;">
@@ -88,7 +88,7 @@
                                 <!-- Botones -->
                                 <div class="d-flex flex-wrap">
                             
-                                    <button class="btn btn-dark me-3">
+                                    <button class="btn btn-dark me-3" name="escribir_resena" id="escribir_resena">
                                         <svg width="30px" height="30px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                             <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
                                             <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
