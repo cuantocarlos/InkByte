@@ -17,7 +17,7 @@ function marcarNivel($opcion){
 }
 ?>
 
-<div class="container">
+<div class="container-md mt-5">
     <div class="header p-5 pb-4 border-bottom-0">
         <h1 class="fw-bold mb-0 fs-2 mb-4">Modifica los datos que desees cambiar</h1>
     </div>
@@ -85,5 +85,5 @@ function marcarNivel($opcion){
     </div>
 </div>
 
-<?php include 'layout.php'?>
+<?php include 'layout.php'?> 
 <!--Poner el $extensionesValidas en el input de la foto de perfil-->

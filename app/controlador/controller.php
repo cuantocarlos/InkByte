@@ -243,6 +243,42 @@ class Controller{
             }
             require __DIR__ . '/../../web/templates/registro.php';
 }
+    public function perfilAjustes(){
+            //validaciones del formulario
+            $params = array(
+                'nombre'=>'',
+                'nick'=>'',
+                'mail'=>'',
+                'oldpass'=>'',
+                'pass'=>'',
+                'pass2'=>'',
+                'f_perfil'=>'',
+                'descripcion'=>'',
+                'opcion'=>'',
+            );//falta fecha
+            
+            if ($_SESSION['nivel'] < 1) {
+                header("location:index.php?ctl=inicio");
+            }
+
+            //recojo el formulario
+            if (isset($_POST['bAceptar'])) {
+                $params['nombre']=recoge('nombre');
+                $params['nick']=recoge('nick');
+                $params['mail']=recoge('mail');
+                $params['oldpass']=recoge('oldpass');
+                $params['pass']=recoge('pass');
+                $params['pass2']=recoge('pass2');
+                $params['f_perfil']=recoge('f_perfil');
+                $params['descripcion']=recoge('descripcion');
+                $params['opcion']=recoge('opcion_usuario');
+            }
+            
+            //verifico los datos que el usuario ha introducido
+
+
+        }
+        
 
 
     public function subirCapitulo(){
@@ -608,5 +644,6 @@ class Controller{
             exit();
     }
 
+    
 }
 
