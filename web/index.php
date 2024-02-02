@@ -39,7 +39,8 @@ $map = array(
     'inicioSesionJS' => array('controller' => 'Controller', 'action' => 'inicioSesionJS', 'nivel' => 0),
     'activarCuenta' => array('controller' => 'Controller', 'action' => 'activarCuenta', 'nivel' => 0),
     'cerrarSesion' => array('controller' => 'Controller', 'action' => 'cerrarSesion', 'nivel' => 1),
-    'book' => array('controller' => 'Controller', 'action' => 'book', 'nivel' => 1)
+    'book' => array('controller' => 'Controller', 'action' => 'book', 'nivel' => 1),
+    'escribirResena' => array('controller' => 'Controller', 'action' => 'escribirResena', 'nivel' => 1)
     // 'salir' => array('controller' => 'Controller', 'action' => 'salir', 'nivel' => 1),
     // 'error' => array('controller' => 'Controller', 'action' => 'error', 'nivel' => 0),
     // 'listarLibros' => array('controller' => 'Controller', 'action' => 'listarLibros', 'nivel' => 0),

@@ -422,4 +422,13 @@ class Consultas extends Modelo {
         return $resultados;
     }
     
+    function guardarResena($id_user, $id_libro, $contenido) {
+        $stmt = $this->conexion->prepare("INSERT INTO resenas (id_user, id_libro, contenido) VALUES (?, ?, ?)");
+        $stmt->bindParam(1, $id_user);
+        $stmt->bindParam(2, $id_libro);
+        $stmt->bindParam(3, $contenido);
+    
+        return $stmt->execute() ? true : false;
+    }
+    
 }

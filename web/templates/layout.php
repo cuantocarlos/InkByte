@@ -13,9 +13,6 @@
     <!--EL FAVICON TAMBIEN VA AQUI-->
 
     <!--LINKS A MODIFICACIONES DE CSS AQUI-->
-    <link rel="stylesheet" href="styles/modalGeneroUsuario.css"/>
-    <link rel="stylesheet" href="styles/leerCapitulo_style.css">
-    <link rel="stylesheet" href="styles/navbar.css">
     <link rel="stylesheet" href="../web/css/styles/navbar.css">
     <link rel="stylesheet" href="../web/css/leerCapitulo_style.css">
     <link rel="stylesheet" href="../web/css/valoracionEstrella.css">
@@ -26,10 +23,12 @@
 <!--AQUI VA EL HEADER + RESPONSIVO(vamos a implementar 4 headers distintos: invitado/lector/escritor/admin. Todo esto con la funcionalidad de abajo)-->
 <?php
     if(!isset($menu)) {
-        $menu = 'registro.php';
+        $menu = 'menuInvitado.php';
     }
     include $menu;
 ?>
+
+
 <!--AQUI VA EL FOOTER-->
 
 </body>

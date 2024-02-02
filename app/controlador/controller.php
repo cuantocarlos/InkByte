@@ -242,7 +242,7 @@ class Controller{
 
             }
             require __DIR__ . '/../../web/templates/registro.php';
-}
+    }
 
 
     public function subirCapitulo(){
@@ -738,6 +738,64 @@ class Controller{
         require __DIR__ . '/../../web/templates/book.php';
         
         
+    }
+
+    public function escribirResena(){
+
+        $params = array(
+            'id_libro' => '',
+            'titulo' => '',
+            'imagen_portada' => '',
+            'num_resenas' => '',
+            'mensaje' => array()
+        );
+        
+        $params['id_libro'] = $_GET['id_libro'];
+        
+        try {
+            $cs = new Consultas();
+            $datosLibro = $cs->buscarFila($params['id_libro'], 'libro', 'id_libro');
+            $capitulos =  $cs -> buscarTodos($params["id_libro"],"capitulos", "titulo", "id_libro");
+        
+            // Asigna los valores obtenidos a los campos correspondientes en $params
+            $params['titulo'] = $datosLibro['titulo'];
+            $params['imagen_portada'] = $datosLibro['imagen_portada'];
+            $params['num_resenas'] = $datosLibro['num_resenas'];
+        
+            // Manejo de generos (si es una columna en tu tabla)
+            $generos = $cs->buscarFila($params['id_libro'], 'generolibro', "id_libro");
+            $params['generos'] = $cs -> obtenerGenerosActivos($params['id_libro']);
+
+            $params['id_autor'] = $cs -> buscar($params['id_libro'],'libro', 'id_user', 'id_libro');
+            $params['autor'] = $cs -> buscar($params['id_autor'], 'usuario', 'nombre', 'id_user');
+
+            $resenas = $cs -> obtenerResenasPorLibro($params['id_libro']);
+        } catch (Exception $e) {
+            $e->getMessage();
+        } catch (Error $e) {
+            $e->getMessage();
+        }
+
+        if(isset($_REQUEST["volver"])){
+            header("location: index.php?ctl=book&id_libro=".$params["id_libro"]);
+        }
+
+        if(isset($_REQUEST["publicar"])){
+            $texto = recoge("resena");
+            if(cTexto($texto, "resena", $params["mensaje"], 1000, 1)){
+                try{
+                    $cs -> guardarResena($_SESSION["id_user"], $params["id_libro"], $texto);
+                } catch (Exception $e) {
+                    $e->getMessage();
+                } catch (Error $e) {
+                    $e->getMessage();
+                }
+            }
+            header("location: index.php?ctl=book&id_libro=".$params["id_libro"]);
+        }
+        
+        require __DIR__ . '/../../web/templates/escribirResena.php';
+
     }
 
 }
