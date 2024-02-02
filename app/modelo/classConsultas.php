@@ -8,9 +8,47 @@ class Consultas extends Modelo {
         return ($resultado) ? $resultado[$columna] : null;
     }
 
+    function buscarFila($input, $tabla, $campoWhere) {
+        $stmt = $this->conexion->prepare("SELECT * FROM $tabla WHERE $campoWhere = ?");
+        $stmt->execute([$input]);
+        $fila = $stmt->fetch(PDO::FETCH_ASSOC);
+        return ($fila) ? $fila : null;
+    }
+
+    function buscarColumna($input, $tabla, $columna, $campoWhere) {
+        $stmt = $this->conexion->prepare("SELECT $columna FROM $tabla WHERE $campoWhere = ?");
+        $stmt->execute([$input]);
+        $columna = $stmt->fetch(PDO::FETCH_COLUMN);
+        return ($columna !== false) ? $columna : null;
+    }
+
+    function buscarColumnaArray($input, $tabla, $columna, $campoWhere) {
+        $stmt = $this->conexion->prepare("SELECT $columna FROM $tabla WHERE $campoWhere = ?");
+        $stmt->execute([$input]);
+        $resultados = $stmt->fetchAll(PDO::FETCH_COLUMN);
+        return $resultados;
+    }
+    
+    
+
+    function buscarFila2Campos($input1, $input2, $tabla, $campoWhere1, $campoWhere2) {
+        $stmt = $this->conexion->prepare("SELECT * FROM $tabla WHERE $campoWhere1 = ? AND $campoWhere2 = ?");
+        $stmt->execute([$input1, $input2]);
+        $fila = $stmt->fetch(PDO::FETCH_ASSOC);
+        return ($fila) ? $fila : null;
+    }
+    
+
     function buscarTodos($input, $tabla, $columna, $campoWhere){
         $stmt = $this->conexion->prepare("SELECT $columna FROM $tabla WHERE $campoWhere = ?");
         $stmt->execute([$input]);
+        $resultados = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return $resultados;
+    }
+
+    function buscarTodos2Campos($input1, $input2, $tabla, $columna, $campoWhere1, $campoWhere2) {
+        $stmt = $this->conexion->prepare("SELECT $columna FROM $tabla WHERE $campoWhere1 = ? AND $campoWhere2 = ?");
+        $stmt->execute([$input1, $input2]);
         $resultados = $stmt->fetchAll(PDO::FETCH_ASSOC);
         return $resultados;
     }
@@ -212,38 +250,66 @@ class Consultas extends Modelo {
 
     /*Agrega un libro a la lista de seguidos de un usuario*/
     function agregarSeguido($id_libro, $id_usuario) {
-        $stmt =$this->conexion->prepare("INSERT INTO seguidos (id_libro, id_usuario) VALUES (?, ?)");
-        $stmt->execute([$id_libro, $id_usuario]);
+        $stmt = $this->conexion->prepare("INSERT INTO seguidos (id_libro, id_user) VALUES (?, ?)");
+        $stmt->bindParam(1, $id_libro, PDO::PARAM_INT);
+        $stmt->bindParam(2, $id_usuario, PDO::PARAM_INT);
+        $exito = $stmt->execute();
+        return $exito;
     }
+    
 
     /*Quita un libro de la lista de seguidos de un usuario*/
     function quitarSeguido($id_libro, $id_usuario) {
-        $stmt =$this->conexion->prepare("DELETE FROM seguidos WHERE id_usuario = ? AND id_libro = ?");
-        $stmt->execute([$id_usuario, $id_libro]);
+        $stmt =$this->conexion->prepare("DELETE FROM seguidos WHERE id_user = ? AND id_libro = ?");
+        $stmt->execute([$id_libro, $id_usuario]);
+    }
+
+    /* Pregunta si existe la relacion */
+    function existeRelacionSeguido($id_libro, $id_usuario) {
+        $stmt = $this->conexion->prepare("SELECT COUNT(*) FROM seguidos WHERE id_libro = ? AND id_user = ?");
+        $stmt->execute([$id_libro, $id_usuario]);
+        $cantidad = $stmt->fetchColumn();
+        return $cantidad > 0;
     }
 
     /*Agrega un libro a la lista de pendientes de un usuario*/
     function agregarPendiente($id_libro, $id_usuario) {
-        $stmt =$this->conexion->prepare("INSERT INTO pendientes (id_libro, id_usuario) VALUES (?, ?)");
+        $stmt =$this->conexion->prepare("INSERT INTO pendientes (id_libro, id_user) VALUES (?, ?)");
         $stmt->execute([$id_libro, $id_usuario]);
     }
 
     /*Quita un libro de la lista de pendientes de un usuario*/
     function quitarPendiente($id_libro, $id_usuario) {
-        $stmt =$this->conexion->prepare("DELETE FROM pendientes WHERE id_usuario = ? AND id_libro = ?");
+        $stmt =$this->conexion->prepare("DELETE FROM pendientes WHERE id_user = ? AND id_libro = ?");
         $stmt->execute([$id_usuario, $id_libro]);
     }
 
+    /* Pregunta si existe la relacion */
+    function existeRelacionPendiente($id_libro, $id_usuario) {
+        $stmt = $this->conexion->prepare("SELECT COUNT(*) FROM pendientes WHERE id_libro = ? AND id_user = ?");
+        $stmt->execute([$id_libro, $id_usuario]);
+        $cantidad = $stmt->fetchColumn();
+        return $cantidad > 0;
+    }
+
     /*Agrega un libro a la lista de completados de un usuario*/
-    function agregarCompletado($id_libro, $id_usuario) {
-        $stmt =$this->conexion->prepare("INSERT INTO completados (id_libro, id_usuario) VALUES (?, ?)");
+    function agregarTerminado($id_libro, $id_usuario) {
+        $stmt =$this->conexion->prepare("INSERT INTO terminado (id_libro, id_user) VALUES (?, ?)");
         $stmt->execute([$id_libro, $id_usuario]);
     }
 
     /*Quita un libro de la lista de completados de un usuario*/
-    function quitarCompletado($id_libro, $id_usuario) {
-        $stmt =$this->conexion->prepare("DELETE FROM completados WHERE id_usuario = ? AND id_libro = ?");
+    function quitarTerminado($id_libro, $id_usuario) {
+        $stmt =$this->conexion->prepare("DELETE FROM terminado WHERE id_user = ? AND id_libro = ?");
         $stmt->execute([$id_usuario, $id_libro]);
+    }
+
+    /* Pregunta si existe la relacion */
+    function existeRelacionTerminado($id_libro, $id_usuario) {
+        $stmt = $this->conexion->prepare("SELECT COUNT(*) FROM terminado WHERE id_libro = ? AND id_user = ?");
+        $stmt->execute([$id_libro, $id_usuario]);
+        $cantidad = $stmt->fetchColumn();
+        return $cantidad > 0;
     }
 
 
@@ -304,8 +370,56 @@ class Consultas extends Modelo {
         return $resultado;
     }
 
+    function obtenerGenerosActivos($id_libro) {
+        $stmt = $this->conexion->prepare("SELECT * FROM generolibro WHERE id_libro = ?");
+        $stmt->execute([$id_libro]);
+        $fila = $stmt->fetch(PDO::FETCH_ASSOC);
+    
+        if ($fila) {
+            $generosActivos = array();
+    
+            foreach ($fila as $campo => $valor) {
+                if ($valor == 1 && $campo != 'id_libro') {
+                    $generosActivos[] = $campo;
+                }
+            }
+    
+            return $generosActivos;
+        }
+    
+        return false;
+    }
 
+    function insertarValoracion($id_user, $id_libro, $nota) {
+        $stmt = $this->conexion->prepare("INSERT INTO valoraciones (id_user, id_libro, nota) VALUES (?, ?, ?)");
+        $stmt->execute([$id_user, $id_libro, $nota]);
+        return $stmt->rowCount() > 0;
+    }
 
+    function existeValoracion($id_user, $id_libro) {
+        $stmt = $this->conexion->prepare("SELECT COUNT(*) FROM valoraciones WHERE id_user = ? AND id_libro = ?");
+        $stmt->execute([$id_user, $id_libro]);
+        $cantidad = $stmt->fetchColumn();
+        return $cantidad > 0;
+    }
 
+    function borrarValoracion($id_user, $id_libro) {
+        $stmt = $this->conexion->prepare("DELETE FROM valoraciones WHERE id_user = ? AND id_libro = ?");
+        $stmt->execute([$id_user, $id_libro]);
+        return $stmt->rowCount() > 0;
+    }
+    
+    function actualizarValoracionLibro($id_libro, $nueva_valoracion) {
+        $stmt = $this->conexion->prepare("UPDATE libro SET valoracion = ? WHERE id_libro = ?");
+        $stmt->execute([$nueva_valoracion, $id_libro]);
+        return $stmt->rowCount() > 0;
+    }
 
+    function obtenerResenasPorLibro($id_libro) {
+        $stmt = $this->conexion->prepare("SELECT id_user, contenido FROM resena WHERE id_libro = ?");
+        $stmt->execute([$id_libro]);
+        $resultados = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return $resultados;
+    }
+    
 }

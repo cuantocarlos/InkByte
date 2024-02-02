@@ -1,3 +1,5 @@
+<?php var_dump($params['mensaje']) ?>
+
 <div class="container d-flex flex-column mt-5">
     <div class="header p-5 ps-0 pb-4 border-bottom-0">
         <h1 class="fw-bold mb-0 fs-2 mb-4">Crea tu libro</h1>
@@ -15,7 +17,7 @@
             <label for="nombre">Título*</label>
         </div>
 
-        <small class="text-body-secondary mb-1">Máximo 1000 caracteres.</small>
+        <small class="text-body-secondary mb-1">Máximo 500 caracteres.</small>
         <div class="form-floating mb-3">
             <textarea class="form-control" placeholder="Añade una sinopsis" id="sinopsis" style="height: 100px"
                 name="sinopsis"></textarea>

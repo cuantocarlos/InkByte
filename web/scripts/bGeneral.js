@@ -7,6 +7,19 @@ export function validarCorreoElectronico(correo) {
         return false;
     }
   }
+
+  export function validarNombre(nombre) {
+    // Expresión regular para validar nombres
+    var regex = /^[A-Z][a-z]*(\s[A-Z][a-z]*)*$/;
+
+    // Verificar si el nombre coincide con la expresión regular
+    if (regex.test(nombre)) {
+        return true; // El nombre es válido
+    } else {
+        return false; // El nombre no es válido
+    }
+}
+
 export function validarPassword(pass) {
     const mayus = document.getElementById("mayus");
     const minus = document.getElementById("minus");
