@@ -13,9 +13,11 @@
     <!--EL FAVICON TAMBIEN VA AQUI-->
 
     <!--LINKS A MODIFICACIONES DE CSS AQUI-->
-    <link rel="stylesheet" href="styles/modalGeneroUsuario.css"/>
-    <link rel="stylesheet" href="styles/leerCapitulo_style.css">
-    <link rel="stylesheet" href="styles/navbar.css">
+    <link rel="stylesheet" href="../web/styles/generoUsuario.css"/>
+    <link rel="stylesheet" href="../web/styles/leerCapitulo_style.css">
+    <link rel="stylesheet" href="../web/styles/navbar.css">
+    <link rel="stylesheet" href="../web/css/valoracionEstrella.css">
+
 
 
 </head>
