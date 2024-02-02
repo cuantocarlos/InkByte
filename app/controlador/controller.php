@@ -807,7 +807,63 @@ class Controller{
         }
         
         require __DIR__ . '/../../web/templates/escribirResena.php';
+    }
 
+    public function menuEscritor(){
+        $params = array(
+            "busqueda" => '',
+            "mensaje" => []
+        );
+        $params["busqueda"] = recoge("buscar_libro");
+        if(cTexto($params["busqueda"], "busqueda", $params["mensaje"], 50, 1)){
+            header("location: index.php?ctl=buscarLibros&busqueda=" . $params["busqueda"]);
+        }
+    }
+
+    public function menuLector(){
+        $params = array(
+            "busqueda" => '',
+            "mensaje" => []
+        );
+        $params["busqueda"] = recoge("buscar_libro");
+        if(cTexto($params["busqueda"], "busqueda", $params["mensaje"], 50, 1)){
+            header("location: index.php?ctl=buscarLibros&busqueda=" . $params["busqueda"]);
+        }
+    }
+
+    public function menuInvitado(){
+        $params = array(
+            "busqueda" => '',
+            "mensaje" => []
+        );
+        $params["busqueda"] = recoge("buscar_libro");
+        if(cTexto($params["busqueda"], "busqueda", $params["mensaje"], 50, 1)){
+            header("location: index.php?ctl=buscarLibros&busqueda=" . $params["busqueda"]);
+        }
+    }
+
+    public function buscarLibros(){
+        $menu = $this->cargaMenu();
+
+        $params = array(
+            "busqueda" => ''
+        );
+
+        $params['busqueda'] = $_GET['busqueda'];
+
+        try{
+
+            $cs = new Consultas();
+
+            $libros = $cs -> buscarLibrosPorTitulo($params['busqueda']);
+
+        } catch (Exception $e) {
+            $e->getMessage();
+        } catch (Error $e) {
+            $e->getMessage();
+        }
+
+        require __DIR__ . '/../../web/templates/buscarLibros.php';
     }
 
 }

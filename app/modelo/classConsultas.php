@@ -446,6 +446,16 @@ class Consultas extends Modelo {
     
         return $stmt->execute() ? true : false;
     }
+
+    function buscarLibrosPorTitulo($texto) {
+        $stmt = $this->conexion->prepare("SELECT * FROM libro WHERE titulo LIKE ?");
+        $textoBusqueda = "%$texto%";  
+        $stmt->bindParam(1, $textoBusqueda);
+        $stmt->execute();
     
+        $resultados = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    
+        return $resultados;
+    }
     
 }

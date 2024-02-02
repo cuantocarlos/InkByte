@@ -27,7 +27,7 @@ if (!isset($_SESSION['nivel'])) {
 
 $map = array(
     // 'home' => array('controller' => 'Controller', 'action' => 'home', 'nivel' => 0),
-    'subirCapitulo' => array('controller' => 'Controller', 'action' => 'subirCapitulo', 'nivel' => 0),
+    'subirCapitulo' => array('controller' => 'Controller', 'action' => 'subirCapitulo', 'nivel' => 2),
     'iniciarSesion' => array('controller' => 'Controller', 'action' => 'iniciarSesion', 'nivel' => 0),
     'registro' => array('controller' => 'Controller', 'action' => 'registro', 'nivel' => 0),
     'inicio' => array('controller' => 'Controller', 'action' => 'inicio', 'nivel' => 0),
@@ -40,7 +40,11 @@ $map = array(
     'activarCuenta' => array('controller' => 'Controller', 'action' => 'activarCuenta', 'nivel' => 0),
     'cerrarSesion' => array('controller' => 'Controller', 'action' => 'cerrarSesion', 'nivel' => 1),
     'book' => array('controller' => 'Controller', 'action' => 'book', 'nivel' => 1),
-    'escribirResena' => array('controller' => 'Controller', 'action' => 'escribirResena', 'nivel' => 1)
+    'escribirResena' => array('controller' => 'Controller', 'action' => 'escribirResena', 'nivel' => 1),
+    'menuInvitado' => array('controller' => 'Controller', 'action' => 'menuInvitado', 'nivel' => 0),
+    'menuLector' => array('controller' => 'Controller', 'action' => 'menuLector', 'nivel' => 1),
+    'menuEscritor' => array('controller' => 'Controller', 'action' => 'menuEscritor', 'nivel' => 2),
+    'buscarLibros' => array('controller' => 'Controller', 'action' => 'buscarLibros', 'nivel' => 0)
     // 'salir' => array('controller' => 'Controller', 'action' => 'salir', 'nivel' => 1),
     // 'error' => array('controller' => 'Controller', 'action' => 'error', 'nivel' => 0),
     // 'listarLibros' => array('controller' => 'Controller', 'action' => 'listarLibros', 'nivel' => 0),

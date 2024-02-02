@@ -21,10 +21,10 @@
                     </li>
                 </ul>
                 <!-- Barra de búsqueda en la barra de navegación para pantallas grandes -->
-                <div class="d-flex search-form-desktop ms-auto">
-                  <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                <form action="" name="buscar_libro" id="buscar_libro" method="post" class="d-flex search-form-desktop ms-auto">
+                  <input class="form-control me-2" type="search" placeholder="Busca tu libro" aria-label="Search">
                   <button class="btn btn-outline-success" type="submit">Search</button>
-              </div>
+                </form>
                 <!-- Icono de inicio de sesión -->
 
                 <div class="nav-item dropdown ms-3">
