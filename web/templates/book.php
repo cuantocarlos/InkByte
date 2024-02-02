@@ -24,6 +24,7 @@
                                 <div class="mb-3 ">
                                     <h1 class="fw-bold"><?php echo($params['titulo']); ?></h1>
                                     <p style="margin-left: 8px;";> Autor: <?php echo($params['autor']); ?></p>
+                                    <p style="margin-left: 8px;";>Valoración: <?php echo($cs -> buscar($params["id_libro"], "libro", "valoracion", "id_libro")); ?></p>
                                     <section id="contador-de-capitulos" >
                                         <div class="container mt-3 ">
                                             <div class="row">
@@ -121,31 +122,15 @@
         <div class="container contenedor-review mt-5">
     <div class="row d-flex">
         <div class="col-md-12 justify-content-end custom-margin-right">
-
-            <div class="blog-comment">
-                <ul class="comments">
-                    <?php
-                    // Array de comentarios de prueba
-                    $comentariosDePrueba = array(
-                        array('usuario' => 'Ivan', 'anio' => 2024, 'contenido' => 'Cristian es mujer que se corte el pelo'),
-                        array('usuario' => 'Porta', 'anio' => 2024, 'contenido' => 'Ivan que me deja ayuda'),
-                        array('usuario' => 'Segura', 'anio' => 2024, 'contenido' => 'Ivan que me despiden'),
-                        // Agrega más comentarios según sea necesario
-                    );
-
-                    // Imprime los comentarios
-                    foreach ($comentariosDePrueba as $comentario) :
-                    ?>
-                        <li class="clearfix">
-                            <img src="https://bootdey.com/img/Content/user_1.jpg" class="avatar" alt="">
-                            <div class="post-comments">
-                                <p class="meta"> <?= $comentario['anio'] ?> <a href="#"><?= $comentario['usuario'] ?></a> <i class="pull-right"><a href="#"><small>Reply</small></a></i></p>
-                                <p><?= $comentario['contenido'] ?></p>
-                            </div>
-                        </li>
-                    <?php endforeach; ?>
-                </ul>
-            </div>
+            <?php
+             foreach($resenas as $resena){
+                echo "<div>
+                    <span>". $cs -> buscar($resena["id_user"], "usuario", "nombre", "id_user") ."</span>
+                    <p>".$resena["contenido"]."</p>
+                    <hr>
+                 </div>";
+             }
+            ?>
         </div>
     </div>
 </div>

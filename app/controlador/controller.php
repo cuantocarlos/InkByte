@@ -657,13 +657,15 @@ class Controller{
             $params['id_autor'] = $cs -> buscar($params['id_libro'],'libro', 'id_user', 'id_libro');
             $params['autor'] = $cs -> buscar($params['id_autor'], 'usuario', 'nombre', 'id_user');
 
-     
+            $resenas = $cs -> obtenerResenasPorLibro($params['id_libro']);
         } catch (Exception $e) {
             $e->getMessage();
         } catch (Error $e) {
             $e->getMessage();
         }
         
+        
+
         if(isset($_REQUEST["seleccionar_capitulo"])){
             $params["num_cap"] = recoge("lista_capitulos");
 

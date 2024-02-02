@@ -15,7 +15,7 @@
             <label for="nombre">Título*</label>
         </div>
 
-        <small class="text-body-secondary mb-1">Máximo 1000 caracteres.</small>
+        <small class="text-body-secondary mb-1">Máximo 500 caracteres.</small>
         <div class="form-floating mb-3">
             <textarea class="form-control" placeholder="Añade una sinopsis" id="sinopsis" style="height: 100px"
                 name="sinopsis"></textarea>

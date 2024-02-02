@@ -414,5 +414,12 @@ class Consultas extends Modelo {
         $stmt->execute([$nueva_valoracion, $id_libro]);
         return $stmt->rowCount() > 0;
     }
+
+    function obtenerResenasPorLibro($id_libro) {
+        $stmt = $this->conexion->prepare("SELECT id_user, contenido FROM resena WHERE id_libro = ?");
+        $stmt->execute([$id_libro]);
+        $resultados = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return $resultados;
+    }
     
 }
