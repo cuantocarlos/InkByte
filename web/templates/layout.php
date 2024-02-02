@@ -18,49 +18,36 @@
 
 
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" />
-    
-        
+        <link rel="stylesheet" href="css/modalGeneroUsuario.css"/>
+        <link rel="stylesheet" href="styles/inicio.css"/>
 
     <!--EL FAVICON TAMBIEN VA AQUI-->
 
     <!--LINKS A MODIFICACIONES DE CSS AQUI-->
-    <link rel="stylesheet" href="css/styles/navabar.css">
-    <link rel="stylesheet" href="css/styles/book.css">
-    <link rel="stylesheet" href="../css/footer.css">
-
+    <link rel="stylesheet" href="../web/css/styles/navbar.css">
+    <link rel="stylesheet" href="../web/css/leerCapitulo_style.css">
+    <link rel="stylesheet" href="../web/styles/inicio.css">
 
 
 </head>
 
 <body>
-
-    <!--AQUI VA EL HEADER (vamos a implementar 4 headers distintos: invitado/lector/escritor/admin. Todo esto con la funcionalidad de abajo)-->
-    <?php
-    include('navbar.php');
-   
-    ?>
-         <!-- 
-    // $tipoUsuario = 'invitado';
-    // if ($tipoUsuario == 'invitado') {
-    //     include 'menuInvitado.php';
-    // } elseif ($tipoUsuario == 'lector') {
-    //     include 'menuLector.php';
-    // } elseif ($tipoUsuario == 'escritor') {
-    //     include 'menuEscritor.php';
-    // } elseif ($tipoUsuario == 'admin') {
-    //     include 'menuAdmin.php';
-    // }
-    -->
-
-
     
+<!--AQUI VA EL HEADER (vamos a implementar 4 headers distintos: invitado/lector/escritor/admin. Todo esto con la funcionalidad de abajo)-->
+<?php
 
-        <br><br><br>
-    <hr>
-        
-    <!--AQUI VA EL FOOTER-->
+/*    if(!isset($menu)) {
+        $menu = 'menuInvitado.php';
+    }
+    include $menu;
+*/
+
+?>
+
+
+<!--AQUI VA EL FOOTER-->
     <?php
-        include('footer.php');
+    include('footer.php');
     ?>
 </body>
 

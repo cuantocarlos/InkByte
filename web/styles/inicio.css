@@ -1,0 +1,16 @@
+/* Estilo para las tarjetas */
+.card {
+    margin-bottom: 20px;
+    p{
+        padding: 5px;
+    }
+}
+
+/* Alinea el texto pequeño en las tarjetas */
+.card-text small {
+    color: #6c757d;
+}
+.recom-card img {
+    max-width: 90%; /* La imagen no superará el ancho del contenedor padre */
+    height: auto;    /* Mantiene la proporción de aspecto original de la imagen */
+}

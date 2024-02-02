@@ -341,17 +341,41 @@ class Consultas extends Modelo {
     }
 
 
-   public function obtenerLibrosMasVisitados($limite)
-{
-    $consulta = "SELECT * FROM Libro ORDER BY visitas DESC LIMIT $limite";
-    $stmt = $this->conexion->prepare($consulta);
-    $stmt->execute();
+    function obtenerLibrosRecomendadosPorGenero($id_user) {
+        try {
+            $query = "SELECT l.*
+                      FROM Libro l
+                      JOIN GeneroLibro gl ON l.id_libro = gl.id_libro
+                      JOIN PreferenciaGenerosUsuario pg ON pg.id_user = :id_user
+                      WHERE (pg.terror = 1 AND gl.terror = 1)
+                         OR (pg.romance = 1 AND gl.romance = 1)
+                         OR (pg.fantasia = 1 AND gl.fantasia = 1)
+                      ORDER BY RAND() 
+                      LIMIT 6"; 
+           
+            $stmt = $this->conexion->prepare($query);
+            $stmt->bindParam(':id_user', $id_user, PDO::PARAM_INT);
+            $stmt->execute();
 
-    // Obtener resultados como un array asociativo
-    $resultados = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        } catch (PDOException $e) {
+            throw new Exception("Error al obtener libros recomendados por género: " . $e->getMessage());
+        }
+    }
 
-    return $resultados;
+
+    function obtenerLibrosMasVisitados($limite) {
+        $consulta = "SELECT * FROM Libro ORDER BY visitas DESC LIMIT $limite";
+        $stmt = $this->conexion->prepare($consulta);
+        $stmt->execute();
+
+        // Obtener resultados como un array asociativo
+        $resultados = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        return $resultados;
+    }
 }
 
 
-}
+
+
