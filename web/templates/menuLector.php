@@ -21,9 +21,9 @@
                     </li>
                 </ul>
                 <!-- Barra de búsqueda en la barra de navegación para pantallas grandes -->
-                <form action="" name="buscar_libro" id="buscar_libro" method="post" class="d-flex search-form-desktop ms-auto">
-                  <input class="form-control me-2" type="search" placeholder="Busca tu libro" aria-label="Search">
-                  <button class="btn btn-outline-success" type="submit">Search</button>
+                <form action="" method="post"  class="d-flex search-form-desktop ms-auto">
+                  <input class="form-control me-2" name="buscar_libro" id="buscar_libro" type="search" placeholder="Busca tu libro" aria-label="Search">
+                  <button class="btn btn-outline-success" name="boton_buscar" id="boton_buscar" type="submit">Search</button>
                 </form>
                 <!-- Icono de inicio de sesión -->
 

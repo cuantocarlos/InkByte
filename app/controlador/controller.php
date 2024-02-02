@@ -810,35 +810,46 @@ class Controller{
     }
 
     public function menuEscritor(){
-        $params = array(
-            "busqueda" => '',
-            "mensaje" => []
-        );
-        $params["busqueda"] = recoge("buscar_libro");
-        if(cTexto($params["busqueda"], "busqueda", $params["mensaje"], 50, 1)){
-            header("location: index.php?ctl=buscarLibros&busqueda=" . $params["busqueda"]);
+        $menu = $this->cargaMenu();
+        if(isset($_REQUEST["boton_buscar"])){
+            $params = array(
+                "busqueda" => '',
+                "mensaje" => []
+            );
+            $params["busqueda"] = recoge("buscar_libro");
+            if(cTexto($params["busqueda"], "busqueda", $params["mensaje"], 50, 1)){
+                header("location: index.php?ctl=buscarLibros&busqueda=" . $params["busqueda"]);
+            } else {
+                header("location: index.php?ctl=buscarLibros&busqueda=" . $params["busqueda"]);
+            }
         }
+
+        require __DIR__ . '/../../web/templates/menuEscritor.php';
     }
 
     public function menuLector(){
-        $params = array(
-            "busqueda" => '',
-            "mensaje" => []
-        );
-        $params["busqueda"] = recoge("buscar_libro");
-        if(cTexto($params["busqueda"], "busqueda", $params["mensaje"], 50, 1)){
-            header("location: index.php?ctl=buscarLibros&busqueda=" . $params["busqueda"]);
+        if(isset($_REQUEST["boton_buscar"])){
+            $params = array(
+                "busqueda" => '',
+                "mensaje" => []
+            );
+            $params["busqueda"] = recoge("buscar_libro");
+            if(cTexto($params["busqueda"], "busqueda", $params["mensaje"], 50, 1)){
+                header("location: index.php?ctl=buscarLibros&busqueda=" . $params["busqueda"]);
+            }
         }
     }
 
     public function menuInvitado(){
-        $params = array(
-            "busqueda" => '',
-            "mensaje" => []
-        );
-        $params["busqueda"] = recoge("buscar_libro");
-        if(cTexto($params["busqueda"], "busqueda", $params["mensaje"], 50, 1)){
-            header("location: index.php?ctl=buscarLibros&busqueda=" . $params["busqueda"]);
+        if(isset($_REQUEST["boton_buscar"])){
+            $params = array(
+                "busqueda" => '',
+                "mensaje" => []
+            );
+            $params["busqueda"] = recoge("buscar_libro");
+            if(cTexto($params["busqueda"], "busqueda", $params["mensaje"], 50, 1)){
+                header("location: index.php?ctl=buscarLibros&busqueda=" . $params["busqueda"]);
+            }
         }
     }
 
