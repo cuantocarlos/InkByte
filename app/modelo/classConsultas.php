@@ -453,6 +453,4 @@ class Consultas extends Modelo {
 
         return $stmt->execute() ? true : false;
     }
-
-
 }

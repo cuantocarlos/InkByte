@@ -107,11 +107,57 @@ export function compruebaNombre(nombre){
 }
 
 
+export function compruebaNombreAjustes(nombre){
+  const httpRequest = new XMLHttpRequest();
+  const inputNombre = document.getElementById("nombre");
+  httpRequest.open('POST','https://localhost/InkByte/web/index.php?ctl=usuarioUnico',true);   //ACORDARSE DE CAMBIAR LA RUTA ABSOLUTA SI SE SUBE A OTRO SITIO
+  httpRequest.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+  httpRequest.onreadystatechange = function () {
+    if(httpRequest.readyState === 4 && httpRequest.status === 200) {
+      var respuesta = JSON.parse(httpRequest.responseText);
+      if(respuesta.existe == false){
+        document.getElementById("nombreMal").innerText="";
+        inputNombre.classList.remove("is-invalid");
+        inputNombre.classList.add("is-valid");
+      }else{
+        document.getElementById("nombreMal").innerText="No se puede cambiar el nombre a uno ya existente!";
+        inputNombre.classList.remove("is-valid");
+        inputNombre.classList.add("is-invalid");
+      }
+    }
+  }
+  httpRequest.send('nombre=' + encodeURIComponent(nombre));
+}
+
+export function compruebaNick(nick){
+  console.log("entra en compruebanick")
+  const httpRequest = new XMLHttpRequest();
+  const inputNick = document.getElementById("nick");
+  httpRequest.open('POST','https://localhost/InkByte/web/index.php?ctl=nickUnico',true);   //ACORDARSE DE CAMBIAR LA RUTA ABSOLUTA SI SE SUBE A OTRO SITIO
+  httpRequest.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+  httpRequest.onreadystatechange = function () {
+    if(httpRequest.readyState === 4 && httpRequest.status === 200) {
+      var respuesta = JSON.parse(httpRequest.responseText);
+      console.log(respuesta);
+      if(respuesta.existe == false){
+        document.getElementById("nickMal").innerText="";
+        inputNick.classList.remove("is-invalid");
+        inputNick.classList.add("is-valid");
+      }else{
+        document.getElementById("nickMal").innerText="Escribe un nick que no se esté empleando ya";
+        inputNick.classList.remove("is-valid");
+        inputNick.classList.add("is-invalid");
+      }
+    }
+  }
+  httpRequest.send('nick=' + encodeURIComponent(nick));
+}
+
 export function compruebaCorreo(mail){
   const httpRequest = new XMLHttpRequest();
   const inputMail = document.getElementById("mail");
 
-  httpRequest.open('POST','http://localhost/DWES/GitRepos/InkByte/web/index.php?ctl=mailUnico',true);   //ACORDARSE DE CAMBIAR LA RUTA ABSOLUTA SI SE SUBE A OTRO SITIO
+  httpRequest.open('POST','https://localhost/InkByte/web/index.php?ctl=mailUnico',true);   //ACORDARSE DE CAMBIAR LA RUTA ABSOLUTA SI SE SUBE A OTRO SITIO
 
   httpRequest.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
 

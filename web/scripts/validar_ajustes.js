@@ -1,72 +1,58 @@
-import {validarCorreoElectronico, validarPassword, validarFecha, compruebaNombre, compruebaCorreo} from "./bGeneral.js";
-
-var nombre = document.getElementById("nombre")
-var nick = document.getElementById("nick");
-var email = document.getElementById("mail");
-var oldpass = document.getElementById("oldpass");
-var pass = document.getElementById("pass");
-var pass2 = document.getElementById("pass2");
-var fecha = document.getElementById("fecha");
-var descripcion = document.getElementById("descripcion");
-var rol = document.getElementsByName("options-base");
-
-
+import { validarCorreoElectronico, validarPassword, validarFecha, compruebaNombreAjustes, compruebaCorreo, compruebaNick } from "./bGeneral.js";
 
 window.onload = function () {
+
+    const inputNombre = document.getElementById("nombre")
+    const inputNick = document.getElementById("nick");
+    const inputEmail = document.getElementById("mail");
+    const inputOldPass = document.getElementById("oldpass");
+    const inputPass = document.getElementById("pass");
+    const inputPass2 = document.getElementById("pass2");
+    const fecha = document.getElementById("fecha");
+    const descripcion = document.getElementById("descripcion");
+    const rol = document.getElementsByName("options-base");
+
+
     //cojo lo que hay en la base de datos y lo pongo en los campos
 
-    nombre.addEventListener('input', () => {
-        const nom = nombre.value.trim();
-        compruebaNombre(nom);
+    inputNombre.addEventListener('blur', () => {
+        const nombre = inputNombre.value.trim();
+        compruebaNombreAjustes(nombre);
     });
 
+    inputNick.addEventListener('blur', () => {
+        const nick = inputNick.value.trim()
+        compruebaNick(nick)
+    })
 
 
-    fecha.addEventListener('change', () => {
-        let fechaValida = false;
-        const fechaMal = document.getElementById("fechaMal");
-        if (!validarFecha(fecha.value)) {
-            fechaValida = true;
-            fechaMal.innerText = "La fecha de nacimiento no existe";
-        } else {
-            fechaValida = false;
-            fechaMal.innerText = "";
-        }
-
-        fecha.classList.toggle("is-invalid", fechaValida);
-    });
-
-
-    email.addEventListener('blur', () => {
-        const mail = email.value.trim();
+    inputEmail.addEventListener('blur', () => {
+        console.log("Entra mail")
+        const mail = inputEmail.value.trim();
         if (validarCorreoElectronico(mail) == true) {
             compruebaCorreo(mail);
         } else {
-            email.classList.add("is-invalid");
+            inputEmail.classList.add("is-invalid");
             document.getElementById("mailMal").innerText = "El email no existe";
         }
     });
 
-    pass.addEventListener('input', () => {
-        const contrasenia = pass.value;
-        validarPassword(contrasenia);
-    });
+    inputOldPass.addEventListener('', () => {//acabar parte de las contraseñas
+        console.log("entra en contraseñaold")
+        const oldPass = inputOldPass.value.trim()
+        // if () {
 
-    pass2.addEventListener('blur', () => {
-        const contrasenia = pass.value;
-        const contrasenia2 = pass2.value;
-        let contieneMayus = false;
-        if (contrasenia2 !== contrasenia) {
-            contieneMayus = true;
-        }
-        if (contieneMayus) {
-            pass2.classList.add("is-invalid");
-            document.getElementById("pass2Mal").innerText = "La contraseña no coincide";
-        } else {
-            pass2.classList.remove("is-invalid");
-            document.getElementById("pass2Mal").innerText = "";
-        }
-    });
+        // } else {
+
+        // }
+    }
+    )
+
+    inputPass.addEventListener('input', () => {
+        validarPassword(inputPass.value)
+        
+    })
+
 
 }
 

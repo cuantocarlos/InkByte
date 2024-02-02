@@ -1,5 +1,5 @@
-<script type="module" src="../web/scripts/bGeneral.js"></script>
-<script type="module" src="../web/scripts/validar_ajustes.js"></script>
+<script type="module" src="../scripts/bGeneral.js"></script>
+<script type="module" src="../scripts/validar_ajustes.js"></script>
 
 <?php
 session_start();
@@ -22,15 +22,14 @@ function marcarNivel($opcion){
         <h1 class="fw-bold mb-0 fs-2 mb-4">Modifica los datos que desees cambiar</h1>
     </div>
     <div class="body p-5 pt-0">
-        <form action="index.php?ctl=ajustes" method="post" enctype="multipart/form-data">
+        <form action="index.php?ctl=ajustes" method="post" enctype="multipart/form-data" id="">
 
             <div class="form-floating mb-3">
                 <input type="text" class="form-control rounded-3" id="nombre" name="nombre" placeholder="nombre" pattern="[A-Za-z\sñÑçÇ]+" minlength="3" maxlength="60" value="<?php echo $_SESSION['nombre']; ?>" />
                 <label for="nombre">Nombre y Apellidos</label>
             </div>
-
-
             <div id="nombreMal" class="mb-3 text-danger mx-5"></div>
+
             <div class="input-group mb-3">
                 <span class="input-group-text">@</span>
                 <div class="form-floating">
@@ -38,19 +37,21 @@ function marcarNivel($opcion){
                     <label for="nick">Nombre de Usuario</label>
                 </div>
             </div>
+            <div id="nickMal" class="mb-3 text-danger"></div>
 
-            <div id="mailMal" class="mb-3 text-danger"></div>
+            
             <div class="form-floating mb-3">
                 <input type="email" class="form-control rounded-3" id="mail" placeholder="name@example.com" name="mail" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" value="<?php echo $_SESSION['email'];?>" />
                 <label for="mail">Correo Electrónico</label>
             </div>
-
+            <div id="mailMal" class="mb-3 text-danger mx-5"></div>
 
             <div class="form-floating mb-3">
                 <input type="password" class="form-control rounded-3" id="oldpass" placeholder="Password" name="oldpass" />
                 <label for="oldpass">Contraseña Actual</label>
             </div>
-            <small class="text-body-secondary mb-1">Mínimo: 8 caracteres, mayúsculas, minúsculas, y caracteres.</small>
+            
+            <small class="text-body-secondary mb-1">Mínimo: <span id="mayus" class="">1 Mayúscula</span>, <span id="minus" class="">1 minúscula</span>, <span id="num" class="">1 número</span>, <span id="especial" class="">1 carácter especial</span>. <span id="longitud" class="">Entre 8 y 16 caracteres</span></small>
             <div class="form-floating mb-3">
                 <input type="password" class="form-control rounded-3" id="pass" placeholder="Password" name="pass" pattern="(?=.*\d)(?=.*[a-zñç])(?=.*[A-ZÇÑ])(?=.*[$@¿?¡!_-])[a-zA-Z\d$@¿?¡!_-ñÑçÇ]{8,16}" />
                 <label for="pass">Contraseña Nueva</label>

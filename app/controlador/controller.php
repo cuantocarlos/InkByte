@@ -874,4 +874,16 @@ class Controller
 
     }
 
+    public function peticionNick()
+    {
+        $nick = $_REQUEST['nick'];
+        $cs = new Consultas();
+        if (!$cs->buscar($nick,'Usuario','nick','nick')) {
+            echo json_encode(array('existe' => false));
+
+        } else {
+            echo json_encode(array('existe' => true));
+        }
+    }
+
 }

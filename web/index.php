@@ -33,6 +33,7 @@ $map = array(
     'inicio' => array('controller' => 'Controller', 'action' => 'inicio', 'nivel' => 0),
     'generoUsuario' => array('controller' => 'Controller', 'action' => 'generoUsuario', 'nivel' => 0),
     'usuarioUnico' => array('controller' => 'Controller', 'action' => 'peticionNombre', 'nivel' => 0),
+    'nickUnico' => array('controller'=>'Controller', 'action'=> 'peticionNick', 'nivel'=>0),
     'mailUnico' => array('controller' => 'Controller', 'action' => 'peticionMail', 'nivel' => 0),
     'crearLibro' => array('controller' => 'Controller', 'action' => 'crearLibro', 'nivel' => 2),
     'leerCapitulo' => array('controller' => 'Controller', 'action' => 'leerCapitulo', 'nivel' => 1),
