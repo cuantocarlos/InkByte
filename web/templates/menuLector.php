@@ -30,7 +30,7 @@
                 <div class="nav-item dropdown ms-3">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
                             data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <img src="../app/archivos/img/perfil/"<?php $_SESSION["foto_perfil"]; ?>
+                            <img src="../app/archivos/img/perfil/"<?php echo $_SESSION["foto_perfil"]; ?>
                             alt="f_perfil" class="imagen-redonda">
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
