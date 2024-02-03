@@ -235,56 +235,89 @@ class Controller
             'f_perfil' => '',
             'descripcion' => '',
             'opcion' => '',
+            'errores' => [],
         ); //falta fecha
-
-       //control de nivel
-            // if ($_SESSION['nivel'] < 1) {
+        
+        //control de nivel
+        // if ($_SESSION['nivel'] < 1) {
             //     header("location:index.php?ctl=inicio");
             // }
-
-        //recojo el formulario
-        if (isset($_POST['bAceptar'])) {
-            $params['nombre'] = recoge('nombre');
-            $params['nick'] = recoge('nick');
-            $params['mail'] = recoge('mail');
-            $params['oldpass'] = recoge('oldpass');
-            $params['pass'] = recoge('pass');
-            $params['pass2'] = recoge('pass2');
-            $params['f_perfil'] = recoge('f_perfil');
-            $params['descripcion'] = recoge('descripcion');
-            $params['opcion'] = recoge('opcion_usuario');
+            //recojo el formulario
+            if (isset($_POST['bAceptar'])) {
+                
+                $params['nombre'] = recoge('nombre');
+                $params['nick'] = recoge('nick');
+                $params['mail'] = recoge('mail');
+                $params['oldpass'] = recoge('oldpass');
+                $params['pass'] = recoge('pass');
+                $params['pass2'] = recoge('pass2');
+                $params['f_perfil'] = recoge('f_perfil');
+                $params['descripcion'] = recoge('descripcion');
+                $params['opcion'] = recoge('opcion_usuario');
+                // $params['mensaje'] = [
+                //     'tipo' => 'success',
+                //     'texto' => 'Hay errores en el formulario',
+                // ];
         }
-        //verifico si la contraseña antigua es correcta se hacen las validaciones
+
+        $cs = new Consultas();
+
         if (!empty($params['oldpass'])) {
-            if (!password_verify($params['oldpass'], $_SESSION['pass'])) {
+            if (!$cs->verificarPass($_SESSION['email'], $params['oldpass'])) {
                 $params['mensaje'] = "Debes introducir tu contraseña correctamente para poder modificar datos";
             } else {
-                //preguntar xq aqui carga un menu
-                //si algun campo (excepto descripcion y contraseñas) esta vacio, se le asigna el valor que ya tenia
                 if (empty($params['nombre'])) {
-                    $params['nombre'] = $_SESSION['nombre'];
+                    $params['errores']['nombre'] = 'El nombre no puede estar vacío';
                 }
+        
                 if (empty($params['nick'])) {
-                    $params['nick'] = $_SESSION['nick'];
+                    $params['errores']['nick'] = 'El nick no puede estar vacío';
                 }
-                if (empty($params['mail'])) {
-                    $params['mail'] = $_SESSION['email'];
+        
+                if (empty($params['email'])) {
+                    $params['errores']['email'] = 'El email no puede estar vacío';
                 }
-                if (empty($params['f_perfil'])) {
-                    $params['f_perfil'] = $_SESSION['foto_perfil'];
+        
+                if (!empty($params['oldpass']) && !empty($params['pass'])) {
+                    if ($params['pass'] !== $params['pass2']) {
+                        $params['errores']['pass'] = 'Las contraseñas no coinciden';
+                    }
                 }
-                if (empty($params['opcion'])) {
-                    $params['opcion'] = $_SESSION['nivel'];
+
+                if (empty($params['errores'])) {
+
+                    // Por hacer
+                    // -en classController crear una funcion para actualizar los datos del usuario
+                    // -aqui en controller usar esa funcion para actualizar los datos del usuario y veriicar si se ha actualizado correctamente
+                    // -actualizar las variables de sesion con los nuevos datos
+                    // -seteaer el parametro mensaje con un mensaje de exito
+                    // -hacer un header location a la misma pagina para que se muestre el mensaje de exito
+
+
+                    // $params['pass'] = password_hash($params['pass'], PASSWORD_BCRYPT);
+                    // $params['f_perfil'] = cFile("f_perfil", $params['errores'], Config::$extensionesValidas, __DIR__ . '/../archivos/img/perfil/', Config::$max_file_size);
+                    // $cs->actualizarPreferenciasUsuario($_SESSION['id_user'], $params['nombre'], $params['nick'], $params['email'], $params['pass'], $params['f_perfil'], $params['descripcion'], $params['opcion']);
+                    // $_SESSION['nombre'] = $params['nombre'];
+                    // $_SESSION['nick'] = $params['nick'];
+                    // $_SESSION['email'] = $params['email'];
+                    // $_SESSION['foto_perfil'] = $params['f_perfil'];
+                    // $_SESSION['nivel'] = $params['opcion'];
+        
                 }
-                //validaciones
-                $params['nombre'] = sinEspacios($params['nombre']);
-                $params['nick'] = sinEspacios($params['nick']);
-                
             }
-        }
+        };
+        
+
+        $_SESSION['params'] = $params;
+
+        header('Location: templates/perfil_ajustes.php');
+        //     }
+        // }
 
 
-    }//activar el control de nivel cuando este implementado
+    }//activar el control de nivel cuando este implementado, usar ghangePass para cambiar la contraseña 
+
+    
 
 
     public function subirCapitulo()

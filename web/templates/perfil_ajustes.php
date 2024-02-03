@@ -4,9 +4,9 @@
 <?php
 session_start();
 $_SESSION['id_usuario'] = 1;
-$_SESSION['nombre'] = "franchisco";
+$_SESSION['nombre'] = "falfredo";
 $_SESSION['nick'] = "anastasio";
-$_SESSION['email'] = "fco.carlos@proton.me";
+$_SESSION['email'] = "garcia@endesa.es";
 $_SESSION['descripcion'] = "descripcioooooooooooooooon";
 $_SESSION['fecha_nacimiento'] = "1999-12-12";
 
@@ -16,6 +16,13 @@ function marcarNivel($opcion)
         echo "checked";
     }
 }
+
+
+echo "<pre>";
+print_r($_SESSION);
+print_r($_SESSION['params']['errores']['nombre']);
+echo "</pre>";
+
 ?>
 
 <div class="container-md mt-5">
@@ -23,13 +30,13 @@ function marcarNivel($opcion)
         <h1 class="fw-bold mb-0 fs-2 mb-4">Modifica los datos que desees</h1>
     </div>
     <div class="body p-5 pt-0">
-        <form action="index.php?ctl=ajustes" method="post" enctype="multipart/form-data" id="">
+        <form action="../index.php?ctl=perfilAjustes" method="post" enctype="multipart/form-data" id="">
 
             <div class="form-floating mb-3">
                 <input type="text" class="form-control rounded-3" id="nombre" name="nombre" placeholder="nombre" pattern="[A-Za-z\sñÑçÇ]+" minlength="3" maxlength="60" value="<?php echo $_SESSION['nombre']; ?>" />
                 <label for="nombre">Nombre y Apellidos</label>
             </div>
-            <div id="nombreMal" class="mb-3 text-danger mx-5"></div>
+            <div id="nombreMal" class="mb-3 text-danger mx-5 " ><?php echo isset($_SESSION['params']['errores']['nombre']) ? $_SESSION['params']['errores']['nombre'] : '' ?></div>
 
             <div class="input-group mb-3">
                 <span class="input-group-text">@</span>
@@ -84,6 +91,16 @@ function marcarNivel($opcion)
                 <input type="password" class="form-control rounded-3" id="oldpass" placeholder="Password" name="oldpass" />
                 <label for="oldpass">Contraseña Actual</label>
             </div>
+
+            <?php
+            if (isset($_SESSION['params']['mensaje']['tipo'])) {
+                $class = $_SESSION['params']['mensaje']['tipo'] == 'error' ? 'alert alert-danger' : 'alert alert-success';
+                $mensaje = $_SESSION['params']['mensaje']['texto'];
+            }
+            ?>
+
+            <div class="<?php echo $class ?>"><?php echo $mensaje ?></div>
+
             <button class="w-100 my-2 btn btn-lg rounded-3 btn-primary" id="bAceptar" name="bAceptar" type="submit">Modificar datos</button>
         </form>
     </div>

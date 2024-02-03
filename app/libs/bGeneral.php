@@ -180,15 +180,16 @@ function cUNIX($fechaIntroducida): bool
     }
 }
 
-function cEmail($email, &$errores, $campo, $max, $min)
+function cEmail($email, &$errores, $campo, $max = 40, $min = 6)
 {
-    if (preg_match("/^[\w.-]+@[a-zA-Z\d.-]+\.[a-zA-Z]{2,}$/", $email) && strlen($email) < $max && strlen($email) > $min) {
+    if (preg_match("/^[\w.-]+@[a-zA-Z\d.-]+\.[a-zA-Z]{2,}$/", $email) && strlen($email) <= $max && strlen($email) >= $min) {
         return 1;
     } else {
         $errores[$campo] = "Error en el campo " . $campo;
         return 0;
     }
 }
+
 
 function cFecha($fecha, &$errores)
 {
