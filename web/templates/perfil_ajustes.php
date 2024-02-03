@@ -10,7 +10,8 @@ $_SESSION['email'] = "fco.carlos@proton.me";
 $_SESSION['descripcion'] = "descripcioooooooooooooooon";
 $_SESSION['fecha_nacimiento'] = "1999-12-12";
 
-function marcarNivel($opcion){
+function marcarNivel($opcion)
+{
     if ($opcion == $_SESSION['nivel']) {
         echo "checked";
     }
@@ -19,7 +20,7 @@ function marcarNivel($opcion){
 
 <div class="container-md mt-5">
     <div class="header p-5 pb-4 border-bottom-0">
-        <h1 class="fw-bold mb-0 fs-2 mb-4">Modifica los datos que desees cambiar</h1>
+        <h1 class="fw-bold mb-0 fs-2 mb-4">Modifica los datos que desees</h1>
     </div>
     <div class="body p-5 pt-0">
         <form action="index.php?ctl=ajustes" method="post" enctype="multipart/form-data" id="">
@@ -39,27 +40,24 @@ function marcarNivel($opcion){
             </div>
             <div id="nickMal" class="mb-3 text-danger"></div>
 
-            
+
             <div class="form-floating mb-3">
-                <input type="email" class="form-control rounded-3" id="mail" placeholder="name@example.com" name="mail" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" value="<?php echo $_SESSION['email'];?>" />
-                <label for="mail">Correo Electrónico</label>
+            <input type="email" class="form-control rounded-3" id="mail" placeholder="name@example.com" name="mail" pattern="^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$" value="<?php echo $_SESSION['email']; ?>" />                <label for="mail">Correo Electrónico</label>
             </div>
             <div id="mailMal" class="mb-3 text-danger mx-5"></div>
 
+
             <div class="form-floating mb-3">
-                <input type="password" class="form-control rounded-3" id="oldpass" placeholder="Password" name="oldpass" />
-                <label for="oldpass">Contraseña Actual</label>
-            </div>
-            
-            <small class="text-body-secondary mb-1">Mínimo: <span id="mayus" class="">1 Mayúscula</span>, <span id="minus" class="">1 minúscula</span>, <span id="num" class="">1 número</span>, <span id="especial" class="">1 carácter especial</span>. <span id="longitud" class="">Entre 8 y 16 caracteres</span></small>
-            <div class="form-floating mb-3">
-                <input type="password" class="form-control rounded-3" id="pass" placeholder="Password" name="pass" pattern="(?=.*\d)(?=.*[a-zñç])(?=.*[A-ZÇÑ])(?=.*[$@¿?¡!_-])[a-zA-Z\d$@¿?¡!_-ñÑçÇ]{8,16}" />
+                <input type="password" class="form-control rounded-3" id="pass" placeholder="Password" name="pass" pattern="^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[^\w\d\s]).{8,16}$" />
                 <label for="pass">Contraseña Nueva</label>
             </div>
+            <small class="text-body-secondary mb-1">Mínimo: <span id="mayus" class="">1 Mayúscula</span>, <span id="minus" class="">1 minúscula</span>, <span id="num" class="">1 número</span>, <span id="especial" class="">1 carácter especial</span>. <span id="longitud" class="">Entre 8 y 16 caracteres</span></small>
+
             <div class="form-floating mb-3">
                 <input type="password" class="form-control rounded-3" id="pass2" placeholder="Password" name="pass2" />
                 <label for="pass2">Repetir Contraseña Nueva</label>
             </div>
+            <div id="pass2Mal" class="mb-3 text-danger "></div>
             <!--<div id="fechaMal" class="mb-3 text-danger"></div>
                 <div class="form-floating mb-3">
                 <input type="date" class="form-control rounded-3" id="fecha" name="fecha" />
@@ -69,11 +67,11 @@ function marcarNivel($opcion){
                 <label for="f_perfil" class="form-label">Para modificar su foto de perfil seleccione una nueva:</label>
                 <input class="form-control" type="file" id="f_perfil" name="f_perfil" accept="image/<?php $extensionesValidas?>" />
             </div>
-            <small class="text-body-secondary mb-1">Máximo 300 caracteres.</small>
             <div class="form-floating">
-            <textarea class="form-control" placeholder="Añade una descripción" id="descripcion" style="height: 100px;" name="descripcion" maxlength="300"><?php echo $_SESSION['descripcion'];?></textarea>
+                <textarea class="form-control" placeholder="Añade una descripción" id="descripcion" style="height: 100px;" name="descripcion" maxlength="300"><?php echo $_SESSION['descripcion']; ?></textarea>
                 <label for="descripcion">Descripción</label>
             </div>
+            <small class="text-body-secondary mb-1">Máximo 300 caracteres.</small>
             <hr class="my-4" />
             <h2 class="fs-5 fw-bold mb-3">Eres lector o escritor?</h2>
             <input type="radio" class="btn-check" id="lector" name="opcion_usuario" value="lector" <?php marcarNivel(1)?> autocomplete="off" />
@@ -81,10 +79,15 @@ function marcarNivel($opcion){
             <input type="radio" class="btn-check" id="escritor" name="opcion_usuario" value="escritor" <?php marcarNivel(2)?> autocomplete="off" />
             <label class="btn btn-outline-secondary" for="escritor">Escritor</label>
             <hr class="my-4" />
+
+            <div class="form-floating mb-3">
+                <input type="password" class="form-control rounded-3" id="oldpass" placeholder="Password" name="oldpass" />
+                <label for="oldpass">Contraseña Actual</label>
+            </div>
             <button class="w-100 my-2 btn btn-lg rounded-3 btn-primary" id="bAceptar" name="bAceptar" type="submit">Modificar datos</button>
         </form>
     </div>
 </div>
 
-<?php include 'layout.php'?> 
+<?php include 'layout.php'?>
 <!--Poner el $extensionesValidas en el input de la foto de perfil-->

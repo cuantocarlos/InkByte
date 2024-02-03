@@ -886,4 +886,30 @@ class Controller
         }
     }
 
+    public function ajustes(){
+        //recojo campos del formulario
+            $params =array(
+                'nombre' => '',
+                'nick' => '',
+                'mail' => '',
+                'oldpass' => '',
+                'pass' => '',
+                'pass2' => '',
+                'f_perfil' => '',
+                'descripcion' => '',
+                'opcion' => '',
+                'mensaje' => array(),
+            );
+        //control de nivel
+            // if ($_SESSION['nivel'] < 1) {
+            //     header("location:index.php?ctl=inicio");
+            // }
+        //recojo el formulario
+                if (isset($_POST['bAceptar'])) {
+                }
+
+
+        
+    }//activar el control de nivel cuando este implementado
+
 }

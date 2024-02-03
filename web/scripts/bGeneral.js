@@ -85,7 +85,7 @@ export function compruebaNombre(nombre){
   const httpRequest = new XMLHttpRequest();
   const inputNombre = document.getElementById("nombre");
 
-  httpRequest.open('POST','http://localhost/DWES/GitRepos/InkByte/web/index.php?ctl=usuarioUnico',true);   //ACORDARSE DE CAMBIAR LA RUTA ABSOLUTA SI SE SUBE A OTRO SITIO
+  httpRequest.open('POST','https://localhost/InkByte/web/index.php?ctl=usuarioUnico',true);   //ACORDARSE DE CAMBIAR LA RUTA ABSOLUTA SI SE SUBE A OTRO SITIO
 
   httpRequest.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
 

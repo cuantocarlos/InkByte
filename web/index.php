@@ -44,6 +44,7 @@ $map = array(
     'perfilUsuario' => array('controller' => 'Controller', 'action' => 'perfilUsuario', 'nivel' => 0),
     'book' => array('controller' => 'Controller', 'action' => 'book', 'nivel' => 1),
     'escribirResena' => array('controller' => 'Controller', 'action' => 'escribirResena', 'nivel' => 1)
+    'ajustes'=> array('controller'=>'Controller','action'=>'ajustes')
     // 'salir' => array('controller' => 'Controller', 'action' => 'salir', 'nivel' => 1),
     // 'error' => array('controller' => 'Controller', 'action' => 'error', 'nivel' => 0),
     // 'listarLibros' => array('controller' => 'Controller', 'action' => 'listarLibros', 'nivel' => 0),

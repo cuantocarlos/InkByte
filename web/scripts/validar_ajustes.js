@@ -27,7 +27,6 @@ window.onload = function () {
 
 
     inputEmail.addEventListener('blur', () => {
-        console.log("Entra mail")
         const mail = inputEmail.value.trim();
         if (validarCorreoElectronico(mail) == true) {
             compruebaCorreo(mail);
@@ -37,22 +36,32 @@ window.onload = function () {
         }
     });
 
-    inputOldPass.addEventListener('', () => {//acabar parte de las contraseñas
+    inputOldPass.addEventListener('change', () => {//acabar parte de las contraseñas al enfiar el formulario
         console.log("entra en contraseñaold")
-        const oldPass = inputOldPass.value.trim()
-        // if () {
-
-        // } else {
-
-        // }
+        const inputOldPass = inputOldPass.value.trim()
     }
     )
 
     inputPass.addEventListener('input', () => {
         validarPassword(inputPass.value)
-        
     })
+
+    inputPass2.addEventListener('blur', () => {
+        const contrasenia = inputPass.value;
+        const contrasenia2 = inputPass2.value;
+    
+        if (contrasenia2 !== contrasenia) {
+            pass2.classList.add("is-invalid");
+            document.getElementById("pass2Mal").innerText = "La contraseña no coincide";
+        } else {
+            pass2.classList.remove("is-invalid");
+            document.getElementById("pass2Mal").innerText = "";
+        }
+    });
+    
+
+
 
 
 }
-
+//que si se ha llenado la contraseña antigua no se pueda cambiar el nombre ni el nick
