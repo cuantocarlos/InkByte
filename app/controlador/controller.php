@@ -237,9 +237,10 @@ class Controller
             'opcion' => '',
         ); //falta fecha
 
-        if ($_SESSION['nivel'] < 1) {
-            header("location:index.php?ctl=inicio");
-        }
+       //control de nivel
+            // if ($_SESSION['nivel'] < 1) {
+            //     header("location:index.php?ctl=inicio");
+            // }
 
         //recojo el formulario
         if (isset($_POST['bAceptar'])) {
@@ -253,10 +254,38 @@ class Controller
             $params['descripcion'] = recoge('descripcion');
             $params['opcion'] = recoge('opcion_usuario');
         }
+        //verifico si la contraseña antigua es correcta se hacen las validaciones
+        if (!empty($params['oldpass'])) {
+            if (!password_verify($params['oldpass'], $_SESSION['pass'])) {
+                $params['mensaje'] = "Debes introducir tu contraseña correctamente para poder modificar datos";
+            } else {
+                //preguntar xq aqui carga un menu
+                //si algun campo (excepto descripcion y contraseñas) esta vacio, se le asigna el valor que ya tenia
+                if (empty($params['nombre'])) {
+                    $params['nombre'] = $_SESSION['nombre'];
+                }
+                if (empty($params['nick'])) {
+                    $params['nick'] = $_SESSION['nick'];
+                }
+                if (empty($params['mail'])) {
+                    $params['mail'] = $_SESSION['email'];
+                }
+                if (empty($params['f_perfil'])) {
+                    $params['f_perfil'] = $_SESSION['foto_perfil'];
+                }
+                if (empty($params['opcion'])) {
+                    $params['opcion'] = $_SESSION['nivel'];
+                }
+                //validaciones
+                $params['nombre'] = sinEspacios($params['nombre']);
+                $params['nick'] = sinEspacios($params['nick']);
+                
+            }
+        }
 
-        //verifico los datos que el usuario ha introducido
 
-    }
+    }//activar el control de nivel cuando este implementado
+
 
     public function subirCapitulo()
     {
@@ -886,30 +915,5 @@ class Controller
         }
     }
 
-    public function ajustes(){
-        //recojo campos del formulario
-            $params =array(
-                'nombre' => '',
-                'nick' => '',
-                'mail' => '',
-                'oldpass' => '',
-                'pass' => '',
-                'pass2' => '',
-                'f_perfil' => '',
-                'descripcion' => '',
-                'opcion' => '',
-                'mensaje' => array(),
-            );
-        //control de nivel
-            // if ($_SESSION['nivel'] < 1) {
-            //     header("location:index.php?ctl=inicio");
-            // }
-        //recojo el formulario
-                if (isset($_POST['bAceptar'])) {
-                }
-
-
-        
-    }//activar el control de nivel cuando este implementado
-
+    
 }

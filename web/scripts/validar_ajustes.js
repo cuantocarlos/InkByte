@@ -58,10 +58,11 @@ window.onload = function () {
             document.getElementById("pass2Mal").innerText = "";
         }
     });
-    
+
 
 
 
 
 }
 //que si se ha llenado la contraseña antigua no se pueda cambiar el nombre ni el nick
+//validar imagen
