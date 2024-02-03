@@ -8,5 +8,3 @@ SQLSTATE[HY000] [1049] Unknown database 'inkbyte'## Fichero: W:\Server XAMPP\htd
 SQLSTATE[HY000] [1049] Unknown database 'inkbyte'## Fichero: W:\Server XAMPP\htdocs\DWES\GitRepos\InkByte\app\modelo\crearBD.php## Línea: 19##Código: 1049##Instante: 0.55347800 1706078474
 SQLSTATE[HY000] [1049] Unknown database 'inkbyte'## Fichero: W:\Server XAMPP\htdocs\DWES\GitRepos\InkByte\app\modelo\crearBD.php## Línea: 19##Código: 1049##Instante: 0.58005900 1706079040
 SQLSTATE[42S01]: Base table or view already exists: 1050 Table 'usuario' already exists## Fichero: W:\XAMPP\htdocs\DWES\GitRepos\InkByte\app\modelo\crearBD.php## Línea: 31##Código: 42S01##Instante: 0.34984900 1706831055
-SQLSTATE[42S01]: Base table or view already exists: 1050 Table 'usuario' already exists## Fichero: W:\ServerXampp\htdocs\InkByte\app\modelo\crearBD.php## Línea: 31##Código: 42S01##Instante: 0.60143100 1706953059
-SQLSTATE[42S01]: Base table or view already exists: 1050 Table 'usuario' already exists## Fichero: W:\ServerXampp\htdocs\InkByte\app\modelo\crearBD.php## Línea: 31##Código: 42S01##Instante: 0.10322800 1706953071
