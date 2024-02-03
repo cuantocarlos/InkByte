@@ -1,9 +1,7 @@
-
-
     <script type="module" src="../web/scripts/bGeneral.js"></script>
     <script type="module" src="../web/scripts/validar_registro.js"></script>
 
-    <div class="container">
+    <div class="container-md mt-5">
           <div class="header p-5 pb-4 border-bottom-0">
             <h1 class="fw-bold mb-0 fs-2 mb-4">Registrarse gratuitamente</h1>
           </div>
@@ -37,7 +35,7 @@
                 <input type="password" class="form-control rounded-3" id="pass" placeholder="Password" name="pass" required>
                 <label for="pass">Contraseña*</label>
               </div>
-              <div class=" mb-3 mx-5">La contraseña debe contener: <span id="mayus" class="">1 Mayúscula</span>, <span id="minus" class="">1 minúscula</span>, <span id="num" class="">1 número</span>, <span id="especial" class="">1 carácter especial</span>. <span id="longitud" class="">Entre 8 y 16 caracteres</span></div>
+              <div class=" mb-3 mx-5-md mx-5-lg">La contraseña debe contener: <span id="mayus" class="">1 Mayúscula</span>, <span id="minus" class="">1 minúscula</span>, <span id="num" class="">1 número</span>, <span id="especial" class="">1 carácter especial</span>. <span id="longitud" class="">Entre 8 y 16 caracteres</span></div>
               <div class="form-floating">
                 <input type="password" class="form-control rounded-3" id="pass2" placeholder="Password" name="pass2" required>
                 <label for="pass2">Repita Contraseña*</label>

@@ -1,19 +1,7 @@
-<!-- Button trigger modal -->
-<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-  GenerosUsuario
-</button>
+<script type="module" src="../web/scripts/generosUsuario.js"></script>
+<!-- GenerosUsuario -->
 
-<!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h1 class="modal-title fs-5" id="exampleModalLabel">Selecciona tus generos favoritos</h1>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <form action="" method="POST">
-        <div class="container d-flex pt-5 py-3 gap-3 justify-content-center">
-
+        <div class="container d-flex pt-5 py-3 gap-3 justify-content-center mt-5">
 
 
           <div class="d-flex flex-column gap-3">
@@ -51,38 +39,31 @@
           <!-- Poesía -->
           <input type="checkbox" class="btn-check poesia" id="poesia" autocomplete="off" name="generoUsuario[]" value="poesia">
           <label class="btn btn-outline-primary mb-5 poesia-label" for="poesia">Poesía</label>
-          <!-- Biografía -->
-          <input type="checkbox" class="btn-check biografia" id="biografia" autocomplete="off" name="generoUsuario[]" value="biografia">
-          <label class="btn btn-outline-primary mb-5 biografia-label" for="biografia">Biografía</label>
+          <!-- Drama -->
+          <input type="checkbox" class="btn-check drama" id="drama" autocomplete="off" name="generoUsuario[]" value="drama">
+          <label class="btn btn-outline-primary mb-5 drama-label" for="drama">Drama</label>
           </div>
 
 
 
           <div class="d-flex flex-column gap-3">
+          <!-- Biografía -->
+          <input type="checkbox" class="btn-check biografia" id="biografia" autocomplete="off" name="generoUsuario[]" value="biografia">
+          <label class="btn btn-outline-primary mb-5 biografia-label" for="biografia">Biografía</label>
           <!-- Misterio -->
           <input type="checkbox" class="btn-check misterio" id="misterio" autocomplete="off" name="generoUsuario[]" value="misterio">
           <label class="btn btn-outline-primary mb-5 misterio-label" for="misterio">Misterio</label>
           <!-- Policíaca -->
           <input type="checkbox" class="btn-check policiaca" id="policiaca" autocomplete="off" name="generoUsuario[]" value="policiaca">
           <label class="btn btn-outline-primary mb-5 policiaca-label" for="policiaca">Policíaca</label>
-          <!-- Drama -->
-          <input type="checkbox" class="btn-check drama" id="drama" autocomplete="off" name="generoUsuario[]" value="drama">
-          <label class="btn btn-outline-primary mb-5 drama-label" for="drama">Drama</label>
-          </div>
 
           </div>
 
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-            <button type="submit" class="btn btn-primary" id="bAceptar" name="bAceptar">Guardar</button>
           </div>
 
 
 
-  </form>
 
-    </div>
-  </div>
-</div>
+
 
 <?php include('layout.php'); ?>

@@ -12,7 +12,7 @@ CREATE TABLE Usuario (
     nombre VARCHAR(60),
     nick VARCHAR(20),
     email VARCHAR(40),
-    pass VARCHAR(16),
+    pass VARCHAR(130),
     f_nacimiento DATE,
     foto_perfil VARCHAR(100),
     descripcion VARCHAR(300),
@@ -39,7 +39,7 @@ CREATE TABLE PreferenciaGenerosUsuario (
 
 CREATE TABLE Token (
     token VARCHAR(15),
-    validez TINYINT,
+    validez INT,
     id_user INT PRIMARY KEY,
     FOREIGN KEY (id_user) REFERENCES Usuario(id_user) ON DELETE CASCADE
 );
@@ -48,7 +48,7 @@ CREATE TABLE Libro (
 	id_user INT,
 	id_libro INT AUTO_INCREMENT PRIMARY KEY,
 	titulo VARCHAR(50),
-	sinopsis VARCHAR(300),
+	sinopsis VARCHAR(500),
 	imagen_portada VARCHAR(100),
 	capitulos TINYINT,
 	num_resenas TINYINT,
@@ -92,8 +92,7 @@ CREATE TABLE Capitulos (
 CREATE TABLE Resena (
     id_user INT,
     id_libro INT,
-    contenido VARCHAR(400),
-    valoracion TINYINT,
+    contenido VARCHAR(1000),
     PRIMARY KEY (id_user, id_libro),
     FOREIGN KEY (id_user) REFERENCES Usuario(id_user) ON DELETE CASCADE,
     FOREIGN KEY (id_libro) REFERENCES Libro(id_libro) ON DELETE CASCADE
@@ -134,6 +133,16 @@ CREATE TABLE Terminados(-- Que el autor lo ha acabado
     FOREIGN KEY (id_libro) REFERENCES Libro(id_libro) ON DELETE CASCADE,
     FOREIGN KEY (id_user) REFERENCES Usuario(id_user) ON DELETE CASCADE
 );
+
+CREATE TABLE valoraciones (
+    id_user INT,
+    id_libro INT,
+    nota INT,
+    PRIMARY KEY (id_user, id_libro),
+    FOREIGN KEY (id_user) REFERENCES usuario(id_user) ON DELETE CASCADE,
+    FOREIGN KEY (id_libro) REFERENCES libro(id_libro) ON DELETE CASCADE
+);
+
 
 -- DATOS FALSOS
 -- Usuario1
@@ -207,11 +216,11 @@ VALUES
     (6, 3, 'Capítulo 3: El veredicto', 'cap3_6.pdf');
 
 -- Resena
-INSERT INTO Resena (id_user, id_libro, contenido, valoracion)
+INSERT INTO Resena (id_user, id_libro, contenido)
 VALUES
-    (1, 1, 'Interesante enfoque sobre la energía nuclear y su impacto en la sociedad actual.', 4),
-    (2, 2, 'Un clásico que nunca pasa de moda, personajes bien construidos y una historia envolvente.', 5),
-    (3, 3, 'Maravillosa saga familiar que mezcla realidad y fantasía de manera brillante.', 5),
-    (4, 4, 'Una historia de amor y orgullo en una sociedad marcada por las convenciones sociales.', 4),
-    (5, 5, 'Inquietante visión del futuro que nos hace reflexionar sobre nuestra realidad actual.', 4),
-    (1, 3, 'Una obra maestra que redefine la narrativa latinoamericana, imprescindible.', 5);
+    (1, 1, 'Interesante enfoque sobre la energía nuclear y su impacto en la sociedad actual.'),
+    (2, 2, 'Un clásico que nunca pasa de moda, personajes bien construidos y una historia envolvente.'),
+    (3, 3, 'Maravillosa saga familiar que mezcla realidad y fantasía de manera brillante.'),
+    (4, 4, 'Una historia de amor y orgullo en una sociedad marcada por las convenciones sociales.'),
+    (5, 5, 'Inquietante visión del futuro que nos hace reflexionar sobre nuestra realidad actual.'),
+    (1, 3, 'Una obra maestra que redefine la narrativa latinoamericana, imprescindible.');
