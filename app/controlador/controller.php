@@ -334,8 +334,20 @@ class Controller{
         require __DIR__ . '/../../web/templates/inicio.php';
     }
 
-    public function generoUsuario()
+    public function perfilUsuario()
     {
+
+        if ($_SESSION['nivel'] < 1) {
+            header("location:index.php?ctl=inicio");
+        }
+
+        $menu = $this->cargaMenu();
+
+
+        require __DIR__ . '/../../web/templates/perfilUsuario.php';
+}
+
+    public function generoUsuario() {
         $params = array (
             'terror'=>0,
             'romance'=>0,
@@ -355,7 +367,6 @@ class Controller{
         $generosUsu = explode(',',$generoString);
 
 
-
             foreach($params as $genero => $value){
                 for($i=0;$i<count($generosUsu);$i++){
                     if($genero === $generosUsu[$i]){
@@ -363,15 +374,10 @@ class Controller{
                     }
                 }
             }
-
             try{
                     $cs = new Consultas();
 
-                    echo $_SESSION["id_user"];
-
                     $cs -> actualizarPreferenciasUsuario($_SESSION["id_user"],$params["terror"],$params["romance"],$params['fantasia'],$params['cficcion'],$params['historia'],$params['arte'],$params['thriller'],$params['poesia'],$params['drama'],$params['biografia'],$params['misterio'],$params['policiaca']); //cambiar el id_user
-
-                    header('Location: index.php?ctl=perfilUsuario');
 
                 }catch (Exception $e){
                     echo "Error: " . $e->getMessage();
@@ -380,10 +386,9 @@ class Controller{
                     echo "Error: " . $e->getMessage();
                     header('Location: index.php?ctl=error');
                 }
+    }
 
 
-        require __DIR__ . '/../../web/templates/perfilUsuario.php';
-}
     public function crearLibro()
     {
 
@@ -638,11 +643,6 @@ class Controller{
         ));
     }
 
-    public function perfilUsuario() {
-
-        $menu = $this->cargaMenu();
-        require __DIR__ . '/../../web/templates/generoUsuario.php';
-    }
     public function book(){
         $menu = $this->cargaMenu();
         $params = array(

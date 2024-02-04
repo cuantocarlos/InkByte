@@ -31,7 +31,6 @@ $map = array(
     'iniciarSesion' => array('controller' => 'Controller', 'action' => 'iniciarSesion', 'nivel' => 0),
     'registro' => array('controller' => 'Controller', 'action' => 'registro', 'nivel' => 0),
     'inicio' => array('controller' => 'Controller', 'action' => 'inicio', 'nivel' => 0),
-    'generoUsuario' => array('controller' => 'Controller', 'action' => 'generoUsuario', 'nivel' => 1),
     'usuarioUnico' => array('controller' => 'Controller', 'action' => 'peticionNombre', 'nivel' => 0),
     'mailUnico' => array('controller' => 'Controller', 'action' => 'peticionMail', 'nivel' => 0),
     'crearLibro' => array('controller' => 'Controller', 'action' => 'crearLibro', 'nivel' => 2),
@@ -40,7 +39,8 @@ $map = array(
     'activarCuenta' => array('controller' => 'Controller', 'action' => 'activarCuenta', 'nivel' => 0),
     'cerrarSesion' => array('controller' => 'Controller', 'action' => 'cerrarSesion', 'nivel' => 1),
     'generoUsuarioSelect' => array('controller' => 'Controller', 'action' => 'generoUsuarioSelect', 'nivel' => 1),
-    'perfilUsuario' => array('controller' => 'Controller', 'action' => 'perfilUsuario', 'nivel' => 0),
+    'generoUsuario' => array('controller' => 'Controller', 'action' => 'generoUsuario', 'nivel' => 1),
+    'perfilUsuario' => array('controller' => 'Controller', 'action' => 'perfilUsuario', 'nivel' => 1),
     'book' => array('controller' => 'Controller', 'action' => 'book', 'nivel' => 1),
     'escribirResena' => array('controller' => 'Controller', 'action' => 'escribirResena', 'nivel' => 1)
     // 'salir' => array('controller' => 'Controller', 'action' => 'salir', 'nivel' => 1),

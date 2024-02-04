@@ -1,4 +1,4 @@
-<script type="module" src="../web/scripts/generosUsuario.js"></script>
+<script type="module" src="../web/scripts/perfilUsuario.js"></script>
 <!-- GenerosUsuario -->
 
         <div class="container d-flex pt-5 gap-3 justify-content-center mt-5">

@@ -29,6 +29,7 @@ function recibeGeneros(){
 }
 
 function updateGeneros() {
+  console.log("tal");
   const httpRequest = new XMLHttpRequest();
   var generosMarcados = Array.from(document.querySelectorAll('input[name="generoUsuario[]"]:checked')).map(checkbox => checkbox.value);
   console.log(generosMarcados);
@@ -37,7 +38,6 @@ function updateGeneros() {
 
   httpRequest.onreadystatechange = function () {
     if(httpRequest.readyState === 4 && httpRequest.status === 200) {
-      console.log(httpRequest.responseText);
     }
   }
 
