@@ -1,5 +1,5 @@
 <script type="module" src="../scripts/bGeneral.js"></script>
-<script type="module" src="../scripts/validar_ajustes.js"></script>
+<!--<script type="module" src="../scripts/validar_ajustes.js"></script>-->
 
 <?php
 session_start();
@@ -10,7 +10,7 @@ $_SESSION['email'] = "garcia@endesa.es";
 $_SESSION['descripcion'] = "descripcioooooooooooooooon";
 $_SESSION['f_nacimiento'] = "1999-12-12";
 $_SESSION['f_perfil'] = "foto.jpg";
-$_SESSION['nivel'] = 2;
+$_SESSION['nivel'] = 1;
 //saco un usuario de la base de datos y lo guardo en la sesion
 
 
@@ -27,6 +27,10 @@ if (isset($_SESSION['params']['errores']['nombre'])) {
     print_r($_SESSION['params']['errores']['nombre']);
 }
 echo "</pre>";
+
+
+
+print_r($_SESSION);
 
 ?>
 
@@ -87,9 +91,9 @@ echo "</pre>";
             <small class="text-body-secondary mb-1">Máximo 300 caracteres.</small>
             <hr class="my-4" />
             <h2 class="fs-5 fw-bold mb-3">Eres lector o escritor?</h2>
-            <input type="radio" class="btn-check" id="lector" name="opcion_usuario" value="lector" <?php marcarNivel(1)?> autocomplete="off" />
+            <input type="radio" class="btn-check" id="lector" name="opcion_usuario" value="1" <?php marcarNivel(1)?> autocomplete="off" />
             <label class="btn btn-outline-secondary" for="lector">Lector</label>
-            <input type="radio" class="btn-check" id="escritor" name="opcion_usuario" value="escritor" <?php marcarNivel(2)?> autocomplete="off" />
+            <input type="radio" class="btn-check" id="escritor" name="opcion_usuario" value="2" <?php marcarNivel(2)?> autocomplete="off" />
             <label class="btn btn-outline-secondary" for="escritor">Escritor</label>
             <hr class="my-4" />
 
@@ -97,6 +101,7 @@ echo "</pre>";
                 <input type="password" class="form-control rounded-3" id="oldpass" placeholder="Password" name="oldpass" />
                 <label for="oldpass">Contraseña Actual</label>
             </div>
+
 
             <?php
                 $mensaje = ''; // Valor por defecto

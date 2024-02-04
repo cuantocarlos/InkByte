@@ -3,8 +3,9 @@ SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
 SET time_zone = "+00:00";
 
-CREATE DATABASE IF NOT EXISTS `inkbyte` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
-USE `inkbyte`;
+DROP DATABASE IF EXISTS inkbyte;
+CREATE DATABASE inkbyte DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
+USE inkbyte;
 
 
 CREATE TABLE Usuario (
@@ -146,8 +147,8 @@ CREATE TABLE valoraciones (
 
 -- DATOS FALSOS
 -- Usuario1
-INSERT INTO Usuario (nombre, nick, email, pass, f_nacimiento, foto_perfil, descripcion, nivel, activo)
-VALUES ('Alfredo García','operadornuclear',"garcia@endesa.es",'$2y$10$BAuYcpZ3i4wzV7RWliOZ4efznlorbOMgyDiVwmkTcAi9cqJuuLFZG','1980-01-01','1.jpeg','Me gusta divulgar ciencia y el deporte.',1,1);
+INSERT INTO Usuario (nombre, nick, email, pass, f_nacimiento, foto_perfil, descripcion, nivel, activo)-- PW: a1Ahabxt57wbwdd.
+VALUES ('Alfredo García','operadornuclear',"garcia@endesa.es",'$2y$10$BAuYcpZ3i4wzV7RWliOZ4efznlorbOMgyDiVwmkTcAi9cqJuuLFZG','1980-01-01','1.jpeg','Me gusta divulgar ciencia y el deporte.',2,1);
 -- Usuario2
 INSERT INTO Usuario (nombre, nick, email, pass, f_nacimiento, foto_perfil, descripcion, nivel, activo) 
 VALUES ('María García', 'mariagarcia88', 'mariagarcia@email.com', 'hashed_pass_2', '1988-07-22', '2.jpg', 'Apasionada por los viajes y la cocina.', 1, 1);

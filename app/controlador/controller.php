@@ -266,68 +266,97 @@ class Controller
 
         if (!empty($params['oldpass'])) {
             if (!$cs->verificarPass($_SESSION['email'], $params['oldpass'])) {
-                $params['mensaje'] = "Debes introducir tu contraseña correctamente para poder modificar datos";
+                $params['mensaje'] = [
+                    'tipo' => 'error',
+                    'texto' => 'La contraseña antigua no es correcta',
+                ];
             } else {
+                
                 if (empty($params['nombre'])) {
-                    $params['errores']['nombre'] = 'El nombre no puede estar vacío';
+                    $params['mensaje'] = [
+                        'tipo' => 'error',
+                        'texto' => 'El nombre no puede estar vacío',
+                    ];
+                }else {
+                    //proceso de validacion del nombre
+                    if (!cTexto($params['nombre'], "nombre", $params['errores'], 50, 1, true, true)) {
+                        
                 }
         
                 if (empty($params['nick'])) {
-                    $params['errores']['nick'] = 'El nick no puede estar vacío';
+                    $params['mensaje'] = [
+                        'tipo' => 'error',
+                        'texto' => 'El nick no puede estar vacío',
+                    ];
                 }
-        
                 if (empty($params['email'])) {
-                    $params['errores']['email'] = 'El email no puede estar vacío';
+                    $params['mensaje'] = [
+                        'tipo' => 'error',
+                        'texto' => 'El email no puede estar vacío',
+                    ];
                 }
-        
                 
                 if (empty($params['f_perfil'])) {
                     if (!empty($_SESSION['f_perfil'])) {
                         $params['f_perfil'] = $_SESSION['f_perfil'];
                     } else {
-                        $params['errores']['f_perfil'] = 'La foto de perfil está vacía, por favor sube una';
+                        $params['mensaje'] = [
+                            'tipo' => 'error',
+                            'texto' => 'La foto de perfil está vacía, por favor sube una',
+                        ];
                     }
                 }
                 //Si contraseñas no coinciden, la contraseña antigua está vacía, enseña el error
                 if (!empty($params['oldpass']) && !empty($params['pass']) && !empty($params['pass2'])) {
                     if ($params['pass'] !== $params['pass2']) {
-                        $params['errores']['pass'] = 'Las contraseñas no coinciden';
+                        $params['mensaje'] = [
+                            'tipo' => 'error',
+                            'texto' => 'Las contraseñas no coinciden',
+                        ];
                     }
                 } else if (empty($params['pass']) || empty($params['pass2'])) {
                     if (!empty($params['oldpass'])) {
                         $params['pass'] = $params['oldpass'];
                     } else {
-                        $params['errores']['pass'] = 'La contraseña antigua está vacía';
+                        $params['mensaje'] = [
+                            'tipo' => 'error',
+                            'texto' => 'La contraseña antigua está vacía',
+                        ];
                     }
                 }
+                if (empty($params['opcion']) || !in_array($params['opcion'], array(1, 2))) {
+                    $params['mensaje'] = [
+                        'tipo' => 'error',
+                        'texto' => 'Parece que estas intentando hackearnos, mejor ves a un burgués',
+                    ];
+                }
+
                 //Trabajo los datos antes de enviarlos a la base de datos
+                
                 $hash = password_hash($params["pass"], PASSWORD_BCRYPT);
 
-                if (empty($params['errores'])) {
+                
+                    if(empty($params['mensaje'])){
 
-                    if ($cs->actualizarUsuarioExistente($_SESSION['id_user'], $params['nombre'], $params['nick'], $params['email'], $hash,null, $params['f_perfil'],$params['descripcion'])) {
-
-                    } else {
+                    if ($cs->actualizarUsuarioExistente($_SESSION['id_user'], $params['nombre'], $params['nick'], $params['email'], $hash,null, $params['f_perfil'],$params['descripcion'], $params['opcion'])) {
                         
+                        ponerSesionConId(2);
+                        $params['mensaje'] = [
+                            'tipo' => 'success',
+                            'texto' => 'Datos modificados correctamente',
+                        ];
+                    } else {
+                        $params['mensaje'] = [
+                            'tipo' => 'error',
+                            'texto' => 'No se han podido modificar los datos',
+                        ];
                     }
-                    
-
                     // Por hacer
-                    // -en classController crear una funcion para actualizar los datos del usuario
-                    // -aqui en controller usar esa funcion para actualizar los datos del usuario y veriicar si se ha actualizado correctamente
-                    // -actualizar las variables de sesion con los nuevos datos
-                    // -seteaer el parametro mensaje con un mensaje de exito
+                    /// -en classController crear una funcion para actualizar los datos del usuario
+                    /// -aqui en controller usar esa funcion para actualizar los datos del usuario y veriicar si se ha actualizado correctamente
+                    /// -actualizar las variables de sesion con los nuevos datos
+                    /// -seteaer el parametro mensaje con un mensaje de exito
                     // -hacer un header location a la misma pagina para que se muestre el mensaje de exito
-
-
-                    // $params['pass'] = password_hash($params['pass'], PASSWORD_BCRYPT);
-                    // $params['f_perfil'] = cFile("f_perfil", $params['errores'], Config::$extensionesValidas, __DIR__ . '/../archivos/img/perfil/', Config::$max_file_size);
-                    // $cs->actualizarPreferenciasUsuario($_SESSION['id_user'], $params['nombre'], $params['nick'], $params['email'], $params['pass'], $params['f_perfil'], $params['descripcion'], $params['opcion']);
-                    // $_SESSION['nombre'] = $params['nombre'];
-                    // $_SESSION['nick'] = $params['nick'];
-                    // $_SESSION['email'] = $params['email'];
-                    // $_SESSION['f_perfil'] = $params['f_perfil'];
-                    // $_SESSION['nivel'] = $params['opcion'];
         
                 }
             }
@@ -341,8 +370,8 @@ class Controller
         // }
 
 
-    }
-//activar el control de nivel cuando este implementado, usar ghangePass para cambiar la contraseña 
+    }}
+    //activar el control de nivel cuando este implementado, usar ghangePass para cambiar la contraseña 
     //falta hacer validaciones por ejemplo del tamaño de la descripcion, del email, etc
     //falta el nivel
 
@@ -980,5 +1009,23 @@ class Controller
         }
     }
 
+    public function ponerSesionConId($id){
+    $cs = new Consultas();
+    $usuario = $cs->buscarFila($id, 'usuario', 'id_user');
+
+    // Verificar si se encontró un usuario
+    if ($usuario) {
+        $_SESSION['id_user'] = $usuario['id_user'];
+        $_SESSION['nombre'] = $usuario['nombre'];
+        $_SESSION['nick'] = $usuario['nick'];
+        $_SESSION['email'] = $usuario['email'];
+        $_SESSION['f_nacimiento'] = $usuario['f_nacimiento'];
+        $_SESSION['f_perfil'] = $usuario['f_perfil'];
+        $_SESSION['descripcion'] = $usuario['descripcion'];
+        $_SESSION['nivel'] = $usuario['nivel'];
+    }
+}
+
     
+
 }
