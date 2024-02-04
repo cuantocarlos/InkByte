@@ -313,7 +313,7 @@ class Consultas extends Modelo {
     }
 
 
-    /*Actualiza las preferencias de un usuario*/
+    /*Actualiza los GENEROS de un usuario*/
     function actualizarPreferenciasUsuario($id_user, $terror, $romance, $fantasia, $cficcion, $historia, $arte, $thriller, $poesia, $drama, $biografia, $misterio, $policiaca) {
         $stmt =$this->conexion->prepare("UPDATE preferenciagenerosusuario SET
             terror = ?,
@@ -331,7 +331,7 @@ class Consultas extends Modelo {
             WHERE id_user = ?");
 
         $stmt->execute([$terror, $romance, $fantasia, $cficcion, $historia, $arte, $thriller, $poesia, $drama, $biografia, $misterio, $policiaca, $id_user]);
-    }
+    }//habría que cambiar el nombre para no confundir con los Ajustes del usuario
 
     function obtenerTitulosLibrosPorUsuario($id_user) {
         $stmt = $this->conexion->prepare("SELECT titulo FROM libro WHERE id_user = ?");
@@ -454,7 +454,47 @@ class Consultas extends Modelo {
         return $stmt->execute() ? true : false;
     }
 
-    function actualizarUsuario() {
-        
+    function actualizarUsuarioExistente($id_user, $nombre, $nick, $email, $pass, $f_nacimiento = null, $foto_perfil = null, $descripcion = null, $nivel = null) {
+        $query = "UPDATE usuario SET nombre = ?, nick = ?, email = ?, pass = ?";
+        $params = array($nombre, $nick, $email, $pass);
+    
+        // Agregar campos opcionales a la consulta y a los parámetros
+        if ($f_nacimiento !== null) {
+            $query .= ", f_nacimiento = ?";
+            $params[] = $f_nacimiento;
+        }
+        if ($foto_perfil !== null) {
+            $query .= ", foto_perfil = ?";
+            $params[] = $foto_perfil;
+        }
+        if ($descripcion !== null) {
+            $query .= ", descripcion = ?";
+            $params[] = $descripcion;
+        }
+        if ($nivel !== null) {
+            $query .= ", nivel = ?";
+            $params[] = $nivel;
+        }
+    
+        $query .= " WHERE id_user = ?";
+        $params[] = $id_user;
+    
+        $stmt = $this->conexion->prepare($query);
+    
+        if ($stmt) {
+            for ($i = 0; $i < count($params); $i++) {
+                $stmt->bindParam($i + 1, $params[$i]);
+            }
+    
+            if ($stmt->execute()) {
+                return true;
+            } else {
+                return false;
+            }
+        } else {
+            return false;
+        }
     }
+    
+    
 }

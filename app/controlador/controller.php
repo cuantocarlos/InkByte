@@ -222,13 +222,15 @@ class Controller
         }
         require __DIR__ . '/../../web/templates/registro.php';
     }
+
     public function perfilAjustes()
     {
+        
         //validaciones del formulario
         $params = array(
             'nombre' => '',
             'nick' => '',
-            'mail' => '',
+            'email' => '',
             'oldpass' => '',
             'pass' => '',
             'pass2' => '',
@@ -247,7 +249,7 @@ class Controller
                 
                 $params['nombre'] = recoge('nombre');
                 $params['nick'] = recoge('nick');
-                $params['mail'] = recoge('mail');
+                $params['email'] = recoge('mail');
                 $params['oldpass'] = recoge('oldpass');
                 $params['pass'] = recoge('pass');
                 $params['pass2'] = recoge('pass2');
@@ -278,13 +280,34 @@ class Controller
                     $params['errores']['email'] = 'El email no puede estar vacío';
                 }
         
-                if (!empty($params['oldpass']) && !empty($params['pass'])) {
+                
+                if (empty($params['f_perfil'])) {
+                    if (!empty($_SESSION['f_perfil'])) {
+                        $params['f_perfil'] = $_SESSION['f_perfil'];
+                    } else {
+                        $params['errores']['f_perfil'] = 'La foto de perfil está vacía, por favor sube una';
+                    }
+                }
+                //Si contraseñas no coinciden, la contraseña antigua está vacía, enseña el error
+                if (!empty($params['oldpass']) && !empty($params['pass']) && !empty($params['pass2'])) {
                     if ($params['pass'] !== $params['pass2']) {
                         $params['errores']['pass'] = 'Las contraseñas no coinciden';
+                    }
+                } else if (empty($params['pass']) || empty($params['pass2'])) {
+                    if (!empty($params['oldpass'])) {
+                        $params['pass'] = $params['oldpass'];
+                    } else {
+                        $params['errores']['pass'] = 'La contraseña antigua está vacía';
                     }
                 }
 
                 if (empty($params['errores'])) {
+                    if ($cs->actualizarUsuarioExistente($_SESSION['id_user'], $params['nombre'], $params['nick'], $params['email'], $params['pass'],null, $params['f_perfil'],$params['descripcion'])) {
+
+                    } else {
+                        
+                    }
+                    
 
                     // Por hacer
                     // -en classController crear una funcion para actualizar los datos del usuario
@@ -300,7 +323,7 @@ class Controller
                     // $_SESSION['nombre'] = $params['nombre'];
                     // $_SESSION['nick'] = $params['nick'];
                     // $_SESSION['email'] = $params['email'];
-                    // $_SESSION['foto_perfil'] = $params['f_perfil'];
+                    // $_SESSION['f_perfil'] = $params['f_perfil'];
                     // $_SESSION['nivel'] = $params['opcion'];
         
                 }
@@ -315,7 +338,10 @@ class Controller
         // }
 
 
-    }//activar el control de nivel cuando este implementado, usar ghangePass para cambiar la contraseña 
+    }
+//activar el control de nivel cuando este implementado, usar ghangePass para cambiar la contraseña 
+    //falta hacer validaciones por ejemplo del tamaño de la descripcion, del email, etc
+    //falta el nivel
 
     
 

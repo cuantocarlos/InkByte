@@ -3,12 +3,14 @@
 
 <?php
 session_start();
-$_SESSION['id_usuario'] = 1;
+$_SESSION['id_user'] = 1;
 $_SESSION['nombre'] = "falfredo";
 $_SESSION['nick'] = "anastasio";
 $_SESSION['email'] = "garcia@endesa.es";
 $_SESSION['descripcion'] = "descripcioooooooooooooooon";
-$_SESSION['fecha_nacimiento'] = "1999-12-12";
+$_SESSION['f_nacimiento'] = "1999-12-12";
+$_SESSION['f_perfil'] = "foto.jpg";
+$_SESSION['nivel'] = 2;
 
 function marcarNivel($opcion)
 {
@@ -17,10 +19,11 @@ function marcarNivel($opcion)
     }
 }
 
-
 echo "<pre>";
 print_r($_SESSION);
-print_r($_SESSION['params']['errores']['nombre']);
+if (isset($_SESSION['params']['errores']['nombre'])) {
+    print_r($_SESSION['params']['errores']['nombre']);
+}
 echo "</pre>";
 
 ?>
@@ -49,7 +52,8 @@ echo "</pre>";
 
 
             <div class="form-floating mb-3">
-            <input type="email" class="form-control rounded-3" id="mail" placeholder="name@example.com" name="mail" pattern="^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$" value="<?php echo $_SESSION['email']; ?>" />                <label for="mail">Correo Electrónico</label>
+                <input type="email" class="form-control rounded-3" id="mail" placeholder="name@example.com" name="mail" pattern="^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$" value="<?php echo $_SESSION['email']; ?>" />
+                <label for="mail">Correo Electrónico</label>
             </div>
             <div id="mailMal" class="mb-3 text-danger mx-5"></div>
 
@@ -93,10 +97,11 @@ echo "</pre>";
             </div>
 
             <?php
-            if (isset($_SESSION['params']['mensaje']['tipo'])) {
-                $class = $_SESSION['params']['mensaje']['tipo'] == 'error' ? 'alert alert-danger' : 'alert alert-success';
-                $mensaje = $_SESSION['params']['mensaje']['texto'];
-            }
+                $mensaje = ''; // Valor por defecto
+                if (isset($_SESSION['params']['mensaje']['tipo'])) {
+                    $class = $_SESSION['params']['mensaje']['tipo'] == 'error' ? 'alert alert-danger' : 'alert alert-success';
+                    $mensaje = $_SESSION['params']['mensaje']['texto'] == "ok" ? "Datos modificados correctamente" : $_SESSION['params']['mensaje']['texto'];
+                }
             ?>
 
             <div class="<?php echo $class ?>"><?php echo $mensaje ?></div>
