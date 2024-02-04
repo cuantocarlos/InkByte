@@ -480,22 +480,24 @@ class Controller
         );
 
         $generoString = $_REQUEST["generos"];
-        $generosUsu = explode(',', $generoString);
+        $generosUsu = explode(',',$generoString);
 
-        echo $generosUsu;
 
-        foreach ($params as $genero => $value) {
-            for ($i = 0; $i < count($generosUsu); $i++) {
-                if ($genero === $generosUsu[$i]) {
-                    $params[$genero] = 1;
+
+            foreach($params as $genero => $value){
+                for($i=0;$i<count($generosUsu);$i++){
+                    if($genero === $generosUsu[$i]){
+                        $params[$genero] = 1;
+                    }
                 }
             }
-        }
 
         try {
             $cs = new Consultas();
 
-            $cs->actualizarPreferenciasUsuario(28, $params["terror"], $params["romance"], $params['fantasia'], $params['cficcion'], $params['historia'], $params['arte'], $params['thriller'], $params['poesia'], $params['drama'], $params['biografia'], $params['misterio'], $params['policiaca']); //cambiar el id_user
+                    echo $_SESSION["id_user"];
+
+                    $cs -> actualizarPreferenciasUsuario($_SESSION["id_user"],$params["terror"],$params["romance"],$params['fantasia'],$params['cficcion'],$params['historia'],$params['arte'],$params['thriller'],$params['poesia'],$params['drama'],$params['biografia'],$params['misterio'],$params['policiaca']); //cambiar el id_user
 
             header('Location: index.php?ctl=perfilUsuario');
 
@@ -752,7 +754,7 @@ class Controller
 
         $cs = new Consultas();
 
-        $generos = $cs->generosSelecionadosUsuario(28); //cambiar el id_user
+        $generos=$cs -> generosSelecionadosUsuario($_SESSION["id_user"]); //cambiar el id_user
 
         echo json_encode(array(
             "terror" => $generos["terror"],
@@ -761,7 +763,8 @@ class Controller
             "cficcion" => $generos["cficcion"],
             "historia" => $generos["historia"],
             "arte" => $generos["arte"],
-            "thriller" => $generos["poesia"],
+            "thriller" => $generos["thriller"],
+            "poesia" => $generos["poesia"],
             "drama" => $generos["drama"],
             "biografia" => $generos["biografia"],
             "misterio" => $generos["misterio"],

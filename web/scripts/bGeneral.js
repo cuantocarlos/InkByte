@@ -157,7 +157,9 @@ export function compruebaCorreo(mail){
   const httpRequest = new XMLHttpRequest();
   const inputMail = document.getElementById("mail");
 
+
   httpRequest.open('POST','https://localhost/InkByte/web/index.php?ctl=mailUnico',true);   //ACORDARSE DE CAMBIAR LA RUTA ABSOLUTA SI SE SUBE A OTRO SITIO
+
 
   httpRequest.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
 
