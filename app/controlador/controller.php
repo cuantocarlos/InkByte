@@ -300,9 +300,12 @@ class Controller
                         $params['errores']['pass'] = 'La contraseña antigua está vacía';
                     }
                 }
+                //Trabajo los datos antes de enviarlos a la base de datos
+                $hash = password_hash($params["pass"], PASSWORD_BCRYPT);
 
                 if (empty($params['errores'])) {
-                    if ($cs->actualizarUsuarioExistente($_SESSION['id_user'], $params['nombre'], $params['nick'], $params['email'], $params['pass'],null, $params['f_perfil'],$params['descripcion'])) {
+
+                    if ($cs->actualizarUsuarioExistente($_SESSION['id_user'], $params['nombre'], $params['nick'], $params['email'], $hash,null, $params['f_perfil'],$params['descripcion'])) {
 
                     } else {
                         

@@ -11,6 +11,8 @@ $_SESSION['descripcion'] = "descripcioooooooooooooooon";
 $_SESSION['f_nacimiento'] = "1999-12-12";
 $_SESSION['f_perfil'] = "foto.jpg";
 $_SESSION['nivel'] = 2;
+//saco un usuario de la base de datos y lo guardo en la sesion
+
 
 function marcarNivel($opcion)
 {
