@@ -40,7 +40,7 @@
                             alt="foto_perfil" class="imagen-redonda">
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="index.php?ctl=iniciarSesion">Ajustes de Perfil</a>
+                            <a class="dropdown-item" href="index.php?ctl=perfilUsuario">Ajustes de Perfil</a>
                             <li><hr class="dropdown-divider"></li>
                             <a class="dropdown-item" href="index.php?ctl=registro">Contáctanos</a>
                         </div>
