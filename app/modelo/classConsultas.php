@@ -28,6 +28,13 @@ class Consultas extends Modelo {
         $resultados = $stmt->fetchAll(PDO::FETCH_COLUMN);
         return $resultados;
     }
+
+    function buscarColumnaEnteraArray($tabla, $columna) {
+        $stmt = $this->conexion->prepare("SELECT $columna FROM $tabla");
+        $stmt->execute();  
+        $resultados = $stmt->fetchAll(PDO::FETCH_COLUMN);
+        return $resultados;
+    }
     
     
 
@@ -457,5 +464,18 @@ class Consultas extends Modelo {
     
         return $resultados;
     }
+
+    function obtenerNombresAutoresPorLibros($libros) {
+        $nombresAutores = array();
+    
+        foreach ($libros as $libro) {
+            $id_user = $libro['id_user'];
+            $nombreAutor = $this->buscar($id_user, 'usuario', 'nombre', 'id_user');
+            $nombresAutores[] = $nombreAutor;
+        }
+    
+        return $nombresAutores;
+    }
+    
     
 }

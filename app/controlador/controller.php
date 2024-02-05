@@ -809,52 +809,9 @@ class Controller{
         require __DIR__ . '/../../web/templates/escribirResena.php';
     }
 
-    /*public function menuEscritor(){
-        $menu = $this->cargaMenu();
-        if(isset($_REQUEST["boton_buscar"])){
-            $params = array(
-                "busqueda" => '',
-                "mensaje" => []
-            );
-            $params["busqueda"] = recoge("buscar_libro");
-            if(cTexto($params["busqueda"], "busqueda", $params["mensaje"], 50, 1)){
-                header("location: index.php?ctl=buscarLibros&busqueda=" . $params["busqueda"]);
-            } else {
-                header("location: index.php?ctl=buscarLibros&busqueda=" . $params["busqueda"]);
-            }
-        }
-
-        require __DIR__ . '/../../web/templates/menuEscritor.php';
-    }
-
-    public function menuLector(){
-        if(isset($_REQUEST["boton_buscar"])){
-            $params = array(
-                "busqueda" => '',
-                "mensaje" => []
-            );
-            $params["busqueda"] = recoge("buscar_libro");
-            if(cTexto($params["busqueda"], "busqueda", $params["mensaje"], 50, 1)){
-                header("location: index.php?ctl=buscarLibros&busqueda=" . $params["busqueda"]);
-            }
-        }
-    }
-
-    public function menuInvitado(){
-        if(isset($_REQUEST["boton_buscar"])){
-            $params = array(
-                "busqueda" => '',
-                "mensaje" => []
-            );
-            $params["busqueda"] = recoge("buscar_libro");
-            if(cTexto($params["busqueda"], "busqueda", $params["mensaje"], 50, 1)){
-                header("location: index.php?ctl=buscarLibros&busqueda=" . $params["busqueda"]);
-            }
-        }
-    }*/
 
     public function buscarLibros(){
-        $menu = $this->cargaMenu();
+        
 
         $params = array(
             "busqueda" => ''
@@ -866,25 +823,29 @@ class Controller{
                 "mensaje" => []
             );
             $params["busqueda"] = recoge("buscar_libro");
-            if(cTexto($params["busqueda"], "busqueda", $params["mensaje"], 50, 1)){
-                try{
+            try{
 
-                    $cs = new Consultas();
-        
-                    $libros = $cs -> buscarLibrosPorTitulo($params['busqueda']);
-                    $nombresAutores -> buscarColumna($libro["id_user"], "usuario", "nombre", "id_user");
-                    print_r($nombresAutores);
-        
-                } catch (Exception $e) {
-                    $e->getMessage();
-                } catch (Error $e) {
-                    $e->getMessage();
+                $cs = new Consultas();
+    
+                $libros = $cs -> buscarLibrosPorTitulo($params['busqueda']);
+
+                
+
+                $nombresAutores = $cs -> obtenerNombresAutoresPorLibros($libros);
+
+                if(count($libros) === 0){
+                    $libros['mono'] = true;
+                } else {
+                    $libros['mono'] = false;
                 }
+    
+            } catch (Exception $e) {
+                $e->getMessage();
+            } catch (Error $e) {
+                $e->getMessage();
             }
         }
-
-        
-
+        $menu = $this->cargaMenu();
         require __DIR__ . '/../../web/templates/buscarLibros.php';
     }
 

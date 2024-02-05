@@ -26,7 +26,7 @@
 <!--AQUI VA EL HEADER + RESPONSIVO(vamos a implementar 4 headers distintos: invitado/lector/escritor/admin. Todo esto con la funcionalidad de abajo)-->
 <?php
     if(!isset($menu)) {
-        $menu = 'registro.php';
+        $menu = 'menuInvitado.php';
     }
     include $menu;
 ?>
