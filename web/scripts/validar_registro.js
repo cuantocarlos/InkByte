@@ -6,7 +6,6 @@ var email = document.getElementById("mail");
 var pass = document.getElementById("pass");
 var pass2 = document.getElementById("pass2");
 var fecha = document.getElementById("fecha");
-var rol = document.getElementsByName("options-base");
 var terminosCondiciones = document.getElementById("terminos");
 
 window.onload = function () {
@@ -20,8 +19,12 @@ window.onload = function () {
 
   nombre.addEventListener('input', ()=>{
     const nom = nombre.value.trim();
-
+    if(nom.length===0){
+      nombre.classList.remove("is-valid");
+      nombre.classList.remove("is-invalid");
+    }else{
     compruebaNombre(nom);
+    }
   });
 
   fecha.addEventListener('change', ()=>{
@@ -38,6 +41,12 @@ window.onload = function () {
     fecha.classList.toggle("is-invalid",fechaValida);
   });
 
+  email.addEventListener('focus', ()=>{
+    email.classList.remove("is-valid");
+    email.classList.remove("is-invalid");
+    document.getElementById("mailMal").innerText="";
+  });
+
   email.addEventListener('blur', ()=>{
     const mail = email.value.trim();
     if(validarCorreoElectronico(mail) == true){
@@ -52,6 +61,12 @@ window.onload = function () {
     const contrasenia = pass.value;
     validarPassword(contrasenia);
 });
+
+  pass2.addEventListener('focus', ()=>{
+    pass2.classList.remove("is-valid");
+    pass2.classList.remove("is-invalid");
+    document.getElementById("pass2Mal").innerText="";
+  });
 
   pass2.addEventListener('blur', ()=>{
     const contrasenia = pass.value;
