@@ -7,6 +7,13 @@
           </div>
           <div class="body p-5 pt-0">
             <form action="index.php?ctl=registro" method="post" enctype="multipart/form-data">
+            <div class="mb-3 d-flex align-items-center justify-content-center">
+            <input class="d-none" type="file" id="f_perfil" name="f_perfil" onchange="showPreview(this)">
+              <label for="f_perfil" id="imagePreviewContainer">
+                <img id="imagePreview">
+              </label>
+              </div>
+              <label for=""></label>
             <div class="container d-flex justify-content-end my-2">
             <small class="text-body-secondary ">Los campos con * son obligatorios</small>
             </div>
@@ -48,12 +55,9 @@
                 <label for="fecha">Fecha de Nacimiento*</label>
               </div>
 
-              <div id="fechaMal" class="mb-3 text-danger"></div>
+              <div id="fechaMal" class="mb-5 text-danger"></div>
 
-              <div class="mb-5">
-              <label for="f_perfil" class="form-label">Seleccioine una foto de perfil:</label>
-              <input class="form-control" type="file" id="f_perfil" name="f_perfil">
-              </div>
+
               <small class="text-body-secondary mb-1">Máximo 300 caracteres.</small>
               <div class="form-floating">
               <textarea class="form-control" placeholder="Añade una descripción" id="descripcion" style="height: 100px" name="descripcion"></textarea>
@@ -72,6 +76,30 @@
             </form>
           </div>
         </div>
+
+<script>
+function showPreview(input) {
+  var fileInput = input;
+  var imagePreview = document.getElementById('imagePreview');
+  var imagePreviewContainer = document.getElementById('imagePreviewContainer');
+
+  var file = fileInput.files[0];
+
+  if (file) {
+      var reader = new FileReader();
+
+      reader.onload = function (e) {
+          imagePreview.src = e.target.result;
+      };
+
+      reader.readAsDataURL(file);
+
+      imagePreviewContainer.style.display = 'block';
+  } else {
+      imagePreviewContainer.style.display = 'none';
+  }
+}
+</script>
 
 
 

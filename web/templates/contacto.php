@@ -1,7 +1,3 @@
-<?php
-
-?>
-
 <script type="module" src="../web/scripts/bGeneral.js"></script>
 
 <div class="bg-body-secondary p-4 py-md-5">

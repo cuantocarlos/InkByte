@@ -16,6 +16,7 @@
     <link rel="stylesheet" href="../web/styles/generoUsuario.css"/>
     <link rel="stylesheet" href="../web/styles/leerCapitulo_style.css">
     <link rel="stylesheet" href="../web/styles/navbar.css">
+    <link rel="stylesheet" href="../web/styles/registro.css">
     <link rel="stylesheet" href="../web/css/valoracionEstrella.css">
 
 
