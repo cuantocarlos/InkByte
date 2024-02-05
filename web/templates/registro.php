@@ -7,7 +7,8 @@
           </div>
           <div class="body p-5 pt-0">
             <form action="index.php?ctl=registro" method="post" enctype="multipart/form-data">
-            <div class="mb-3 d-flex align-items-center justify-content-center">
+            <div class="mb-3 d-flex align-items-center justify-content-center flex-column">
+              <label for="f_perfil">Selecciona una foto de perfil:</label>
             <input class="d-none" type="file" id="f_perfil" name="f_perfil" onchange="showPreview(this)">
               <label for="f_perfil" id="imagePreviewContainer">
                 <img id="imagePreview">
