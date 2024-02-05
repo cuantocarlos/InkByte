@@ -1,13 +1,17 @@
 <script type="module" src="../scripts/bGeneral.js"></script>
-<!--<script type="module" src="../scripts/validar_ajustes.js"></script>-->
+<script type="module" src="../scripts/validar_ajustes.js"></script>
 
 <?php
-session_start();
+if (session_status() == PHP_SESSION_NONE) {
+    // Si la sesión no está iniciada, la iniciamos
+    session_start();
+}
+
 $_SESSION['id_user'] = 1;
-$_SESSION['nombre'] = "falfredo";
-$_SESSION['nick'] = "anastasio";
+$_SESSION['nombre'] = "Elena";
+$_SESSION['nick'] = "Elena";
 $_SESSION['email'] = "garcia@endesa.es";
-$_SESSION['descripcion'] = "descripcioooooooooooooooon";
+$_SESSION['descripcion'] = "elena";
 $_SESSION['f_nacimiento'] = "1999-12-12";
 $_SESSION['f_perfil'] = "foto.jpg";
 $_SESSION['nivel'] = 1;
