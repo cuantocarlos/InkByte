@@ -308,7 +308,7 @@ class Controller
                         ];
                     }
                 }
-                
+
                 if (empty($params['f_perfil'])) {
                     if (!empty($_SESSION['f_perfil'])) {
                         $params['f_perfil'] = $_SESSION['f_perfil'];
@@ -323,7 +323,7 @@ class Controller
                         'tipo' => 'error',
                         'texto' => 'La foto de perfil no es válida',
                     ];
-                } 
+                }
 
                 //Si contraseñas no coinciden, la contraseña antigua está vacía, enseña el error
                 if (!empty($params['oldpass']) && !empty($params['pass']) && !empty($params['pass2'])) {
@@ -356,7 +356,7 @@ class Controller
                     ];
                 }
                 //Trabajo los datos antes de enviarlos a la base de datos
-                
+
                     if(empty($params['mensaje'])&& empty($params['errores'])){
                         $hash = password_hash($params["pass"], PASSWORD_BCRYPT);
 
@@ -386,11 +386,11 @@ class Controller
                     /// -actualizar las variables de sesion con los nuevos datos
                     /// -seteaer el parametro mensaje con un mensaje de exito
                     // -hacer un header location a la misma pagina para que se muestre el mensaje de exito
-        
+
                 }
             }
         };
-        
+
 
         $_SESSION['params'] = $params;
 
@@ -403,11 +403,11 @@ class Controller
     require __DIR__ . '/../../web/templates/perfilAjustes.php';
 }
 
-    //activar el control de nivel cuando este implementado, usar ghangePass para cambiar la contraseña 
+    //activar el control de nivel cuando este implementado, usar ghangePass para cambiar la contraseña
     //falta hacer validaciones por ejemplo del tamaño de la descripcion, del email, etc
     //falta el nivel
 
-    
+
 
 
     public function subirCapitulo()
@@ -837,7 +837,7 @@ class Controller
     {
 
         $menu = $this->cargaMenu();
-        require __DIR__ . '/../../web/templates/generoUsuario.php';
+        require __DIR__ . '/../../web/templates/perfilUsuario.php';
     }
     public function book()
     {
