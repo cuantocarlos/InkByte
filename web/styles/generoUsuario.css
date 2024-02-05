@@ -153,3 +153,26 @@
     border: 1px solid #DC143C;
     color: #DC143C;
 }
+
+.lector:checked + .lector-label,
+.lector:hover + .lector-label {
+    background-color: #4fec6a;
+    color: #000000;
+    border: 1px solid #4fec6a;
+}
+.lector-label {
+    border: 1px solid #4fec6a;
+    color: #4fec6a;
+}
+
+
+.escritor:checked + .escritor-label,
+.escritor:hover + .escritor-label {
+    background-color: #8B4513; /* Marrón rojizo */
+    color: #fff;
+    border: 1px solid #8B4513;
+}
+.escritor-label {
+    border: 1px solid #8B4513;
+    color: #8B4513;
+}

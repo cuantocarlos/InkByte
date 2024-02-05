@@ -55,6 +55,7 @@ class Controller
                             $_SESSION['email'] = $usuario['email'];
                             $_SESSION['f_nacimiento'] = $usuario['f_nacimiento'];
                             $_SESSION['foto_perfil'] = $usuario['foto_perfil'];
+                            $_SESSION['descripcion'] = $usuario['descripcion'];
                             $_SESSION['nivel'] = $usuario['nivel'];
                             header('Location: index.php?ctl=inicio');
                         } else {
