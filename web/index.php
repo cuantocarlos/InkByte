@@ -34,7 +34,7 @@ $map = array(
     'iniciarSesion' => array('controller' => 'Controller', 'action' => 'iniciarSesion', 'nivel' => 0),
     'registro' => array('controller' => 'Controller', 'action' => 'registro', 'nivel' => 0),
     'inicio' => array('controller' => 'Controller', 'action' => 'inicio', 'nivel' => 0),
-    'perfil' => array('controller' => 'Controller', 'action' => 'perfil', 'nivel' => 0),
+    'layoutPerfil' => array('controller' => 'Controller', 'action' => 'layoutPerfil', 'nivel' => 0),
     // 'salir' => array('controller' => 'Controller', 'action' => 'salir', 'nivel' => 1),
     // 'error' => array('controller' => 'Controller', 'action' => 'error', 'nivel' => 0),
     // 'listarLibros' => array('controller' => 'Controller', 'action' => 'listarLibros', 'nivel' => 0),
