@@ -26,6 +26,10 @@ Objetivos del Proyecto
 Además de proporcionar una herramienta útil para organizar la lectura, Inkbyte tiene como objetivo principal permitirnos aprender a trabajar en equipo y familiarizarnos con las herramientas fundamentales para el Desarrollo de Aplicaciones Web. Durante el proceso de desarrollo, hemos adquirido habilidades en la colaboración, gestión de versiones, y diseño de bases de datos, entre otros aspectos esenciales en el desarrollo web.
 Acceso a la Plataforma
 
+En la web de Inkbyte, podrás acceder a la plataforma y crear un usuario en modo Lector o Escritor y comenzar a organizar tus lecturas, subir tus PDF como capitulos y marcar los libros que ya has leido, los que tienes pendientes, recibir recomendaciones según los generos que te gustan, modificar los generos que te gustan, etc. 
+
+Los datos introducidos tienen triple control (HTML, Javascript y PHP) para evitar en la medida de lo posible la introducción de datos erroneos o maliciosos.
+
 Para acceder a la página web de Inkbyte, por favor visita enlace aquí. (Nota: El enlace estará disponible una vez el proyecto esté alojado en un servidor accesible al público).
 
 ¡Gracias por tu interés en Inkbyte! ¡Esperamos que disfrutes usando nuestra plataforma para organizar tus lecturas!
