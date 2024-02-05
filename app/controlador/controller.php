@@ -1059,4 +1059,9 @@ class Controller
     }
 }
 
+    public function modificaUsuario(){
+        $cs = new Consultas();
+        
+    }
+
 }

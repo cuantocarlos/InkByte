@@ -1,13 +1,36 @@
+import {compruebaNombre , nivelUsuario} from "./bGeneral.js";
+
+var nombre = document.getElementById("nombre");
+
+
 window.onload = function () {
   recibeGeneros();
-
+  const name = nombre.value;
 
   document.querySelectorAll('input[name="generoUsuario[]"]').forEach(checkbox => {
     checkbox.addEventListener("change", function () {
       updateGeneros();
     });
-  });
 
+    nombre.addEventListener('input', ()=>{
+      const nom = nombre.value.trim();
+      if(nom.length===0){
+        nombre.classList.remove("is-valid");
+        nombre.classList.add("is-invalid");
+        document.getElementById("nombreMal").innerText="No puede quedar vacío este campo.";
+      }else{
+        if(nom===name){
+          nombre.classList.remove("is-valid");
+          nombre.classList.remove("is-invalid");
+          document.getElementById("nombreMal").innerText="";
+        }else{
+          compruebaNombre(nom);
+        }
+      }
+    });
+
+
+  });
 
 }
 

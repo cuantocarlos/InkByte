@@ -1,4 +1,4 @@
-<script type="module" src="../web/scripts/generosUsuario.js"></script>
+<script type="module" src="../web/scripts/perfilUsuario.js"></script>
 
 
 
@@ -25,15 +25,67 @@
           </div>
 
 
-        <div class="d-flex justify-content-start align-items-start mx-5 flex-column mt-5 mb-5">
+        <div class="d-flex justify-content-start align-items-start mx-5 flex-column mt-5 mb-1">
           <h4>Descripción:</h4>
         <p style="overflow-wrap:break-word;" class="mx-3"><?php echo $_SESSION["descripcion"] ?></p>
         </div>
 
 
         <div class="d-flex justify-content-end">
-          <input type="button" class="btn btn-primary" value="Editar" >
+          <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modal">Editar</button>
         </div>
+
+      <!-- MODAL MODIFICACION PERFIL -->
+
+<div class="modal fade" id="modal" tabindex="-1" aria-labelledby="modal" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5">Editar el Perfil de Usuario:</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <form action="index.php?ctl=modificaUsuario" method="POST" class="p-4">
+
+      <div class="row align-items-center me-5">
+          <div class="input-group">
+          <label for="nombre" class="col-form-label me-3">Nombre:</label>
+            <span class="input-group-text" id="basic-addon1">@</span>
+            <input type="text" class="form-control" aria-describedby="basic-addon1" id="nombre" value='<?php echo $_SESSION["nombre"]; ?>'>
+          </div>
+        </div>
+
+        <div id="nombreMal" class="mb-5 text-danger mx-5"></div>
+
+        <div class="row align-items-center mb-5">
+          <div class="col-auto">
+            <label for="nick" class="col-form-label">Sobrenombre:</label>
+          </div>
+          <div class="col-auto">
+            <input type="text" name="nick" class="form-control" value='<?php echo $_SESSION["nick"]; ?>'>
+          </div>
+        </div>
+
+
+            <label for="descripcion">Descripción:</label><br>
+            <div class="d-flex justify-content-end">
+            <small class="text-body-secondary mb-1">Máximo 300 caracteres.</small>
+            </div>
+              <div class="form-floating">
+              <textarea class="form-control" id="descripcion" style="height: 100px" name="descripcion"><?php echo $_SESSION["descripcion"] ?></textarea>
+              </div>
+
+      <div class="d-flex justify-content-end">
+      <input type="submit" class="btn btn-primary mt-4" value="Confirmar">
+      </div>
+
+      </form>
+    </div>
+</div>
+</div>
+
+
+
+
         </div>
 
         <hr>
