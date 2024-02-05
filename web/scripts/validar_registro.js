@@ -21,7 +21,8 @@ window.onload = function () {
     const nom = nombre.value.trim();
     if(nom.length===0){
       nombre.classList.remove("is-valid");
-      nombre.classList.remove("is-invalid");
+      nombre.classList.add("is-invalid");
+      document.getElementById("nombreMal").innerText="No puede quedar vacío este campo.";
     }else{
     compruebaNombre(nom);
     }
@@ -49,12 +50,21 @@ window.onload = function () {
 
   email.addEventListener('blur', ()=>{
     const mail = email.value.trim();
-    if(validarCorreoElectronico(mail) == true){
-      compruebaCorreo(mail);
-    }else{
+
+    if(mail.length === 0){
+      email.classList.remove("is-valid");
       email.classList.add("is-invalid");
-      document.getElementById("mailMal").innerText="El email no existe";
+      document.getElementById("mailMal").innerText="No puede quedar vacío este campo.";
+    }else{
+      if(validarCorreoElectronico(mail) == true){
+        compruebaCorreo(mail);
+      }else{
+        email.classList.add("is-invalid");
+        document.getElementById("mailMal").innerText="El email no existe";
+      }
     }
+
+
   });
 
   pass.addEventListener('input', () => {
@@ -83,4 +93,8 @@ window.onload = function () {
       document.getElementById("pass2Mal").innerText="";
     }
   });
+
 }
+
+
+
