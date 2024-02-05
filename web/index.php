@@ -39,7 +39,7 @@ $map = array(
     'inicioSesionJS' => array('controller' => 'Controller', 'action' => 'inicioSesionJS', 'nivel' => 0),
     'activarCuenta' => array('controller' => 'Controller', 'action' => 'activarCuenta', 'nivel' => 0),
     'cerrarSesion' => array('controller' => 'Controller', 'action' => 'cerrarSesion', 'nivel' => 1),
-    'book' => array('controller' => 'Controller', 'action' => 'book', 'nivel' => 1),
+    'book' => array('controller' => 'Controller', 'action' => 'book', 'nivel' => 0),
     'escribirResena' => array('controller' => 'Controller', 'action' => 'escribirResena', 'nivel' => 1),
     'menuInvitado' => array('controller' => 'Controller', 'action' => 'menuInvitado', 'nivel' => 0),
     'menuLector' => array('controller' => 'Controller', 'action' => 'menuLector', 'nivel' => 1),
