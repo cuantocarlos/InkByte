@@ -48,9 +48,9 @@ $map = array(
     'menuInvitado' => array('controller' => 'Controller', 'action' => 'menuInvitado', 'nivel' => 0),
     'menuLector' => array('controller' => 'Controller', 'action' => 'menuLector', 'nivel' => 1),
     'menuEscritor' => array('controller' => 'Controller', 'action' => 'menuEscritor', 'nivel' => 2),
-    'buscarLibros' => array('controller' => 'Controller', 'action' => 'buscarLibros', 'nivel' => 0)
+    'buscarLibros' => array('controller' => 'Controller', 'action' => 'buscarLibros', 'nivel' => 0),
+    'error' => array('controller' => 'Controller', 'action' => 'error', 'nivel' => 0)
     // 'salir' => array('controller' => 'Controller', 'action' => 'salir', 'nivel' => 1),
-    // 'error' => array('controller' => 'Controller', 'action' => 'error', 'nivel' => 0),
     // 'listarLibros' => array('controller' => 'Controller', 'action' => 'listarLibros', 'nivel' => 0),
     // 'verLibro' => array('controller' => 'Controller', 'action' => 'verLibro', 'nivel' => 0),
     // 'buscarPorTitulo' => array('controller' => 'Controller', 'action' => 'buscarPorTitulo', 'nivel' => 1),
@@ -65,14 +65,7 @@ if (isset($_GET['ctl'])) {
         $ruta = $_GET['ctl'];
     } else {
 
-        //Si el valor puesto en ctl en la URL no existe en el array de mapeo envía una cabecera de error
-        header('Status: 404 Not Found');
-        echo '<html><body><h1>Error 404: No existe la ruta <i>' .
-            $_GET['ctl'] . '</p></body></html>';
-        exit;
-        /*
-             * También podríamos poner $ruta=error; y mostraríamos una pantalla de error
-             */
+        $ruta="error";
     }
 } else {
     $ruta = 'inicio';

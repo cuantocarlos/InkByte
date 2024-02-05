@@ -1097,4 +1097,9 @@ class Controller
     }
 }
 
+public function error(){
+    $menu = $this->cargaMenu();
+    require __DIR__ . '/../../web/templates/error.php';
+}
+
 }
