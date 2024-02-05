@@ -43,7 +43,7 @@ $map = array(
     'generoUsuarioSelect' => array('controller' => 'Controller', 'action' => 'generoUsuarioSelect', 'nivel' => 1),
     'perfilUsuario' => array('controller' => 'Controller', 'action' => 'perfilUsuario', 'nivel' => 0),
     'escribirResena' => array('controller' => 'Controller', 'action' => 'escribirResena', 'nivel' => 1),
-    'perfilAjustes'=> array('controller'=>'Controller','action'=>'perfilAjustes','nivel'=>0)
+    'perfilAjustes'=> array('controller'=>'Controller','action'=>'perfilAjustes','nivel'=>0),
     'book' => array('controller' => 'Controller', 'action' => 'book', 'nivel' => 0),
     'menuInvitado' => array('controller' => 'Controller', 'action' => 'menuInvitado', 'nivel' => 0),
     'menuLector' => array('controller' => 'Controller', 'action' => 'menuLector', 'nivel' => 1),
