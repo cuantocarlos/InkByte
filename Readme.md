@@ -2,7 +2,16 @@
 
 
 Inkbyte es una plataforma diseñada para organizar tu biblioteca personal de una manera eficiente y sencilla. Con características que incluyen seguimiento de lecturas, subida y clasificación de libros, y una función especial de recomendación de lecturas destacadas, Inkbyte es la herramienta perfecta para los amantes de la lectura.
-Equipo de Desarrollo
+
+## Tabla de Contenidos
+
+- [Inkbyte - Organiza tus libros](#inkbyte---organiza-tus-libros)
+  - [Tabla de Contenidos](#tabla-de-contenidos)
+  - [Equipo de Desarrollo](#equipo-de-desarrollo)
+  - [Tecnologías Utilizadas](#tecnologías-utilizadas)
+  - [Objetivos del Proyecto](#objetivos-del-proyecto)
+  - [Acceso a la Plataforma](#acceso-a-la-plataforma)
+  - [Licencia](#licencia)
 
 ## Equipo de Desarrollo
 Este proyecto ha sido desarrollado con mucho cariño y estrés por el equipo de estudiantes del IES Abastos, Valencia:
@@ -35,5 +44,8 @@ Los datos introducidos tienen triple control (HTML, Javascript y PHP) para evita
 ## Acceso a la Plataforma
 
 Para acceder a la página web de Inkbyte, por favor visita enlace aquí. (Nota: El enlace estará disponible una vez el proyecto esté alojado en un servidor accesible al público).
+
+## Licencia
+Este proyecto se distribuye bajo la filosofia   ue respaldamos los integrantes de este proyecto la licencia GPL 3.0. Para más información, por favor visita el siguiente enlace: [Licencia GPL 3.0](https://www.gnu.org/licenses/gpl-3.0.html)
 
 ¡Gracias por tu interés en Inkbyte! ¡Esperamos que disfrutes usando nuestra plataforma para organizar tus lecturas!
