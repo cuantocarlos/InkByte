@@ -27,10 +27,10 @@
                     </li>
                 </ul>
                 <!-- Barra de búsqueda en la barra de navegación para pantallas grandes -->
-                <div class="d-flex search-form-desktop ms-auto">
-                  <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                  <button class="btn btn-outline-success" type="submit">Search</button>
-              </div>
+                <form action="index.php?ctl=buscarLibros" method="post"  class="d-flex search-form-desktop ms-auto">
+                  <input class="form-control me-2" name="buscar_libro" id="buscar_libro" type="search" placeholder="Busca tu libro" aria-label="Search">
+                  <button class="btn btn-outline-success" name="boton_buscar" id="boton_buscar" type="submit">Search</button>
+                </form>
                 <!-- Icono de inicio de sesión -->
 
                 <div class="nav-item dropdown ms-3">

@@ -1026,7 +1026,46 @@ class Controller
         }
 
         require __DIR__ . '/../../web/templates/escribirResena.php';
+    }
 
+
+    public function buscarLibros(){
+        
+
+        $params = array(
+            "busqueda" => ''
+        );
+
+        if(isset($_REQUEST["boton_buscar"])){
+            $params = array(
+                "busqueda" => '',
+                "mensaje" => []
+            );
+            $params["busqueda"] = recoge("buscar_libro");
+            try{
+
+                $cs = new Consultas();
+    
+                $libros = $cs -> buscarLibrosPorTitulo($params['busqueda']);
+
+                
+
+                $nombresAutores = $cs -> obtenerNombresAutoresPorLibros($libros);
+
+                if(count($libros) === 0){
+                    $libros['mono'] = true;
+                } else {
+                    $libros['mono'] = false;
+                }
+    
+            } catch (Exception $e) {
+                $e->getMessage();
+            } catch (Error $e) {
+                $e->getMessage();
+            }
+        }
+        $menu = $this->cargaMenu();
+        require __DIR__ . '/../../web/templates/buscarLibros.php';
     }
 
     public function peticionNick()

@@ -30,6 +30,15 @@ class Consultas extends Modelo {
     }
 
 
+    function buscarColumnaEnteraArray($tabla, $columna) {
+        $stmt = $this->conexion->prepare("SELECT $columna FROM $tabla");
+        $stmt->execute();  
+        $resultados = $stmt->fetchAll(PDO::FETCH_COLUMN);
+        return $resultados;
+    }
+    
+    
+
 
     function buscarFila2Campos($input1, $input2, $tabla, $campoWhere1, $campoWhere2) {
         $stmt = $this->conexion->prepare("SELECT * FROM $tabla WHERE $campoWhere1 = ? AND $campoWhere2 = ?");
@@ -497,6 +506,28 @@ class Consultas extends Modelo {
     }
 
     
+    function buscarLibrosPorTitulo($texto) {
+        $stmt = $this->conexion->prepare("SELECT * FROM libro WHERE titulo LIKE ?");
+        $textoBusqueda = "%$texto%";  
+        $stmt->bindParam(1, $textoBusqueda);
+        $stmt->execute();
+    
+        $resultados = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    
+        return $resultados;
+    }
+
+    function obtenerNombresAutoresPorLibros($libros) {
+        $nombresAutores = array();
+    
+        foreach ($libros as $libro) {
+            $id_user = $libro['id_user'];
+            $nombreAutor = $this->buscar($id_user, 'usuario', 'nombre', 'id_user');
+            $nombresAutores[] = $nombreAutor;
+        }
+    
+        return $nombresAutores;
+    }
     
     
 }
