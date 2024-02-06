@@ -45,6 +45,8 @@ $map = array(
     'book' => array('controller' => 'Controller', 'action' => 'book', 'nivel' => 1),
     'escribirResena' => array('controller' => 'Controller', 'action' => 'escribirResena', 'nivel' => 1),
     'modificaUsuario' => array('controller' => 'Controller', 'action' => 'modificaUsuario', 'nivel' => 1),
+    'modificaNivelUsuario' => array('controller' => 'Controller', 'action' => 'modificaNivelUsuario', 'nivel' => 1),
+    'cambiaPass' => array('controller' => 'Controller', 'action' => 'cambiaPass', 'nivel' => 1),
     'perfilAjustes'=> array('controller'=>'Controller','action'=>'perfilAjustes','nivel'=>0)
     // 'salir' => array('controller' => 'Controller', 'action' => 'salir', 'nivel' => 1),
     // 'error' => array('controller' => 'Controller', 'action' => 'error', 'nivel' => 0),

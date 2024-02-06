@@ -1,11 +1,22 @@
-import {compruebaNombre , nivelUsuario} from "./bGeneral.js";
+import {compruebaNombre, modificaNivelUsuario, validarPassword} from "./bGeneral.js";
 
 var nombre = document.getElementById("nombre");
-
+var nivel = document.querySelectorAll('input[name="opcion_usuario"]');
+var nivelUsuario = document.getElementById("nivel_usuario").innerText;
+var pass = document.getElementById("pass");
+var pass2 = document.getElementById("pass2");
+var old = document.getElementById("oldPass");
+var oldMalDiv = document.getElementById("oldMal");
 
 window.onload = function () {
   recibeGeneros();
   const name = nombre.value;
+
+  if(nivelUsuario == 1){
+    document.getElementById("lector").setAttribute("checked","checked");
+  }else if(nivelUsuario == 2){
+    document.getElementById("escritor").setAttribute("checked","checked");
+  }
 
   document.querySelectorAll('input[name="generoUsuario[]"]').forEach(checkbox => {
     checkbox.addEventListener("change", function () {
@@ -26,6 +37,55 @@ window.onload = function () {
         }else{
           compruebaNombre(nom);
         }
+      }
+    });
+
+    pass.addEventListener('input', () => {
+      const contrasenia = pass.value;
+      validarPassword(contrasenia);
+  });
+
+    nivel.forEach(function(radioButton) {
+      radioButton.addEventListener('change', function() {
+        var nivel;
+          if(radioButton.value === "lector"){
+            nivel = 1;
+          }else if (radioButton.value === "escritor"){
+            nivel = 2;
+          }
+          modificaNivelUsuario(nivel);
+      });
+    });
+
+    pass2.addEventListener('focus', ()=>{
+      pass2.classList.remove("is-valid");
+      pass2.classList.remove("is-invalid");
+      document.getElementById("pass2Mal").innerText="";
+    });
+
+
+    pass2.addEventListener('blur', ()=>{
+      const contrasenia = pass.value;
+      const contrasenia2 = pass2.value;
+      let igual = false;
+      if(contrasenia2 !== contrasenia){
+        igual=true;
+      }
+      if(igual){
+        pass2.classList.add("is-invalid");
+        document.getElementById("pass2Mal").innerText="La contraseña no coincide";
+      }else{
+        pass2.classList.remove("is-invalid");
+        document.getElementById("pass2Mal").innerText="";
+      }
+    });
+
+    old.classList.toggle("is-invalid",oldMalDiv!==null);
+
+    old.addEventListener('focus',()=>{
+      if(oldMalDiv!==null){
+        oldMalDiv.remove();
+        old.classList.remove("is-invalid");
       }
     });
 
@@ -67,7 +127,7 @@ function updateGeneros() {
   httpRequest.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
 
   httpRequest.send('generos=' + encodeURIComponent(generosMarcados));
-
-
 }
+
+
 

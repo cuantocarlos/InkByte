@@ -1,4 +1,4 @@
-#imagePreviewContainer {
+#imagePreviewContainer{
     width: 150px;
     height: 150px;
     border-radius: 50%;
@@ -9,7 +9,7 @@
     background-color: #333;
 }
 
-#imagePreview {
+#imagePreview{
     width: 102%;
     height: 102%;
     object-fit: cover;

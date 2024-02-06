@@ -81,11 +81,11 @@ window.onload = function () {
   pass2.addEventListener('blur', ()=>{
     const contrasenia = pass.value;
     const contrasenia2 = pass2.value;
-    let contieneMayus = false;
+    let igual = false;
     if(contrasenia2 !== contrasenia){
-      contieneMayus=true;
+      igual=true;
     }
-    if(contieneMayus){
+    if(igual){
       pass2.classList.add("is-invalid");
       document.getElementById("pass2Mal").innerText="La contraseña no coincide";
     }else{

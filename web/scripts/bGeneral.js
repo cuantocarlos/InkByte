@@ -134,18 +134,18 @@ export function compruebaCorreo(mail){
   httpRequest.send('mail=' + encodeURIComponent(mail));
 }
 
-export function nivelUsuario(){
+export function modificaNivelUsuario(nivel){
+
   const httpRequest = new XMLHttpRequest();
 
-  httpRequest.open('GET','http://localhost/InkByte/web/index.php?ctl=nivelUsuario',true);
+  httpRequest.open('POST','http://localhost/InkByte/web/index.php?ctl=modificaNivelUsuario',true);
 
-  httpRequest.onreadystatechange = function () {
-    if(httpRequest.readyState === 4 && httpRequest.status === 200) {
-      var respuesta = JSON.parse(httpRequest.responseText);
-      document.getElementById("lector").
-    }
-  }
+  httpRequest.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+
+  httpRequest.send('nivel=' + encodeURIComponent(nivel));
+
 }
+
 
 
 
