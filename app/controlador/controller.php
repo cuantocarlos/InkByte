@@ -867,6 +867,10 @@ class Controller
 
         $params['id_libro'] = $_GET['id_libro'];
 
+        if(empty($params['id_libro'])){
+            header('location: index.php?ctl=inicio');
+        }
+
         try {
             $cs = new Consultas();
             $datosLibro = $cs->buscarFila($params['id_libro'], 'libro', 'id_libro');
@@ -1101,5 +1105,34 @@ public function error(){
     $menu = $this->cargaMenu();
     require __DIR__ . '/../../web/templates/error.php';
 }
+
+public function seguidos()
+    {
+        $params=array(
+            "id_user"=>$_SESSION['id_user']
+        );
+
+        try{
+
+            $cs = new Consultas();
+
+            $librosSeguidos = $cs->obtenerLibrosSeguidos($params['id_user']);
+            $nombresAutores = $cs -> obtenerNombresAutoresPorLibros($librosSeguidos);
+
+            if(count($librosSeguidos) === 0){
+                $librosSeguidos['mono'] = true;
+            } else {
+                $librosSeguidos['mono'] = false;
+            }
+
+        } catch (Exception $e) {
+            $e->getMessage();
+        } catch (Error $e) {
+            $e->getMessage();
+        }
+    
+        $menu = $this->cargaMenu();
+        require __DIR__ . '/../../web/templates/seguidos.php';
+    }
 
 }

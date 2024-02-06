@@ -528,6 +528,29 @@ class Consultas extends Modelo {
     
         return $nombresAutores;
     }
+
+    function obtenerLibrosMasVisitados($limite) {
+        $consulta = "SELECT * FROM Libro ORDER BY visitas DESC LIMIT $limite";
+        $stmt = $this->conexion->prepare($consulta);
+        $stmt->execute();
+
+        // Obtener resultados como un array asociativo
+        $resultados = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        return $resultados;
+    }
+
+    function obtenerLibrosSeguidos($id_user) {
+        $query = "SELECT * FROM Libro WHERE id_libro IN (SELECT id_libro FROM seguidos WHERE id_user = ?)";
+        $stmt = $this->conexion->prepare($query);
+        $stmt->bindParam(1, $id_user);
+        $stmt->execute();
+    
+        $resultados = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    
+        return $resultados;
+    }
+    
     
     
 }

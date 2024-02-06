@@ -20,6 +20,7 @@
     <a href="index.php?ctl=diferente" class="p-5">Diferente</a>
     <a href="index.php?ctl=leerCapitulo" class="p-5">Leer Capítulo</a>
     <a href="index.php?ctl=book&id_libro=7" class="p-5">Ver El imperio final</a>
+    <a href="index.php?ctl=book&id_libro=7" class="p-5">Ver El imperio final</a>
 
 
 <?php include('layout.php'); ?>
