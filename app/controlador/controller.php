@@ -1135,7 +1135,7 @@ public function seguidos()
         require __DIR__ . '/../../web/templates/seguidos.php';
     }
 
-    public function recomendaciones()
+    public function recomendados()
     {
         $params=array(
             "generos_pref"=>[],
@@ -1197,7 +1197,7 @@ public function seguidos()
         }
 
         $menu = $this->cargaMenu();
-        require __DIR__ . '/../../web/templates/recomendaciones.php';
+        require __DIR__ . '/../../web/templates/recomendados.php';
     }
 
 }
