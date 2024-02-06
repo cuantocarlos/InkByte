@@ -1135,4 +1135,48 @@ public function seguidos()
         require __DIR__ . '/../../web/templates/seguidos.php';
     }
 
+    public function recomendaciones()
+    {
+        $params=array(
+            "generos_pref"=>[]
+            
+        );
+        $librosPorGenero=array(
+             "terror"=>[],
+             "romance"=>[], 
+             "fantasia"=>[],
+             "cficcion"=>[], 
+             "historia"=>[], 
+             "arte"=>[],
+             "thriller"=>[],
+             "poesia"=>[], 
+             "drama"=>[],
+             "biografia"=>[],
+             "misterio"=>[], 
+             "policiaca"=>[]
+        );
+        try{
+            $cs=new Consultas();
+            $params["generos_pref"]=$cs->generosSelecionadosUsuario($_SESSION["id_user"]);
+            $librosPorGenero["terror"] = $cs -> obtenerLibrosPorGenero("terror");
+            $librosPorGenero["romance"] = $cs -> obtenerLibrosPorGenero("romance");
+            $librosPorGenero["fantasia"] = $cs -> obtenerLibrosPorGenero("fantasia");
+            $librosPorGenero["cficcion"] = $cs -> obtenerLibrosPorGenero("cficcion");
+            $librosPorGenero["historia"] = $cs -> obtenerLibrosPorGenero("historia");
+            $librosPorGenero["arte"] = $cs -> obtenerLibrosPorGenero("arte");
+            $librosPorGenero["thriller"] = $cs -> obtenerLibrosPorGenero("thriller");
+            $librosPorGenero["poesia"] = $cs -> obtenerLibrosPorGenero("poesia");
+            $librosPorGenero["drama"] = $cs -> obtenerLibrosPorGenero("drama");
+            $librosPorGenero["biografia"] = $cs -> obtenerLibrosPorGenero("biografia");
+            $librosPorGenero["misterio"] = $cs -> obtenerLibrosPorGenero("misterio");
+            $librosPorGenero["policiaca"] = $cs -> obtenerLibrosPorGenero("policiaca");
+            
+
+        }catch (Exception $e) {
+            $e->getMessage();
+        } catch (Error $e) {
+            $e->getMessage();
+        }
+    }
+
 }

@@ -50,7 +50,8 @@ $map = array(
     'menuEscritor' => array('controller' => 'Controller', 'action' => 'menuEscritor', 'nivel' => 2),
     'buscarLibros' => array('controller' => 'Controller', 'action' => 'buscarLibros', 'nivel' => 0),
     'error' => array('controller' => 'Controller', 'action' => 'error', 'nivel' => 0),
-    'seguidos' => array('controller' => 'Controller', 'action' => 'seguidos', 'nivel' => 1)
+    'seguidos' => array('controller' => 'Controller', 'action' => 'seguidos', 'nivel' => 1),
+    'recomendaciones' => array('controller' => 'Controller', 'action' => 'recomendaciones', 'nivel' => 1)
     // 'salir' => array('controller' => 'Controller', 'action' => 'salir', 'nivel' => 1),
     // 'listarLibros' => array('controller' => 'Controller', 'action' => 'listarLibros', 'nivel' => 0),
     // 'verLibro' => array('controller' => 'Controller', 'action' => 'verLibro', 'nivel' => 0),

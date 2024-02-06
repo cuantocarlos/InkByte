@@ -551,6 +551,21 @@ class Consultas extends Modelo {
         return $resultados;
     }
     
+    function obtenerLibrosPorGenero($genero) {
+        $stmt = $this->conexion->prepare("SELECT id_libro FROM generolibro WHERE $genero = 1");
+        $stmt->execute();
+        $resultados = $stmt->fetchAll(PDO::FETCH_COLUMN);
+    
+        $libros = array();
+        foreach ($resultados as $id_libro) {
+            $stmt = $this->conexion->prepare("SELECT * FROM libro WHERE id_libro = ?");
+            $stmt->execute([$id_libro]);
+            $libros[] = $stmt->fetch(PDO::FETCH_ASSOC);
+        }
+    
+        return $libros;
+    }
+    
     
     
 }
