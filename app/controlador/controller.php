@@ -390,9 +390,9 @@ class Controller
     {
 
         $menu = $this->cargaMenu();
-        // if ($_SESSION['nivel'] != 2) {
-        //     header("location:index.php?ctl=inicio");
-        // }
+         if ($_SESSION['nivel'] != 2) {
+             header("location:index.php?ctl=inicio");
+         }
 
         if ((isset($_POST["bAceptar"]))) {
 
@@ -417,7 +417,7 @@ class Controller
                     'mensaje' => []
                 );
 
-                $params['id_user'] = $_SESSION["id_user"]; //$_SESSION['id_user']; cambiar cuando funcione el login
+                $params['id_user'] = $_SESSION["id_user"]; 
                 $params['titulo'] = recoge("titulo_lib");
                 $params['sinopsis'] = recoge('sinopsis');
                 $params['generos'] = recogeArray('generos');
