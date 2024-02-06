@@ -54,7 +54,8 @@ $map = array(
     'seguidos' => array('controller' => 'Controller', 'action' => 'seguidos', 'nivel' => 1),
     'modificaUsuario' => array('controller' => 'Controller', 'action' => 'modificaUsuario', 'nivel' => 1),
     'modificaNivelUsuario' => array('controller' => 'Controller', 'action' => 'modificaNivelUsuario', 'nivel' => 1),
-    'cambiaPass' => array('controller' => 'Controller', 'action' => 'cambiaPass', 'nivel' => 1)
+    'cambiaPass' => array('controller' => 'Controller', 'action' => 'cambiaPass', 'nivel' => 1),
+    'recomendados' => array('controller' => 'Controller', 'action' => 'recomendados', 'nivel' => 1)
     // 'salir' => array('controller' => 'Controller', 'action' => 'salir', 'nivel' => 1),
     // 'listarLibros' => array('controller' => 'Controller', 'action' => 'listarLibros', 'nivel' => 0),
     // 'verLibro' => array('controller' => 'Controller', 'action' => 'verLibro', 'nivel' => 0),

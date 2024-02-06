@@ -386,6 +386,7 @@ class Consultas extends Modelo {
 
         return $resultado;
     }
+
     function obtenerGenerosActivos($id_libro) {
         $stmt = $this->conexion->prepare("SELECT * FROM generolibro WHERE id_libro = ?");
         $stmt->execute([$id_libro]);
@@ -515,6 +516,7 @@ class Consultas extends Modelo {
         return $resultados;
     }
 
+
     function modificarUsuario($id_user,$nombre,$nick,$foto_perfil,$descripcion){
         $stmt = $this->conexion->prepare("UPDATE usuario SET nombre = ?, nick = ?, foto_perfil = ?, descripcion = ? WHERE id_user = ?");
         $stmt->execute([$nombre,$nick,$foto_perfil,$descripcion,$id_user]);
@@ -532,4 +534,42 @@ class Consultas extends Modelo {
         $stmt->execute([$pass , $id_user]);
         return $stmt->rowCount() > 0;
     }
+
+    
+    function obtenerLibrosPorGenero($genero) {
+        $stmt = $this->conexion->prepare("SELECT id_libro FROM generolibro WHERE $genero = 1");
+        $stmt->execute();
+        $resultados = $stmt->fetchAll(PDO::FETCH_COLUMN);
+    
+        $libros = array();
+        foreach ($resultados as $id_libro) {
+            $stmt = $this->conexion->prepare("SELECT * FROM libro WHERE id_libro = ?");
+            $stmt->execute([$id_libro]);
+            $libros[] = $stmt->fetch(PDO::FETCH_ASSOC);
+        }
+    
+        return $libros;
+    }
+    
+    
+    function obtenerLibrosAleatoriosPorGenero($genero) {
+        $stmt = $this->conexion->prepare("SELECT id_libro FROM generolibro WHERE $genero = 1");
+        $stmt->execute();
+        $idsLibros = $stmt->fetchAll(PDO::FETCH_COLUMN);
+    
+        shuffle($idsLibros); // Baraja los IDs de los libros
+    
+        $idsLibros = array_slice($idsLibros, 0, 3); // Selecciona solo los primeros 3 IDs aleatorios
+    
+        $libros = array();
+        foreach ($idsLibros as $id_libro) {
+            $stmt = $this->conexion->prepare("SELECT * FROM libro WHERE id_libro = ?");
+            $stmt->execute([$id_libro]);
+            $libros[] = $stmt->fetch(PDO::FETCH_ASSOC);
+        }
+    
+        return $libros;
+    }
+    
+
 }
