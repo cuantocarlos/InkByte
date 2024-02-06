@@ -46,6 +46,6 @@ Los datos introducidos tienen triple control (HTML, Javascript y PHP) para evita
 Para acceder a la página web de Inkbyte, por favor visita enlace aquí. (Nota: El enlace estará disponible una vez el proyecto esté alojado en un servidor accesible al público).
 
 ## Licencia
-Este proyecto se distribuye bajo la filosofia   ue respaldamos los integrantes de este proyecto la licencia GPL 3.0. Para más información, por favor visita el siguiente enlace: [Licencia GPL 3.0](https://www.gnu.org/licenses/gpl-3.0.html)
+Este proyecto se distribuye bajo la filosofia que respaldamos los integrantes de este proyecto la licencia GPL 3.0. Para más información, por favor visita el siguiente enlace: [Licencia GPL 3.0](https://www.gnu.org/licenses/gpl-3.0.html)
 
 ¡Gracias por tu interés en Inkbyte! ¡Esperamos que disfrutes usando nuestra plataforma para organizar tus lecturas!

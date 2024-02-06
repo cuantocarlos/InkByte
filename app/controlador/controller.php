@@ -254,9 +254,7 @@ class Controller
                 //     'texto' => 'Hay errores en el formulario',
                 // ];
         }
-
         $cs = new Consultas();
-
         if (!empty($params['oldpass'])) {
             if (!$cs->verificarPass($_SESSION['email'], $params['oldpass'])) {
                 $params['mensaje'] = [
@@ -1135,4 +1133,12 @@ public function seguidos()
         require __DIR__ . '/../../web/templates/seguidos.php';
     }
 
+    public function contacto(){
+        $menu = $this->cargaMenu();
+        require __DIR__ . '/../../web/templates/contacto.php';
+    }
+    
+    public function dondeEstamos(){
+        require __DIR__ . '/../../web/templates/dondeEstamos.php';
+    }
 }
