@@ -1,6 +1,7 @@
 import { validarCorreoElectronico, validarPassword, validarFecha, compruebaNombreAjustes, compruebaCorreo, compruebaNick } from "./bGeneral.js";
 
 window.onload = function () {
+    console.log('entra')
 
     const inputNombre = document.getElementById("nombre")
     const inputNick = document.getElementById("nick");

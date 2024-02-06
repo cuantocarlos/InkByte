@@ -1,7 +1,13 @@
-<script type="module" src="../scripts/bGeneral.js"></script>
-<script type="module" src="../scripts/validar_ajustes.js"></script>
+<script type="module" src="../web/scripts/bGeneral.js"></script>
+    <script type="module" src="../web/scripts/validar_ajustes.js"></script>
 
-<?php
+
+
+<div class="container-md mt-5">
+    
+        <div class="header p-5 pb-4 border-bottom-0">
+            <h1 class="fw-bold mb-0 fs-2 mb-4">Modifica los datos que desees</h1>
+            <?php
 if (session_status() == PHP_SESSION_NONE) {
     // Si la sesión no está iniciada, la iniciamos
     session_start();
@@ -25,22 +31,19 @@ function marcarNivel($opcion)
     }
 }
 
-echo "<pre>";
-print_r($_SESSION);
-if (isset($_SESSION['params']['errores']['nombre'])) {
-    print_r($_SESSION['params']['errores']['nombre']);
-}
-echo "</pre>";
+// echo "<pre>";
+
+// print_r($_SESSION);
+// if (isset($_SESSION['params']['errores']['nombre'])) {
+//     print_r($_SESSION['params']['errores']['nombre']);
+// }
+// echo "</pre>";
 
 
 
-print_r($_SESSION);
+
 
 ?>
-
-<div class="container-md mt-5">
-    <div class="header p-5 pb-4 border-bottom-0">
-        <h1 class="fw-bold mb-0 fs-2 mb-4">Modifica los datos que desees</h1>
     </div>
     <div class="body p-5 pt-0">
         <form action="../index.php?ctl=perfilAjustes" method="post" enctype="multipart/form-data" id="">

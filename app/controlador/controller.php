@@ -392,6 +392,10 @@ class Controller
         };
         
 
+
+
+
+    
         $_SESSION['params'] = $params;
 
         header('Location: templates/perfilAjustes.php');
