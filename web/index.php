@@ -49,7 +49,9 @@ $map = array(
     'menuLector' => array('controller' => 'Controller', 'action' => 'menuLector', 'nivel' => 1),
     'menuEscritor' => array('controller' => 'Controller', 'action' => 'menuEscritor', 'nivel' => 2),
     'buscarLibros' => array('controller' => 'Controller', 'action' => 'buscarLibros', 'nivel' => 0),
-    'error' => array('controller' => 'Controller', 'action' => 'error', 'nivel' => 0)
+    'error' => array('controller' => 'Controller', 'action' => 'error', 'nivel' => 0),
+    'contacto' => array('controller' => 'Controller', 'action' => 'contacto', 'nivel' => 0),
+    'dondeEstamos' => array('controller' => 'Controller', 'action' => 'dondeEstamos', 'nivel'=>0)
     // 'salir' => array('controller' => 'Controller', 'action' => 'salir', 'nivel' => 1),
     // 'listarLibros' => array('controller' => 'Controller', 'action' => 'listarLibros', 'nivel' => 0),
     // 'verLibro' => array('controller' => 'Controller', 'action' => 'verLibro', 'nivel' => 0),
