@@ -9,10 +9,10 @@
     <!--seccion libro-->
 
     <section>
-        <div class="container mt-2">
+        <div class="container mt-5">
             <div class="row">
                 <div class="col-md-12">
-                    <div class="main-content mt-5" style="background-color: #fff4f4; width: 100%; height: 460px;">
+                    <div class="main-content mt-5 p-3" style="background-color: #fff4f4; width: 100%; height: 460px;">
                         <div class="row justify-content-around">
                             <!-- Columna para la imagen -->
                             <div class="col-md-4 position-relative mt-md-0 mt-3">
