@@ -1138,9 +1138,13 @@ public function seguidos()
     public function recomendaciones()
     {
         $params=array(
-            "generos_pref"=>[]
+            "generos_pref"=>[],
+            "num_generos" => 0,
+            "recomendaciones" => [],
+            "nombre_pref" => []
             
         );
+
         $librosPorGenero=array(
              "terror"=>[],
              "romance"=>[], 
@@ -1155,21 +1159,35 @@ public function seguidos()
              "misterio"=>[], 
              "policiaca"=>[]
         );
+    
         try{
             $cs=new Consultas();
             $params["generos_pref"]=$cs->generosSelecionadosUsuario($_SESSION["id_user"]);
-            $librosPorGenero["terror"] = $cs -> obtenerLibrosPorGenero("terror");
-            $librosPorGenero["romance"] = $cs -> obtenerLibrosPorGenero("romance");
-            $librosPorGenero["fantasia"] = $cs -> obtenerLibrosPorGenero("fantasia");
-            $librosPorGenero["cficcion"] = $cs -> obtenerLibrosPorGenero("cficcion");
-            $librosPorGenero["historia"] = $cs -> obtenerLibrosPorGenero("historia");
-            $librosPorGenero["arte"] = $cs -> obtenerLibrosPorGenero("arte");
-            $librosPorGenero["thriller"] = $cs -> obtenerLibrosPorGenero("thriller");
-            $librosPorGenero["poesia"] = $cs -> obtenerLibrosPorGenero("poesia");
-            $librosPorGenero["drama"] = $cs -> obtenerLibrosPorGenero("drama");
-            $librosPorGenero["biografia"] = $cs -> obtenerLibrosPorGenero("biografia");
-            $librosPorGenero["misterio"] = $cs -> obtenerLibrosPorGenero("misterio");
-            $librosPorGenero["policiaca"] = $cs -> obtenerLibrosPorGenero("policiaca");
+            $librosPorGenero["terror"] = $cs -> obtenerLibrosAleatoriosPorGenero("terror");
+            $librosPorGenero["romance"] = $cs -> obtenerLibrosAleatoriosPorGenero("romance");
+            $librosPorGenero["fantasia"] = $cs -> obtenerLibrosAleatoriosPorGenero("fantasia");
+            $librosPorGenero["cficcion"] = $cs -> obtenerLibrosAleatoriosPorGenero("cficcion");
+            $librosPorGenero["historia"] = $cs -> obtenerLibrosAleatoriosPorGenero("historia");
+            $librosPorGenero["arte"] = $cs -> obtenerLibrosAleatoriosPorGenero("arte");
+            $librosPorGenero["thriller"] = $cs -> obtenerLibrosAleatoriosPorGenero("thriller");
+            $librosPorGenero["poesia"] = $cs -> obtenerLibrosAleatoriosPorGenero("poesia");
+            $librosPorGenero["drama"] = $cs -> obtenerLibrosAleatoriosPorGenero("drama");
+            $librosPorGenero["biografia"] = $cs -> obtenerLibrosAleatoriosPorGenero("biografia");
+            $librosPorGenero["misterio"] = $cs -> obtenerLibrosAleatoriosPorGenero("misterio");
+            $librosPorGenero["policiaca"] = $cs -> obtenerLibrosAleatoriosPorGenero("policiaca");
+
+            for ($i = 1; $i < count($params["generos_pref"]); $i++) {
+                if ($params["generos_pref"][Config::$generos_disponibles[$i - 1]] == 1) {
+                    $genero = Config::$generos_disponibles[$i - 1];
+                    if (!empty($librosPorGenero[$genero])) {
+                        $params["num_generos"]++;
+                        $params["recomendaciones"][$genero] = $librosPorGenero[$genero];
+                        array_push($params["nombre_pref"], $genero);
+                        
+                    }
+                }
+            }
+
             
 
         }catch (Exception $e) {
@@ -1177,6 +1195,9 @@ public function seguidos()
         } catch (Error $e) {
             $e->getMessage();
         }
+
+        $menu = $this->cargaMenu();
+        require __DIR__ . '/../../web/templates/recomendaciones.php';
     }
 
 }
