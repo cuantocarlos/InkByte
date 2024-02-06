@@ -32,12 +32,12 @@ class Consultas extends Modelo {
 
     function buscarColumnaEnteraArray($tabla, $columna) {
         $stmt = $this->conexion->prepare("SELECT $columna FROM $tabla");
-        $stmt->execute();  
+        $stmt->execute();
         $resultados = $stmt->fetchAll(PDO::FETCH_COLUMN);
         return $resultados;
     }
-    
-    
+
+
 
 
     function buscarFila2Campos($input1, $input2, $tabla, $campoWhere1, $campoWhere2) {
@@ -463,69 +463,33 @@ class Consultas extends Modelo {
         return $stmt->execute() ? true : false;
     }
 
-    function actualizarUsuarioExistente($id_user, $nombre, $nick, $email, $pass, $f_nacimiento = null, $foto_perfil = null, $descripcion = null, $nivel = null) {
-        $query = "UPDATE usuario SET nombre = ?, nick = ?, email = ?, pass = ?";
-        $params = array($nombre, $nick, $email, $pass);
-    
-        // Agregar campos opcionales a la consulta y a los parámetros
-        if ($f_nacimiento !== null) {
-            $query .= ", f_nacimiento = ?";
-            $params[] = $f_nacimiento;
-        }
-        if ($foto_perfil !== null) {
-            $query .= ", foto_perfil = ?";
-            $params[] = $foto_perfil;
-        }
-        if ($descripcion !== null) {
-            $query .= ", descripcion = ?";
-            $params[] = $descripcion;
-        }
-        if ($nivel !== null) {
-            $query .= ", nivel = ?";
-            $params[] = $nivel;
-        }
-    
-        $query .= " WHERE id_user = ?";
-        $params[] = $id_user;
-    
-        $stmt = $this->conexion->prepare($query);
-    
-        if ($stmt) {
-            for ($i = 0; $i < count($params); $i++) {
-                $stmt->bindParam($i + 1, $params[$i]);
-            }
-    
-            if ($stmt->execute()) {
-                return true;
-            } else {
-                return false;
-            }
-        } else {
-            return false;
-        }
+    function modificaNivelUsuario($id_user , $nivel){
+        $stmt = $this->conexion->prepare("UPDATE usuario SET nivel = ? WHERE id_user = ?");
+        $stmt->execute([$nivel , $id_user]);
+        return $stmt->rowCount() > 0;
     }
 
-    
+
     function buscarLibrosPorTitulo($texto) {
         $stmt = $this->conexion->prepare("SELECT * FROM libro WHERE titulo LIKE ?");
-        $textoBusqueda = "%$texto%";  
+        $textoBusqueda = "%$texto%";
         $stmt->bindParam(1, $textoBusqueda);
         $stmt->execute();
-    
+
         $resultados = $stmt->fetchAll(PDO::FETCH_ASSOC);
-    
+
         return $resultados;
     }
 
     function obtenerNombresAutoresPorLibros($libros) {
         $nombresAutores = array();
-    
+
         foreach ($libros as $libro) {
             $id_user = $libro['id_user'];
             $nombreAutor = $this->buscar($id_user, 'usuario', 'nombre', 'id_user');
             $nombresAutores[] = $nombreAutor;
         }
-    
+
         return $nombresAutores;
     }
 
@@ -545,12 +509,27 @@ class Consultas extends Modelo {
         $stmt = $this->conexion->prepare($query);
         $stmt->bindParam(1, $id_user);
         $stmt->execute();
-    
+
         $resultados = $stmt->fetchAll(PDO::FETCH_ASSOC);
-    
+
         return $resultados;
     }
-    
-    
-    
+
+    function modificarUsuario($id_user,$nombre,$nick,$foto_perfil,$descripcion){
+        $stmt = $this->conexion->prepare("UPDATE usuario SET nombre = ?, nick = ?, foto_perfil = ?, descripcion = ? WHERE id_user = ?");
+        $stmt->execute([$nombre,$nick,$foto_perfil,$descripcion,$id_user]);
+    }
+
+    function verificarPassID($id_user, $pass) {
+        $stmt =$this->conexion->prepare("SELECT pass FROM usuario WHERE id_user = ?");
+        $stmt->execute([$id_user]);
+        $hashAlmacenado = $stmt->fetchColumn();
+        return password_verify($pass, $hashAlmacenado);
+    }
+
+    function cambiarPass($id_user, $pass) {
+        $stmt =$this->conexion->prepare("UPDATE usuario SET pass = ? WHERE id_user = ?");
+        $stmt->execute([$pass , $id_user]);
+        return $stmt->rowCount() > 0;
+    }
 }

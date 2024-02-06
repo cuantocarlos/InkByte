@@ -1,17 +1,16 @@
-/* Estilo adicional para suavizar transiciones */
 .btn-check {
     transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
 }
 
-/* Estilo adicional para indicar que los géneros son clicables */
+
 .btn-outline-primary {
     cursor: pointer;
 }
 
-/* Terror */
+
 .terror:checked + .terror-label,
 .terror:hover + .terror-label {
-    background-color: #8B4513; /* Marrón rojizo */
+    background-color: #8B4513;
     color: #fff;
     border: 1px solid #8B4513;
 }
@@ -20,10 +19,10 @@
     color: #8B4513;
 }
 
-/* Romance */
+
 .romance:checked + .romance-label,
 .romance:hover + .romance-label {
-    background-color: #FF69B4; /* Rosa intenso */
+    background-color: #FF69B4;
     color: #fff;
     border: 1px solid #FF69B4;
 }
@@ -32,10 +31,10 @@
     color: #FF69B4;
 }
 
-/* Fantasía */
+
 .fantasia:checked + .fantasia-label,
 .fantasia:hover + .fantasia-label {
-    background-color: #9370DB; /* Púrpura medio */
+    background-color: #9370DB;
     color: #fff;
     border: 1px solid #9370DB;
 }
@@ -44,10 +43,10 @@
     color: #9370DB;
 }
 
-/* Ciencia Ficción */
+
 .cficcion:checked + .cficcion-label,
 .cficcion:hover + .cficcion-label {
-    background-color: #00CED1; /* Turquesa medio */
+    background-color: #00CED1;
     color: #000;
     border: 1px solid #00CED1;
 }
@@ -56,10 +55,10 @@
     color: #00CED1;
 }
 
-/* Historia */
+
 .historia:checked + .historia-label,
 .historia:hover + .historia-label {
-    background-color: #FA8072; /* Rojo salmón claro */
+    background-color: #FA8072;
     color: #fff;
     border: 1px solid #FA8072;
 }
@@ -68,10 +67,10 @@
     color: #FA8072;
 }
 
-/* Arte */
+
 .arte:checked + .arte-label,
 .arte:hover + .arte-label {
-    background-color: #5F9EA0; /* Azul verdoso claro */
+    background-color: #5F9EA0;
     color: #fff;
     border: 1px solid #5F9EA0;
 }
@@ -81,10 +80,10 @@
 }
 
 
-/* Thriller */
+
 .thriller:checked + .thriller-label,
 .thriller:hover + .thriller-label {
-    background-color: #1E90FF; /* Azul real */
+    background-color: #1E90FF;
     color: #fff;
     border: 1px solid #1E90FF;
 }
@@ -93,10 +92,10 @@
     color: #1E90FF;
 }
 
-/* Poesía */
+
 .poesia:checked + .poesia-label,
 .poesia:hover + .poesia-label {
-    background-color: #FF6347; /* Rojo tomate */
+    background-color: #FF6347;
     color: #fff;
     border: 1px solid #FF6347;
 }
@@ -105,10 +104,10 @@
     color: #FF6347;
 }
 
-/* Drama */
+
 .drama:checked + .drama-label,
 .drama:hover + .drama-label {
-    background-color: #FF8C00; /* Naranja oscuro */
+    background-color: #FF8C00;
     color: #fff;
     border: 1px solid #FF8C00;
 }
@@ -117,10 +116,10 @@
     color: #FF8C00;
 }
 
-/* Biografía */
+
 .biografia:checked + .biografia-label,
 .biografia:hover + .biografia-label {
-    background-color: #FFA07A; /* Salmón claro */
+    background-color: #FFA07A;
     color: #fff;
     border: 1px solid #FFA07A;
 }
@@ -130,10 +129,10 @@
 }
 
 
-/* Misterio */
+
 .misterio:checked + .misterio-label,
 .misterio:hover + .misterio-label {
-    background-color: #8A2BE2; /* Violeta oscuro */
+    background-color: #8A2BE2;
     color: #fff;
     border: 1px solid #8A2BE2;
 }
@@ -142,14 +141,34 @@
     color: #8A2BE2;
 }
 
-/* Policíaca */
+
 .policiaca:checked + .policiaca-label,
 .policiaca:hover + .policiaca-label {
-    background-color: #DC143C; /* Rojo carmín */
+    background-color: #DC143C;
     color: #fff;
     border: 1px solid #DC143C;
 }
 .policiaca-label {
     border: 1px solid #DC143C;
     color: #DC143C;
+}
+
+
+#contenedorImagen{
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    overflow: hidden;
+    margin-top: 20px;
+    border: 2px solid #ccc;
+    cursor:pointer;
+    background-color: #333;
+}
+
+#vistaImagen{
+    width: 102%;
+    height: 102%;
+    object-fit: cover;
+    border: none;
+    border-radius: 50%;
 }

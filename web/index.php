@@ -43,7 +43,6 @@ $map = array(
     'generoUsuarioSelect' => array('controller' => 'Controller', 'action' => 'generoUsuarioSelect', 'nivel' => 1),
     'perfilUsuario' => array('controller' => 'Controller', 'action' => 'perfilUsuario', 'nivel' => 0),
     'escribirResena' => array('controller' => 'Controller', 'action' => 'escribirResena', 'nivel' => 1),
-    'perfilAjustes'=> array('controller'=>'Controller','action'=>'perfilAjustes','nivel'=>0),
     'book' => array('controller' => 'Controller', 'action' => 'book', 'nivel' => 0),
     'menuInvitado' => array('controller' => 'Controller', 'action' => 'menuInvitado', 'nivel' => 0),
     'menuLector' => array('controller' => 'Controller', 'action' => 'menuLector', 'nivel' => 1),
@@ -52,8 +51,10 @@ $map = array(
     'error' => array('controller' => 'Controller', 'action' => 'error', 'nivel' => 0),
     'contacto' => array('controller' => 'Controller', 'action' => 'contacto', 'nivel' => 0),
     'dondeEstamos' => array('controller' => 'Controller', 'action' => 'dondeEstamos', 'nivel'=>0),
-    'error' => array('controller' => 'Controller', 'action' => 'error', 'nivel' => 0),
-    'seguidos' => array('controller' => 'Controller', 'action' => 'seguidos', 'nivel' => 1)
+    'seguidos' => array('controller' => 'Controller', 'action' => 'seguidos', 'nivel' => 1),
+    'modificaUsuario' => array('controller' => 'Controller', 'action' => 'modificaUsuario', 'nivel' => 1),
+    'modificaNivelUsuario' => array('controller' => 'Controller', 'action' => 'modificaNivelUsuario', 'nivel' => 1),
+    'cambiaPass' => array('controller' => 'Controller', 'action' => 'cambiaPass', 'nivel' => 1)
     // 'salir' => array('controller' => 'Controller', 'action' => 'salir', 'nivel' => 1),
     // 'listarLibros' => array('controller' => 'Controller', 'action' => 'listarLibros', 'nivel' => 0),
     // 'verLibro' => array('controller' => 'Controller', 'action' => 'verLibro', 'nivel' => 0),
