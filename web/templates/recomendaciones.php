@@ -20,8 +20,8 @@ if ($params["num_generos"] > 0) {
     }
 } else {
     echo '<div class="container border d-flex flex-column p-4 justify-content-center align-items-center">';
-    echo '    <img src="../app/archivos/img/iconos/no-fav.png" class="border" style="height: 400px;">';
-    echo '    <h3 class="m-5">Vaya, parece que no hay ningún libro con ese nombre</h3>';
+    echo '    <img src="../app/archivos/img/iconos/no-genero.png" class="border" style="height: 400px;">';
+    echo '    <h3 class="m-5">Vaya, parece que no sigues ningun género, puedes cambiarlo en tu perfil</h3>';
     echo '</div>';
 }
 ?>
