@@ -46,7 +46,7 @@ function marcarNivel($opcion)
 ?>
     </div>
     <div class="body p-5 pt-0">
-        <form action="../index.php?ctl=perfilAjustes" method="post" enctype="multipart/form-data" id="">
+        <form action="index.php?ctl=perfilAjustes" method="post" enctype="multipart/form-data" id="">
 
             <div class="form-floating mb-3">
                 <input type="text" class="form-control rounded-3" id="nombre" name="nombre" placeholder="nombre" pattern="[A-Za-z\sñÑçÇ]+" minlength="3" maxlength="60" value="<?php echo $_SESSION['nombre']; ?>" />
