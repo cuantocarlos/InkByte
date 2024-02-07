@@ -5,7 +5,7 @@
           <div class="header p-5 ps-0 pb-4 border-bottom-0">
             <h1 class="fw-bold mb-0 fs-2 mb-4">Sube tu capítulo</h1>
           </div>
-          <form action="index.php?ctl=subirCapitulo" method="post" enctype="multipart/form-data">
+          <form action="" method="post" enctype="multipart/form-data">
           
                 <div class="container d-flex justify-content-end my-2">
                     <small class="text-body-secondary">Los campos con * son obligatorios</small>

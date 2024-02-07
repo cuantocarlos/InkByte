@@ -239,7 +239,6 @@ class Controller
 
             $params = array(
                 'id_libro' => '',
-                'num_cap' => '',
                 'titulo' => '',
                 'archivo' => '',
                 'mensaje' => [],
@@ -266,13 +265,12 @@ class Controller
                         header("Location:index.php?ctl=subirCapitulo");
                     }
 
-                    cNum($params["num_cap"], "capitulo", $params["mensaje"], 0, 9999);
 
-                    if (empty($params["mensaje"]) && !empty($params["id_libro"]) && !empty($params["num_cap"]) && !empty($params["titulo"])) {
+                    if (empty($params["mensaje"]) && !empty($params["id_libro"]) && !empty($params["titulo"])) {
 
                         $params["archivo"] = cFile("archivoPDF", $params["mensaje"], Config::$extensionesCapitulos, __DIR__ . '/../archivos/capitulos/', 200000000);
                         if (empty($params["mensaje"]) && !empty($params["archivo"])) {
-                            $cs->agregarCapitulo($params["id_libro"], $params["num_cap"], $params["titulo"], $params["archivo"]);
+                            $cs->agregarCapitulo($params["id_libro"], $params["titulo"], $params["archivo"]);
                             $cs->aumentarCapitulosLibro($params["id_libro"]);
                             header("Location:index.php?ctl=inicio");
 
@@ -288,13 +286,14 @@ class Controller
                     header("Location:index.php?ctl=subirCapitulo");
                 }
 
-                cNum($params["num_cap"], "capitulo", $params["mensaje"], 0, 9999);
 
-                if (empty($params["mensaje"]) && !empty($params["id_libro"]) && !empty($params["num_cap"]) && !empty($params["titulo"])) {
+                if (empty($params["mensaje"]) && !empty($params["id_libro"]) && !empty($params["titulo"])) {
 
                     $params["archivo"] = cFile("archivoPDF", $params["mensaje"], Config::$extensionesCapitulos, __DIR__ . '/../archivos/capitulos/', 200000000);
+
+                    echo $params["archivo"];
                     if (empty($params["mensaje"]) && !empty($params["archivo"])) {
-                        $cs->agregarCapitulo($params["id_libro"], $params["num_cap"], $params["titulo"], $params["archivo"]);
+                        $cs->agregarCapitulo($params["id_libro"], $params["titulo"], $params["archivo"]);
                         $cs->aumentarCapitulosLibro($params["id_libro"]);
 
                     } else {
@@ -306,10 +305,11 @@ class Controller
             }
         } catch (Exception $e) {
             echo "Error: " . $e->getMessage();
-            header('Location: index.php?ctl=error');
+            //header('Location: index.php?ctl=error');
         } catch (Error $e) {
+            echo "Error: " . $e->getMessage();
             error_log($e->getMessage() . microtime() . PHP_EOL, 3, "../logs/logError.txt");
-            header('Location: index.php?ctl=error');
+            //header('Location: index.php?ctl=error');
         }
 
         require __DIR__ . '/../../web/templates/subirCapitulo.php';

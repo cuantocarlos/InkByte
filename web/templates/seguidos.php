@@ -1,14 +1,8 @@
-<?php
-
-
-
-?>
-
 <div class="container border bg-rosa" style="padding-top:5rem;">
     <h1 class="mb-4">Libros Seguidos</h1>
 
     <?php
-    if (count($librosSeguidos) > 0) {
+    if (!$librosSeguidos["mono"]) {
         for ($i = 0; $i < count($librosSeguidos)-1; $i++) {
             $libro = $librosSeguidos[$i];
             $autor = $nombresAutores[$i];
@@ -41,8 +35,8 @@
         }
     } else {
         echo '<div class="container border d-flex flex-column p-4 justify-content-center align-items-center">';
-        echo '    <img src="../app/archivos/img/iconos/no-fav.png" class="border" style="height: 400px;">';
-        echo ' <h3 class="m-5">Vaya, parece que no hay ningún libro con ese nombre</h3>';
+        echo '    <img src="../app/archivos/img/iconos/no-fav.png" style="height: 400px;">';
+        echo ' <h3 class="m-5">Vaya, parece que aun no sigues ningun libro</h3>';
     echo '</div>';
     }
     ?>

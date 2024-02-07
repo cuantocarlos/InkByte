@@ -8,7 +8,7 @@ if ($params["num_generos"] > 0) {
         echo '<div class="d-flex flex-row align-items-center">';
         for ($i = 0; $i < count($params["recomendaciones"][$genero]); $i++) {
             echo '<a href="index.php?ctl=book&id_libro=' . $libros[$i]['id_libro'] . '" class="link-div">';
-            echo '    <div class="m-3">';
+            echo '    <div class="m-3 d-flex flex-column align-items-center">';
             echo '        <div class="d-flex justify-content-center"><img src="../app/archivos/img/libro/' . $libros[$i]['imagen_portada'] . '" class="flex-shrink-0" style="height: 150px; flex-shrink: 0;"></div>';
             echo '        <p>' . $libros[$i]['titulo'] . '</p>';
             echo '    </div>';
@@ -20,7 +20,7 @@ if ($params["num_generos"] > 0) {
     }
 } else {
     echo '<div class="container border d-flex flex-column p-4 justify-content-center align-items-center">';
-    echo '    <img src="../app/archivos/img/iconos/no-genero.png" class="border" style="height: 400px;">';
+    echo '    <img src="../app/archivos/img/iconos/no-genero.png" style="height: 400px;">';
     echo '    <h3 class="m-5">Vaya, parece que no sigues ningun género, puedes cambiarlo en tu perfil</h3>';
     echo '</div>';
 }
