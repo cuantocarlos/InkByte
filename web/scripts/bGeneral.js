@@ -9,14 +9,12 @@ export function validarCorreoElectronico(correo) {
   }
 
   export function validarNombre(nombre) {
-    // Expresión regular para validar nombres
-    var regex = /^[A-Z][a-z]*(\s[A-Z][a-z]*)*$/;
-
+    var regex = /^[A-ZÁÉÍÓÚÑÜÇ][a-záéíóúñüç]*(\s[A-ZÁÉÍÓÚÑÜÇ][a-záéíóúñüç]*)*$/;
     // Verificar si el nombre coincide con la expresión regular
     if (regex.test(nombre)) {
-        return true; // El nombre es válido
+        return true; 
     } else {
-        return false; // El nombre no es válido
+        return false;
     }
 }
 
@@ -144,6 +142,17 @@ export function modificaNivelUsuario(nivel){
 
   httpRequest.send('nivel=' + encodeURIComponent(nivel));
 
+}
+export function validarTelefono(telefono) {
+  const regexTelefono = /^[67][0-9]{8}$/
+  const esTelefonoValido = regexTelefono.test(telefono);
+  if (esTelefonoValido) {
+    console.log("entra tue")
+    return true;
+  } else {
+    console.log("entra false")
+      return false;
+  }
 }
 
 
