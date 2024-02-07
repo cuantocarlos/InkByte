@@ -12,11 +12,11 @@
         <div class="container mt-5">
             <div class="row">
                 <div class="col-md-12">
-                    <div class="main-content mt-5 p-3" style="background-color: #fff4f4; width: 100%; height: 460px;">
+                    <div class="main-content mt-5 p-3" style="background-color: #fff4f4; width: 100%;">
                         <div class="row justify-content-around">
                             <!-- Columna para la imagen -->
-                            <div class="col-md-4 position-relative mt-md-0 mt-3">
-                                <img src="../app/archivos/img/libro/<?php echo($params['imagen_portada']) ?>" alt="banner" class="banner-image position-absolute top-0 start-0" style=" height: 450px; margin-left: 60px;">
+                            <div class="col-md-4 position-relative mt-md-0 mt-3 ">
+                                <img src="../app/archivos/img/libro/<?php echo($params['imagen_portada']) ?>" alt="banner" class="banner-image" style=" height: 450px; margin-left: 60px;">
                             </div>
                             <!-- Columna para el texto -->
                             <div class="col-md-6 mt-md-2 mt-3 ms-md-2">
