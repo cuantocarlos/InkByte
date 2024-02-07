@@ -392,8 +392,7 @@ class Controller
                     "generos" => [],
                     'mensaje' => []
                 );
-
-                $params['id_user'] = $_SESSION["id_user"]; 
+                $params['id_user'] = $_SESSION["id_user"];
                 $params['titulo'] = recoge("titulo_lib");
                 $params['sinopsis'] = recoge('sinopsis');
                 $params['generos'] = recogeArray('genero');
@@ -604,7 +603,30 @@ class Controller
 
     public function perfilUsuario()
     {
-        $menu = $this->cargaMenu();
+            $params=array(
+                "id_user"=>$_SESSION['id_user']
+            );
+
+            try{
+
+                $cs = new Consultas();
+
+                $librosSeguidos = $cs->obtenerLibrosSeguidos($params['id_user']);
+                $nombresAutores = $cs -> obtenerNombresAutoresPorLibros($librosSeguidos);
+
+                if(count($librosSeguidos) === 0){
+                    $librosSeguidos['mono'] = true;
+                } else {
+                    $librosSeguidos['mono'] = false;
+                }
+
+            } catch (Exception $e) {
+                $e->getMessage();
+            } catch (Error $e) {
+                $e->getMessage();
+            }
+
+            $menu = $this->cargaMenu();
         require __DIR__ . '/../../web/templates/perfilUsuario.php';
     }
 
@@ -982,8 +1004,7 @@ public function seguidos()
         $menu = $this->cargaMenu();
         require __DIR__ . '/../../web/templates/seguidos.php';
     }
-
-
+    
     public function contacto(){
         $menu = $this->cargaMenu();
         require __DIR__ . '/../../web/templates/contacto.php';
@@ -1000,24 +1021,26 @@ public function seguidos()
             "num_generos" => 0,
             "recomendaciones" => [],
             "nombre_pref" => []
-            
+
         );
 
         $librosPorGenero=array(
              "terror"=>[],
-             "romance"=>[], 
+
+             "romance"=>[],
              "fantasia"=>[],
-             "cficcion"=>[], 
-             "historia"=>[], 
+             "cficcion"=>[],
+             "historia"=>[],
              "arte"=>[],
              "thriller"=>[],
-             "poesia"=>[], 
+             "poesia"=>[],
              "drama"=>[],
              "biografia"=>[],
-             "misterio"=>[], 
+             "misterio"=>[],
              "policiaca"=>[]
         );
-    
+
+
         try{
             $cs=new Consultas();
             $params["generos_pref"]=$cs->generosSelecionadosUsuario($_SESSION["id_user"]);
@@ -1041,13 +1064,9 @@ public function seguidos()
                         $params["num_generos"]++;
                         $params["recomendaciones"][$genero] = $librosPorGenero[$genero];
                         array_push($params["nombre_pref"], $genero);
-                        
                     }
                 }
             }
-
-            
-
         }catch (Exception $e) {
             $e->getMessage();
         } catch (Error $e) {

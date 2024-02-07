@@ -1,24 +1,23 @@
 <script type="module" src="../web/scripts/perfilUsuario.js"></script>
 
 <div class="container" style="background-color: rgba(255, 228, 225, 0.3);margin-top:100px;">
-        <div class="p-3 ps-5 pt-3">
 
-        <div class="d-flex" >
-        <div class= "d-flex px-5" style="border: 2px solid rgba(255, 228, 225, 0.9);">
-          <div class="d-flex justify-content-center align-items-center mb-4 me-2">
+        <div class="d-flex  pt-3 contenedorPerfil gap-4">
+        <div class= "d-flex px-5 flex-wrap fotografia" style="border: 2px solid rgba(255, 228, 225, 0.9);">
+          <div class="d-flex justify-content-center align-items-center mb-4">
         <label for="foto_perfil" id="imagePreviewContainer" style="cursor:default;">
           <img id="imagePreview" src='../app/archivos/img/perfil/<?php echo $_SESSION["foto_perfil"] ?>'>
         </label>
         </div>
 
 
-        <div class="d-flex flex-column align-items-center justify-content-center mx-4 me-5">
+        <div class="d-flex flex-column align-items-center justify-content-center ps-3 ">
           <h3><strong>@<?php echo $_SESSION["nombre"] ?></strong></h3>
           <h5><?php echo $_SESSION["nick"] ?></h5>
           </div>
 
-          <div class="d-flex align-items-center justify-content-center ms-5">
-        <div class="d-flex gap-3 flex-column">
+          <div class="d-flex align-items-center justify-content-center mb-3">
+        <div class="d-flex gap-3">
               <input type="radio" class="btn-check" id="lector" name="opcion_usuario" value="lector" autocomplete="off">
               <label class="btn btn-outline-success" for="lector">Lector</label>
               <input type="radio" class="btn-check" id="escritor" name="opcion_usuario" value="escritor" autocomplete="off">
@@ -30,12 +29,49 @@
               </div>
               </div>
 
-              <div class="flex-grow-1"></div>
+              <div class="flex-grow-1 libro" style="border: 2px solid rgba(255, 228, 225, 0.9);">
+
+              <?php
+    if (!$librosSeguidos["mono"]) {
+            $i = rand(0,count($librosSeguidos)-2);
+            $libro = $librosSeguidos[$i];
+            $autor = $nombresAutores[$i];
+
+            echo '<div class="container mt-1 d-flex p-2 align-items-center">';
+            echo '    <img src="../app/archivos/img/libro/' . $libro["imagen_portada"] . '" class="mb-1 mt-5-sm" style="height: 175px;">';
+            echo '    <div class="ms-2">';
+            echo '        <form action="index.php?ctl=book&id_libro=' . $libro["id_libro"] . '" method="post">';
+            echo '            <h4>';
+            echo '                <input type="hidden" name="id_libro" value="' . $libro["id_libro"] . '">';
+            echo '                <button type="submit" class="btn-link" style="border: none; padding: 0; background: none; text-decoration: none;">';
+            echo '                    ' . $libro["titulo"];
+            echo '                </button>';
+            echo '            </h4>';
+            echo '        </form>';
+            echo '        <form action="index.php?ctl=perfil&id_user=' . $libro["id_user"] . '" method="post">';
+            echo '            <h5>';
+            echo '                <input type="hidden" name="id_autor" value="' . $libro["id_user"] . '">';
+            echo '                <button type="submit" class="btn-link" style="border: none; padding: 0; background: none; text-decoration: none;">';
+            echo '                    Autor: ' . $autor;
+            echo '                </button>';
+            echo '            </h5>';
+            echo '        </form>';
+
+            echo '        <p>Valoración: ' . $libro["valoracion"] . '</p>';
+            echo '        <p>' . $libro["sinopsis"] . '</p>';
+
+            echo '    </div>';
+            echo '</div>';
+    } else {
+
+    }
+    ?>
+
+              </div>
         </div>
 
-        </div>
 
-      <div class="d-flex gap-5 ms-5" >
+      <div class="d-flex gap-5 descripcion">
         <div class="d-flex justify-content-start align-items-start p-3 flex-column mt-5 flex-grow-1" style="border: 2px solid rgba(255, 228, 225, 0.9);">
           <h4>Descripción:</h4>
         <p style="overflow-wrap:break-word;"><?php echo $_SESSION["descripcion"] ?></p>
@@ -157,78 +193,71 @@
         <!-- GENEROS DE USUARIO -->
 
 
-        <div class="d-flex justify-content-center mt-1" >
-          <h2 class="h2 mt-3">Tus géneros favoritos</h2>
-        </div>
-        <div class="container d-flex pt-3 gap-3 justify-content-center mt-1" >
+        <div class="container d-flex py-5 gap-3 justify-content-center align-items-center mt-1 flex-wrap" >
 
-        <div class="d-flex flex-column">
             <!--Terror -->
             <input type="checkbox" class="btn-check terror" id="terror" autocomplete="off" name="generoUsuario[]" value="terror">
-            <label class="btn btn-outline-primary mb-5 terror-label" for="terror">Terror</label>
+            <label class="btn btn-outline-primary terror-label" for="terror">Terror</label>
             <!-- Romance -->
             <input type="checkbox" class="btn-check romance" id="romance" autocomplete="off" name="generoUsuario[]" value="romance">
-            <label class="btn btn-outline-primary mb-5 romance-label" for="romance">Romance</label>
-          </div>
+            <label class="btn btn-outline-primary romance-label" for="romance">Romance</label>
 
 
-
-          <div class="d-flex flex-column">
             <!-- Fantasía -->
             <input type="checkbox" class="btn-check fantasia" id="fantasia" autocomplete="off" name="generoUsuario[]" value="fantasia">
-            <label class="btn btn-outline-primary mb-5 fantasia-label" for="fantasia">Fantasía</label>
+            <label class="btn btn-outline-primary fantasia-label" for="fantasia">Fantasía</label>
             <!-- Ciencia Ficción -->
             <input type="checkbox" class="btn-check cficcion" id="cficcion" autocomplete="off" name="generoUsuario[]" value="cficcion">
-            <label class="btn btn-outline-primary mb-5 cficcion-label" for="cficcion">C.Ficción</label>
-          </div>
+            <label class="btn btn-outline-primary cficcion-label" for="cficcion">C.Ficción</label>
 
 
 
-          <div class="d-flex flex-column">
+
+
             <!-- Historia -->
             <input type="checkbox" class="btn-check historia" id="historia" autocomplete="off" name="generoUsuario[]" value="historia">
-            <label class="btn btn-outline-primary mb-5 historia-label" for="historia">Historia</label>
+            <label class="btn btn-outline-primary historia-label" for="historia">Historia</label>
             <!-- Arte -->
             <input type="checkbox" class="btn-check arte" id="arte" autocomplete="off" name="generoUsuario[]" value="arte">
-            <label class="btn btn-outline-primary mb-5 arte-label" for="arte">Arte</label>
-
-          </div>
+            <label class="btn btn-outline-primary arte-label" for="arte">Arte</label>
 
 
 
-          <div class="d-flex flex-column">
+
+
+
             <!-- Thriller -->
             <input type="checkbox" class="btn-check thriller" id="thriller" autocomplete="off" name="generoUsuario[]" value="thriller">
-            <label class="btn btn-outline-primary mb-5 thriller-label" for="thriller">Thriller</label>
+            <label class="btn btn-outline-primary thriller-label" for="thriller">Thriller</label>
             <!-- Poesía -->
             <input type="checkbox" class="btn-check poesia" id="poesia" autocomplete="off" name="generoUsuario[]" value="poesia">
-            <label class="btn btn-outline-primary mb-5 poesia-label" for="poesia">Poesía</label>
-          </div>
+            <label class="btn btn-outline-primary poesia-label" for="poesia">Poesía</label>
 
 
 
-          <div class="d-flex flex-column">
+
+
             <!-- Drama -->
             <input type="checkbox" class="btn-check drama" id="drama" autocomplete="off" name="generoUsuario[]" value="drama">
-            <label class="btn btn-outline-primary mb-5 drama-label" for="drama">Drama</label>
+            <label class="btn btn-outline-primary drama-label" for="drama">Drama</label>
             <!-- Biografía -->
             <input type="checkbox" class="btn-check biografia" id="biografia" autocomplete="off" name="generoUsuario[]" value="biografia">
-            <label class="btn btn-outline-primary mb-5 biografia-label" for="biografia">Biografía</label>
-          </div>
+            <label class="btn btn-outline-primary biografia-label" for="biografia">Biografía</label>
 
 
 
-          <div class="d-flex flex-column">
+
+
             <!-- Misterio -->
             <input type="checkbox" class="btn-check misterio" id="misterio" autocomplete="off" name="generoUsuario[]" value="misterio">
-            <label class="btn btn-outline-primary mb-5 misterio-label" for="misterio">Misterio</label>
+            <label class="btn btn-outline-primary misterio-label" for="misterio">Misterio</label>
             <!-- Policíaca -->
             <input type="checkbox" class="btn-check policiaca" id="policiaca" autocomplete="off" name="generoUsuario[]" value="policiaca">
-            <label class="btn btn-outline-primary mb-5 policiaca-label" for="policiaca">Policíaca</label>
-          </div>
+            <label class="btn btn-outline-primary policiaca-label" for="policiaca">Policíaca</label>
+
 
         </div>
-
+        <hr style="border: 1px solid #ff65a3;">
         </div>
 
 
