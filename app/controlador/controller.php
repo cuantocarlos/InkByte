@@ -270,7 +270,8 @@ class Controller
 
                         $params["archivo"] = cFile("archivoPDF", $params["mensaje"], Config::$extensionesCapitulos, __DIR__ . '/../archivos/capitulos/', 200000000);
                         if (empty($params["mensaje"]) && !empty($params["archivo"])) {
-                            $cs->agregarCapitulo($params["id_libro"], $params["titulo"], $params["archivo"]);
+                            $num_cap = ($cs -> buscar($params["id_libro"], "libro", "capitulos", "id_libro")) + 1;
+                            $cs->agregarCapitulo($params["id_libro"], $num_cap, $params["titulo"], $params["archivo"]);
                             $cs->aumentarCapitulosLibro($params["id_libro"]);
                             header("Location:index.php?ctl=inicio");
 
@@ -280,27 +281,6 @@ class Controller
                     } else {
                         header("Location:index.php?ctl=subirCapitulo");
                     }
-                }
-
-                if (cTexto($params["titulo"], "titulo", $params["mensaje"], 50, 1, true, true) == false) {
-                    header("Location:index.php?ctl=subirCapitulo");
-                }
-
-
-                if (empty($params["mensaje"]) && !empty($params["id_libro"]) && !empty($params["titulo"])) {
-
-                    $params["archivo"] = cFile("archivoPDF", $params["mensaje"], Config::$extensionesCapitulos, __DIR__ . '/../archivos/capitulos/', 200000000);
-
-                    echo $params["archivo"];
-                    if (empty($params["mensaje"]) && !empty($params["archivo"])) {
-                        $cs->agregarCapitulo($params["id_libro"], $params["titulo"], $params["archivo"]);
-                        $cs->aumentarCapitulosLibro($params["id_libro"]);
-
-                    } else {
-                        header("Location:index.php?ctl=subirCapitulo");
-                    }
-                } else {
-                    header("Location:index.php?ctl=subirCapitulo");
                 }
             }
         } catch (Exception $e) {

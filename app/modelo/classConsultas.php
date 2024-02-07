@@ -209,11 +209,12 @@ class Consultas extends Modelo {
     }
 
     /*Guardar capítulo en la base de datos*/
-    function agregarCapitulo($id_libro, $titulo, $archivo) {
-        $stmt =$this->conexion->prepare("INSERT INTO capitulos (id_libro, titulo, archivo) VALUES (?, ?, ?)");
+    function agregarCapitulo($id_libro, $num_cap, $titulo, $archivo) {
+        $stmt =$this->conexion->prepare("INSERT INTO capitulos (id_libro, num_cap, titulo, archivo) VALUES (?, ?, ?, ?)");
         $stmt->bindParam(1, $id_libro);
-        $stmt->bindParam(2, $titulo);
-        $stmt->bindParam(3, $archivo);
+        $stmt->bindParam(2, $num_cap);
+        $stmt->bindParam(3, $titulo);
+        $stmt->bindParam(4, $archivo);
         return $stmt->execute();
     }
 
