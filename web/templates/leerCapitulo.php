@@ -13,7 +13,7 @@
 
     <!-- Utilizando la etiqueta <embed> para mostrar el PDF -->
     <div class="visorPDF d-flex">
-        <embed class="contenidoPDF flex-grow-1" src="../app/archivos/capitulos/<?php echo $params["archivo"] ?>" type="application/pdf"/>
+        <embed class="contenidoPDF col-12" src="../app/archivos/capitulos/<?php echo $params["archivo"] ?>" type="application/pdf"/>
     </div>
     <div class="botones">
     
