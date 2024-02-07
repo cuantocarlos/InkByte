@@ -26,13 +26,22 @@
                         <a class="nav-link" href="index.php?ctl=subirCapitulo">Subir Capítulo</a>
                     </li>
                 </ul>
+
                 <!-- Barra de búsqueda en la barra de navegación para pantallas grandes -->
+<<<<<<< Updated upstream
                 <div class="d-flex search-form-desktop ms-auto">
                   <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
                   <button class="btn btn-outline-success" type="submit">Search</button>
               </div>
                 <!-- Icono de inicio de sesión -->
+=======
+                <form action="index.php?ctl=buscarLibros" method="post"  class="d-flex search-form-desktop ms-auto mt-3">
+                  <input class="form-control me-2" name="buscar_libro" id="buscar_libro" onsubmit="return false;" type="search" placeholder="Busca tu libro" aria-label="Search">
+                  <button class="btn btn-outline-success" name="boton_buscar" id="boton_buscar" >Search</button>
+                </form>
+>>>>>>> Stashed changes
 
+                <!-- Icono de inicio de sesión -->
                 <div class="nav-item dropdown ms-3">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
                             data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -40,9 +49,9 @@
                             alt="foto_perfil" class="imagen-redonda">
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="index.php?ctl=perfilUsuario">Ajustes de Perfil</a>
+                            <a class="dropdown-item" href="index.php?ctl=perfilUsuario">Perfil</a>
                             <li><hr class="dropdown-divider"></li>
-                            <a class="dropdown-item" href="index.php?ctl=registro">Contáctanos</a>
+                            <a class="dropdown-item" href="index.php?ctl=cerrarSesion">Cerrar Sesión</a>
                         </div>
                 </div>
                 <div class="nav-item">

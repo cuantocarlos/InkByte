@@ -9,10 +9,4 @@
     background-color: #333;
 }
 
-#imagePreview{
-    width: 102%;
-    height: 102%;
-    object-fit: cover;
-    border: none;
-    border-radius: 50%;
-}
+

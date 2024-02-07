@@ -172,3 +172,35 @@
     border: none;
     border-radius: 50%;
 }
+
+
+#imagePreview{
+    width: 102%;
+    height: 102%;
+    object-fit: cover;
+    border: none;
+    border-radius: 50%;
+}
+
+
+.button {
+    display: inline-block;
+    padding: 10px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    text-align: center;
+    text-decoration: none;
+    border-radius: 5px;
+    cursor: pointer;
+    border:none;
+  }
+
+  .button-pink {
+    background-color: #ff6b9c;
+    color: #fff;
+  }
+
+
+  .button-pink:hover {
+    background-color: #ff4081;
+  }
