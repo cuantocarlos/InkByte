@@ -193,8 +193,8 @@ class Consultas extends Modelo {
     }
 
     /*Guarda el libro en la base de datos*/
-    function agregarLibro($id_user, $titulo, $sinopsis, $imagen_portada, $capitulos, $num_resenas, $valoracion, $visitas, $visitasSemana, $estado, $m_18, $m_16, $m_12) {
-        $stmt =$this->conexion->prepare("INSERT INTO libro (id_user , titulo, sinopsis, imagen_portada, capitulos, num_resenas, valoracion, visitas, visitasSemana, estado, m_18, m_16, m_12) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+    function agregarLibro($id_user, $titulo, $sinopsis, $imagen_portada, $capitulos, $num_resenas, $valoracion, $visitas, $visitasSemana, $estado) {
+        $stmt =$this->conexion->prepare("INSERT INTO libro (id_user , titulo, sinopsis, imagen_portada, capitulos, num_resenas, valoracion, visitas, visitasSemana, estado) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
         $stmt->bindParam(1, $id_user);
         $stmt->bindParam(2, $titulo);
         $stmt->bindParam(3, $sinopsis);
@@ -205,9 +205,6 @@ class Consultas extends Modelo {
         $stmt->bindParam(8, $visitas);
         $stmt->bindParam(9, $visitasSemana);
         $stmt->bindParam(10, $estado);
-        $stmt->bindParam(11, $m_18);
-        $stmt->bindParam(12, $m_16);
-        $stmt->bindParam(13, $m_12);
         return $stmt->execute();
     }
 

@@ -409,10 +409,6 @@ class Controller
                     'visitas' => 0,
                     'visitasSemana' => 0,
                     'estado' => 1, //0 cancelado, 1 publicando, 2 terminado
-                    'edad_recomendada',
-                    'm_18' => '',
-                    'm_16' => '',
-                    'm_12' => '',
                     "generos" => [],
                     'mensaje' => []
                 );
@@ -421,9 +417,6 @@ class Controller
                 $params['titulo'] = recoge("titulo_lib");
                 $params['sinopsis'] = recoge('sinopsis');
                 $params['generos'] = recogeArray('genero');
-                echo $params['titulo'];
-                print_r($params['generos']);
-                $params['edad_recomendada'] = recoge('edad_recomendada');
                 if (cTexto($params['titulo'], "titulo", $params['mensaje'], 50, 1, true, true)) {
                     if (cTexto($params['sinopsis'], "sinopsis", $params['mensaje'], 1000, 1, true, true)) {
 
@@ -433,29 +426,7 @@ class Controller
                             }
                         }
 
-                        if (empty($params["mensaje"])) {
-
-                            switch ($params['edad_recomendada']) {
-                                case "1":$params["m_18"] = 0;
-                                    $params["m_16"] = 0;
-                                    $params["m_12"] = 0;
-                                    break;
-                                case "2":$params["m_18"] = 0;
-                                    $params["m_16"] = 0;
-                                    $params["m_12"] = 1;
-                                    break;
-                                case "3":$params["m_18"] = 0;
-                                    $params["m_16"] = 1;
-                                    $params["m_12"] = 0;
-                                    break;
-                                case "4":$params["m_18"] = 1;
-                                    $params["m_16"] = 0;
-                                    $params["m_12"] = 0;
-                                    break;
-                                default:$params["mensaje"] = "Error en el campo edad";
-                                    break;
-                            }
-                        } else {
+                        if (!empty($params["mensaje"])) {
                             $params["mensaje"] = "Error en el campo género";
                         }
                     } else {
@@ -473,7 +444,7 @@ class Controller
                     }
 
                     $cs = new Consultas();
-                    $cs->agregarLibro($params["id_user"], $params["titulo"], $params["sinopsis"], $params["imagen_portada"], $params["capitulos"], $params["num_resenas"], $params["valoracion"], $params["visitas"], $params["visitasSemana"], $params["estado"], $params["m_18"], $params["m_16"], $params["m_12"]);
+                    $cs->agregarLibro($params["id_user"], $params["titulo"], $params["sinopsis"], $params["imagen_portada"], $params["capitulos"], $params["num_resenas"], $params["valoracion"], $params["visitas"], $params["visitasSemana"], $params["estado"]);
                     $id_libro = $cs->buscar2Campos($params["id_user"], $params["titulo"], "libro", "id_libro", "id_user", "titulo");
                     $cs->guardarGeneroLibro($id_libro, $params["generos"]);
 
@@ -672,9 +643,6 @@ class Controller
             'visitasSemana' => '', // Asigna un valor predeterminado si es necesario
             'estado' => '', // 0 cancelado, 1 publicando, 2 terminado
             'edad_recomendada' => '', // Ajusta según tus necesidades
-            'm_18' => '',
-            'm_16' => '',
-            'm_12' => '',
             'generos' => array(),
             'autor' => '',
             'id_autor' => '',

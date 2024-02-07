@@ -54,33 +54,6 @@
 
         </div>
 
-        <div class="form-group mb-3">
-            <label for="tus_opciones">Selecciona la edad recomendada:</label>
-            <div class="ms-3">
-                <div>
-                    <label>
-                        <input type="radio" name="edad_recomendada" value="1"> Para todos los públicos
-                    </label>
-                </div>
-                <div>
-                    <label>
-                        <input type="radio" name="edad_recomendada" value="2"> Mayores de 12 años
-                    </label>
-                </div>
-                <div>
-                    <label>
-                        <input type="radio" name="edad_recomendada" value="3"> Mayores de 16 años
-                    </label>
-                </div>
-                <div>
-                    <label>
-                        <input type="radio" name="edad_recomendada" value="4"> Mayores de 18 años
-                    </label>
-                </div>
-            </div>
-
-        </div>
-
         <div class="mb-5">
             <label for="portadaLibro" class="form-label">Seleccione la portada:</label>
             <input class="form-control" type="file" id="portadaLibro" name="portadaLibro">
