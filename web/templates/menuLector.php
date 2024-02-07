@@ -96,13 +96,13 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="searchModalLabel">Search</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <button type="button" class="btn-close" name="boton_buscar" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                     <!-- Código del formulario de búsqueda dentro del modal -->
-                    <form>
-                        <input class="form-control" type="search" placeholder="Search" aria-label="Search">
-                        <button class="btn btn-outline-success mt-2" type="submit">Search</button>
+                    <form action="index.php?ctl=buscarLibros" method="post">
+                        <input class="form-control" type="search" name="buscar_libro" placeholder="Search" aria-label="Search">
+                        <button class="btn btn-outline-success mt-2" name="boton_buscar"  type="submit">Search</button>
                     </form>
                 </div>
             </div>

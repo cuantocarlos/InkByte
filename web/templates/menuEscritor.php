@@ -76,10 +76,10 @@
                     </li>
 
                     <li class="nav-item d-flex justify-content-center">
-                      <a class="nav-link" href="index.php?ctl=iniciarSesion">Recomendaciones</a>
+                      <a class="nav-link" href="index.php?ctl=recomendados">Recomendaciones</a>
                   </li>
                   <li class="nav-item d-flex justify-content-center">
-                      <a class="nav-link" href="index.php?ctl=registro">Libros Seguidos</a>
+                      <a class="nav-link" href="index.php?ctl=seguidos">Libros Seguidos</a>
                   </li>
                     <li class="nav-item d-flex justify-content-center">
                         <a class="nav-link" href="index.php?ctl=crearLibro">Crear Libro</a>
@@ -89,7 +89,7 @@
                     </li>
 
                     <li class="nav-item d-flex justify-content-center">
-                      <a class="nav-link" href="index.php?ctl=registro">Perfil</a>
+                      <a class="nav-link" href="index.php?ctl=perfilUsuario">Perfil</a>
                   </li>
 
                   <hr class="barra-menu">
@@ -109,13 +109,13 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="searchModalLabel">Search</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <button type="button" class="btn-close" name="boton_buscar" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                     <!-- Código del formulario de búsqueda dentro del modal -->
-                    <form>
-                        <input class="form-control" type="search" placeholder="Search" aria-label="Search">
-                        <button class="btn btn-outline-success mt-2" type="submit">Search</button>
+                    <form action="index.php?ctl=buscarLibros" method="post">
+                        <input class="form-control" type="search" name="buscar_libro" placeholder="Search" aria-label="Search">
+                        <button class="btn btn-outline-success mt-2" name="boton_buscar"  type="submit">Search</button>
                     </form>
                 </div>
             </div>
