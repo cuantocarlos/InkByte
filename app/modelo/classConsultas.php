@@ -29,6 +29,20 @@ class Consultas extends Modelo {
         return ($columna !== false) ? $columna : null;
     }
 
+    function buscarTablaCompleta($tabla) {
+        $stmt = $this->conexion->prepare("SELECT * FROM $tabla");
+        $stmt->execute();
+        $resultados = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return ($resultados !== false) ? $resultados : null;
+    }
+
+    function buscarTablaCompletaOrdenada($tabla) {
+        $stmt = $this->conexion->prepare("SELECT * FROM $tabla ORDER BY libro.valoracion DESC ");
+        $stmt->execute();
+        $resultados = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return ($resultados !== false) ? array_slice($resultados, 0, 3) : null;
+    }
+
     function buscarColumnaArray($input, $tabla, $columna, $campoWhere) {
         $stmt = $this->conexion->prepare("SELECT $columna FROM $tabla WHERE $campoWhere = ?");
         $stmt->execute([$input]);

@@ -329,7 +329,9 @@ function calcularMedia($numeros) {
     return $media_redondeada;
 }
 
-
+function compararNotas($a, $b) {
+    return $b['valoracion'] - $a['valoracion'];
+}
 
 
 ?>

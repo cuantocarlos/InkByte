@@ -23,8 +23,8 @@
                                 <!-- Título, autor y valoración -->
                                 <div class="mb-3 ">
                                     <h1 class="fw-bold"><?php echo($params['titulo']); ?></h1>
-                                    <p style="margin-left: 8px;";> Autor: <?php echo($params['autor']); ?></p>
-                                    <p style="margin-left: 8px;";>Valoración: <?php echo($cs -> buscar($params["id_libro"], "libro", "valoracion", "id_libro")); ?></p>
+                                    <p> Autor: <?php echo($params['autor']); ?></p>
+                                    <p>Valoración: <?php echo($cs -> buscar($params["id_libro"], "libro", "valoracion", "id_libro")); ?></p>
                                     <section id="contador-de-capitulos" >
                                         <div class="container mt-3 ">
                                             <div class="row">
