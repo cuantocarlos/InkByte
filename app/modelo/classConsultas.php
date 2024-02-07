@@ -270,16 +270,16 @@ class Consultas extends Modelo {
         return $exito;
     }
 
-
     /*Quita un libro de la lista de seguidos de un usuario*/
-    function quitarSeguido($id_libro, $id_usuario) {
+    function quitarSeguido($id_libro, $id_user) {
         $stmt =$this->conexion->prepare("DELETE FROM seguidos WHERE id_user = ? AND id_libro = ?");
-        $stmt->execute([$id_libro, $id_usuario]);
+        $exito=$stmt->execute([$id_libro,$id_user]);
+        return $exito;
     }
 
     /* Pregunta si existe la relacion */
     function existeRelacionSeguido($id_libro, $id_usuario) {
-        $stmt = $this->conexion->prepare("SELECT COUNT(*) FROM seguidos WHERE id_libro = ? AND id_user = ?");
+        $stmt = $this->conexion->prepare("SELECT * FROM seguidos WHERE id_libro = ? AND id_user = ?");
         $stmt->execute([$id_libro, $id_usuario]);
         $cantidad = $stmt->fetchColumn();
         return $cantidad > 0;
@@ -539,42 +539,42 @@ class Consultas extends Modelo {
         return $stmt->rowCount() > 0;
     }
 
-    
+
     function obtenerLibrosPorGenero($genero) {
         $stmt = $this->conexion->prepare("SELECT id_libro FROM generolibro WHERE $genero = 1");
         $stmt->execute();
         $resultados = $stmt->fetchAll(PDO::FETCH_COLUMN);
-    
+
         $libros = array();
         foreach ($resultados as $id_libro) {
             $stmt = $this->conexion->prepare("SELECT * FROM libro WHERE id_libro = ?");
             $stmt->execute([$id_libro]);
             $libros[] = $stmt->fetch(PDO::FETCH_ASSOC);
         }
-    
+
         return $libros;
     }
-    
-    
+
+
     function obtenerLibrosAleatoriosPorGenero($genero) {
         $stmt = $this->conexion->prepare("SELECT id_libro FROM generolibro WHERE $genero = 1");
         $stmt->execute();
         $idsLibros = $stmt->fetchAll(PDO::FETCH_COLUMN);
-    
+
         shuffle($idsLibros); // Baraja los IDs de los libros
-    
+
         $idsLibros = array_slice($idsLibros, 0, 3); // Selecciona solo los primeros 3 IDs aleatorios
-    
+
         $libros = array();
         foreach ($idsLibros as $id_libro) {
             $stmt = $this->conexion->prepare("SELECT * FROM libro WHERE id_libro = ?");
             $stmt->execute([$id_libro]);
             $libros[] = $stmt->fetch(PDO::FETCH_ASSOC);
         }
-    
+
         return $libros;
     }
-    
+
     function guardarGeneroLibro($id_libro, $columnasPresentes) {
         $valores = array(
             'id_libro' => $id_libro,
@@ -602,7 +602,7 @@ class Consultas extends Modelo {
         $stmt->execute(array_values($valores));
         return ($stmt->rowCount() > 0);
     }
-    
-    
+
+
 
 }

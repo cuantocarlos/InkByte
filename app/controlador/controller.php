@@ -649,6 +649,7 @@ class Controller
             'autor' => '',
             'id_autor' => '',
             'num_cap' => '',
+            'favorito' => '',
 
             'mensaje' => array(),
         );
@@ -674,6 +675,7 @@ class Controller
             $params['visitas'] = $datosLibro['visitas'];
             $params['visitasSemana'] = $datosLibro['visitasSemana'];
             $params['estado'] = $datosLibro['estado'];
+
 
             // Manejo de generos (si es una columna en tu tabla)
             $generos = $cs->buscarFila($params['id_libro'], 'generolibro', "id_libro");
@@ -734,11 +736,16 @@ class Controller
         }
 
         if (isset($_REQUEST["seguir"])) {
-
             try {
                 $cs = new Consultas();
-                if (!$cs->existeRelacionSeguido($params["id_libro"], $_SESSION["id_user"])) {
+                $existe=$cs->existeRelacionSeguido($params["id_libro"], $_SESSION["id_user"]);
+                if (!$existe) {
                     $cs->agregarSeguido($params["id_libro"], $_SESSION["id_user"]);
+                    $params["favorito"]=1;
+
+                }else{
+                    $cs->quitarSeguido($params["id_libro"],$_SESSION["id_user"]);
+                    $params["favorito"]=0;
                 }
 
             } catch (Exception $e) {
@@ -1004,7 +1011,7 @@ public function seguidos()
         $menu = $this->cargaMenu();
         require __DIR__ . '/../../web/templates/seguidos.php';
     }
-    
+
     public function contacto(){
         $menu = $this->cargaMenu();
         require __DIR__ . '/../../web/templates/contacto.php';

@@ -3,9 +3,9 @@
   $_SESSION["id_libro"]=$id_libro;
 ?>
 
-    
+<script type="module" src="../web/scripts/libro.js"></script>
 
-
+<div class="d-none" id="seguido"><?php echo $params["favorito"]; ?></div>
     <!--seccion libro-->
 
     <section>
@@ -33,8 +33,8 @@
                                                         <label for="capituloDropdown" class="form-label">Selecciona un capítulo</label>
                                                         <div class="d-flex">
                                                         <select id="capituloDropdown" class="form-select" name="contador_capitulos">
-                                                            
-                                                            <?php 
+
+                                                            <?php
                                                                 $i = 1;
                                                                 foreach($capitulos as $capitulo){
                                                                     echo '<option value='. $i . '> Capítulo ' . $i . ' - ' . $capitulo["titulo"] . '</option>';
@@ -47,8 +47,8 @@
                                                         </div>
                                                         </div>
                                                 </div>
-                                                
-                                                
+
+
                                             </div>
                                         </div>
                                     </section>
@@ -65,15 +65,12 @@
                                             <input type="radio" id="star1" name="rating" value="1" /><label for="star1" title="Malo"></label>
                                         </div>
 
-                                        
+
 
                                         </fieldset>
 
                                         <button class="btn btn-dark m-3" name="valorar" id="valorar">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-stars" viewBox="0 0 16 16">
-                                                <path d="M7.657 6.247c.11-.33.576-.33.686 0l.645 1.937a2.89 2.89 0 0 0 1.829 1.828l1.936.645c.33.11.33.576 0 .686l-1.937.645a2.89 2.89 0 0 0-1.828 1.829l-.645 1.936a.361.361 0 0 1-.686 0l-.645-1.937a2.89 2.89 0 0 0-1.828-1.828l-1.937-.645a.361.361 0 0 1 0-.686l1.937-.645a2.89 2.89 0 0 0 1.828-1.828zM3.794 1.148a.217.217 0 0 1 .412 0l.387 1.162c.173.518.579.924 1.097 1.097l1.162.387a.217.217 0 0 1 0 .412l-1.162.387A1.73 1.73 0 0 0 4.593 5.69l-.387 1.162a.217.217 0 0 1-.412 0L3.407 5.69A1.73 1.73 0 0 0 2.31 4.593l-1.162-.387a.217.217 0 0 1 0-.412l1.162-.387A1.73 1.73 0 0 0 3.407 2.31zM10.863.099a.145.145 0 0 1 .274 0l.258.774c.115.346.386.617.732.732l.774.258a.145.145 0 0 1 0 .274l-.774.258a1.16 1.16 0 0 0-.732.732l-.258.774a.145.145 0 0 1-.274 0l-.258-.774a1.16 1.16 0 0 0-.732-.732L9.1 2.137a.145.145 0 0 1 0-.274l.774-.258c.346-.115.617-.386.732-.732z"/>
-                                            </svg>
-                                                Valorar
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-stars" viewBox="0 0 16 16"><path d="M7.657 6.247c.11-.33.576-.33.686 0l.645 1.937a2.89 2.89 0 0 0 1.829 1.828l1.936.645c.33.11.33.576 0 .686l-1.937.645a2.89 2.89 0 0 0-1.828 1.829l-.645 1.936a.361.361 0 0 1-.686 0l-.645-1.937a2.89 2.89 0 0 0-1.828-1.828l-1.937-.645a.361.361 0 0 1 0-.686l1.937-.645a2.89 2.89 0 0 0 1.828-1.828zM3.794 1.148a.217.217 0 0 1 .412 0l.387 1.162c.173.518.579.924 1.097 1.097l1.162.387a.217.217 0 0 1 0 .412l-1.162.387A1.73 1.73 0 0 0 4.593 5.69l-.387 1.162a.217.217 0 0 1-.412 0L3.407 5.69A1.73 1.73 0 0 0 2.31 4.593l-1.162-.387a.217.217 0 0 1 0-.412l1.162-.387A1.73 1.73 0 0 0 3.407 2.31zM10.863.099a.145.145 0 0 1 .274 0l.258.774c.115.346.386.617.732.732l.774.258a.145.145 0 0 1 0 .274l-.774.258a1.16 1.16 0 0 0-.732.732l-.258.774a.145.145 0 0 1-.274 0l-.258-.774a1.16 1.16 0 0 0-.732-.732L9.1 2.137a.145.145 0 0 1 0-.274l.774-.258c.346-.115.617-.386.732-.732z"/></svg>Valorar
                                         </button>
                                     </div>
                                     <div class="">
@@ -87,7 +84,7 @@
 
                                 <!-- Botones -->
                                 <div class="d-flex flex-wrap">
-                            
+
                                     <button class="btn btn-dark me-3" name="escribir_resena" id="escribir_resena">
                                         <svg width="30px" height="30px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                             <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
@@ -97,17 +94,9 @@
                                             </g>
                                         </svg>
                                         Escribir reseña</button>
-                                    <button class="btn btn-dark descriptionButton me-3" name="seguir" id="seguir">
-                                        <svg width="30px" height="30px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="#fff">
-                                            <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
-                                            <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
-                                            <g id="SVGRepo_iconCarrier">
-                                                <path fill-rule="evenodd" clip-rule="evenodd" d="M12 6.00019C10.2006 3.90317 7.19377 3.2551 4.93923 5.17534C2.68468 7.09558 2.36727 10.3061 4.13778 12.5772C5.60984 14.4654 10.0648 18.4479 11.5249 19.7369C11.6882 19.8811 11.7699 19.9532 11.8652 19.9815C11.9483 20.0062 12.0393 20.0062 12.1225 19.9815C12.2178 19.9532 12.2994 19.8811 12.4628 19.7369C13.9229 18.4479 18.3778 14.4654 19.8499 12.5772C21.6204 10.3061 21.3417 7.07538 19.0484 5.17534C16.7551 3.2753 13.7994 3.90317 12 6.00019Z" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
-                                            </g>
-                                        </svg>
-                                        Favoritos</button>
+                                    <button class="btn btn-dark descriptionButton me-3" name="seguir" id="seguir"></button>
                                 </div>
-                                </form>                             
+                                </form>
                             </div><!--banner-content-->
                         </div>
                     </div><!--main-content-->
