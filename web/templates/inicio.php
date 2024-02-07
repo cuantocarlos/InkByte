@@ -1,14 +1,14 @@
 <div class="bg-rosa container" style="margin-top:6rem;">
-  <div class="">
+  <div class="d-none d-md-block">
     <h2 class="fw-bold">
       Últimas publicaciones
     </h2>
-      <div class="d-flex justify-content-evenly">
+      <div class="justify-content-evenly d-flex">
       <?php
         for($i = count($params["ultimos"])-1; $i >= 0; $i--){
-            echo '<a href="index.php?ctl=book&id_libro=' . $params['ultimos'][$i]['id_libro'] . '" class="link-div">';
+            echo '<a href="index.php?ctl=book&id_libro=' . $params['ultimos'][$i]['id_libro'] . '" class="link-div text-decoration-none text-black">';
             echo '    <div class="m-3 d-flex flex-column align-items-center">';
-            echo '        <div class="d-flex justify-content-center"><img src="../app/archivos/img/libro/' . $params['ultimos'][$i]['imagen_portada'] . '" class="flex-shrink-0" style="height: 150px; flex-shrink: 0;"></div>';
+            echo '        <div class="d-flex justify-content-center"><img src="../app/archivos/img/libro/' . $params['ultimos'][$i]['imagen_portada'] . '" class="flex-shrink-0" style="height: 10rem; flex-shrink: 0;"></div>';
             echo '        <p>' . $params['ultimos'][$i]['titulo'] . '</p>';
             echo '    </div>';
             echo '</a>';
@@ -16,8 +16,8 @@
       ?>
       </div>
   </div>
-  <div class="row">
-        <div class="flex flex-column col-6">
+  <div class="row flex-wrap-reverse flex-md-nowrap">
+        <div class="flex flex-column col-12 col-md-6">
           <h2 class="fw-bold">Mejor valorados</h2>
           <?php 
             for($i = 0; $i < count($params["top_rated"]); $i++){
@@ -52,14 +52,15 @@
           ?>
 
         </div>
-        <div class="flex flex-column col-6">
+        <div class="flex flex-column col-12 col-md-6">
           <h2 class="fw-bold mb-3">Podría interesarte</h2>
+          <a href="index.php?ctl=book&id_libro=<?php echo $params["recomendacion"]["id_libro"] ?> " class="link-div text-decoration-none text-black">
           <div class="d-flex flex-column align-items-center">
             <img src="../app/archivos/img/libro/<?php echo $params['recomendacion']["imagen_portada"]; ?>" style="height: 20rem;">
             <h3 class="m-2"><?php echo $params['recomendacion']["titulo"]; ?></h3>
             <p class="m-2"><?php echo $params['recomendacion']["sinopsis"]; ?></p>
           </div>
-
+          </a>
 
         </div>
   </div>
