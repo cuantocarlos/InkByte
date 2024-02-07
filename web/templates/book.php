@@ -15,8 +15,8 @@
                     <div class="main-content mt-5 p-3" style="background-color: #fff4f4; width: 100%;">
                         <div class="row justify-content-around">
                             <!-- Columna para la imagen -->
-                            <div class="col-md-4 position-relative mt-md-0 mt-3">
-                                <img src="../app/archivos/img/libro/<?php echo($params['imagen_portada']) ?>" alt="banner" class="banner-image" style=" height: 450px; margin-left: 60px;">
+                            <div class="col-md-4 d-flex justify-content-center mt-md-0 mt-3">
+                                <img src="../app/archivos/img/libro/<?php echo($params['imagen_portada']) ?>" alt="banner" class="banner-image" style=" height: 30rem;">
                             </div>
                             <!-- Columna para el texto -->
                             <div class="col-md-6 mt-md-2 mt-3 ms-md-2">

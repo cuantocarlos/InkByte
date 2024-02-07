@@ -1,5 +1,5 @@
 <div class="bg-rosa container" style="margin-top:6rem;">
-  <div class="d-none d-md-block">
+  <div class="d-none d-xl-block">
     <h2 class="fw-bold">
       Últimas publicaciones
     </h2>

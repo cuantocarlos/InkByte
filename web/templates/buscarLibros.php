@@ -17,7 +17,7 @@ if($libros['mono']){
         echo '            <h4>';
         echo '                <input type="hidden" name="id_libro" value="' . $libro["id_libro"] . '">';
         echo '                <button type="submit" class="btn-link" style="border: none; padding: 0; background: none; text-decoration: none;">';
-        echo '                    ' . $libro["titulo"];
+        echo '                    <p class="text-start">' . $libro["titulo"] . '</p>'; 
         echo '                </button>';
         echo '            </h4>';
         echo '        </form>';
