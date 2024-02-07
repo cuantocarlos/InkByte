@@ -420,7 +420,11 @@ class Controller
                     'mensaje' => []
                 );
 
+<<<<<<< Updated upstream
                 $params['id_user'] = $_SESSION["id_user"]; //$_SESSION['id_user']; cambiar cuando funcione el login
+=======
+                $params['id_user'] = $_SESSION["id_user"];
+>>>>>>> Stashed changes
                 $params['titulo'] = recoge("titulo_lib");
                 $params['sinopsis'] = recoge('sinopsis');
                 $params['generos'] = recogeArray('generos');
@@ -652,7 +656,30 @@ class Controller
 
     public function perfilUsuario()
     {
-        $menu = $this->cargaMenu();
+            $params=array(
+                "id_user"=>$_SESSION['id_user']
+            );
+
+            try{
+
+                $cs = new Consultas();
+
+                $librosSeguidos = $cs->obtenerLibrosSeguidos($params['id_user']);
+                $nombresAutores = $cs -> obtenerNombresAutoresPorLibros($librosSeguidos);
+
+                if(count($librosSeguidos) === 0){
+                    $librosSeguidos['mono'] = true;
+                } else {
+                    $librosSeguidos['mono'] = false;
+                }
+
+            } catch (Exception $e) {
+                $e->getMessage();
+            } catch (Error $e) {
+                $e->getMessage();
+            }
+
+            $menu = $this->cargaMenu();
         require __DIR__ . '/../../web/templates/perfilUsuario.php';
     }
 
@@ -956,3 +983,86 @@ class Controller
             }
         }
     }
+<<<<<<< Updated upstream
+=======
+
+
+    public function contacto(){
+        $menu = $this->cargaMenu();
+        require __DIR__ . '/../../web/templates/contacto.php';
+    }
+
+    public function dondeEstamos(){
+        require __DIR__ . '/../../web/templates/dondeEstamos.php';
+    }
+
+    public function recomendados()
+    {
+        $params=array(
+            "generos_pref"=>[],
+            "num_generos" => 0,
+            "recomendaciones" => [],
+            "nombre_pref" => []
+
+        );
+
+        $librosPorGenero=array(
+             "terror"=>[],
+             "romance"=>[],
+             "fantasia"=>[],
+             "cficcion"=>[],
+             "historia"=>[],
+             "arte"=>[],
+             "thriller"=>[],
+             "poesia"=>[],
+             "drama"=>[],
+             "biografia"=>[],
+             "misterio"=>[],
+             "policiaca"=>[]
+        );
+
+        try{
+            $cs=new Consultas();
+            $params["generos_pref"]=$cs->generosSelecionadosUsuario($_SESSION["id_user"]);
+            $librosPorGenero["terror"] = $cs -> obtenerLibrosAleatoriosPorGenero("terror");
+            $librosPorGenero["romance"] = $cs -> obtenerLibrosAleatoriosPorGenero("romance");
+            $librosPorGenero["fantasia"] = $cs -> obtenerLibrosAleatoriosPorGenero("fantasia");
+            $librosPorGenero["cficcion"] = $cs -> obtenerLibrosAleatoriosPorGenero("cficcion");
+            $librosPorGenero["historia"] = $cs -> obtenerLibrosAleatoriosPorGenero("historia");
+            $librosPorGenero["arte"] = $cs -> obtenerLibrosAleatoriosPorGenero("arte");
+            $librosPorGenero["thriller"] = $cs -> obtenerLibrosAleatoriosPorGenero("thriller");
+            $librosPorGenero["poesia"] = $cs -> obtenerLibrosAleatoriosPorGenero("poesia");
+            $librosPorGenero["drama"] = $cs -> obtenerLibrosAleatoriosPorGenero("drama");
+            $librosPorGenero["biografia"] = $cs -> obtenerLibrosAleatoriosPorGenero("biografia");
+            $librosPorGenero["misterio"] = $cs -> obtenerLibrosAleatoriosPorGenero("misterio");
+            $librosPorGenero["policiaca"] = $cs -> obtenerLibrosAleatoriosPorGenero("policiaca");
+
+            for ($i = 1; $i < count($params["generos_pref"]); $i++) {
+                if ($params["generos_pref"][Config::$generos_disponibles[$i - 1]] == 1) {
+                    $genero = Config::$generos_disponibles[$i - 1];
+                    if (!empty($librosPorGenero[$genero])) {
+                        $params["num_generos"]++;
+                        $params["recomendaciones"][$genero] = $librosPorGenero[$genero];
+                        array_push($params["nombre_pref"], $genero);
+
+                    }
+                }
+            }
+
+
+
+        }catch (Exception $e) {
+            $e->getMessage();
+        } catch (Error $e) {
+            $e->getMessage();
+        }
+
+        $menu = $this->cargaMenu();
+        require __DIR__ . '/../../web/templates/recomendados.php';
+    }
+
+
+}
+
+
+>>>>>>> Stashed changes

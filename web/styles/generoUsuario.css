@@ -204,3 +204,16 @@
   .button-pink:hover {
     background-color: #ff4081;
   }
+
+
+@media (max-width: 992px){
+    .contenedorPerfil, .descripcion{
+        flex-direction: column;
+        padding-left:0px;
+    }
+
+    .libro{
+        display:none;
+    }
+
+}
