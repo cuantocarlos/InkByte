@@ -26,29 +26,29 @@
         <div class="form-group">
             <label for="generos">Selecciona los géneros:</label>
             <div class="mt-3 d-flex gap-3 justify-content-center">
-                <input type="checkbox" class="btn-check terror" id="terror" autocomplete="off" name="generoUsuario[]" value="terror">
+                <input type="checkbox" class="btn-check terror" id="terror" autocomplete="off" name="genero[]" value="terror">
                 <label class="btn btn-outline-primary mb-3 terror-label" for="terror">Terror</label>
-                <input type="checkbox" class="btn-check romance" id="romance" autocomplete="off" name="generoUsuario[]" value="romance">
+                <input type="checkbox" class="btn-check romance" id="romance" autocomplete="off" name="genero[]" value="romance">
                 <label class="btn btn-outline-primary mb-3 romance-label" for="romance">Romance</label>
-                <input type="checkbox" class="btn-check fantasia" id="fantasia" autocomplete="off" name="generoUsuario[]" value="fantasia">
+                <input type="checkbox" class="btn-check fantasia" id="fantasia" autocomplete="off" name="genero[]" value="fantasia">
                 <label class="btn btn-outline-primary mb-3 fantasia-label" for="fantasia">Fantasía</label>
-                <input type="checkbox" class="btn-check cficcion" id="cficcion" autocomplete="off" name="generoUsuario[]" value="cficcion">
+                <input type="checkbox" class="btn-check cficcion" id="cficcion" autocomplete="off" name="genero[]" value="cficcion">
                 <label class="btn btn-outline-primary mb-3 cficcion-label" for="cficcion">C.Ficción</label>
-                <input type="checkbox" class="btn-check historia" id="historia" autocomplete="off" name="generoUsuario[]" value="historia">
+                <input type="checkbox" class="btn-check historia" id="historia" autocomplete="off" name="genero[]" value="historia">
                 <label class="btn btn-outline-primary mb-3 historia-label" for="historia">Historia</label>
-                <input type="checkbox" class="btn-check arte" id="arte" autocomplete="off" name="generoUsuario[]" value="arte">
+                <input type="checkbox" class="btn-check arte" id="arte" autocomplete="off" name="genero[]" value="arte">
                 <label class="btn btn-outline-primary mb-3 arte-label" for="arte">Arte</label>
-                <input type="checkbox" class="btn-check thriller" id="thriller" autocomplete="off" name="generoUsuario[]" value="thriller">
+                <input type="checkbox" class="btn-check thriller" id="thriller" autocomplete="off" name="genero[]" value="thriller">
                 <label class="btn btn-outline-primary mb-3 thriller-label" for="thriller">Thriller</label>
-                <input type="checkbox" class="btn-check poesia" id="poesia" autocomplete="off" name="generoUsuario[]" value="poesia">
+                <input type="checkbox" class="btn-check poesia" id="poesia" autocomplete="off" name="genero[]" value="poesia">
                 <label class="btn btn-outline-primary mb-3 poesia-label" for="poesia">Poesía</label>
-                <input type="checkbox" class="btn-check biografia" id="biografia" autocomplete="off" name="generoUsuario[]" value="biografia">
+                <input type="checkbox" class="btn-check biografia" id="biografia" autocomplete="off" name="genero[]" value="biografia">
                 <label class="btn btn-outline-primary mb-3 biografia-label" for="biografia">Biografía</label>
-                <input type="checkbox" class="btn-check misterio" id="misterio" autocomplete="off" name="generoUsuario[]" value="misterio">
+                <input type="checkbox" class="btn-check misterio" id="misterio" autocomplete="off" name="genero[]" value="misterio">
                 <label class="btn btn-outline-primary mb-3 misterio-label" for="misterio">Misterio</label>
-                <input type="checkbox" class="btn-check policiaca" id="policiaca" autocomplete="off" name="generoUsuario[]" value="policiaca">
+                <input type="checkbox" class="btn-check policiaca" id="policiaca" autocomplete="off" name="genero[]" value="policiaca">
                 <label class="btn btn-outline-primary mb-3 policiaca-label" for="policiaca">Policíaca</label>
-                <input type="checkbox" class="btn-check drama" id="drama" autocomplete="off" name="generoUsuario[]" value="drama">
+                <input type="checkbox" class="btn-check drama" id="drama" autocomplete="off" name="genero[]" value="drama">
                 <label class="btn btn-outline-primary mb-3 drama-label" for="drama">Drama</label>
             </div>
 

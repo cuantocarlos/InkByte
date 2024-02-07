@@ -420,7 +420,9 @@ class Controller
                 $params['id_user'] = $_SESSION["id_user"]; 
                 $params['titulo'] = recoge("titulo_lib");
                 $params['sinopsis'] = recoge('sinopsis');
-                $params['generos'] = recogeArray('generos');
+                $params['generos'] = recogeArray('genero');
+                echo $params['titulo'];
+                print_r($params['generos']);
                 $params['edad_recomendada'] = recoge('edad_recomendada');
                 if (cTexto($params['titulo'], "titulo", $params['mensaje'], 50, 1, true, true)) {
                     if (cTexto($params['sinopsis'], "sinopsis", $params['mensaje'], 1000, 1, true, true)) {
@@ -466,18 +468,20 @@ class Controller
                 if (empty($params['mensaje'])) {
                     $params['imagen_portada'] = cFile("portadaLibro", $params['mensaje'], Config::$extensionesValidas, __DIR__ . '/../archivos/img/libro/', 20000000);
 
-                    if (!empty($params["imagen_portada"])) {
-                        $cs = new Consultas();
-                        $cs->agregarLibro($params["id_user"], $params["titulo"], $params["sinopsis"], $params["imagen_portada"], $params["capitulos"], $params["num_resenas"], $params["valoracion"], $params["visitas"], $params["visitasSemana"], $params["estado"], $params["m_18"], $params["m_16"], $params["m_12"]);
+                    if (empty($params["imagen_portada"])) {
+                        $params["imagen_portada"] = "sin_portada.jpg";
                     }
-                } else {}
 
-                if (empty($params["imagen_portada"])) {
-                    echo $params["imagen_portada"];
-                    //header("location:index.php?ctl=crearLibro");
+                    $cs = new Consultas();
+                    $cs->agregarLibro($params["id_user"], $params["titulo"], $params["sinopsis"], $params["imagen_portada"], $params["capitulos"], $params["num_resenas"], $params["valoracion"], $params["visitas"], $params["visitasSemana"], $params["estado"], $params["m_18"], $params["m_16"], $params["m_12"]);
+                    $id_libro = $cs->buscar2Campos($params["id_user"], $params["titulo"], "libro", "id_libro", "id_user", "titulo");
+                    $cs->guardarGeneroLibro($id_libro, $params["generos"]);
+
                 } else {
-                    header("location:index.php?ctl=inicio");
+                    header("location:index.php?ctl=crearLibro");
                 }
+
+                header("location:index.php?ctl=inicio");
 
             } catch (Exception $e) {
                 echo "Error: " . $e->getMessage();

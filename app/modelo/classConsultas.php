@@ -8,6 +8,13 @@ class Consultas extends Modelo {
         return ($resultado) ? $resultado[$columna] : null;
     }
 
+    function buscar2Campos($input1, $input2, $tabla, $columna, $campoWhere1, $campoWhere2){
+        $stmt = $this->conexion->prepare("SELECT $columna FROM $tabla WHERE $campoWhere1 = ? AND $campoWhere2 = ?");
+        $stmt->execute([$input1, $input2]);
+        $resultado = $stmt->fetch(PDO::FETCH_ASSOC);
+        return ($resultado) ? $resultado[$columna] : null;
+    }
+
     function buscarFila($input, $tabla, $campoWhere) {
         $stmt = $this->conexion->prepare("SELECT * FROM $tabla WHERE $campoWhere = ?");
         $stmt->execute([$input]);
@@ -570,6 +577,35 @@ class Consultas extends Modelo {
     
         return $libros;
     }
+    
+    function guardarGeneroLibro($id_libro, $columnasPresentes) {
+        $valores = array(
+            'id_libro' => $id_libro,
+            'terror' => 0,
+            'romance' => 0,
+            'fantasia' => 0,
+            'cficcion' => 0,
+            'historia' => 0,
+            'arte' => 0,
+            'thriller' => 0,
+            'poesia' => 0,
+            'drama' => 0,
+            'biografia' => 0,
+            'misterio' => 0,
+            'policiaca' => 0
+        );
+        foreach ($columnasPresentes as $columna) {
+            if (array_key_exists($columna, $valores)) {
+                $valores[$columna] = 1;
+            }
+        }
+
+        $sql = "INSERT INTO generolibro (id_libro, terror, romance, fantasia, cficcion, historia, arte, thriller, poesia, drama, biografia, misterio, policiaca) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        $stmt = $this->conexion->prepare($sql);
+        $stmt->execute(array_values($valores));
+        return ($stmt->rowCount() > 0);
+    }
+    
     
 
 }

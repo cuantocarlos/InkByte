@@ -145,7 +145,7 @@ function recogeArray($var)
             $tmp[] = strip_tags(sinEspacios($value));
         }
     } else
-        $tmp = "";
+        $tmp = "Nada";
 
 
 
