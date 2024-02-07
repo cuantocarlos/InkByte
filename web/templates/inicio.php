@@ -37,10 +37,7 @@
               echo '        </form>';
               echo '        <form action="index.php?ctl=perfil&id_user=' . $libro["id_user"] . '" method="post">';
               echo '            <h5>';
-              echo '                <input type="hidden" name="id_autor" value="' . $libro["id_user"] . '">';
-              echo '                <button type="submit" class="btn-link" style="border: none; padding: 0; background: none; text-decoration: none;">';
               echo '                    Autor: ' . $autor;
-              echo '                </button>';
               echo '            </h5>';
               echo '        </form>';
               
