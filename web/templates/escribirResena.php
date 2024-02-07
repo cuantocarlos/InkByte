@@ -15,8 +15,8 @@
                     <div class="main-content mt-5 p-3" style="background-color: #fff4f4; width: 100%;">
                         <div class="row justify-content-around">
                             <!-- Columna para la imagen -->
-                            <div class="col-md-4 position-relative mt-md-0 mt-3 ">
-                                <img src="../app/archivos/img/libro/<?php echo($params['imagen_portada']) ?>" alt="banner" class="banner-image" style=" height: 450px; margin-left: 60px;">
+                            <div class="col-md-4 d-flex justify-content-center mt-md-0 mt-3 ">
+                                <img src="../app/archivos/img/libro/<?php echo($params['imagen_portada']) ?>" alt="banner" class="banner-image" style=" height: 30rem;">
                             </div>
                             <!-- Columna para el texto -->
                             <div class="col-md-6 mt-md-2 mt-3 ms-md-2">
@@ -26,7 +26,8 @@
                                     <p> Escribe tu reseña (Máximo 1000 caracteres)</p>
                                     <form action="" method="post">
                                     <div>
-                                        <textarea name="resena" id="resena" cols="66" rows="10" style="resize:none;"></textarea>
+                                    <textarea name="resena" id="resena" style="width: 100%; height: auto; resize:none;" rows="10"></textarea>
+
                                     </div>
                                     <div class="mt-3 d-flex">
                                     <button class="btn btn-dark me-4 flex-grow-1 " name="publicar" id="publicar">

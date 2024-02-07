@@ -25,7 +25,7 @@
 
         <div class="form-group">
             <label for="generos">Selecciona los géneros:</label>
-            <div class="mt-3 d-flex gap-3 justify-content-center">
+            <div class="mt-3 d-xl-flex gap-3 justify-content-center">
                 <input type="checkbox" class="btn-check terror" id="terror" autocomplete="off" name="genero[]" value="terror">
                 <label class="btn btn-outline-primary mb-3 terror-label" for="terror">Terror</label>
                 <input type="checkbox" class="btn-check romance" id="romance" autocomplete="off" name="genero[]" value="romance">

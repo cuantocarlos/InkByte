@@ -11,24 +11,19 @@ if($libros['mono']){
         $autor = $nombresAutores[$i];
         
         echo '<div class="container border mt-1 d-flex p-2 align-items-center">';
-        echo '    <img src="../app/archivos/img/libro/' . $libro["imagen_portada"] . '" class="border" style="height: 150px;">';
+        echo '    <img src="../app/archivos/img/libro/' . $libro["imagen_portada"] . '" class="border" style="height: 10rem;">';
         echo '    <div class="ms-2">';
         echo '        <form action="index.php?ctl=book&id_libro=' . $libro["id_libro"] . '" method="post">';
         echo '            <h4>';
         echo '                <input type="hidden" name="id_libro" value="' . $libro["id_libro"] . '">';
         echo '                <button type="submit" class="btn-link" style="border: none; padding: 0; background: none; text-decoration: none;">';
-        echo '                    ' . $libro["titulo"];
+        echo '                    <p class="text-start">' . $libro["titulo"] . '</p>'; 
         echo '                </button>';
         echo '            </h4>';
         echo '        </form>';
-        echo '        <form action="index.php?ctl=perfil&id_user=' . $libro["id_user"] . '" method="post">';
         echo '            <h5>';
-        echo '                <input type="hidden" name="id_autor" value="' . $libro["id_user"] . '">';
-        echo '                <button type="submit" class="btn-link" style="border: none; padding: 0; background: none; text-decoration: none;">';
         echo '                    Autor: ' . $autor;
-        echo '                </button>';
         echo '            </h5>';
-        echo '        </form>';
         
         echo '        <p>Valoración: ' . $libro["valoracion"] . '</p>';
         echo '        <p>' . $libro["sinopsis"] . '</p>';

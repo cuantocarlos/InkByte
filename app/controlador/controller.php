@@ -311,7 +311,34 @@ class Controller
     }
 
     public function inicio()
-    {
+    {   
+        $params = array(
+            "libros" => [],
+            "ultimos" => [],
+            "top_rated" => [],
+            "recomendacion" => [],
+            "nombres_autores" => []
+        );
+
+        try{
+            
+            $cs = new Consultas();
+            $params["libros"] = $cs -> buscarTablaCompleta("libro");
+
+            $params["ultimos"] = array_slice($params["libros"], -8);
+
+            $params["top_rated"] = $cs -> buscarTablaCompletaOrdenada("libro");
+
+            $params["recomendacion"] = $params["libros"][array_rand($params["libros"])];
+
+            $params["nombres_autores"] = $cs -> obtenerNombresAutoresPorLibros($params["top_rated"]);
+
+
+        } catch (Exception $e){
+            echo $e -> getMessage();
+        } catch (Error $e){
+            echo $e -> getMessage();
+        }
         $menu = $this->cargaMenu();
 
         require __DIR__ . '/../../web/templates/inicio.php';
@@ -805,6 +832,7 @@ class Controller
                         echo ($cs->actualizarResena($_SESSION["id_user"], $params["id_libro"], $texto));
                     } else {
                         echo ($cs->guardarResena($_SESSION["id_user"], $params["id_libro"], $texto));
+                        $cs -> aumentarNumResenasLibro($params['id_libro']);
                     }
 
                 } catch (Exception $e) {
