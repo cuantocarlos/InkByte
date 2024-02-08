@@ -6,7 +6,7 @@ public static $db_hostname = "localhost";
 public static $db_nombre = "inkbyte"; //nombre de la base de datos
 
 public static $db_usuario = "root";
-public static $db_clave = "";
+public static $db_clave = "1234";
 
 //incluimos informacion para el guardado de imagenes
 public static $extensionesValidas=["jpeg","jpg","png"];
