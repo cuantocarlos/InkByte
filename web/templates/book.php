@@ -29,7 +29,7 @@
                                         <div class="container mt-3 ">
                                             <div class="row">
                                                 <div class="col-md-6">
-                                                    <form action="" method="post">
+                                                    <form method="post">
                                                         <label for="capituloDropdown" class="form-label">Selecciona un capítulo</label>
                                                         <div class="d-flex">
                                                         <select id="capituloDropdown" class="form-select" name="contador_capitulos">
@@ -122,15 +122,17 @@
         <div class="container contenedor-review mt-5">
     <div class="row d-flex">
         <div class="col-md-12 justify-content-end custom-margin-right">
-            <?php
-             foreach($resenas as $resena){
+        <?php
+            $resenasReverso = array_reverse($resenas);
+            foreach($resenasReverso as $resena){
                 echo "<div>
-                    <span>". $cs -> buscar($resena["id_user"], "usuario", "nombre", "id_user") ."</span>
-                    <p>".$resena["contenido"]."</p>
-                    <hr>
-                 </div>";
-             }
+                        <span>". $cs->buscar($resena["id_user"], "usuario", "nombre", "id_user") ."</span>
+                        <p>".$resena["contenido"]."</p>
+                        <hr>
+                    </div>";
+                }
             ?>
+
         </div>
     </div>
 </div>

@@ -57,15 +57,17 @@
         <div class="container contenedor-review mt-5">
     <div class="row d-flex">
         <div class="col-md-12 justify-content-end custom-margin-right">
-            <?php
-             foreach($resenas as $resena){
+        <?php
+            $resenasReverso = array_reverse($resenas);
+            foreach($resenasReverso as $resena){
                 echo "<div>
-                    <span>". $cs -> buscar($resena["id_user"], "usuario", "nombre", "id_user") ."</span>
+                    <span>". $cs->buscar($resena["id_user"], "usuario", "nombre", "id_user") ."</span>
                     <p>".$resena["contenido"]."</p>
                     <hr>
-                 </div>";
-             }
-            ?>
+                </div>";
+            }
+        ?>
+
         </div>
     </div>
 </div>

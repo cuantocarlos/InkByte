@@ -43,6 +43,9 @@ class Consultas extends Modelo {
         return ($resultados !== false) ? array_slice($resultados, 0, 3) : null;
     }
 
+
+
+    
     function buscarColumnaArray($input, $tabla, $columna, $campoWhere) {
         $stmt = $this->conexion->prepare("SELECT $columna FROM $tabla WHERE $campoWhere = ?");
         $stmt->execute([$input]);

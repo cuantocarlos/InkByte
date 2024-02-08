@@ -3,12 +3,12 @@
 
     <?php
     if (!$librosSeguidos["mono"]) {
-        for ($i = 0; $i < count($librosSeguidos)-1; $i++) {
+        for ($i = count($librosSeguidos) - 2; $i >= 0; $i--) {
             $libro = $librosSeguidos[$i];
             $autor = $nombresAutores[$i];
             
             echo '<div class="container border mt-1 d-flex p-2 align-items-center">';
-            echo '    <img src="../app/archivos/img/libro/' . $libro["imagen_portada"] . '" class="border" style="height: 150px;">';
+            echo '    <img src="../app/archivos/img/libro/' . $libro["imagen_portada"] . '" class="border" style="height: 10rem;">';
             echo '    <div class="ms-2">';
             echo '        <form action="index.php?ctl=book&id_libro=' . $libro["id_libro"] . '" method="post">';
             echo '            <h4>';
@@ -20,10 +20,7 @@
             echo '        </form>';
             echo '        <form action="index.php?ctl=perfil&id_user=' . $libro["id_user"] . '" method="post">';
             echo '            <h5>';
-            echo '                <input type="hidden" name="id_autor" value="' . $libro["id_user"] . '">';
-            echo '                <button type="submit" class="btn-link" style="border: none; padding: 0; background: none; text-decoration: none;">';
             echo '                    Autor: ' . $autor;
-            echo '                </button>';
             echo '            </h5>';
             echo '        </form>';
             

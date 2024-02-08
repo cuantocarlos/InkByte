@@ -1,4 +1,4 @@
-<div class="container mt-5">
+<div class="container" style="margin-top: 6rem;">
 <form action="" method="post">
     <div class="cabecera bg-rosa p-3 fw-bold mt-5 d-flex justify-content-between">
         <div>
@@ -24,7 +24,11 @@
             <?php
                 $i = 1;
                 foreach($capitulos as $capitulo){
-                    echo '<option value='. $i . '> Capítulo ' . $i . ' - ' . $capitulo["titulo"] . '</option>';
+                    if($i = $params["num_cap"]){
+                        echo '<option value='. $i . ' selected> Capítulo ' . $i . ' - ' . $capitulo["titulo"] . '</option>';
+                    } else {
+                        echo '<option value='. $i . '> Capítulo ' . $i . ' - ' . $capitulo["titulo"] . '</option>';
+                    }
                     $i++;
                 }
             ?>
