@@ -8,7 +8,7 @@
             $autor = $nombresAutores[$i];
             
             echo '<div class="container border mt-1 d-flex p-2 align-items-center">';
-            echo '    <img src="../app/archivos/img/libro/' . $libro["imagen_portada"] . '" class="border" style="height: 150px;">';
+            echo '    <img src="../app/archivos/img/libro/' . $libro["imagen_portada"] . '" class="border" style="height: 10rem;">';
             echo '    <div class="ms-2">';
             echo '        <form action="index.php?ctl=book&id_libro=' . $libro["id_libro"] . '" method="post">';
             echo '            <h4>';

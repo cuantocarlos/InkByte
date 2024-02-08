@@ -840,6 +840,7 @@ class Controller
                     } else {
                         echo ($cs->guardarResena($_SESSION["id_user"], $params["id_libro"], $texto));
                         $cs -> aumentarNumResenasLibro($params['id_libro']);
+                        $cs -> aumentarNumResenasLibro($params['id_libro']);
                     }
 
                 } catch (Exception $e) {
@@ -1111,6 +1112,8 @@ public function seguidos()
         $menu = $this->cargaMenu();
         require __DIR__ . '/../../web/templates/recomendados.php';
     }
+
+    
 
 
 }
