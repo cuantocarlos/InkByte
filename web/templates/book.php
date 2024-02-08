@@ -29,7 +29,7 @@
                                         <div class="container mt-3 ">
                                             <div class="row">
                                                 <div class="col-md-6">
-                                                    <form action="" method="post">
+                                                    <form method="post">
                                                         <label for="capituloDropdown" class="form-label">Selecciona un capítulo</label>
                                                         <div class="d-flex">
                                                         <select id="capituloDropdown" class="form-select" name="contador_capitulos">

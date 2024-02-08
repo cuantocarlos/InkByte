@@ -399,7 +399,7 @@ class Controller
         $menu = $this->cargaMenu();
          if ($_SESSION['nivel'] != 2) {
              header("location:index.php?ctl=inicio");
-         }
+         } 
 
         if ((isset($_POST["bAceptar"]))) {
 
@@ -448,23 +448,18 @@ class Controller
                     if (empty($params["imagen_portada"])) {
                         $params["imagen_portada"] = "sin_portada.jpg";
                     }
-
                     $cs = new Consultas();
                     $cs->agregarLibro($params["id_user"], $params["titulo"], $params["sinopsis"], $params["imagen_portada"], $params["capitulos"], $params["num_resenas"], $params["valoracion"], $params["visitas"], $params["visitasSemana"], $params["estado"]);
                     $id_libro = $cs->buscar2Campos($params["id_user"], $params["titulo"], "libro", "id_libro", "id_user", "titulo");
                     $cs->guardarGeneroLibro($id_libro, $params["generos"]);
-
+                    header("location:index.php?ctl=inicio");
                 } else {
                     header("location:index.php?ctl=crearLibro");
                 }
-
-                header("location:index.php?ctl=inicio");
-
             } catch (Exception $e) {
                 echo "Error: " . $e->getMessage();
             }
-
-        }
+        } 
         require __DIR__ . '/../../web/templates/crearLibro.php';
     }
 
@@ -737,7 +732,8 @@ class Controller
         }
 
         if (isset($_REQUEST["valorar"])) {
-            $valoracion = recoge("rating");
+            if(isset($_SESSION["id_user"])){
+                $valoracion = recoge("rating");
             if ($valoracion != 1 && $valoracion != 2 && $valoracion != 3 && $valoracion != 4 && $valoracion != 5) {
                 $params["mensaje"] = "Error en la valoracion";
                 header("location: index.php?ctl=book&id_libro=" . $params["id_libro"]);
@@ -758,25 +754,36 @@ class Controller
                     error_log($e->getMessage() . microtime() . PHP_EOL, 3, "../logs/logError.txt");
                 }
             }
+            } else {
+                header("location: index.php?ctl=iniciarSesion");
+            }
         }
 
         if (isset($_REQUEST["seguir"])) {
 
-            try {
-                $cs = new Consultas();
-                if (!$cs->existeRelacionSeguido($params["id_libro"], $_SESSION["id_user"])) {
-                    $cs->agregarSeguido($params["id_libro"], $_SESSION["id_user"]);
+            if(isset($_SESSION["id_user"])){
+                try {
+                    $cs = new Consultas();
+                    if (!$cs->existeRelacionSeguido($params["id_libro"], $_SESSION["id_user"])) {
+                        $cs->agregarSeguido($params["id_libro"], $_SESSION["id_user"]);
+                    }
+    
+                } catch (Exception $e) {
+                    error_log($e->getMessage() . "##Código: " . $e->getCode() . "  " . microtime() . PHP_EOL, 3, "../logs/logBD.txt");
+                } catch (Error $e) {
+                    error_log($e->getMessage() . microtime() . PHP_EOL, 3, "../logs/logError.txt");
                 }
-
-            } catch (Exception $e) {
-                error_log($e->getMessage() . "##Código: " . $e->getCode() . "  " . microtime() . PHP_EOL, 3, "../logs/logBD.txt");
-            } catch (Error $e) {
-                error_log($e->getMessage() . microtime() . PHP_EOL, 3, "../logs/logError.txt");
+            } else {
+                header("location: index.php?ctl=iniciarSesion");
             }
         }
 
         if (isset($_REQUEST["escribir_resena"])) {
-            header("location: index.php?ctl=escribirResena&id_libro=" . $params["id_libro"]);
+            if(isset($_SESSION["id_user"])){
+                header("location: index.php?ctl=escribirResena&id_libro=" . $params["id_libro"]);
+            } else {
+                header("location: index.php?ctl=iniciarSesion");
+            }
         }
 
         require __DIR__ . '/../../web/templates/book.php';
