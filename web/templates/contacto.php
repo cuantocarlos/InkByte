@@ -9,6 +9,12 @@
         </div>
 
         <div class="p-5 pt-0">
+            <?php
+                //pinto lo recogido en el controlador
+                echo '<pre>';
+                print_r($array);
+                echo '</pre>';
+            ?>
             <form method="post" action="">
             <label class="mb-2" for="terminos">
                 <small class="text-body-secondary">Danos detalles de tu asunto y te contactaremos lo antes posible.</small>
