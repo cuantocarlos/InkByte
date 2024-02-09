@@ -1038,14 +1038,32 @@ public function seguidos()
         $params = array(
             'nombre' => recoge('name'),
             'asunto' => recoge('asunto'),
-            'descripcion'=>recoge('description'),
+            'descripcion' => recoge('description'),
             'mail' => recoge('mail'),
             'tel' => recoge('telephone'),
-            'horario'=>recoge('horario'),
-            'terminos'=>recoge('terminos'),
+            'horario' => recoge('horario'),
+            'terminos' => recoge('terminos'),
         );
         $_SESSION['params'] = $params;
+        if (empty($params['nombre']) || empty($params['asunto']) || empty($params['mail'])) {
+            $params['mensaje'] = "Rellene los campos obligatorios";
+        } else if (!cTexto($params['nombre'], "nombre", $params['mensaje'], 50, 1, true, true)) {
+            $params['mensaje'] = "Error en el campo nombre";
+        } else if (!cTexto($params['asunto'], "asunto", $params['mensaje'], 50, 1, true, true)) {
+            $params['mensaje'] = "Error en el campo asunto";
+        } else if (!cMail($params['mail'], "mail", $params['mensaje'], 50, 1, true, true)) {
+            $params['mensaje'] = "Error en el campo mail";
+        } else if (!cTelefono($params['tel'], "tel", $params['mensaje'], )) {
+            $params['mensaje'] = "Error en el campo teléfono";
+        } else if (!cTexto($params['descripcion'], "descripcion", $params['mensaje'], 500, 1, true, true)) {
+            $params['mensaje'] = "Error en el campo descripción";
+        } else if ($params['horario'] != "1" || $params['horario'] != "2" || $params['horario'] != "3") {
+            $params['mensaje'] = "Error en el campo horario";
+        } else {
+            //introduzco en la bd
             
+            $params['mensaje'] = "Mensaje enviado correctamente";
+        }
         require __DIR__ . '/../../web/templates/contacto.php';
     }
 
@@ -1062,18 +1080,18 @@ public function seguidos()
             "nombre_pref" => []
         );
         $librosPorGenero=array(
-             "terror"=>[],
-             "romance"=>[],
-             "fantasia"=>[],
-             "cficcion"=>[],
-             "historia"=>[],
-             "arte"=>[],
-             "thriller"=>[],
-             "poesia"=>[],
-             "drama"=>[],
-             "biografia"=>[],
-             "misterio"=>[],
-             "policiaca"=>[]
+            "terror"=>[],
+            "romance"=>[],
+            "fantasia"=>[],
+            "cficcion"=>[],
+            "historia"=>[],
+            "arte"=>[],
+            "thriller"=>[],
+            "poesia"=>[],
+            "drama"=>[],
+            "biografia"=>[],
+            "misterio"=>[],
+            "policiaca"=>[]
         );
         try{
             $cs=new Consultas();
