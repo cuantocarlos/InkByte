@@ -1060,7 +1060,7 @@ public function seguidos()
         } else if ($params['horario'] != "1" || $params['horario'] != "2" || $params['horario'] != "3") {
             $params['mensaje'] = "Error en el campo horario";
         } else {
-            //introduzco en la bd
+            //envio el email
             
             $params['mensaje'] = "Mensaje enviado correctamente";
         }
