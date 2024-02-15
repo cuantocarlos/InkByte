@@ -14,7 +14,7 @@ if ($params["num_generos"] > 0) {
             echo '    </div>';
             echo '</a>';
         }
-        
+
         echo '</div>';
         echo '</div>';
     }
@@ -29,5 +29,5 @@ if ($params["num_generos"] > 0) {
 </div>
 
 <?php
-include('layout.php');
+include 'layout.php';
 ?>

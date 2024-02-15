@@ -49,7 +49,7 @@ window.onload = function () {
     inputPass2.addEventListener('blur', () => {
         const contrasenia = inputPass.value;
         const contrasenia2 = inputPass2.value;
-    
+
         if (contrasenia2 !== contrasenia) {
             pass2.classList.add("is-invalid");
             document.getElementById("pass2Mal").innerText = "La contraseña no coincide";

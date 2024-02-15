@@ -1,16 +1,16 @@
 <?php
-require_once('bGeneral.php');
+require_once 'bGeneral.php';
 
-function cabecera($titulo = NULL) //el archivo actual
+function cabecera($titulo = null) //el archivo actual
 {
-?>
+    ?>
 <!DOCTYPE html>
 		<html lang="es">
 			<head>
 				<title>
 				<?php
-				echo $titulo;
-				?>
+echo $titulo;
+    ?>
 
 			</title>
 				<meta charset="utf-8"/>
@@ -48,7 +48,7 @@ function sinTildes($frase)
         "È",
         "Ì",
         "Ò",
-        "Ù"
+        "Ù",
     );
     $permitidas = array(
         "a",
@@ -70,7 +70,7 @@ function sinTildes($frase)
         "E",
         "I",
         "O",
-        "U"
+        "U",
     );
     $texto = str_replace($no_permitidas, $permitidas, $frase);
     return $texto;
@@ -87,8 +87,9 @@ function recoge($var)
     if (isset($_REQUEST[$var]) && (!is_array($_REQUEST[$var]))) {
         $tmp = sinEspacios($_REQUEST[$var]);
         $tmp = strip_tags($tmp);
-    } else
+    } else {
         $tmp = "";
+    }
 
     return $tmp;
 }
@@ -98,10 +99,10 @@ function recogeBool($val): bool
     return isset($_REQUEST[$val]);
 }
 
-function cTexto(string $text, string $campo, array &$errores, int $max = 30, int $min = 1, bool $espacios = TRUE, bool $case = TRUE): bool
+function cTexto(string $text, string $campo, array &$errores, int $max = 30, int $min = 1, bool $espacios = true, bool $case = true): bool
 {
-    $case = ($case === TRUE) ? "i" : "";
-    $espacios = ($espacios === TRUE) ? " " : "";
+    $case = ($case === true) ? "i" : "";
+    $espacios = ($espacios === true) ? " " : "";
     if ((preg_match("/^[A-Za-zñ$espacios]{" . $min . "," . $max . "}$/u$case", sinTildes($text)))) {
         return true;
     }
@@ -144,14 +145,12 @@ function recogeArray($var)
         foreach ($array as $value) {
             $tmp[] = strip_tags(sinEspacios($value));
         }
-    } else
+    } else {
         $tmp = "Nada";
-
-
+    }
 
     return $tmp;
 }
-
 
 function cFormatoFecha($formato, $fecha): bool
 {
@@ -190,7 +189,6 @@ function cEmail($email, &$errores, $campo, $max = 40, $min = 6)
     }
 }
 
-
 function cFecha($fecha, &$errores)
 {
     $fechaArray = explode("-", $fecha);
@@ -216,14 +214,14 @@ function mayorEdad($fecha)
 }
 
 //para validar checkboxMultiple
-function cCheck (array $text, string $campo, array &$errores, array $valores, bool $requerido=TRUE)
+function cCheck(array $text, string $campo, array &$errores, array $valores, bool $requerido = true)
 {
-    if (($requerido) && (count($text)===0)){
-            $errores[$campo] = "Error en el campo $campo";
-            return false;
+    if (($requerido) && (count($text) === 0)) {
+        $errores[$campo] = "Error en el campo $campo";
+        return false;
     }
-    foreach ($text as $valor){
-        if (!in_array($valor, $valores)){
+    foreach ($text as $valor) {
+        if (!in_array($valor, $valores)) {
             $errores[$campo] = "Error en el campo $campo";
             return false;
         }
@@ -232,12 +230,12 @@ function cCheck (array $text, string $campo, array &$errores, array $valores, bo
     return true;
 }
 
-function cFile(string $nombre, array &$errores, array $extensiones_validas, string $directorio, int  $max_file_size): bool|string
+function cFile(string $nombre, array &$errores, array $extensiones_validas, string $directorio, int $max_file_size): bool | string
 {
     if (empty($_FILES[$nombre]["name"])) {
         return false; // No se ha subido ningún archivo, salir del método.
     }
-if (($_FILES[$nombre]['error'] != 0)) {// se comprueban los errores del servidor
+    if (($_FILES[$nombre]['error'] != 0)) { // se comprueban los errores del servidor
         $errores["mensaje"] = "Error al subir el archivo " . $nombre . ". Prueba de nuevo";
         return false;
     } else {
@@ -264,7 +262,7 @@ if (($_FILES[$nombre]['error'] != 0)) {// se comprueban los errores del servidor
             // Movemos el fichero a la ubicación definitiva
             if (move_uploaded_file($directorioTemp, $nombreCompleto)) {
 
-                return  $nombreArchivo . "." . $extension;
+                return $nombreArchivo . "." . $extension;
             } else {
                 $errores["mensaje"] = "Error: No se puede mover el fichero a su destino";
                 return false;
@@ -276,21 +274,23 @@ if (($_FILES[$nombre]['error'] != 0)) {// se comprueban los errores del servidor
 }
 
 //Cambiar la contraseña guardada
-function changePass($newPass,$oldPass,array &$sesion,&$errores,$pdo){
-    if(!empty($oldPass)){
+function changePass($newPass, $oldPass, array &$sesion, &$errores, $pdo)
+{
+    if (!empty($oldPass)) {
         return true;
-        if(empty($newPass)){
-            $errores["newPass"]= "Si desea cambiar a una nueva contraseña deba ingresar una";
-        }else if($oldPass != obtenerContraseña($pdo,$sesion["idUser"])){
-            $errores["oldPass"]= "La contraseña actual no es correcta";
-        }else{
-            $oldPass= $newPass;
+        if (empty($newPass)) {
+            $errores["newPass"] = "Si desea cambiar a una nueva contraseña deba ingresar una";
+        } else if ($oldPass != obtenerContraseña($pdo, $sesion["idUser"])) {
+            $errores["oldPass"] = "La contraseña actual no es correcta";
+        } else {
+            $oldPass = $newPass;
         }
     }
 }
 
 //Validar la seguridad de una contraseña
-function cPassword($contrasena,&$errores) {
+function cPassword($contrasena, &$errores)
+{
 
     // La contraseña debe tener al menos 8 caracteres
     // Al menos una letra mayúscula, una letra minúscula, un número y un carácter especial
@@ -301,7 +301,7 @@ function cPassword($contrasena,&$errores) {
         return true;
     } else {
         // La contraseña no cumple con los criterios
-        $errores["pass"]="Introduce una contraseña válida";
+        $errores["pass"] = "Introduce una contraseña válida";
         return false;
     }
 }
@@ -310,12 +310,13 @@ function cOpciones($opcion, $opcionesDisponibles)
 {
     if (!in_array($opcion, $opcionesDisponibles)) {
         return false;
-    } else{
+    } else {
         return true;
     }
 }
 
-function calcularMedia($numeros) {
+function calcularMedia($numeros)
+{
     if (empty($numeros)) {
         return 0.00;
     }
@@ -329,7 +330,8 @@ function calcularMedia($numeros) {
     return $media_redondeada;
 }
 
-function compararNotas($a, $b) {
+function compararNotas($a, $b)
+{
     return $b['valoracion'] - $a['valoracion'];
 }
 function cTelefono($telefono, &$errores, $campo, $max = 9, $min = 9)
@@ -341,6 +343,5 @@ function cTelefono($telefono, &$errores, $campo, $max = 9, $min = 9)
         return 0;
     }
 }
-
 
 ?>

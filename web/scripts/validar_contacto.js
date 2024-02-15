@@ -1,4 +1,4 @@
-import { validarCorreoElectronico, validarNombre, validarTelefono} from "./bGeneral.js"
+import { validarCorreoElectronico, validarNombre, validarTelefono } from "./bGeneral.js"
 
 const bAceptar = document.getElementById("bAceptar")
 const formNombre = document.getElementById('name')

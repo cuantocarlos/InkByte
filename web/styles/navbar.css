@@ -7,8 +7,6 @@
 
 .icon-width { width: 2rem;}
 
-
-
   @media (max-width: 992px) {
     .search-form-desktop {
         display: none;
