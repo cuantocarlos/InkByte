@@ -901,19 +901,16 @@ class Controller
         $params = array(
             'nivel' => '',
             'mensaje' => array()
-
         );
         $cs = new Consultas();
         $params["nivel"] = $_REQUEST["nivel"];
 
         if($cs-> modificaNivelUsuario($_SESSION["id_user"],$params["nivel"])){
             $_SESSION["nivel"]=$params["nivel"];
-
         }else{
             $params["mensaje"]="No se ha podido modificar el nivel de usuario";
             header("Location: index.php?ctl=error");
         }
-
     }
 
     public function modificaUsuario(){
@@ -939,7 +936,6 @@ class Controller
                 $params["nick"] = $_SESSION["nick"];
             }
 
-
             if (empty($params["archivo"])) {
                 $params["archivo"] = cFile("f_perfil", $params["mensaje"], Config::$extensionesValidas, __DIR__ . '/../archivos/img/perfil/', Config::$max_file_size);
             }
@@ -949,7 +945,6 @@ class Controller
 
                 $cs = new Consultas();
                 $cs->modificarUsuario($_SESSION["id_user"],$params["nombre"],$params["nick"],$params["archivo"],$params["descripcion"]);
-
                 $_SESSION["nombre"]=$params["nombre"];
                 $_SESSION["nick"]=$params["nick"];
                 $_SESSION["foto_perfil"]=$params["archivo"];
@@ -971,10 +966,8 @@ class Controller
                     $params["pass"]=recoge("pass");
                     $params["pass2"]=recoge("pass2");
                     $params["oldPass"]=recoge("oldPass");
-
                     $cs = new Consultas();
                     if($cs->verificarPassID($_SESSION["id_user"], $params["oldPass"])){
-
                         if(cPassword($params["pass"], $params["errores"])){
                             header('Location: index.php?ctl=perfilUsuario');
                         }else{
@@ -982,7 +975,6 @@ class Controller
                                 header('Location: index.php?ctl=perfilUsuario');
                             }else{
                                 $hash = password_hash($params["pass"], PASSWORD_BCRYPT);
-
                                 if($cs->cambiarPass($_SESSION["id_user"],$hash)){
                                     header("Location: index.php?ctl=perfilUsuario");
                                     $_SESSION["mensaje"]="";
@@ -1043,6 +1035,35 @@ public function seguidos()
     
     public function contacto(){
         $menu = $this->cargaMenu();
+        $params = array(
+            'nombre' => recoge('name'),
+            'asunto' => recoge('asunto'),
+            'descripcion' => recoge('description'),
+            'mail' => recoge('mail'),
+            'tel' => recoge('telephone'),
+            'horario' => recoge('horario'),
+            'terminos' => recoge('terminos'),
+        );
+        $_SESSION['params'] = $params;
+        if (empty($params['nombre']) || empty($params['asunto']) || empty($params['mail'])) {
+            $params['mensaje'] = "Rellene los campos obligatorios";
+        } else if (!cTexto($params['nombre'], "nombre", $params['mensaje'], 50, 1, true, true)) {
+            $params['mensaje'] = "Error en el campo nombre";
+        } else if (!cTexto($params['asunto'], "asunto", $params['mensaje'], 50, 1, true, true)) {
+            $params['mensaje'] = "Error en el campo asunto";
+        } else if (!cMail($params['mail'], "mail", $params['mensaje'], 50, 1, true, true)) {
+            $params['mensaje'] = "Error en el campo mail";
+        } else if (!cTelefono($params['tel'], "tel", $params['mensaje'], )) {
+            $params['mensaje'] = "Error en el campo teléfono";
+        } else if (!cTexto($params['descripcion'], "descripcion", $params['mensaje'], 500, 1, true, true)) {
+            $params['mensaje'] = "Error en el campo descripción";
+        } else if ($params['horario'] != "1" || $params['horario'] != "2" || $params['horario'] != "3") {
+            $params['mensaje'] = "Error en el campo horario";
+        } else {
+            //envio el email
+            
+            $params['mensaje'] = "Mensaje enviado correctamente";
+        }
         require __DIR__ . '/../../web/templates/contacto.php';
     }
 
@@ -1057,26 +1078,21 @@ public function seguidos()
             "num_generos" => 0,
             "recomendaciones" => [],
             "nombre_pref" => []
-
         );
-
         $librosPorGenero=array(
-             "terror"=>[],
-
-             "romance"=>[],
-             "fantasia"=>[],
-             "cficcion"=>[],
-             "historia"=>[],
-             "arte"=>[],
-             "thriller"=>[],
-             "poesia"=>[],
-             "drama"=>[],
-             "biografia"=>[],
-             "misterio"=>[],
-             "policiaca"=>[]
+            "terror"=>[],
+            "romance"=>[],
+            "fantasia"=>[],
+            "cficcion"=>[],
+            "historia"=>[],
+            "arte"=>[],
+            "thriller"=>[],
+            "poesia"=>[],
+            "drama"=>[],
+            "biografia"=>[],
+            "misterio"=>[],
+            "policiaca"=>[]
         );
-
-
         try{
             $cs=new Consultas();
             $params["generos_pref"]=$cs->generosSelecionadosUsuario($_SESSION["id_user"]);
@@ -1108,14 +1124,7 @@ public function seguidos()
         } catch (Error $e) {
             $e->getMessage();
         }
-
         $menu = $this->cargaMenu();
         require __DIR__ . '/../../web/templates/recomendados.php';
     }
-
-    
-
-
 }
-
-

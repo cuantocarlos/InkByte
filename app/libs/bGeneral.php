@@ -332,6 +332,15 @@ function calcularMedia($numeros) {
 function compararNotas($a, $b) {
     return $b['valoracion'] - $a['valoracion'];
 }
+function cTelefono($telefono, &$errores, $campo, $max = 9, $min = 9)
+{
+    if (preg_match("/^[0-9]{9}$/", $telefono) && strlen($telefono) <= $max && strlen($telefono) >= $min) {
+        return 1;
+    } else {
+        $errores[$campo] = "Error en el campo " . $campo;
+        return 0;
+    }
+}
 
 
 ?>
