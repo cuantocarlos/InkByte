@@ -1,22 +1,22 @@
 <?php
- /* Ejecutando este fichero crearemos la BD en nuestro servidor de BD.
+/* Ejecutando este fichero crearemos la BD en nuestro servidor de BD.
  * Los datos de conexión son los siguientes, comprueba que coinciden con los tuyos, sino no funcionará.
  * Los leeremos de config.php
- $db_hostname = "localhost";
- $db_nombre = "inkbyte";
- $db_usuario = "root";
- $db_clave = "";
-*/
+$db_hostname = "localhost";
+$db_nombre = "inkbyte";
+$db_usuario = "root";
+$db_clave = "";
+ */
 
 //En config.php tenemos los valores de conexión a la BD
-include ('../libs/config.php');
+include '../libs/config.php';
 try {
     /*
      * Conectamos
      * No le pasamos nombre de BD porque vamos a crearla
      */
     echo ("1");
-    $pdo = new PDO('mysql:host='.Config::$db_hostname, Config::$db_usuario, Config::$db_clave);
+    $pdo = new PDO('mysql:host=' . Config::$db_hostname, Config::$db_usuario, Config::$db_clave);
     echo ("2");
     //UTF8
     $pdo->exec("set names utf8");

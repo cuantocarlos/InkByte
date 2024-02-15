@@ -13,7 +13,6 @@ if (!isset($_SESSION['nivel'])) {
     $_SESSION['nivel'] = 0;
 }
 
-
 /**
  * Enrutamiento
  * Le añadimos el nivel mínimo que tiene que tener el usuario para ejecutar la acción
@@ -33,7 +32,7 @@ $map = array(
     'inicio' => array('controller' => 'Controller', 'action' => 'inicio', 'nivel' => 0),
     'generoUsuario' => array('controller' => 'Controller', 'action' => 'generoUsuario', 'nivel' => 1),
     'usuarioUnico' => array('controller' => 'Controller', 'action' => 'peticionNombre', 'nivel' => 0),
-    'nickUnico' => array('controller'=>'Controller', 'action'=> 'peticionNick', 'nivel'=>0),
+    'nickUnico' => array('controller' => 'Controller', 'action' => 'peticionNick', 'nivel' => 0),
     'mailUnico' => array('controller' => 'Controller', 'action' => 'peticionMail', 'nivel' => 0),
     'crearLibro' => array('controller' => 'Controller', 'action' => 'crearLibro', 'nivel' => 2),
     'leerCapitulo' => array('controller' => 'Controller', 'action' => 'leerCapitulo', 'nivel' => 1),
@@ -50,12 +49,12 @@ $map = array(
     'buscarLibros' => array('controller' => 'Controller', 'action' => 'buscarLibros', 'nivel' => 0),
     'error' => array('controller' => 'Controller', 'action' => 'error', 'nivel' => 0),
     'contacto' => array('controller' => 'Controller', 'action' => 'contacto', 'nivel' => 0),
-    'dondeEstamos' => array('controller' => 'Controller', 'action' => 'dondeEstamos', 'nivel'=>0),
+    'dondeEstamos' => array('controller' => 'Controller', 'action' => 'dondeEstamos', 'nivel' => 0),
     'seguidos' => array('controller' => 'Controller', 'action' => 'seguidos', 'nivel' => 1),
     'modificaUsuario' => array('controller' => 'Controller', 'action' => 'modificaUsuario', 'nivel' => 1),
     'modificaNivelUsuario' => array('controller' => 'Controller', 'action' => 'modificaNivelUsuario', 'nivel' => 1),
     'cambiaPass' => array('controller' => 'Controller', 'action' => 'cambiaPass', 'nivel' => 1),
-    'recomendados' => array('controller' => 'Controller', 'action' => 'recomendados', 'nivel' => 1)
+    'recomendados' => array('controller' => 'Controller', 'action' => 'recomendados', 'nivel' => 1),
     // 'salir' => array('controller' => 'Controller', 'action' => 'salir', 'nivel' => 1),
     // 'listarLibros' => array('controller' => 'Controller', 'action' => 'listarLibros', 'nivel' => 0),
     // 'verLibro' => array('controller' => 'Controller', 'action' => 'verLibro', 'nivel' => 0),
@@ -71,7 +70,7 @@ if (isset($_GET['ctl'])) {
         $ruta = $_GET['ctl'];
     } else {
 
-        $ruta="error";
+        $ruta = "error";
     }
 } else {
     $ruta = 'inicio';
@@ -83,19 +82,19 @@ si es así ejecutamos el método correspondiente.
 En caso de no existir cabecera de error.
 En caso de estar utilizando sesiones y permisos en las diferentes acciones comprobariamos tambien
 si el usuario tiene permiso suficiente para ejecutar esa acción
-*/
+ */
 
 if (method_exists($controlador['controller'], $controlador['action'])) {
 
     if ($controlador['nivel'] <= $_SESSION['nivel']) {
         call_user_func(array(
             new $controlador['controller'],
-            $controlador['action']
+            $controlador['action'],
         ));
-    }else{
+    } else {
         call_user_func(array(
             new $controlador['controller'],
-            'inicio'
+            'inicio',
         ));
     }
 } else {

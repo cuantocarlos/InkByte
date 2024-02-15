@@ -1,12 +1,10 @@
-#imagePreviewContainer{
+#imagePreviewContainer {
     width: 150px;
     height: 150px;
     border-radius: 50%;
     overflow: hidden;
     margin-top: 20px;
     border: 2px solid #ccc;
-    cursor:pointer;
+    cursor: pointer;
     background-color: #333;
 }
-
-

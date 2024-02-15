@@ -33,29 +33,35 @@
                 <label for="nombre">Sobrenombre</label>
             </div>
             <div class="form-floating">
-                <input type="email" class="form-control rounded-3" id="mail" placeholder="name@example.com" name="mail" required />
+                <input type="email" class="form-control rounded-3" id="mail" placeholder="name@example.com" name="mail"
+                    required />
                 <label for="mail">Correo Electrónico*</label>
             </div>
 
             <div id="mailMal" class="mb-3 text-danger"></div>
 
             <div class="form-floating">
-                <input type="password" class="form-control rounded-3" id="pass" placeholder="Password" name="pass" required />
+                <input type="password" class="form-control rounded-3" id="pass" placeholder="Password" name="pass"
+                    required />
                 <label for="pass">Contraseña*</label>
             </div>
             <div class="mb-3 mx-5-md mx-5-lg">
-                La contraseña debe contener: <span id="mayus" class="">1 Mayúscula</span>, <span id="minus" class="">1 minúscula</span>, <span id="num" class="">1 número</span>, <span id="especial" class="">1 carácter especial</span>.
+                La contraseña debe contener: <span id="mayus" class="">1 Mayúscula</span>, <span id="minus" class="">1
+                    minúscula</span>, <span id="num" class="">1 número</span>, <span id="especial" class="">1 carácter
+                    especial</span>.
                 <span id="longitud" class="">Entre 8 y 16 caracteres</span>
             </div>
             <div class="form-floating">
-                <input type="password" class="form-control rounded-3" id="pass2" placeholder="Password" name="pass2" required />
+                <input type="password" class="form-control rounded-3" id="pass2" placeholder="Password" name="pass2"
+                    required />
                 <label for="pass2">Repita Contraseña*</label>
             </div>
 
             <div id="pass2Mal" class="mb-3 text-danger"></div>
 
             <div class="form-floating">
-                <input type="date" class="form-control rounded-3" id="fecha" placeholder="Password" name="fecha" required />
+                <input type="date" class="form-control rounded-3" id="fecha" placeholder="Password" name="fecha"
+                    required />
                 <label for="fecha">Fecha de Nacimiento*</label>
             </div>
 
@@ -63,47 +69,52 @@
 
             <small class="text-body-secondary mb-1">Máximo 300 caracteres.</small>
             <div class="form-floating">
-                <textarea class="form-control" placeholder="Añade una descripción" id="descripcion" style="height: 100px;" name="descripcion"></textarea>
+                <textarea class="form-control" placeholder="Añade una descripción" id="descripcion"
+                    style="height: 100px;" name="descripcion"></textarea>
                 <label for="descripcion">Descripción</label>
             </div>
             <hr class="my-4" />
             <h2 class="fs-5 fw-bold mb-3">Eres lector o escritor?</h2>
-            <input type="radio" class="btn-check" id="lector" name="opcion_usuario" value="lector" checked autocomplete="off" />
+            <input type="radio" class="btn-check" id="lector" name="opcion_usuario" value="lector" checked
+                autocomplete="off" />
             <label class="btn btn-outline-secondary" for="lector">Lector</label>
-            <input type="radio" class="btn-check" id="escritor" name="opcion_usuario" value="escritor" autocomplete="off" />
+            <input type="radio" class="btn-check" id="escritor" name="opcion_usuario" value="escritor"
+                autocomplete="off" />
             <label class="btn btn-outline-secondary" for="escritor">Escritor</label>
             <hr class="my-4" />
-            <label class="mb-2" for="terminos"><input type="checkbox" id="terminos" name="terminos" value="1" /> <small class="text-body-secondary">Registrándote aceptas los términos y condiciones.*</small></label>
-            <button class="w-100 my-2 btn btn-lg rounded-3 btn-primary" id="bAceptar" name="bAceptar" type="submit">Registrarse</button>
+            <label class="mb-2" for="terminos"><input type="checkbox" id="terminos" name="terminos" value="1" /> <small
+                    class="text-body-secondary">Registrándote aceptas los términos y condiciones.*</small></label>
+            <button class="w-100 my-2 btn btn-lg rounded-3 btn-primary" id="bAceptar" name="bAceptar"
+                type="submit">Registrarse</button>
         </form>
     </div>
 </div>
 
 
 <script>
-function showPreview(input) {
-  var fileInput = input;
-  var imagePreview = document.getElementById('imagePreview');
-  var imagePreviewContainer = document.getElementById('imagePreviewContainer');
+    function showPreview(input) {
+        var fileInput = input;
+        var imagePreview = document.getElementById('imagePreview');
+        var imagePreviewContainer = document.getElementById('imagePreviewContainer');
 
-  var file = fileInput.files[0];
+        var file = fileInput.files[0];
 
-  if (file) {
-      var reader = new FileReader();
+        if (file) {
+            var reader = new FileReader();
 
-      reader.onload = function (e) {
-          imagePreview.src = e.target.result;
-      };
+            reader.onload = function (e) {
+                imagePreview.src = e.target.result;
+            };
 
-      reader.readAsDataURL(file);
+            reader.readAsDataURL(file);
 
-      imagePreviewContainer.style.display = 'block';
-  } else {
-      imagePreviewContainer.style.display = 'none';
-  }
-}
+            imagePreviewContainer.style.display = 'block';
+        } else {
+            imagePreviewContainer.style.display = 'none';
+        }
+    }
 </script>
 
 
 
-<?php include 'layout.php' ?>
+<?php include 'layout.php'?>

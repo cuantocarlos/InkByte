@@ -32,9 +32,9 @@ class Controller
                 'mail' => '',
                 'pass' => '',
             );
-             if ($_SESSION['nivel'] > 0) {
-                 header("location:index.php?ctl=inicio");
-             }
+            if ($_SESSION['nivel'] > 0) {
+                header("location:index.php?ctl=inicio");
+            }
             $menu = $this->cargaMenu();
 
             if (isset($_POST["bAceptar"])) {
@@ -265,12 +265,11 @@ class Controller
                         header("Location:index.php?ctl=subirCapitulo");
                     }
 
-
                     if (empty($params["mensaje"]) && !empty($params["id_libro"]) && !empty($params["titulo"])) {
 
                         $params["archivo"] = cFile("archivoPDF", $params["mensaje"], Config::$extensionesCapitulos, __DIR__ . '/../archivos/capitulos/', 200000000);
                         if (empty($params["mensaje"]) && !empty($params["archivo"])) {
-                            $num_cap = ($cs -> buscar($params["id_libro"], "libro", "capitulos", "id_libro")) + 1;
+                            $num_cap = ($cs->buscar($params["id_libro"], "libro", "capitulos", "id_libro")) + 1;
                             $cs->agregarCapitulo($params["id_libro"], $num_cap, $params["titulo"], $params["archivo"]);
                             $cs->aumentarCapitulosLibro($params["id_libro"]);
                             header("Location:index.php?ctl=inicio");
@@ -311,7 +310,7 @@ class Controller
     }
 
     public function inicio()
-    {   
+    {
         $params = array(
             "libros" => [],
             "ultimos" => [],
@@ -320,24 +319,23 @@ class Controller
             "nombres_autores" => []
         );
 
-        try{
-            
+        try {
+
             $cs = new Consultas();
-            $params["libros"] = $cs -> buscarTablaCompleta("libro");
+            $params["libros"] = $cs->buscarTablaCompleta("libro");
 
             $params["ultimos"] = array_slice($params["libros"], -8);
 
-            $params["top_rated"] = $cs -> buscarTablaCompletaOrdenada("libro");
+            $params["top_rated"] = $cs->buscarTablaCompletaOrdenada("libro");
 
             $params["recomendacion"] = $params["libros"][array_rand($params["libros"])];
 
-            $params["nombres_autores"] = $cs -> obtenerNombresAutoresPorLibros($params["top_rated"]);
+            $params["nombres_autores"] = $cs->obtenerNombresAutoresPorLibros($params["top_rated"]);
 
-
-        } catch (Exception $e){
-            echo $e -> getMessage();
-        } catch (Error $e){
-            echo $e -> getMessage();
+        } catch (Exception $e) {
+            echo $e->getMessage();
+        } catch (Error $e) {
+            echo $e->getMessage();
         }
         $menu = $this->cargaMenu();
 
@@ -362,24 +360,22 @@ class Controller
         );
 
         $generoString = $_REQUEST["generos"];
-        $generosUsu = explode(',',$generoString);
+        $generosUsu = explode(',', $generoString);
 
-
-
-            foreach($params as $genero => $value){
-                for($i=0;$i<count($generosUsu);$i++){
-                    if($genero === $generosUsu[$i]){
-                        $params[$genero] = 1;
-                    }
+        foreach ($params as $genero => $value) {
+            for ($i = 0; $i < count($generosUsu); $i++) {
+                if ($genero === $generosUsu[$i]) {
+                    $params[$genero] = 1;
                 }
             }
+        }
 
         try {
             $cs = new Consultas();
 
-                    echo $_SESSION["id_user"];
+            echo $_SESSION["id_user"];
 
-                    $cs -> actualizarPreferenciasUsuario($_SESSION["id_user"],$params["terror"],$params["romance"],$params['fantasia'],$params['cficcion'],$params['historia'],$params['arte'],$params['thriller'],$params['poesia'],$params['drama'],$params['biografia'],$params['misterio'],$params['policiaca']); //cambiar el id_user
+            $cs->actualizarPreferenciasUsuario($_SESSION["id_user"], $params["terror"], $params["romance"], $params['fantasia'], $params['cficcion'], $params['historia'], $params['arte'], $params['thriller'], $params['poesia'], $params['drama'], $params['biografia'], $params['misterio'], $params['policiaca']); //cambiar el id_user
 
             header('Location: index.php?ctl=perfilUsuario');
 
@@ -397,9 +393,9 @@ class Controller
     {
 
         $menu = $this->cargaMenu();
-         if ($_SESSION['nivel'] != 2) {
-             header("location:index.php?ctl=inicio");
-         } 
+        if ($_SESSION['nivel'] != 2) {
+            header("location:index.php?ctl=inicio");
+        }
 
         if ((isset($_POST["bAceptar"]))) {
 
@@ -459,7 +455,7 @@ class Controller
             } catch (Exception $e) {
                 echo "Error: " . $e->getMessage();
             }
-        } 
+        }
         require __DIR__ . '/../../web/templates/crearLibro.php';
     }
 
@@ -605,7 +601,7 @@ class Controller
 
         $cs = new Consultas();
 
-        $generos=$cs -> generosSelecionadosUsuario($_SESSION["id_user"]); //cambiar el id_user
+        $generos = $cs->generosSelecionadosUsuario($_SESSION["id_user"]); //cambiar el id_user
 
         echo json_encode(array(
             "terror" => $generos["terror"],
@@ -625,30 +621,30 @@ class Controller
 
     public function perfilUsuario()
     {
-            $params=array(
-                "id_user"=>$_SESSION['id_user']
-            );
+        $params = array(
+            "id_user" => $_SESSION['id_user'],
+        );
 
-            try{
+        try {
 
-                $cs = new Consultas();
+            $cs = new Consultas();
 
-                $librosSeguidos = $cs->obtenerLibrosSeguidos($params['id_user']);
-                $nombresAutores = $cs -> obtenerNombresAutoresPorLibros($librosSeguidos);
+            $librosSeguidos = $cs->obtenerLibrosSeguidos($params['id_user']);
+            $nombresAutores = $cs->obtenerNombresAutoresPorLibros($librosSeguidos);
 
-                if(count($librosSeguidos) === 0){
-                    $librosSeguidos['mono'] = true;
-                } else {
-                    $librosSeguidos['mono'] = false;
-                }
-
-            } catch (Exception $e) {
-                $e->getMessage();
-            } catch (Error $e) {
-                $e->getMessage();
+            if (count($librosSeguidos) === 0) {
+                $librosSeguidos['mono'] = true;
+            } else {
+                $librosSeguidos['mono'] = false;
             }
 
-            $menu = $this->cargaMenu();
+        } catch (Exception $e) {
+            $e->getMessage();
+        } catch (Error $e) {
+            $e->getMessage();
+        }
+
+        $menu = $this->cargaMenu();
         require __DIR__ . '/../../web/templates/perfilUsuario.php';
     }
 
@@ -677,7 +673,7 @@ class Controller
 
         $params['id_libro'] = $_GET['id_libro'];
 
-        if(empty($params['id_libro'])){
+        if (empty($params['id_libro'])) {
             header('location: index.php?ctl=inicio');
         }
 
@@ -732,28 +728,28 @@ class Controller
         }
 
         if (isset($_REQUEST["valorar"])) {
-            if(isset($_SESSION["id_user"])){
+            if (isset($_SESSION["id_user"])) {
                 $valoracion = recoge("rating");
-            if ($valoracion != 1 && $valoracion != 2 && $valoracion != 3 && $valoracion != 4 && $valoracion != 5) {
-                $params["mensaje"] = "Error en la valoracion";
-                header("location: index.php?ctl=book&id_libro=" . $params["id_libro"]);
-            } else {
-                try {
-                    $cs = new Consultas();
-                    if ($cs->existeValoracion($_SESSION["id_user"], $params["id_libro"])) {
-                        $cs->borrarValoracion($_SESSION["id_user"], $params["id_libro"]);
-                    }
-                    $cs->insertarValoracion($_SESSION["id_user"], $params["id_libro"], $valoracion);
-                    $notas = $cs->buscarColumnaArray($params["id_libro"], "valoraciones", "nota", "id_libro");
-                    $media = calcularMedia($notas);
-                    $cs->actualizarValoracionLibro($params["id_libro"], $media);
+                if ($valoracion != 1 && $valoracion != 2 && $valoracion != 3 && $valoracion != 4 && $valoracion != 5) {
+                    $params["mensaje"] = "Error en la valoracion";
+                    header("location: index.php?ctl=book&id_libro=" . $params["id_libro"]);
+                } else {
+                    try {
+                        $cs = new Consultas();
+                        if ($cs->existeValoracion($_SESSION["id_user"], $params["id_libro"])) {
+                            $cs->borrarValoracion($_SESSION["id_user"], $params["id_libro"]);
+                        }
+                        $cs->insertarValoracion($_SESSION["id_user"], $params["id_libro"], $valoracion);
+                        $notas = $cs->buscarColumnaArray($params["id_libro"], "valoraciones", "nota", "id_libro");
+                        $media = calcularMedia($notas);
+                        $cs->actualizarValoracionLibro($params["id_libro"], $media);
 
-                } catch (Exception $e) {
-                    error_log($e->getMessage() . "##Código: " . $e->getCode() . "  " . microtime() . PHP_EOL, 3, "../logs/logBD.txt");
-                } catch (Error $e) {
-                    error_log($e->getMessage() . microtime() . PHP_EOL, 3, "../logs/logError.txt");
+                    } catch (Exception $e) {
+                        error_log($e->getMessage() . "##Código: " . $e->getCode() . "  " . microtime() . PHP_EOL, 3, "../logs/logBD.txt");
+                    } catch (Error $e) {
+                        error_log($e->getMessage() . microtime() . PHP_EOL, 3, "../logs/logError.txt");
+                    }
                 }
-            }
             } else {
                 header("location: index.php?ctl=iniciarSesion");
             }
@@ -761,13 +757,13 @@ class Controller
 
         if (isset($_REQUEST["seguir"])) {
 
-            if(isset($_SESSION["id_user"])){
+            if (isset($_SESSION["id_user"])) {
                 try {
                     $cs = new Consultas();
                     if (!$cs->existeRelacionSeguido($params["id_libro"], $_SESSION["id_user"])) {
                         $cs->agregarSeguido($params["id_libro"], $_SESSION["id_user"]);
                     }
-    
+
                 } catch (Exception $e) {
                     error_log($e->getMessage() . "##Código: " . $e->getCode() . "  " . microtime() . PHP_EOL, 3, "../logs/logBD.txt");
                 } catch (Error $e) {
@@ -779,7 +775,7 @@ class Controller
         }
 
         if (isset($_REQUEST["escribir_resena"])) {
-            if(isset($_SESSION["id_user"])){
+            if (isset($_SESSION["id_user"])) {
                 header("location: index.php?ctl=escribirResena&id_libro=" . $params["id_libro"]);
             } else {
                 header("location: index.php?ctl=iniciarSesion");
@@ -839,8 +835,8 @@ class Controller
                         echo ($cs->actualizarResena($_SESSION["id_user"], $params["id_libro"], $texto));
                     } else {
                         echo ($cs->guardarResena($_SESSION["id_user"], $params["id_libro"], $texto));
-                        $cs -> aumentarNumResenasLibro($params['id_libro']);
-                        $cs -> aumentarNumResenasLibro($params['id_libro']);
+                        $cs->aumentarNumResenasLibro($params['id_libro']);
+                        $cs->aumentarNumResenasLibro($params['id_libro']);
                     }
 
                 } catch (Exception $e) {
@@ -856,31 +852,28 @@ class Controller
         require __DIR__ . '/../../web/templates/escribirResena.php';
     }
 
-
-    public function buscarLibros(){
-
+    public function buscarLibros()
+    {
 
         $params = array(
-            "busqueda" => ''
+            "busqueda" => '',
         );
 
-        if(isset($_REQUEST["boton_buscar"])){
+        if (isset($_REQUEST["boton_buscar"])) {
             $params = array(
                 "busqueda" => '',
                 "mensaje" => []
             );
             $params["busqueda"] = recoge("buscar_libro");
-            try{
+            try {
 
                 $cs = new Consultas();
 
-                $libros = $cs -> buscarLibrosPorTitulo($params['busqueda']);
+                $libros = $cs->buscarLibrosPorTitulo($params['busqueda']);
 
+                $nombresAutores = $cs->obtenerNombresAutoresPorLibros($libros);
 
-
-                $nombresAutores = $cs -> obtenerNombresAutoresPorLibros($libros);
-
-                if(count($libros) === 0){
+                if (count($libros) === 0) {
                     $libros['mono'] = true;
                 } else {
                     $libros['mono'] = false;
@@ -896,25 +889,25 @@ class Controller
         require __DIR__ . '/../../web/templates/buscarLibros.php';
     }
 
-
-    public function modificaNivelUsuario(){
+    public function modificaNivelUsuario()
+    {
         $params = array(
             'nivel' => '',
-            'mensaje' => array()
+            'mensaje' => array(),
         );
         $cs = new Consultas();
         $params["nivel"] = $_REQUEST["nivel"];
 
-        if($cs-> modificaNivelUsuario($_SESSION["id_user"],$params["nivel"])){
-            $_SESSION["nivel"]=$params["nivel"];
-        }else{
-            $params["mensaje"]="No se ha podido modificar el nivel de usuario";
+        if ($cs->modificaNivelUsuario($_SESSION["id_user"], $params["nivel"])) {
+            $_SESSION["nivel"] = $params["nivel"];
+        } else {
+            $params["mensaje"] = "No se ha podido modificar el nivel de usuario";
             header("Location: index.php?ctl=error");
         }
     }
 
-    public function modificaUsuario(){
-
+    public function modificaUsuario()
+    {
         $params = array(
             'nombre' => '',
             'nick' => '',
@@ -923,7 +916,7 @@ class Controller
             'mensaje' => []
         );
 
-        if(isset($_REQUEST["bAceptar"])){
+        if (isset($_REQUEST["bAceptar"])) {
             $params["nombre"] = recoge("nombre");
             $params["nick"] = recoge("nick");
             $params["descripcion"] = recoge("descripcion");
@@ -943,81 +936,82 @@ class Controller
                 $params["archivo"] = $_SESSION["foto_perfil"];
             }
 
-                $cs = new Consultas();
-                $cs->modificarUsuario($_SESSION["id_user"],$params["nombre"],$params["nick"],$params["archivo"],$params["descripcion"]);
-                $_SESSION["nombre"]=$params["nombre"];
-                $_SESSION["nick"]=$params["nick"];
-                $_SESSION["foto_perfil"]=$params["archivo"];
-                $_SESSION["descripcion"]=$params["descripcion"];
-                header("Location: index.php?ctl=perfilUsuario");
-            }
+            $cs = new Consultas();
+            $cs->modificarUsuario($_SESSION["id_user"], $params["nombre"], $params["nick"], $params["archivo"], $params["descripcion"]);
+            $_SESSION["nombre"] = $params["nombre"];
+            $_SESSION["nick"] = $params["nick"];
+            $_SESSION["foto_perfil"] = $params["archivo"];
+            $_SESSION["descripcion"] = $params["descripcion"];
+            header("Location: index.php?ctl=perfilUsuario");
         }
+    }
 
-        public function cambiaPass(){
-            try{
-                $params = array(
-                    'pass' => '',
-                    'pass2' => '',
-                    'oldPass' => '',
-                    'mensaje' => ''
-                );
+    public function cambiaPass()
+    {
+        try {
+            $params = array(
+                'pass' => '',
+                'pass2' => '',
+                'oldPass' => '',
+                'mensaje' => '',
+            );
 
-                if(isset($_REQUEST["bAceptar"])){
-                    $params["pass"]=recoge("pass");
-                    $params["pass2"]=recoge("pass2");
-                    $params["oldPass"]=recoge("oldPass");
-                    $cs = new Consultas();
-                    if($cs->verificarPassID($_SESSION["id_user"], $params["oldPass"])){
-                        if(cPassword($params["pass"], $params["errores"])){
+            if (isset($_REQUEST["bAceptar"])) {
+                $params["pass"] = recoge("pass");
+                $params["pass2"] = recoge("pass2");
+                $params["oldPass"] = recoge("oldPass");
+                $cs = new Consultas();
+                if ($cs->verificarPassID($_SESSION["id_user"], $params["oldPass"])) {
+                    if (cPassword($params["pass"], $params["errores"])) {
+                        header('Location: index.php?ctl=perfilUsuario');
+                    } else {
+                        if ($params["pass"] !== $params["pass2"]) {
                             header('Location: index.php?ctl=perfilUsuario');
-                        }else{
-                            if ($params["pass"] !== $params["pass2"]) {
-                                header('Location: index.php?ctl=perfilUsuario');
-                            }else{
-                                $hash = password_hash($params["pass"], PASSWORD_BCRYPT);
-                                if($cs->cambiarPass($_SESSION["id_user"],$hash)){
-                                    header("Location: index.php?ctl=perfilUsuario");
-                                    $_SESSION["mensaje"]="";
-                                }else{
-                                    $params["mensaje"]="No se ha podido cambiar la contraseña";
-                                    header("Location: index.php?ctl=error");
-                                }
+                        } else {
+                            $hash = password_hash($params["pass"], PASSWORD_BCRYPT);
+                            if ($cs->cambiarPass($_SESSION["id_user"], $hash)) {
+                                header("Location: index.php?ctl=perfilUsuario");
+                                $_SESSION["mensaje"] = "";
+                            } else {
+                                $params["mensaje"] = "No se ha podido cambiar la contraseña";
+                                header("Location: index.php?ctl=error");
                             }
                         }
-                    }else{
-                        $_SESSION["mensaje"]="La contraseña no es correcta";
-                        header("Location: index.php?ctl=perfilUsuario");
                     }
+                } else {
+                    $_SESSION["mensaje"] = "La contraseña no es correcta";
+                    header("Location: index.php?ctl=perfilUsuario");
                 }
-            }catch (Exception $e) {
-                $params["mensaje"]=$e->getMessage();
-                header('Location: index.php??ctl=error');
-            } catch (Error $e) {
-                $params["mensaje"]=$e->getMessage();
-                header('Location: index.php??ctl=error');
             }
+        } catch (Exception $e) {
+            $params["mensaje"] = $e->getMessage();
+            header('Location: index.php??ctl=error');
+        } catch (Error $e) {
+            $params["mensaje"] = $e->getMessage();
+            header('Location: index.php??ctl=error');
         }
+    }
 
-
-public function error(){
-    $menu = $this->cargaMenu();
-    require __DIR__ . '/../../web/templates/error.php';
-}
-
-public function seguidos()
+    public function error()
     {
-        $params=array(
-            "id_user"=>$_SESSION['id_user']
+        $menu = $this->cargaMenu();
+        require __DIR__ . '/../../web/templates/error.php';
+    }
+
+    public function seguidos()
+    {
+        $params = array(
+            "id_user" => $_SESSION['id_user'],
         );
 
-        try{
+        try {
 
             $cs = new Consultas();
 
             $librosSeguidos = $cs->obtenerLibrosSeguidos($params['id_user']);
-            $nombresAutores = $cs -> obtenerNombresAutoresPorLibros($librosSeguidos);
+            $nombresAutores = $cs->obtenerNombresAutoresPorLibros($librosSeguidos);
 
-            if(count($librosSeguidos) === 0){
+            if (count($librosSeguidos) === 0) {
                 $librosSeguidos['mono'] = true;
             } else {
                 $librosSeguidos['mono'] = false;
@@ -1032,8 +1026,9 @@ public function seguidos()
         $menu = $this->cargaMenu();
         require __DIR__ . '/../../web/templates/seguidos.php';
     }
-    
-    public function contacto(){
+
+    public function contacto()
+    {
         $menu = $this->cargaMenu();
         $params = array(
             'nombre' => recoge('name'),
@@ -1061,53 +1056,54 @@ public function seguidos()
             $params['mensaje'] = "Error en el campo horario";
         } else {
             //envio el email
-            
+
             $params['mensaje'] = "Mensaje enviado correctamente";
         }
         require __DIR__ . '/../../web/templates/contacto.php';
     }
 
-    public function dondeEstamos(){
+    public function dondeEstamos()
+    {
         require __DIR__ . '/../../web/templates/dondeEstamos.php';
     }
 
     public function recomendados()
     {
-        $params=array(
-            "generos_pref"=>[],
+        $params = array(
+            "generos_pref" => [],
             "num_generos" => 0,
             "recomendaciones" => [],
             "nombre_pref" => []
         );
-        $librosPorGenero=array(
-            "terror"=>[],
-            "romance"=>[],
-            "fantasia"=>[],
-            "cficcion"=>[],
-            "historia"=>[],
-            "arte"=>[],
-            "thriller"=>[],
-            "poesia"=>[],
-            "drama"=>[],
-            "biografia"=>[],
-            "misterio"=>[],
-            "policiaca"=>[]
+        $librosPorGenero = array(
+            "terror" => [],
+            "romance" => [],
+            "fantasia" => [],
+            "cficcion" => [],
+            "historia" => [],
+            "arte" => [],
+            "thriller" => [],
+            "poesia" => [],
+            "drama" => [],
+            "biografia" => [],
+            "misterio" => [],
+            "policiaca" => []
         );
-        try{
-            $cs=new Consultas();
-            $params["generos_pref"]=$cs->generosSelecionadosUsuario($_SESSION["id_user"]);
-            $librosPorGenero["terror"] = $cs -> obtenerLibrosAleatoriosPorGenero("terror");
-            $librosPorGenero["romance"] = $cs -> obtenerLibrosAleatoriosPorGenero("romance");
-            $librosPorGenero["fantasia"] = $cs -> obtenerLibrosAleatoriosPorGenero("fantasia");
-            $librosPorGenero["cficcion"] = $cs -> obtenerLibrosAleatoriosPorGenero("cficcion");
-            $librosPorGenero["historia"] = $cs -> obtenerLibrosAleatoriosPorGenero("historia");
-            $librosPorGenero["arte"] = $cs -> obtenerLibrosAleatoriosPorGenero("arte");
-            $librosPorGenero["thriller"] = $cs -> obtenerLibrosAleatoriosPorGenero("thriller");
-            $librosPorGenero["poesia"] = $cs -> obtenerLibrosAleatoriosPorGenero("poesia");
-            $librosPorGenero["drama"] = $cs -> obtenerLibrosAleatoriosPorGenero("drama");
-            $librosPorGenero["biografia"] = $cs -> obtenerLibrosAleatoriosPorGenero("biografia");
-            $librosPorGenero["misterio"] = $cs -> obtenerLibrosAleatoriosPorGenero("misterio");
-            $librosPorGenero["policiaca"] = $cs -> obtenerLibrosAleatoriosPorGenero("policiaca");
+        try {
+            $cs = new Consultas();
+            $params["generos_pref"] = $cs->generosSelecionadosUsuario($_SESSION["id_user"]);
+            $librosPorGenero["terror"] = $cs->obtenerLibrosAleatoriosPorGenero("terror");
+            $librosPorGenero["romance"] = $cs->obtenerLibrosAleatoriosPorGenero("romance");
+            $librosPorGenero["fantasia"] = $cs->obtenerLibrosAleatoriosPorGenero("fantasia");
+            $librosPorGenero["cficcion"] = $cs->obtenerLibrosAleatoriosPorGenero("cficcion");
+            $librosPorGenero["historia"] = $cs->obtenerLibrosAleatoriosPorGenero("historia");
+            $librosPorGenero["arte"] = $cs->obtenerLibrosAleatoriosPorGenero("arte");
+            $librosPorGenero["thriller"] = $cs->obtenerLibrosAleatoriosPorGenero("thriller");
+            $librosPorGenero["poesia"] = $cs->obtenerLibrosAleatoriosPorGenero("poesia");
+            $librosPorGenero["drama"] = $cs->obtenerLibrosAleatoriosPorGenero("drama");
+            $librosPorGenero["biografia"] = $cs->obtenerLibrosAleatoriosPorGenero("biografia");
+            $librosPorGenero["misterio"] = $cs->obtenerLibrosAleatoriosPorGenero("misterio");
+            $librosPorGenero["policiaca"] = $cs->obtenerLibrosAleatoriosPorGenero("policiaca");
 
             for ($i = 1; $i < count($params["generos_pref"]); $i++) {
                 if ($params["generos_pref"][Config::$generos_disponibles[$i - 1]] == 1) {
@@ -1119,7 +1115,7 @@ public function seguidos()
                     }
                 }
             }
-        }catch (Exception $e) {
+        } catch (Exception $e) {
             $e->getMessage();
         } catch (Error $e) {
             $e->getMessage();

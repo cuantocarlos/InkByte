@@ -7,4 +7,4 @@
 
 
 
-<?php include 'layout.php' ?>
+<?php include 'layout.php'?>

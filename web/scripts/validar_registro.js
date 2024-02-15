@@ -1,4 +1,4 @@
-import {validarCorreoElectronico, validarPassword, validarFecha, compruebaNombre, compruebaCorreo} from "./bGeneral.js";
+import { validarCorreoElectronico, validarPassword, validarFecha, compruebaNombre, compruebaCorreo } from "./bGeneral.js";
 
 var bAceptar = document.getElementById("bAceptar");
 var nombre = document.getElementById("nombre");
@@ -11,56 +11,56 @@ var terminosCondiciones = document.getElementById("terminos");
 window.onload = function () {
 
   bAceptar.addEventListener("click", function () {
-    if(!terminosCondiciones.checked){
+    if (!terminosCondiciones.checked) {
       alert("Debes aceptar los términos y condiciones");
       event.preventDefault();
     }
   });
 
-  nombre.addEventListener('input', ()=>{
+  nombre.addEventListener('input', () => {
     const nom = nombre.value.trim();
-    if(nom.length===0){
+    if (nom.length === 0) {
       nombre.classList.remove("is-valid");
       nombre.classList.add("is-invalid");
-      document.getElementById("nombreMal").innerText="No puede quedar vacío este campo.";
-    }else{
-    compruebaNombre(nom);
+      document.getElementById("nombreMal").innerText = "No puede quedar vacío este campo.";
+    } else {
+      compruebaNombre(nom);
     }
   });
 
-  fecha.addEventListener('change', ()=>{
+  fecha.addEventListener('change', () => {
     let fechaValida = false;
     const fechaMal = document.getElementById("fechaMal");
-    if(!validarFecha(fecha.value)){
-      fechaValida=true;
+    if (!validarFecha(fecha.value)) {
+      fechaValida = true;
       fechaMal.innerText = "La fecha de nacimiento no existe";
-    }else{
-      fechaValida=false;
+    } else {
+      fechaValida = false;
       fechaMal.innerText = "";
     }
 
-    fecha.classList.toggle("is-invalid",fechaValida);
+    fecha.classList.toggle("is-invalid", fechaValida);
   });
 
-  email.addEventListener('focus', ()=>{
+  email.addEventListener('focus', () => {
     email.classList.remove("is-valid");
     email.classList.remove("is-invalid");
-    document.getElementById("mailMal").innerText="";
+    document.getElementById("mailMal").innerText = "";
   });
 
-  email.addEventListener('blur', ()=>{
+  email.addEventListener('blur', () => {
     const mail = email.value.trim();
 
-    if(mail.length === 0){
+    if (mail.length === 0) {
       email.classList.remove("is-valid");
       email.classList.add("is-invalid");
-      document.getElementById("mailMal").innerText="No puede quedar vacío este campo.";
-    }else{
-      if(validarCorreoElectronico(mail) == true){
+      document.getElementById("mailMal").innerText = "No puede quedar vacío este campo.";
+    } else {
+      if (validarCorreoElectronico(mail) == true) {
         compruebaCorreo(mail);
-      }else{
+      } else {
         email.classList.add("is-invalid");
-        document.getElementById("mailMal").innerText="El email no existe";
+        document.getElementById("mailMal").innerText = "El email no existe";
       }
     }
 
@@ -70,27 +70,27 @@ window.onload = function () {
   pass.addEventListener('input', () => {
     const contrasenia = pass.value;
     validarPassword(contrasenia);
-});
-
-  pass2.addEventListener('focus', ()=>{
-    pass2.classList.remove("is-valid");
-    pass2.classList.remove("is-invalid");
-    document.getElementById("pass2Mal").innerText="";
   });
 
-  pass2.addEventListener('blur', ()=>{
+  pass2.addEventListener('focus', () => {
+    pass2.classList.remove("is-valid");
+    pass2.classList.remove("is-invalid");
+    document.getElementById("pass2Mal").innerText = "";
+  });
+
+  pass2.addEventListener('blur', () => {
     const contrasenia = pass.value;
     const contrasenia2 = pass2.value;
     let igual = false;
-    if(contrasenia2 !== contrasenia){
-      igual=true;
+    if (contrasenia2 !== contrasenia) {
+      igual = true;
     }
-    if(igual){
+    if (igual) {
       pass2.classList.add("is-invalid");
-      document.getElementById("pass2Mal").innerText="La contraseña no coincide";
-    }else{
+      document.getElementById("pass2Mal").innerText = "La contraseña no coincide";
+    } else {
       pass2.classList.remove("is-invalid");
-      document.getElementById("pass2Mal").innerText="";
+      document.getElementById("pass2Mal").innerText = "";
     }
   });
 
