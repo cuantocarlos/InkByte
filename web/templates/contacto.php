@@ -6,19 +6,12 @@
     <div class="header p-5 pb-4 border-bottom-0">
         <h1 class="fw-bold mb-0 fs-2 mb-4">Ponte en contacto con nosotros</h1>
     </div>
-        </div>
 
-        <div class="p-5 pt-0">
-            <?php
-                //pinto lo recogido en el controlador
-                echo '<pre>';
-                print_r($array);
-                echo '</pre>';
-            ?>
+        <div class=" body p-5 pt-0">
             <form method="post" action="">
-            <label class="mb-2" for="terminos">
-                <small class="text-body-secondary">Danos detalles de tu asunto y te contactaremos lo antes posible.</small>
-            </label>
+                <label class="mb-2" for="terminos">
+                    <small class="text-body-secondary">Danos detalles de tu asunto y te contactaremos lo antes posible.</small>
+                </label>
                 <!-- Contenido del formulario -->
                 <div class="form-floating mb-3">
                     <input type="text" class="form-control rounded-3" id="name" placeholder="Nombre" pattern="[A-Za-z\s]+" minlength="3" maxlength="60"  /><!--required-->
