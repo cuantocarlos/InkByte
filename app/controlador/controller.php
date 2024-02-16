@@ -1029,33 +1029,103 @@ class Controller
 
     public function contacto()
     {
+        
         $menu = $this->cargaMenu();
         $params = array(
-            'nombre' => recoge('name'),
-            'asunto' => recoge('asunto'),
-            'descripcion' => recoge('description'),
-            'mail' => recoge('mail'),
-            'tel' => recoge('telephone'),
-            'horario' => recoge('horario'),
-            'terminos' => recoge('terminos'),
+            'nombre' => '',
+            'asunto' => '',
+            'descripcion' => '',
+            'mail' => '',
+            'tel' => '',
+            'horario' => '',
+            'terminos' => '',
+            'mensaje' => array(),
         );
-        $_SESSION['params'] = $params;
-        if (empty($params['nombre']) || empty($params['asunto']) || empty($params['mail'])) {
-            $params['mensaje'] = "Rellene los campos obligatorios";
+        $params['nombre'] = recoge('name');
+        $params['asunto'] = recoge('asunto');
+        $params['descripcion'] = recoge('description');
+        $params['mail'] = recoge('mail');
+        $params['tel'] = recoge('telephone');
+        $params['horario'] = recoge('horario');
+        $params['terminos'] = recoge('terminos');
+        
+        
+        if (empty($params['nombre'])) {
+            $params['mensaje'][] = "El nombre es un campo obligatorio";
+        } else if (empty($params['asunto'])) {
+            $params['mensaje'][] = "El asunto es un campo obligatorio";
+        } else if (empty($params['descripcion'])) {
+            $params['mensaje'][] = "La descripción es un campo obligatorio";
         } else if (!cTexto($params['nombre'], "nombre", $params['mensaje'], 50, 1, true, true)) {
-            $params['mensaje'] = "Error en el campo nombre";
+            $params['mensaje'][] = "Error en el campo nombre";
         } else if (!cTexto($params['asunto'], "asunto", $params['mensaje'], 50, 1, true, true)) {
-            $params['mensaje'] = "Error en el campo asunto";
-        } else if (!cMail($params['mail'], "mail", $params['mensaje'], 50, 1, true, true)) {
-            $params['mensaje'] = "Error en el campo mail";
-        } else if (!cTelefono($params['tel'], "tel", $params['mensaje'], )) {
-            $params['mensaje'] = "Error en el campo teléfono";
+            $params['mensaje'][] = "Error en el campo asunto";
+        } else if (!cEmail($params['mail'], $params['mensaje'],'eMail')) {
+            $params['mensaje'][] = "Error en el campo mail";
+        } else if (!cTelefono($params['tel'], $params['mensaje'], "tel" )) {
+            $params['mensaje'][] = "Error en el campo teléfono";
         } else if (!cTexto($params['descripcion'], "descripcion", $params['mensaje'], 500, 1, true, true)) {
-            $params['mensaje'] = "Error en el campo descripción";
-        } else if ($params['horario'] != "1" || $params['horario'] != "2" || $params['horario'] != "3") {
-            $params['mensaje'] = "Error en el campo horario";
-        } else {
-            //envio el email
+            $params['mensaje'][] = "Error en el campo descripción";
+        } else if ($params['horario'] != "1" && $params['horario'] != "2" && $params['horario'] != "3") {
+            $params['mensaje'][] = "Error en el campo horario";
+        } else { //Envio el Email
+
+            $mailer = new PHPMailer(true);
+
+            try {
+                // Configura el servidor SMTP
+                $mailer->isSMTP();
+                $mailer->Host = 'smtp.gmail.com';
+                $mailer->SMTPAuth = true;
+                $mailer->Username = 'carmen33ivan@gmail.com';
+                $mailer->Password = 'emvq uypi bakh wjuj ';
+                $mailer->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;
+                $mailer->Port = "465";
+
+                // Configura los destinatarios
+                $mailer->setFrom('carmen33ivan@gmail.com', 'Carmen_Ivan');
+                $mailer->addAddress('fco.carlos@proton.me', 'Administrador');
+
+                // Contenido del correo
+                $mailer->isHTML(true);
+                $mailer->Subject = 'Un usuario se ha puesto en contacto';
+                // Generar el cuerpo del correo electrónico
+                $mailer->Body = '
+                <h1>Formulario de Contacto InkByte</h1>
+                <table border="1">
+                    <tr>
+                        <th>Nombre</th>
+                        <td>' . $params['nombre'] . '</td>
+                    </tr>
+                    <tr>
+                        <th>Asunto</th>
+                        <td>' . $params['asunto'] . '</td>
+                    </tr>
+                    <tr>
+                        <th>Descripción</th>
+                        <td>' . $params['descripcion'] . '</td>
+                    </tr>
+                    <tr>
+                        <th>Correo Electrónico</th>
+                        <td>' . $params['mail'] . '</td>
+                    </tr>
+                    <tr>
+                        <th>Teléfono</th>
+                        <td>' . $params['tel'] . '</td>
+                    </tr>
+                    <tr>
+                        <th>Horario</th>
+                        <td>' . $params['horario'] . '</td>
+                    </tr>
+                </table>
+                ';
+
+                // Enviar el correo
+                $mailer->send();
+                echo 'El correo se ha enviado con éxito.';
+            } catch (Exception $e) {
+                error_log("El correo no se pudo enviar. Error: {$mailer->ErrorInfo}");
+            }
 
             $params['mensaje'] = "Mensaje enviado correctamente";
         }
